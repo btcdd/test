@@ -1,0 +1,78 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.header {
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+}
+
+.container {
+    width: 980px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+.container-left {
+
+}
+
+.logo {
+    float: left;
+    margin-right: 10px;
+}
+
+.logo img {
+    display: block;
+}
+
+.menu {
+    float: left;
+}
+
+.menu-item {
+    float: left;
+    margin-right: 10px;
+    padding: 8px 10px;
+}
+
+.codeTest {
+    background-color: lightgray;
+    margin: auto;
+}
+
+.leftImg {
+    display: block;
+}
+
+.tbl-ex {
+    margin: auto;
+    padding: 5px;
+}
+
+td {
+    padding: 5px 10px;
+}
+
+#head {
+    padding: 20px 0;
+}
+
+#code {
+    width: 500px; height: 300px
+}
+#result {
+    width: 320px;
+    height: 300px;
+}
+
+.bottom {
+    margin: auto;
+    display: block;
+}
+
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
