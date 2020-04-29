@@ -56,14 +56,24 @@ $(function() {
         <form action="${pageContext.servletContext.contextPath }/compile" method="post">
             <table class="tbl-ex">
                <tr>
-                  <th colspan="2" id="head">Online Java Compiler</th>
+                  <th colspan="3" id="head">Online Java Compiler</th>
                </tr>
                <tr>
                   <td class="label">코드 입력</td>
+                  <td>
+                  	<select name="lang">
+                      <option value="" selected="selected">언어선택</option>
+                      <option value="c">C</option>
+                      <option value="cpp">C++</option>
+                      <option value="java">JAVA</option>
+                      <option value="js">JavaScript</option>
+                      <option value="python">Python</option>
+                    </select>
+                  </td>
                   <td>결과</td>
                </tr>
                <tr>
-                  <td>
+                  <td colspan="2">
                       <textarea onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"
                           type="text" name="code" id = "code"></textarea>
                   </td>
@@ -72,7 +82,7 @@ $(function() {
                   </td>
                </tr>
                <tr>
-                   <td>
+                   <td colspan="2">
                         <span style="float: right;">
                             <input type="submit" value="Compile">
                         </span>

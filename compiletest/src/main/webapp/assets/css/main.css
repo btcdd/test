@@ -54,6 +54,18 @@ td {
     padding: 5px 10px;
 }
 
+select {
+    width: 100px;
+    padding: .5em .5em;
+    font-family: inherit;
+    background: no-repeat 95% 50%;
+    border: 1px solid #999;
+    border-radius: 0px;
+    margin: auto;
+    margin-left: 313px; 
+    display: block;
+}
+
 #head {
     padding: 20px 0;
 }
