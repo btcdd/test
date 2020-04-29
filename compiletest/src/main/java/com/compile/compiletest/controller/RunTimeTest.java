@@ -48,7 +48,7 @@ class RunTimeTest {
 				file = null;
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.exit(1);;
+				System.exit(1);
 			}
 		}
 	}
@@ -56,6 +56,28 @@ class RunTimeTest {
 	public String execCommand(String cmd) {
 		try {
 			process = Runtime.getRuntime().exec(cmd);
+			
+			
+			//////////////
+			
+//			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//			String line = null;
+//			readBuffer = new StringBuffer();
+//			
+//			while((line = bufferedReader.readLine()) != null) {
+//				readBuffer.append(line);
+//				readBuffer.append("\n");
+//			}
+//			
+//			if("".equals(readBuffer.toString())) {
+//				return "Success";
+//			}
+//			
+//			return "오류입니다.";
+			
+			
+			////////////////
+			
 			process = Runtime.getRuntime().exec(runClass());
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));

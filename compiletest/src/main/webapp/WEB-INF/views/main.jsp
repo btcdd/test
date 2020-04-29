@@ -20,6 +20,7 @@ $(function() {
 			url: '${pageContext.request.contextPath }/compile',
 			async: true,
 			type: 'post',
+			cache: false,
 			dataType: 'json',
 			data: {code:code},
 			success: function(response){
@@ -72,6 +73,7 @@ $(function() {
                   </td>
                </tr>
                <tr>
+               		
                    <td>
                         <span style="float: right;">
                             <input type="submit" value="Compile">

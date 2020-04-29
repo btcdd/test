@@ -23,6 +23,8 @@ public class MainController {
 	public JsonResult compile(@RequestParam String code) {
 		RunTimeTest rtt = new RunTimeTest();
 		
+		System.out.println(code);
+		
 		StringBuffer buffer = new StringBuffer();
 		String[] token = code.split("\n");
 		
@@ -31,6 +33,8 @@ public class MainController {
 		}
 		String command = rtt.inputSource(buffer.toString());
 		String result = rtt.execCommand(command);
+		
+		System.out.println(result);
 		
 		return JsonResult.success(result);
 	}
