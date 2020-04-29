@@ -14,10 +14,11 @@
 $(function() {
 	$(".codeTest").submit(function(event) {
 		event.preventDefault();
-		
+		var lang = $("select option:selected").val();
+		console.log(lang);
 		var code = $("#code").val();
 		$.ajax({
-			url: '${pageContext.request.contextPath }/compile',
+			url: '${pageContext.request.contextPath }/compile/' + lang,
 			async: true,
 			type: 'post',
 			dataType: 'json',
@@ -53,7 +54,7 @@ $(function() {
         </div>
     </div>
     <div class="codeTest">
-        <form action="${pageContext.servletContext.contextPath }/compile" method="post">
+        <form action="" method="post">
             <table class="tbl-ex">
                <tr>
                   <th colspan="3" id="head">Online Java Compiler</th>
@@ -66,7 +67,7 @@ $(function() {
                       <option value="c">C</option>
                       <option value="cpp">C++</option>
                       <option value="java">JAVA</option>
-                      <option value="js">JavaScript</option>
+                      <option value="javascript">JavaScript</option>
                       <option value="python">Python</option>
                     </select>
                   </td>
