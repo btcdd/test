@@ -8,6 +8,7 @@
 <title>compiletest</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/main.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
@@ -85,42 +86,40 @@ $(function() {
         <form action="" method="post">
             <table class="tbl-ex">
                <tr>
-                  <th colspan="3" id="head">Online Java Compiler</th>
+                  <th colspan="3" id="head">Online Compiler</th>
                </tr>
                <tr>
-                  <td class="label">코드 입력</td>
                   <td>
-                  	<select name="lang">
-                      <option value="" selected="selected">언어선택</option>
-                      <option value="c">C</option>
-                      <option value="cpp">C++</option>
-                      <option value="java">JAVA</option>
-                      <option value="javascript">JavaScript</option>
-                      <option value="python">Python</option>
-                    </select>
+                        <select name="lang">
+                            <option value="" selected="selected">언어선택</option>
+                            <option value="c">C</option>
+                            <option value="cpp">C++</option>
+                            <option value="java">JAVA</option>
+                            <option value="js">JavaScript</option>
+                            <option value="python">Python</option>
+                        </select>
                   </td>
-                  <td>결과</td>
+                  <td>
+                    <span style="float: right;">
+                        <button id='save' type="button" class="btn-save">저장</button>
+                    </span>
+                </td>
+                <td>
+                    <span style="float: left;">
+                        <input type="submit" class="btn-compile" value="Compile">
+                    </span>
+                </td>
                </tr>
                <tr>
-                  <td colspan="2">
+                  <td colspan="3">
                       <textarea onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"
                           type="text" name="code" id = "code"></textarea>
                   </td>
-                  <td>
-                      <textarea name="" id="result" readonly></textarea>
-                  </td>
                </tr>
                <tr>
-               	   <td>
-                        <span style="float: right;">
-                        	<button id='save'>저장</button>
-                        </span>
-                   </td>
-                   <td>
-                        <span style="float: right;">
-                            <input type="submit" value="Compile">
-                        </span>
-                   </td>
+                    <td colspan="3">
+                       <textarea name="" id="result" readonly></textarea>
+                    </td>
                </tr>
             </table>
          </form>
