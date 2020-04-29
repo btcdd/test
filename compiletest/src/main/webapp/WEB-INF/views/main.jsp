@@ -35,6 +35,35 @@ $(function() {
 			}
 		});
 	});
+	
+	
+	$(document).on('click', '#save', function(event) {
+		event.preventDefault();
+		
+		var lang = $("select option:selected").val();
+		console.log(lang);
+		var code = $("#code").val();
+		$.ajax({
+			url: '${pageContext.request.contextPath }/compile/' + lang + '/save',
+			async: true,
+			type: 'post',
+			dataType: 'json',
+			data: {code:code},
+			success: function(response){
+				if(response.result != "success") {
+					console.error(response.message);
+					return;
+				}	
+				$("#result").val(response.data);
+			},
+			error: function(xhr, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
+	});
+	
+	
+	
 });
 </script>
 </head>
@@ -83,7 +112,12 @@ $(function() {
                   </td>
                </tr>
                <tr>
-                   <td colspan="2">
+               	   <td>
+                        <span style="float: right;">
+                        	<button id='save'>저장</button>
+                        </span>
+                   </td>
+                   <td>
                         <span style="float: right;">
                             <input type="submit" value="Compile">
                         </span>

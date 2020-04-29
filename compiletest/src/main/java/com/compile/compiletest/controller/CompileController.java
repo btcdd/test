@@ -24,6 +24,24 @@ public class CompileController {
 	public JsonResult javaCompile(@RequestParam String code) {
 		RunTimeTest rtt = new RunTimeTest();
 		
+//		StringBuffer buffer = new StringBuffer();
+//		String[] token = code.split("\n");
+//		
+//		for(int i = 0; i < token.length; i++) {
+//			buffer.append(token[i]);
+//		}
+//		String command = rtt.inputSource(buffer.toString());
+		
+		String result = rtt.execCommand();
+		
+		return JsonResult.success(result);
+	}
+	
+	@ResponseBody
+	@PostMapping("/java/save")
+	public JsonResult javaCompileSave(@RequestParam String code) {
+		RunTimeTest rtt = new RunTimeTest();
+		
 		StringBuffer buffer = new StringBuffer();
 		String[] token = code.split("\n");
 		
@@ -31,7 +49,7 @@ public class CompileController {
 			buffer.append(token[i]);
 		}
 		String command = rtt.inputSource(buffer.toString());
-		String result = rtt.execCommand(command);
+		String result = rtt.execSave(command);
 		
 		return JsonResult.success(result);
 	}

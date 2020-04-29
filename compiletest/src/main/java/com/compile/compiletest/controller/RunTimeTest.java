@@ -53,9 +53,9 @@ class RunTimeTest {
 		}
 	}
 	
-	public String execCommand(String cmd) {
+	public String execCommand() {
 		try {
-			process = Runtime.getRuntime().exec(cmd);
+//			process = Runtime.getRuntime().exec(cmd);
 			process = Runtime.getRuntime().exec(runClass());
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -83,7 +83,27 @@ class RunTimeTest {
 		
 		return buffer.toString();
 	}
+	
+	
+	
+	
+	public String execSave(String cmd) {
+		try {
+			process = Runtime.getRuntime().exec(cmd);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
+
+
+
+
+
+
+
+
 
 //public class RunTimeTest {
 //	public static void main(String[] args) {
