@@ -27,8 +27,8 @@ $(function() {
 				if(response.result != "success") {
 					console.error(response.message);
 					return;
-				}	
-				$("#result").val(response.data);
+				}
+				$('#result').val(response.data);
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
@@ -53,17 +53,16 @@ $(function() {
 				if(response.result != "success") {
 					console.error(response.message);
 					return;
-				}	
-				$("#result").val(response.data);
+				}
+				if(response.data.errorResult != "") {
+					$("#result").val(response.data.errorResult);
+				}
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
 			}
 		});
 	});
-	
-	
-	
 });
 </script>
 </head>

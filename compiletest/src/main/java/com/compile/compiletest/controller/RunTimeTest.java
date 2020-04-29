@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 class RunTimeTest {
 	
@@ -25,11 +26,32 @@ class RunTimeTest {
 		
 		buffer.append("cmd.exe ");
 		buffer.append("/c ");
-		buffer.append("javac Test.java");
+		buffer.append("javac Test.java 2>err.txt");
 		
 		createFileAsSource(source);
 		
 		return buffer.toString();
+	}
+	
+	public String errorResult() {
+		String errorResult = "";
+		try {
+			File file2 = new File("err.txt");
+			
+			Scanner scan = new Scanner(file2);
+			
+			
+			while(scan.hasNextLine()) {
+				errorResult += scan.nextLine() + "\n";
+//				System.out.println(scan.nextLine());
+			}
+			System.out.println(errorResult);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return errorResult;
 	}
 	
 	private void createFileAsSource(String source) {

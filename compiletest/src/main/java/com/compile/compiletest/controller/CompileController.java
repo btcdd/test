@@ -50,8 +50,16 @@ public class CompileController {
 		}
 		String command = rtt.inputSource(buffer.toString());
 		String result = rtt.execSave(command);
+		String errorResult = rtt.errorResult();
 		
-		return JsonResult.success(result);
+		String[] res = new String[2];
+		res[0] = result;
+		res[1] = errorResult;
+		
+		System.out.println("result = " + result);
+		System.out.println("errorResult = " + errorResult + "---");
+		
+		return JsonResult.success(res);
 	}
 	
 	@ResponseBody
