@@ -93,7 +93,7 @@ public class CompileController {
 		try {
 			result = (String) jsEngine.eval(code);
 		} catch (ScriptException e) {
-			e.printStackTrace();
+			result = e.toString();
 		}
 		
 		return JsonResult.success(result);
