@@ -19,6 +19,12 @@ import com.compile.compiletest.dto.JsonResult;
 @Controller
 @RequestMapping("/compile")
 public class CompileController {
+	
+	PythonInterpreter pythonInterpreter = new PythonInterpreter(null, new PySystemState());
+	
+	ScriptEngineManager scriptEngineMgr = new ScriptEngineManager();
+	ScriptEngine jsEngine = scriptEngineMgr.getEngineByName("JavaScript");
+	
 	@ResponseBody
 	@PostMapping("/java")
 	public JsonResult javaCompile(@RequestParam String code) {
@@ -63,9 +69,8 @@ public class CompileController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/python")
+	@PostMapping("/py")
 	public JsonResult pythonCompile(@RequestParam String code) {
-		PythonInterpreter pythonInterpreter = new PythonInterpreter(null, new PySystemState());
 
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream(16384);
 
@@ -82,12 +87,8 @@ public class CompileController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/javascript")
+	@PostMapping("/js")
 	public JsonResult javascriptCompile(@RequestParam String code) {
-		ScriptEngineManager scriptEngineMgr = new ScriptEngineManager();
-
-		ScriptEngine jsEngine = scriptEngineMgr.getEngineByName("JavaScript");
-
 		String result = "";
 		try {
 			result = (String) jsEngine.eval(code);

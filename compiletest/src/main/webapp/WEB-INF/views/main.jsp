@@ -96,7 +96,7 @@ $(function() {
                             <option value="cpp">C++</option>
                             <option value="java">JAVA</option>
                             <option value="js">JavaScript</option>
-                            <option value="python">Python</option>
+                            <option value="py">Python</option>
                         </select>
                   </td>
                   <td>
