@@ -1,4 +1,4 @@
-package com.compile.compiletest.controller;
+package com.compile.compiletest.Run;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-class RunTimeTest {
+public class RunC {
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -18,7 +18,7 @@ class RunTimeTest {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "Test.java";
+	private final String FILENAME = "test.c";
 	
 	public String inputSource(String source) {
 		
@@ -26,7 +26,7 @@ class RunTimeTest {
 		
 		buffer.append("cmd.exe ");
 		buffer.append("/c ");
-		buffer.append("javac Test.java 2>err.txt");
+		buffer.append("gcc -o test.exe test.c 2>errC.txt");
 		
 		createFileAsSource(source);
 		
@@ -36,10 +36,9 @@ class RunTimeTest {
 	public String errorResult() {
 		String errorResult = "";
 		try {
-			File file2 = new File("err.txt");
+			File file2 = new File("errC.txt");
 			
 			Scanner scan = new Scanner(file2);
-			
 			
 			while(scan.hasNextLine()) {
 				errorResult += scan.nextLine() + "\n";
@@ -47,8 +46,9 @@ class RunTimeTest {
 			}
 			System.out.println(errorResult);
 			
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return errorResult;
@@ -101,7 +101,7 @@ class RunTimeTest {
 		
 		buffer.append("cmd.exe ");
 		buffer.append("/c ");
-		buffer.append("java Test");
+		buffer.append("test.exe");
 		
 		return buffer.toString();
 	}

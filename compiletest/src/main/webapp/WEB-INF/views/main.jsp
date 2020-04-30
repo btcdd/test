@@ -29,7 +29,13 @@ $(function() {
 					console.error(response.message);
 					return;
 				}
-				$('#result').val(response.data);
+				if(response.data[1] != "") {
+					console.log(response);
+					$("#result").val(response.data[1]);
+				} else {
+					console.log(response);
+					$('#result').val(response.data[0]);
+				}
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
@@ -54,9 +60,6 @@ $(function() {
 				if(response.result != "success") {
 					console.error(response.message);
 					return;
-				}
-				if(response.data.errorResult != "") {
-					$("#result").val(response.data.errorResult);
 				}
 			},
 			error: function(xhr, status, e) {
