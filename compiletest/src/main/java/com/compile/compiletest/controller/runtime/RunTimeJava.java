@@ -1,4 +1,4 @@
-package com.compile.compiletest.controller;
+package com.compile.compiletest.controller.runtime;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-class RunTimeTest {
+public class RunTimeJava {
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -40,15 +40,12 @@ class RunTimeTest {
 			
 			Scanner scan = new Scanner(file2);
 			
-			
 			while(scan.hasNextLine()) {
 				errorResult += scan.nextLine() + "\n";
-//				System.out.println(scan.nextLine());
 			}
 			System.out.println(errorResult);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return errorResult;
@@ -77,7 +74,6 @@ class RunTimeTest {
 	
 	public String execCommand() {
 		try {
-//			process = Runtime.getRuntime().exec(cmd);
 			process = Runtime.getRuntime().exec(runClass());
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -106,9 +102,6 @@ class RunTimeTest {
 		return buffer.toString();
 	}
 	
-	
-	
-	
 	public String execSave(String cmd) {
 		try {
 			process = Runtime.getRuntime().exec(cmd);
@@ -118,27 +111,3 @@ class RunTimeTest {
 		return null;
 	}
 }
-
-
-
-
-
-
-
-
-
-//public class RunTimeTest {
-//	public static void main(String[] args) {
-//		Cmd cmd = new Cmd();
-//		
-//		StringBuffer buffer = new StringBuffer();
-//		buffer.append("public class Test");
-//		buffer.append("{ public static void main(String[] args)");
-//		buffer.append("{ System.out.println(\"hi\");} }");
-//		
-//		String command = cmd.inputSource(buffer.toString());
-//		String result = cmd.execCommand(command);
-//		
-//		System.out.println(result);
-//	}
-//}
