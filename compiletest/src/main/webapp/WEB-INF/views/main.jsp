@@ -45,8 +45,10 @@ $(function() {
 		event.preventDefault();
 		
 		var lang = $("select option:selected").val();
-		console.log(lang);
 		var code = $("#code").val();
+		if(lang == 'none'){
+			alert("언어선택!!!!!!!!!!!!");
+		}
 		$.ajax({
 			url: '${pageContext.request.contextPath }/compile/' + lang + '/save',
 			async: true,
@@ -91,7 +93,7 @@ $(function() {
                <tr>
                   <td>
                         <select name="lang">
-                            <option value="" selected="selected">언어선택</option>
+                            <option value="none" selected="selected">언어선택</option>
                             <option value="c">C</option>
                             <option value="cpp">C++</option>
                             <option value="java">JAVA</option>
