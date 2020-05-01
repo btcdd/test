@@ -29,14 +29,17 @@ $(function() {
 					console.error(response.message);
 					return;
 				}
-				$('#result').val(response.data);
+				if(response.data[1] != "") {
+					$("#result").val(response.data[1]);
+				} else {
+					$('#result').val(response.data[0]);
+				}
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
 			}
 		});
 	});
-	
 	
 	$(document).on('click', '#save', function(event) {
 		event.preventDefault();
@@ -54,9 +57,6 @@ $(function() {
 				if(response.result != "success") {
 					console.error(response.message);
 					return;
-				}
-				if(response.data.errorResult != "") {
-					$("#result").val(response.data.errorResult);
 				}
 			},
 			error: function(xhr, status, e) {
