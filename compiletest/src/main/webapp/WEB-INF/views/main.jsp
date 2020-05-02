@@ -30,10 +30,8 @@ $(function() {
 					return;
 				}
 				if(response.data[1] != "") {
-					console.log(response);
 					$("#result").val(response.data[1]);
 				} else {
-					console.log(response);
 					$('#result').val(response.data[0]);
 				}
 			},
@@ -43,13 +41,14 @@ $(function() {
 		});
 	});
 	
-	
 	$(document).on('click', '#save', function(event) {
 		event.preventDefault();
 		
 		var lang = $("select option:selected").val();
-		console.log(lang);
 		var code = $("#code").val();
+		if(lang == 'none'){
+			alert("언어선택!!!!!!!!!!!!");
+		}
 		$.ajax({
 			url: '${pageContext.request.contextPath }/compile/' + lang + '/save',
 			async: true,
@@ -94,12 +93,12 @@ $(function() {
                <tr>
                   <td>
                         <select name="lang">
-                            <option value="" selected="selected">언어선택</option>
+                            <option value="none" selected="selected">언어선택</option>
                             <option value="c">C</option>
                             <option value="cpp">C++</option>
                             <option value="java">JAVA</option>
                             <option value="js">JavaScript</option>
-                            <option value="python">Python</option>
+                            <option value="py">Python</option>
                         </select>
                   </td>
                   <td>
