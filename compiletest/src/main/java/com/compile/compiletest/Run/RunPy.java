@@ -1,4 +1,4 @@
-package com.compile.compiletest.controller.runtime;
+package com.compile.compiletest.Run;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-public class RunTimeJava {
+public class RunPy {
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -18,7 +18,7 @@ public class RunTimeJava {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "Test.java";
+	private final String FILENAME = "testPy.py";
 	
 	public String inputSource(String source) {
 		
@@ -26,7 +26,7 @@ public class RunTimeJava {
 		
 		buffer.append("cmd.exe ");
 		buffer.append("/c ");
-		buffer.append("javac Test.java 2>err.txt");
+		buffer.append("python testPy.py 2>errPy.txt");
 		
 		createFileAsSource(source);
 		
@@ -36,7 +36,7 @@ public class RunTimeJava {
 	public String errorResult() {
 		String errorResult = "";
 		try {
-			File file2 = new File("err.txt");
+			File file2 = new File("errPy.txt");
 			
 			Scanner scan = new Scanner(file2);
 			
@@ -45,7 +45,9 @@ public class RunTimeJava {
 			}
 			System.out.println(errorResult);
 			
+			
 		} catch (IOException e) {
+			
 			e.printStackTrace();
 		}
 		return errorResult;
@@ -97,7 +99,7 @@ public class RunTimeJava {
 		
 		buffer.append("cmd.exe ");
 		buffer.append("/c ");
-		buffer.append("java Test");
+		buffer.append("python testPy.py");
 		
 		return buffer.toString();
 	}
@@ -111,3 +113,4 @@ public class RunTimeJava {
 		return null;
 	}
 }
+

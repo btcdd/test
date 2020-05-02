@@ -30,8 +30,10 @@ $(function() {
 					return;
 				}
 				if(response.data[1] != "") {
+					console.log("data[1]\n" + response.data[1]);
 					$("#result").val(response.data[1]);
 				} else {
+					console.log("data[0]\n" + response.data[0]);
 					$('#result').val(response.data[0]);
 				}
 			},
@@ -96,6 +98,7 @@ $(function() {
                             <option value="none" selected="selected">언어선택</option>
                             <option value="c">C</option>
                             <option value="cpp">C++</option>
+                            <option value="cs">C#</option>
                             <option value="java">JAVA</option>
                             <option value="js">JavaScript</option>
                             <option value="py">Python</option>
