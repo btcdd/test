@@ -13,11 +13,21 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(function() {
+	var save = false;
 	$(".codeTest").submit(function(event) {
 		event.preventDefault();
 		var lang = $("select option:selected").val();
 		console.log(lang);
 		var code = $("#code").val();
+		if($("#code").val() == ""){
+			alert("코드가 비었당");
+			document.getElementById("code").focus();
+			return;
+		}
+		if(save == false) {
+			alert("저장을 안 했당");
+			return;
+		}
 		$.ajax({
 			url: '${pageContext.request.contextPath }/compile/' + lang,
 			async: true,
@@ -51,6 +61,11 @@ $(function() {
 		if(lang == 'none'){
 			alert("언어선택!!!!!!!!!!!!");
 		}
+		if($("#code").val() == ""){
+			alert("코드가 비었당");
+			document.getElementById("code").focus();
+			return;
+		}
 		$.ajax({
 			url: '${pageContext.request.contextPath }/compile/' + lang + '/save',
 			async: true,
@@ -62,6 +77,7 @@ $(function() {
 					console.error(response.message);
 					return;
 				}
+				save = true;
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
@@ -111,7 +127,7 @@ $(function() {
                 </td>
                 <td>
                     <span style="float: left;">
-                        <input type="submit" class="btn-compile" value="Compile">
+                        <input type="submit" class="btn-compile" value="실행">
                     </span>
                 </td>
                </tr>
