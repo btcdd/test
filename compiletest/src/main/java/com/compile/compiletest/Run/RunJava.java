@@ -85,8 +85,8 @@ public class RunJava {
 	public String execCompile() {
 		try {
 //			process = Runtime.getRuntime().exec(cmd);
-			process = Runtime.getRuntime().exec(inputSource());
 			process.destroy();
+			process = Runtime.getRuntime().exec(inputSource());
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
