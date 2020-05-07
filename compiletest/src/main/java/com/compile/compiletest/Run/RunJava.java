@@ -25,7 +25,7 @@ public class RunJava {
 		buffer = new StringBuffer();
 		
 //		buffer.append("cmd.exe ");
-		buffer.append("/c ");
+//		buffer.append("/c ");
 		buffer.append("javac -d . Test.java 2>errJava.txt");
 		
 //		createFileAsSource(source);
@@ -100,7 +100,7 @@ public class RunJava {
 		buffer = new StringBuffer();
 		
 //		buffer.append("cmd.exe ");
-		buffer.append("/c ");
+//		buffer.append("/c ");
 		buffer.append("java -cp . Test");
 		
 		return buffer.toString();
