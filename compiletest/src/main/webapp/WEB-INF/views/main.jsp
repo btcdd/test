@@ -88,20 +88,7 @@ $(function() {
 </script>
 </head>
 <body>
-	<div class="header">
-        <div class="container">
-            <div class="container-left clearfix">
-                <div class="logo">
-                    <img src="https://user-images.githubusercontent.com/59616862/80387335-7fb8e980-88e3-11ea-99ac-2c643a77a40c.png" alt="CodeForest">
-                </div>
-                <div class="menu clearfix">
-                    <div class="menu-item">Code Tree</div>
-                    <div class="menu-item">Coding Test</div>
-                    <div class="menu-item">Coding Training</div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<c:import url="/WEB-INF/views/include/header.jsp" />
     <div class="codeTest">
         <form action="" method="post">
             <table class="tbl-ex">
