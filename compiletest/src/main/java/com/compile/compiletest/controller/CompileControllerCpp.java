@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.compile.compiletest.Run.RunCpp;
 import com.compile.compiletest.dto.JsonResult;
 
-////////////
-
 @Controller
 @RequestMapping("/compile")
 public class CompileControllerCpp {
