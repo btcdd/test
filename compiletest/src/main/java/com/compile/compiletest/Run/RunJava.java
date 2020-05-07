@@ -25,7 +25,7 @@ public class RunJava {
 		buffer = new StringBuffer();
 		
 //		buffer.append("cmd.exe ");
-//		buffer.append("/c ");
+		buffer.append("/c ");
 		buffer.append("javac Test.java 2>errJava.txt");
 		
 		createFileAsSource(source);
