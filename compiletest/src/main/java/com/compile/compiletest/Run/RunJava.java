@@ -39,14 +39,6 @@ public class RunJava {
 		return buffer.toString();
 	}
 	
-	public String deleteError() {
-		buffer = new StringBuffer();
-		
-		buffer.append("rm -rf errJava.txt");
-
-		return buffer.toString();
-	}
-	
 	public String errorResult() {
 		String errorResult = "";
 		try {
@@ -89,18 +81,6 @@ public class RunJava {
 		}
 	}
 	
-	
-	
-	public String execDelete() {
-		try {
-//			process = Runtime.getRuntime().exec(cmd);
-			process = Runtime.getRuntime().exec(deleteError());
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
 	public String execCompile() {
 		try {
 //			process = Runtime.getRuntime().exec(cmd);
