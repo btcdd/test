@@ -26,6 +26,7 @@ public class RunJava {
 		
 //		buffer.append("cmd.exe ");
 //		buffer.append("/c ");
+		buffer.append("rm -rf errJava.txt");
 		buffer.delete(0, buffer.length());
 		buffer.append("javac Test.java 2>errJava.txt");
 
