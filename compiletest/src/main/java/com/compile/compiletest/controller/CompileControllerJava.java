@@ -44,6 +44,7 @@ public class CompileControllerJava {
 //		String result = rtt.execSave(command);
 		
 		rtt.createFileAsSource(code);
+		rtt.execDelete();
 		String test = "success";
 		return JsonResult.success(test);
 	}
@@ -56,7 +57,6 @@ public class CompileControllerJava {
 //		String result = rtt.inputSource();
 		
 		
-		rtt.execDelete();
 		String result = rtt.execCompile();
 
 		return JsonResult.success(result);
