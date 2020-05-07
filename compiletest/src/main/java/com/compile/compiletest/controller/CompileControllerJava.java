@@ -55,8 +55,8 @@ public class CompileControllerJava {
 		
 //		String result = rtt.inputSource();
 		
-		rtt.deleteError();
 		
+		rtt.execDelete();
 		String result = rtt.execCompile();
 
 		return JsonResult.success(result);

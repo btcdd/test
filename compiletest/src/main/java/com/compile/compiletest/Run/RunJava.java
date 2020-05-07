@@ -30,6 +30,7 @@ public class RunJava {
 //		buffer.append("javac Test.java 2>errJava.txt");
 
 //		buffer.append("rm -rf errJava.txt");
+		
 		buffer.append("javac Test.java &>errJava.txt");
 //		buffer.append("javac -d . Test.java");
 		
@@ -38,16 +39,12 @@ public class RunJava {
 		return buffer.toString();
 	}
 	
-	public void deleteError() {
+	public String deleteError() {
 		buffer = new StringBuffer();
 		
 		buffer.append("rm -rf errJava.txt");
-		try {
-//			process = Runtime.getRuntime().exec(cmd);
-			process = Runtime.getRuntime().exec(buffer.toString());
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+
+		return buffer.toString();
 	}
 	
 	public String errorResult() {
@@ -94,6 +91,16 @@ public class RunJava {
 	
 	
 	
+	public String execDelete() {
+		try {
+//			process = Runtime.getRuntime().exec(cmd);
+			process = Runtime.getRuntime().exec(deleteError());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	public String execCompile() {
 		try {
 //			process = Runtime.getRuntime().exec(cmd);
