@@ -20,15 +20,21 @@ public class RunJava {
 	
 	private final String FILENAME = "Test.java";
 	
-	public String inputSource(String source) {
+	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
 //		buffer.append("cmd.exe ");
-		buffer.append("/c ");
-		buffer.append("javac Test.java 2>errJava.txt");
+//		buffer.append("/c ");
 		
-		createFileAsSource(source);
+//		buffer.append("javac Test.java 2>errJava.txt");
+
+//		buffer.append("rm -rf errJava.txt");
+		
+//		buffer.append("javac Test.java &>errJava.txt");
+		buffer.append("rm -rf errJava.txt && javac -d . Test.java &>errJava.txt");
+		
+//		createFileAsSource(source);
 		
 		return buffer.toString();
 	}
@@ -54,7 +60,7 @@ public class RunJava {
 		return errorResult;
 	}
 	
-	private void createFileAsSource(String source) {
+	public void createFileAsSource(String source) {
 		try {
 			file = new File(FILENAME);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
@@ -75,6 +81,16 @@ public class RunJava {
 		}
 	}
 	
+	public String execCompile() {
+		try {
+//			process = Runtime.getRuntime().exec(cmd);
+			process = Runtime.getRuntime().exec(inputSource());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	public String execCommand() {
 		try {
 //			process = Runtime.getRuntime().exec(cmd);
