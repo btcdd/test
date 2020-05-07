@@ -24,7 +24,7 @@ public class RunJava {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("cmd.exe ");
+//		buffer.append("cmd.exe ");
 		buffer.append("/c ");
 		buffer.append("javac Test.java 2>errJava.txt");
 		
@@ -99,9 +99,9 @@ public class RunJava {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("cmd.exe ");
-		buffer.append("/c ");
-		buffer.append("java Test");
+//		buffer.append("cmd.exe ");
+//		buffer.append("/c ");
+		buffer.append("java -cp . Test");
 		
 		return buffer.toString();
 	}
