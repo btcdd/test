@@ -31,8 +31,8 @@ public class RunJava {
 
 //		buffer.append("rm -rf errJava.txt");
 		
-//		buffer.append("javac Test.java &>errJava.txt");
-		buffer.append("javac -d . Test.java");
+		buffer.append("javac Test.java &>errJava.txt");
+//		buffer.append("javac -d . Test.java");
 		
 //		createFileAsSource(source);
 		
