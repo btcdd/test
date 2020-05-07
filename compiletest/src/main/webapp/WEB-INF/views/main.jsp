@@ -84,6 +84,37 @@ $(function() {
 			}
 		});
 	});
+	
+	$(document).on('click', '#compile', function(event) {
+		event.preventDefault();
+		
+		var lang = $("select option:selected").val();
+		var code = $("#code").val();
+		if(lang == 'none'){
+			alert("언어선택!!!!!!!!!!!!");
+		}
+		if($("#code").val() == ""){
+			alert("코드가 비었당");
+			document.getElementById("code").focus();
+			return;
+		}
+		$.ajax({
+			url: '${pageContext.request.contextPath }/compile/' + lang + '/compile',
+			async: true,
+			type: 'post',
+			dataType: 'json',
+			data: {code:code},
+			success: function(response){
+				if(response.result != "success") {
+					console.error(response.message);
+					return;
+				}
+			},
+			error: function(xhr, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
+	});
 });
 </script>
 </head>
@@ -93,8 +124,9 @@ $(function() {
         <form action="" method="post">
             <table class="tbl-ex">
                <tr>
-                  <th colspan="3" id="head">Online Compiler</th>
+                  <th colspan="4" id="head">Online Compiler</th>
                </tr>
+               
                <tr>
                   <td>
                         <select name="lang">
@@ -114,18 +146,25 @@ $(function() {
                 </td>
                 <td>
                     <span style="float: left;">
-                        <input type="submit" class="btn-compile" value="실행">
+                        <button id='compile' type="button" class="btn-compile">컴파일</button>
+                    </span>
+                </td>
+                <td>
+                    <span style="float: left;">
+                        <input type="submit" class="btn-run" value="실행">
                     </span>
                 </td>
                </tr>
+               
                <tr>
-                  <td colspan="3">
+                  <td colspan="4">
                       <textarea onkeydown="if(event.keyCode===9){var v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0, s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}"
                           type="text" name="code" id = "code"></textarea>
                   </td>
                </tr>
+               
                <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                        <textarea name="" id="result" readonly></textarea>
                     </td>
                </tr>
