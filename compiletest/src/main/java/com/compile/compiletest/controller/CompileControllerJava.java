@@ -14,14 +14,18 @@ import com.compile.compiletest.dto.JsonResult;
 public class CompileControllerJava {
 	
 	StringBuffer buffer = new StringBuffer();
+
+	RunJava rtt = new RunJava();
 	
 	@ResponseBody
 	@PostMapping("/java")
 	public JsonResult javaCompile() {
+		
 		RunJava rtt = new RunJava();
 		
 		String result = rtt.execCommand();
-		String errorResult = rtt.errorResult();
+//		String errorResult = rtt.errorResult();
+		String errorResult = rtt.execCompile();
 		
 		String[] res = new String[2];
 		res[0] = result;
@@ -33,7 +37,6 @@ public class CompileControllerJava {
 	@ResponseBody
 	@PostMapping("/java/save")
 	public JsonResult javaCompileSave(@RequestParam String code) {
-		RunJava rtt = new RunJava();
 		
 		String[] token = code.split("\n");
 		
@@ -51,8 +54,9 @@ public class CompileControllerJava {
 	@ResponseBody
 	@PostMapping("/java/compile")
 	public JsonResult javaCompileexam() {
+
 		RunJava rtt = new RunJava();
-		
+
 //		String result = rtt.inputSource();
 		String result = rtt.execCompile();
 
