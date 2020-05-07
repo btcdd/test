@@ -29,7 +29,7 @@ public class RunJava {
 		
 //		buffer.append("javac Test.java 2>errJava.txt");
 
-		buffer.append("rm -rf errJava.txt");
+//		buffer.append("rm -rf errJava.txt");
 		buffer.append("javac Test.java &>errJava.txt");
 //		buffer.append("javac -d . Test.java");
 		
