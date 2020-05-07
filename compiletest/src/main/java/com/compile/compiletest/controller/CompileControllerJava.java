@@ -54,7 +54,11 @@ public class CompileControllerJava {
 		RunJava rtt = new RunJava();
 		
 //		String result = rtt.inputSource();
+		
+		rtt.deleteError();
+		
 		String result = rtt.execCompile();
+
 		return JsonResult.success(result);
 	}
 

@@ -38,6 +38,18 @@ public class RunJava {
 		return buffer.toString();
 	}
 	
+	public void deleteError() {
+		buffer = new StringBuffer();
+		
+		buffer.append("rm -rf errJava.txt");
+		try {
+//			process = Runtime.getRuntime().exec(cmd);
+			process = Runtime.getRuntime().exec(buffer.toString());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public String errorResult() {
 		String errorResult = "";
 		try {
