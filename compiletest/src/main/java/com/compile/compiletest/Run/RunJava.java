@@ -26,8 +26,8 @@ public class RunJava {
 		
 //		buffer.append("cmd.exe ");
 //		buffer.append("/c ");
-//		buffer.append("javac -d . Test.java 2>errJava.txt");
-		buffer.append("javac -d . Test.java");
+		buffer.append("javac -d . Test.java 2>errJava.txt");
+//		buffer.append("javac -d . Test.java");
 		
 //		createFileAsSource(source);
 		
