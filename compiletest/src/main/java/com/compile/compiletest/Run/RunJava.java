@@ -30,8 +30,8 @@ public class RunJava {
 		
 //		buffer.append("javac Test.java 2>errJava.txt");
 
-		buffer.append("rm -rf errJava.txt");
-		wait(3000);
+//		buffer.append("rm -rf errJava.txt");
+//		wait(3000);
 //		buffer.append("javac Test.java &>errJava.txt");
 		buffer.append("javac Test.java &>errJava.txt");
 		
