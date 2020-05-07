@@ -76,6 +76,18 @@ public class RunJava {
 		}
 	}
 	
+	
+	
+	public String execCompile() {
+		try {
+//			process = Runtime.getRuntime().exec(cmd);
+			process = Runtime.getRuntime().exec(inputSource());
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 	public String execCommand() {
 		try {
 //			process = Runtime.getRuntime().exec(cmd);
