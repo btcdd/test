@@ -78,6 +78,8 @@ $(function() {
                return;
             }
             save = true;
+            
+            console.log(response.data);
          },
          error: function(xhr, status, e) {
             console.error(status + ":" + e);

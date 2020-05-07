@@ -43,11 +43,9 @@ public class CompileControllerJava {
 //		String command = rtt.inputSource(buffer.toString());
 //		String result = rtt.execSave(command);
 		
-		System.out.println(buffer.toString());
-		
 		rtt.createFileAsSource(code);
 		String test = "success";
-		return JsonResult.success(test);
+		return JsonResult.success(buffer.toString());
 	}
 	
 	@ResponseBody
