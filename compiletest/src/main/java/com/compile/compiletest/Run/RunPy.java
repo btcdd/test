@@ -1,4 +1,4 @@
-package com.compile.compiletest.controller;
+package com.compile.compiletest.Run;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -6,8 +6,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
-class RunTimeTest {
+public class RunPy {
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -17,7 +18,7 @@ class RunTimeTest {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "Test.java";
+	private final String FILENAME = "testPy.py";
 	
 	public String inputSource(String source) {
 		
@@ -25,11 +26,31 @@ class RunTimeTest {
 		
 		buffer.append("cmd.exe ");
 		buffer.append("/c ");
-		buffer.append("javac Test.java");
+		buffer.append("python testPy.py 2>errPy.txt");
 		
 		createFileAsSource(source);
 		
 		return buffer.toString();
+	}
+	
+	public String errorResult() {
+		String errorResult = "";
+		try {
+			File file2 = new File("errPy.txt");
+			
+			Scanner scan = new Scanner(file2);
+			
+			while(scan.hasNextLine()) {
+				errorResult += scan.nextLine() + "\n";
+			}
+			System.out.println(errorResult);
+			
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		return errorResult;
 	}
 	
 	private void createFileAsSource(String source) {
@@ -55,7 +76,6 @@ class RunTimeTest {
 	
 	public String execCommand() {
 		try {
-//			process = Runtime.getRuntime().exec(cmd);
 			process = Runtime.getRuntime().exec(runClass());
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -79,13 +99,10 @@ class RunTimeTest {
 		
 		buffer.append("cmd.exe ");
 		buffer.append("/c ");
-		buffer.append("java Test");
+		buffer.append("python testPy.py");
 		
 		return buffer.toString();
 	}
-	
-	
-	
 	
 	public String execSave(String cmd) {
 		try {
@@ -97,26 +114,3 @@ class RunTimeTest {
 	}
 }
 
-
-
-
-
-
-
-
-
-//public class RunTimeTest {
-//	public static void main(String[] args) {
-//		Cmd cmd = new Cmd();
-//		
-//		StringBuffer buffer = new StringBuffer();
-//		buffer.append("public class Test");
-//		buffer.append("{ public static void main(String[] args)");
-//		buffer.append("{ System.out.println(\"hi\");} }");
-//		
-//		String command = cmd.inputSource(buffer.toString());
-//		String result = cmd.execCommand(command);
-//		
-//		System.out.println(result);
-//	}
-//}
