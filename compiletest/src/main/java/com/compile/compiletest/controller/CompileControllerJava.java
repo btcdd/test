@@ -42,7 +42,6 @@ public class CompileControllerJava {
 		}
 //		String command = rtt.inputSource(buffer.toString());
 //		String result = rtt.execSave(command);
-		
 		rtt.createFileAsSource(code);
 		
 		String test = "success";
@@ -55,8 +54,6 @@ public class CompileControllerJava {
 		RunJava rtt = new RunJava();
 		
 //		String result = rtt.inputSource();
-		
-		
 		String result = rtt.execCompile();
 
 		return JsonResult.success(result);
