@@ -33,7 +33,7 @@ public class RunJava {
 //		buffer.append("rm -rf errJava.txt");
 //		wait(3000);
 //		buffer.append("javac Test.java &>errJava.txt");
-		buffer.append("javac Test.java &>errJava.txt");
+		buffer.append("javac Test.java");
 		
 //		createFileAsSource(source);
 		
