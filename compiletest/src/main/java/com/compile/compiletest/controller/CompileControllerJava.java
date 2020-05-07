@@ -45,7 +45,7 @@ public class CompileControllerJava {
 		
 		rtt.createFileAsSource(code);
 		String test = "success";
-		return JsonResult.success(buffer.toString());
+		return JsonResult.success(test);
 	}
 	
 	@ResponseBody

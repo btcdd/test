@@ -46,6 +46,7 @@ $(function() {
                console.log("data[0]\n" + response.data[0]);
                $('#result').val(response.data[0]);
             }
+         
          },
          error: function(xhr, status, e) {
             console.error(status + ":" + e);
@@ -78,8 +79,6 @@ $(function() {
                return;
             }
             save = true;
-            
-            console.log(response.data);
          },
          error: function(xhr, status, e) {
             console.error(status + ":" + e);
@@ -111,6 +110,7 @@ $(function() {
                console.error(response.message);
                return;
             }
+            console.log(response.data);
          },
          error: function(xhr, status, e) {
             console.error(status + ":" + e);
