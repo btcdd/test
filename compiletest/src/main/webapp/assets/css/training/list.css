@@ -1,0 +1,69 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    width: 980px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+.menu-bar {
+    float: left;
+}
+.algo,
+.category {
+    padding: 100px 0;
+}
+.algo td,
+.category td {
+    padding: 5px 0;
+}
+
+.list {
+    width: 800px;
+    float: right;
+}
+.list tr {
+    margin: auto;
+}
+.list td {
+    text-align: center;
+    padding: 10px 40px;
+}
+.make-problem {
+    float: right;
+}
+
+div.pager {
+    width: 100%;
+    text-align: center;
+}
+div.pager ul {
+    height: 20px;
+    margin: 10px auto;
+}
+div.pager ul li {
+    color: rgb(8, 0, 0);
+    display: inline-block;
+    margin: 5px 0;
+    width: 20px;
+    font-weight: bold;
+}
+div.pager ul li.selected {
+    font-size: 16px;
+    text-decoration: underline;
+    color: #f40808
+}
+div.pager ul li a,
+div.pager ul li a:visited,
+div.pager ul li a:link,
+div.pager ul li a:active {
+    text-decoration: none;
+    color: #555
+}
+div.pager ul li a:hover {
+    text-decoration: none;
+    color: #f00
+}

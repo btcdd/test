@@ -59,7 +59,7 @@ public class RunC {
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
-			bufferWriter.flush();
+			bufferWriter.flush(); 
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.exit(1);
