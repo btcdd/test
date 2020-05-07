@@ -30,8 +30,8 @@ public class RunJava {
 		
 //		buffer.append("javac Test.java 2>errJava.txt");
 
-		buffer.append("rm -rf errJava.txt");
-		buffer.append("/c");
+//		buffer.append("rm -rf errJava.txt");
+//		buffer.append("/c");
 		buffer.append("javac Test.java &>errJava.txt");
 //		buffer.append("javac Test.java");
 		
@@ -39,9 +39,6 @@ public class RunJava {
 		
 		return buffer.toString();
 	}
-	
-	
-	
 	
 	public String errorResult() {
 		String errorResult = "";
@@ -92,9 +89,9 @@ public class RunJava {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 		return null;
 	}
+	
 	public String execCommand() {
 		try {
 //			process = Runtime.getRuntime().exec(cmd);
@@ -119,15 +116,10 @@ public class RunJava {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-//		buffer.append("cmd.exe ");
-//		buffer.append("/c ");
 		buffer.append("java -cp . Test");
 		
 		return buffer.toString();
 	}
-	
-	
-	
 	
 	public String execSave(String cmd) {
 		try {
