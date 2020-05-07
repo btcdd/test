@@ -20,17 +20,18 @@ public class RunJava {
 	
 	private final String FILENAME = "Test.java";
 	
-	public String inputSource() {
+	public String inputSource() throws InterruptedException {
 		
 		buffer = new StringBuffer();
 		
 //		buffer.append("cmd.exe ");
 //		buffer.append("/c ");
 		
+		
 //		buffer.append("javac Test.java 2>errJava.txt");
 
-//		buffer.append("rm -rf errJava.txt");
-		
+		buffer.append("rm -rf errJava.txt");
+		wait(3000);
 //		buffer.append("javac Test.java &>errJava.txt");
 		buffer.append("javac Test.java &>errJava.txt");
 		
@@ -38,6 +39,9 @@ public class RunJava {
 		
 		return buffer.toString();
 	}
+	
+	
+	
 	
 	public String errorResult() {
 		String errorResult = "";
