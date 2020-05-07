@@ -20,7 +20,7 @@ public class RunJava {
 	
 	private final String FILENAME = "Test.java";
 	
-	public String inputSource(String source) {
+	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		

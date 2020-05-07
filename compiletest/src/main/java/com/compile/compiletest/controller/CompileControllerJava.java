@@ -17,7 +17,7 @@ public class CompileControllerJava {
 	
 	@ResponseBody
 	@PostMapping("/java")
-	public JsonResult javaCompile(@RequestParam String code) {
+	public JsonResult javaCompile() {
 		RunJava rtt = new RunJava();
 		
 		String result = rtt.execCommand();
@@ -43,6 +43,8 @@ public class CompileControllerJava {
 //		String command = rtt.inputSource(buffer.toString());
 //		String result = rtt.execSave(command);
 		
+		System.out.println(buffer.toString());
+		
 		rtt.createFileAsSource(code);
 		String test = "success";
 		return JsonResult.success(test);
@@ -50,11 +52,10 @@ public class CompileControllerJava {
 	
 	@ResponseBody
 	@PostMapping("/java/compile")
-	public JsonResult javaCompile() {
+	public JsonResult javaCompileexam() {
 		RunJava rtt = new RunJava();
 		
-		String result = rtt.inputSource(buffer.toString());
-		buffer.delete(0, buffer.length());
+		String result = rtt.inputSource();
 		
 		return JsonResult.success(result);
 	}
