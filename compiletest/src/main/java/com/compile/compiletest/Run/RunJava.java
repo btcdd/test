@@ -86,6 +86,7 @@ public class RunJava {
 		try {
 //			process = Runtime.getRuntime().exec(cmd);
 			process = Runtime.getRuntime().exec(inputSource());
+			process.destroy();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
