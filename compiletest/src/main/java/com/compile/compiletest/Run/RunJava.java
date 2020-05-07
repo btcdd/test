@@ -32,7 +32,7 @@ public class RunJava {
 
 //		buffer.append("rm -rf errJava.txt");
 //		buffer.append("/c");
-		buffer.append("javac -d . Test.java &>errJava.txt");
+		buffer.append("javac -d . Test.java");
 //		buffer.append("javac Test.java");
 		
 //		createFileAsSource(source);
@@ -86,9 +86,19 @@ public class RunJava {
 		try {
 //			process = Runtime.getRuntime().exec(cmd);
 			process = Runtime.getRuntime().exec(inputSource());
+			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			String line = null;
+			readBuffer = new StringBuffer();
+			
+			while((line = bufferedReader.readLine()) != null) {
+				readBuffer.append(line);
+				readBuffer.append("\n");
+			}
+			return readBuffer.toString();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
 		return null;
 	}
 	
