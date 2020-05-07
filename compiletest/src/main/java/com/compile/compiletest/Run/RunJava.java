@@ -20,7 +20,7 @@ public class RunJava {
 	
 	private final String FILENAME = "Test.java";
 	
-	public String inputSource() throws InterruptedException {
+	public String inputSource() { 
 		
 		buffer = new StringBuffer();
 		
@@ -85,7 +85,6 @@ public class RunJava {
 	public String execCompile() {
 		try {
 //			process = Runtime.getRuntime().exec(cmd);
-			process.destroy();
 			process = Runtime.getRuntime().exec(inputSource());
 		} catch(Exception e) {
 			e.printStackTrace();
