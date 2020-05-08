@@ -11,74 +11,94 @@
     <title>Code Forest</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/mypage/account.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script type="text/javascript" src="./jquery-3.4.1.js"></script>
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css">  -->
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $(function() {
-            var changeNickname = $("#change-nickname").dialog({
-                autoOpen: false,
-                resizable: false,
-                height: "auto",
-                width: 400,
-                modal: true,
-                buttons: {
-                    "완료": function() {
-                        $(this).dialog("close");
-                    },
-                    Cancel: function() {
-                        $(this).dialog("close");
-                    }
+    var changeNickname = function(nickname) {
+    	$.ajax({
+            url: '${pageContext.request.contextPath }/mypage/account/nickname',
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            data: "nickname=" + nickname,
+            success: function(response){
+               if(response.result != "success") {
+                  console.error(response.message);
+                  return;
+               }
+            },
+            error: function(xhr, status, e) {
+               console.error(status + ":" + e);
+            }
+         });
+    }
+    	
+    $(function() {
+        $("#change-nickname").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "완료": function() {
+                	changeNickname($('#nickname').val());
+                	$(this).dialog("close");
+                },
+                Cancel: function() {
+                    $(this).dialog("close");
                 }
-            });
-            $(document).on("click","#nickname-btn", function(event) {
-            	event.preventDefault();
-            	
-            	changeNickname.dialog("open");
-            });
-
-            $("#delete-user").dialog({
-                autoOpen: false,
-                resizable: false,
-                height: "auto",
-                width: 400,
-                modal: true,
-                buttons: {
-                    "회원 탈퇴": function() {
-                        $(this).dialog("close");
-                    },
-                    "취소": function() {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-            $("#delete-btn").on("click", function(event) {
-            	event.preventDefault();
-            	
-                $("#delete-user").dialog("open");
-            });
-
-            $("#change-password").dialog({
-                autoOpen: false,
-                resizable: false,
-                height: "auto",
-                width: 400,
-                modal: true,
-                buttons: {
-                    "변경": function() {
-                        $(this).dialog("close");
-                    },
-                    "취소": function() {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-            $("#password-btn").on("click", function(event) {
-            	event.preventDefault();
-            	
-                $("#change-password").dialog("open");
-            });
+            }
         });
+        $(document).on("click","#nickname-btn", function(event) {
+        	event.preventDefault();
+        	
+        	$("#change-nickname").dialog("open");
+        });
+
+        $("#delete-user").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "회원 탈퇴": function() {
+                    $(this).dialog("close");
+                },
+                "취소": function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        $("#delete-btn").on("click", function(event) {
+        	event.preventDefault();
+        	
+            $("#delete-user").dialog("open");
+        });
+
+        $("#change-password").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "변경": function() {
+                    $(this).dialog("close");
+                },
+                "취소": function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        $("#password-btn").on("click", function(event) {
+        	event.preventDefault();
+        	
+            $("#change-password").dialog("open");
+        });
+    });
     </script>
 </head>
 
@@ -125,7 +145,7 @@
 	        <form>
 	            <fieldset>
 	                <label for="name">닉네임 입력 : </label>
-	                <input type="text" name="name" id="name" value="에옹이" class="text ui-widget-content ui-corner-all">
+	                <input type="text" name="nickname" id="nickname" value="에옹이" class="text ui-widget-content ui-corner-all">
 	
 	                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 	            </fieldset>
