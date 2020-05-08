@@ -51,7 +51,6 @@ public class RunC {
 	
 	public String execCompile() {
 		try {
-//			process = Runtime.getRuntime().exec(cmd);
 			process = Runtime.getRuntime().exec(inputSource());
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;

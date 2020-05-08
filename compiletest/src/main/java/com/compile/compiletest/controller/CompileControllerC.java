@@ -26,7 +26,6 @@ public class CompileControllerC {
 		
 		String errorResult = rtt.execCompile();
 		
-		
 		String[] res = new String[2];
 		res[0] = result;
 		res[1] = errorResult;
@@ -52,7 +51,7 @@ public class CompileControllerC {
 	
 	@ResponseBody
 	@PostMapping("/c/compile")
-	public JsonResult javaCompileexam() {
+	public JsonResult cCompileexam() {
 
 		RunC rtt = new RunC();
 

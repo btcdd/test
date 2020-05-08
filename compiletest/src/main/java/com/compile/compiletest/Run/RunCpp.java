@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class RunCpp {
 	
@@ -20,40 +19,16 @@ public class RunCpp {
 	
 	private final String FILENAME = "cppTest.cpp";
 	
-	public String inputSource(String source) {
+	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("cmd.exe ");
-		buffer.append("/c ");
-		buffer.append("g++ -o cppTest.exe cppTest.cpp 2>errCpp.txt");
-		
-		createFileAsSource(source);
+		buffer.append("g++ -o cppTest.exe cppTest.cpp");
 		
 		return buffer.toString();
 	}
 	
-	public String errorResult() {
-		String errorResult = "";
-		try {
-			File file2 = new File("errCpp.txt");
-			
-			Scanner scan = new Scanner(file2);
-			
-			while(scan.hasNextLine()) {
-				errorResult += scan.nextLine() + "\n";
-			}
-			System.out.println(errorResult);
-			
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-		return errorResult;
-	}
-	
-	private void createFileAsSource(String source) {
+	public void createFileAsSource(String source) {
 		try {
 			file = new File(FILENAME);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
@@ -73,6 +48,26 @@ public class RunCpp {
 			}
 		}
 	}
+	
+	public String execCompile() {
+		try {
+			process = Runtime.getRuntime().exec(inputSource());
+			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			String line = null;
+			readBuffer = new StringBuffer();
+			
+			while((line = bufferedReader.readLine()) != null) {
+				readBuffer.append(line);
+				readBuffer.append("\n");
+			}
+			return readBuffer.toString();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	
 	public String execCommand() {
 		try {
@@ -97,9 +92,7 @@ public class RunCpp {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("cmd.exe ");
-		buffer.append("/c ");
-		buffer.append("cppTest.exe");
+		buffer.append("./cppTest.exe");
 		
 		return buffer.toString();
 	}
