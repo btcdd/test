@@ -38,7 +38,7 @@ public class CompileControllerPy {
 		
 		String[] token = code.split("\n");
 		
-		buffer.append("# -*- coding: euc-kr -*-\n\n");
+		buffer.append("# -*- coding: utf-8 -*-\n\n");
 		for(int i = 0; i < token.length; i++) {
 			buffer.append(token[i]);
 		}
