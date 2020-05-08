@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Join-check</title>
+<title>Auth</title>
+<link rel="stylesheet" href="../../../assets/css/main.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>    
 <style>
@@ -31,7 +32,7 @@ body{
 <script>
 
 $(function(){
-	$('#send').on('click',function(){
+	$('#resend').on('click',function(){
 		$.ajax({
 			url:'${pageContext.request.contextPath}/user/emailAuth',
 			async:true,
@@ -75,7 +76,7 @@ $(function(){
                         <input id="Auth" name="Auth" type="text">
                     </div>
                     <div>
-                        <button type="button" id="send">인증번호 전송</button>
+                        <button type="button" id="resend">인증번호 재전송</button>
                         <input type="submit" value="이메일 인증">         
                     </div>
                 </form>
