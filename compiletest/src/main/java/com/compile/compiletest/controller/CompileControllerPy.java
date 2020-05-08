@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.compile.compiletest.Run.RunCpp;
 import com.compile.compiletest.Run.RunPy;
 import com.compile.compiletest.dto.JsonResult;
 
@@ -39,7 +38,7 @@ public class CompileControllerPy {
 		
 		String[] token = code.split("\n");
 		
-		buffer.append("# -*- coding: euc-kr -*-\n\n");
+//		buffer.append("# -*- coding: euc-kr -*-\n\n");
 		for(int i = 0; i < token.length; i++) {
 			buffer.append(token[i]);
 		}
