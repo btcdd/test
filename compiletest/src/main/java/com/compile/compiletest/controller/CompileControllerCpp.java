@@ -24,7 +24,7 @@ public class CompileControllerCpp {
 
 		String result = rtt.execCommand();
 		
-		String errorResult = rtt.errorResult();
+		String errorResult = rtt.execCompile();
 		
 		String[] res = new String[2];
 		res[0] = result;
