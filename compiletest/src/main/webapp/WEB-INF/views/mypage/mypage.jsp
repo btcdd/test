@@ -21,7 +21,7 @@
             </div>
             <div>
                 <div class="correct">
-                    <h3>맞은 사람</h3>
+                    <h3>맞힌 문제</h3>
                 </div>
                 <div class="correct-answer">
                     <span><a href="">1019</a></span>
@@ -31,7 +31,7 @@
             <br>
             <div>
                 <div class="wrong">
-                    <h3>틀린 사람</h3>
+                    <h3>틀린 문제</h3>
                 </div>
                 <div class="wrong-answer">
                     <span><a href="">10192</a></span>
