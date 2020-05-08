@@ -91,7 +91,7 @@ public class RunPy {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("python testPy.py");
+		buffer.append("python3 testPy.py");
 		
 		return buffer.toString();
 	}
