@@ -35,7 +35,8 @@ public class CompileControllerPy {
 	@ResponseBody
 	@PostMapping("/py/save")
 	public JsonResult javaCompileSave(@RequestParam String code) {
-		buffer.append("# -*- coding: utf-8 -*-\n");
+//		buffer.append("# -*- coding: utf-8 -*-\n");
+		buffer.insert(0, "# -*- coding: utf-8 -*-\n");
 
 		String[] token = code.split("\n");
 		
