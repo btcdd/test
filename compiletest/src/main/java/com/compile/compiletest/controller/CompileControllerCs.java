@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.compile.compiletest.Run.RunCpp;
+import com.compile.compiletest.Run.RunCs;
 import com.compile.compiletest.dto.JsonResult;
 
 @Controller
@@ -15,12 +16,12 @@ public class CompileControllerCs {
 	
 	StringBuffer buffer = new StringBuffer();
 
-	RunCpp rtt = new RunCpp();
+	RunCs rtt = new RunCs();
 	
 	@ResponseBody
 	@PostMapping("/cs")
 	public JsonResult compileCpp(@RequestParam String code) {
-		RunCpp rtt = new RunCpp();
+		RunCs rtt = new RunCs();
 
 		String result = rtt.execCommand();
 		String errorResult = rtt.execCompile();
@@ -52,7 +53,7 @@ public class CompileControllerCs {
 	@PostMapping("/cs/compile")
 	public JsonResult cppCompileexam() {
 
-		RunCpp rtt = new RunCpp();
+		RunCs rtt = new RunCs();
 
 		String result = rtt.execCompile();
 
