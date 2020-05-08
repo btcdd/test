@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class RunCpp {
+public class RunCs {
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -17,13 +17,13 @@ public class RunCpp {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "cppTest.cpp";
+	private final String FILENAME = "testCs.cs";
 	
 	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("g++ -o cppTest.exe cppTest.cpp");
+		buffer.append("mcs testCs.cs");
 		
 		return buffer.toString();
 	}
@@ -92,7 +92,7 @@ public class RunCpp {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("./cppTest.exe");
+		buffer.append("mono testCs.exe");
 		
 		return buffer.toString();
 	}

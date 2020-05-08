@@ -12,6 +12,11 @@ import com.compile.compiletest.dto.JsonResult;
 @Controller
 @RequestMapping("/compile")
 public class CompileControllerC {
+	
+	StringBuffer buffer = new StringBuffer();
+
+	RunC rtt = new RunC();
+	
 	@ResponseBody
 	@PostMapping("/c")
 	public JsonResult compileC(@RequestParam String code) {
@@ -19,13 +24,11 @@ public class CompileControllerC {
 
 		String result = rtt.execCommand();
 		
-		String errorResult = rtt.errorResult();
-		
+		String errorResult = rtt.execCompile();
 		
 		String[] res = new String[2];
 		res[0] = result;
 		res[1] = errorResult;
-		System.out.println("errorResult = " + errorResult);
 		
 		return JsonResult.success(res);
 	}
@@ -33,17 +36,28 @@ public class CompileControllerC {
 	@ResponseBody
 	@PostMapping("/c/save")
 	public JsonResult compileSaveC(@RequestParam String code) {
-		RunC rtt = new RunC();
 		
-		StringBuffer buffer = new StringBuffer();
 		String[] token = code.split("\n");
 		
 		for(int i = 0; i < token.length; i++) {
 			buffer.append(token[i] + "\n");
 		}
-		String command = rtt.inputSource(buffer.toString());
-		String result = rtt.execSave(command);
+		rtt.createFileAsSource(code);
 		
+		String test = "success";
+		
+		return JsonResult.success(test);
+	}
+	
+	@ResponseBody
+	@PostMapping("/c/compile")
+	public JsonResult cCompileexam() {
+
+		RunC rtt = new RunC();
+
+//		String result = rtt.inputSource();
+		String result = rtt.execCompile();
+
 		return JsonResult.success(result);
 	}
 }

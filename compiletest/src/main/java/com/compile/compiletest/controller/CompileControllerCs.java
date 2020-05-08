@@ -6,21 +6,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.compile.compiletest.Run.RunCpp;
+import com.compile.compiletest.Run.RunCs;
 import com.compile.compiletest.dto.JsonResult;
 
 @Controller
 @RequestMapping("/compile")
-public class CompileControllerCpp {
+public class CompileControllerCs {
 	
 	StringBuffer buffer = new StringBuffer();
 
-	RunCpp rtt = new RunCpp();
+	RunCs rtt = new RunCs();
 	
 	@ResponseBody
-	@PostMapping("/cpp")
+	@PostMapping("/cs")
 	public JsonResult compileCpp(@RequestParam String code) {
-		RunCpp rtt = new RunCpp();
+		RunCs rtt = new RunCs();
 
 		String result = rtt.execCommand();
 		String errorResult = rtt.execCompile();
@@ -33,7 +33,7 @@ public class CompileControllerCpp {
 	}
 	
 	@ResponseBody
-	@PostMapping("/cpp/save")
+	@PostMapping("/cs/save")
 	public JsonResult compileSaveCpp(@RequestParam String code) {
 		
 		String[] token = code.split("\n");
@@ -49,10 +49,10 @@ public class CompileControllerCpp {
 	}
 	
 	@ResponseBody
-	@PostMapping("/cpp/compile")
+	@PostMapping("/cs/compile")
 	public JsonResult cppCompileexam() {
 
-		RunCpp rtt = new RunCpp();
+		RunCs rtt = new RunCs();
 
 		String result = rtt.execCompile();
 
