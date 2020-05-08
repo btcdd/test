@@ -1,13 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Join-check</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset</title>
+
+    <link rel="stylesheet" href="../../../assets/css/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+
 <style>
 body{
     font-family: serif;
@@ -19,7 +20,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }    
- #loginform{
+#loginform{
     width:350px;
     margin:100px auto;
     border: 1px solid gray;
@@ -28,27 +29,7 @@ body{
     background-color:white;
 }
 </style>
-<script>
 
-$(function(){
-	$('#send').on('click',function(){
-		$.ajax({
-			url:'${pageContext.request.contextPath}/user/emailAuth',
-			async:true,
-			type:'get',
-			dataType:'json',
-			data:'',
-			success:function(response){
-				
-			},
-			error: function(xhr, status, e) {
-				console.error(status + ":" + e);
-			}
-		});
-	})
-});
-
-</script>
 </head>
 <body>
     <div id="container">
@@ -68,15 +49,18 @@ $(function(){
         </div>        
         <div id="content">
             <div id="user">
-                <form id="loginform" action="${pageContext.servletContext.contextPath }/user/auth">
-                    <h1>회원가입</h1>
+                <form id="loginform" action="">
+                    <h1>비밀번호 재설정</h1>
                     <div>
-                        <label for="Auth">인증 번호 입력 : </label>
-                        <input id="Auth" name="Auth" type="text">
+                        <label for="password">새로운 비밀번호 입력 : </label>
+                        <input id="password" name="password" type="password">
                     </div>
                     <div>
-                        <button type="button" id="send">인증번호 전송</button>
-                        <input type="submit" value="이메일 인증">         
+                        <label for="passwordCheck">새로운 비밀번호 확인 : </label>
+                        <input id="passwordCheck" name="password" type="password">
+                    </div>
+                    <div>
+                        <input type="submit" value="비밀번호 재설정완료">         
                     </div>
                 </form>
             </div>
@@ -84,3 +68,4 @@ $(function(){
     </div>
 </body>
 </html>
+

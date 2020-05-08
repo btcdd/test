@@ -2,6 +2,8 @@ package com.compile.compiletest.vo;
 
 import java.util.Date;
 
+import javax.mail.internet.InternetAddress;
+
 public class UserVo {
 	private Long no;
 	private String name;
@@ -9,7 +11,7 @@ public class UserVo {
 	private String email;
 	private Date birth;
 	private String password;
-	private char authStatus;
+	
 	
 	public Long getNo() {
 		return no;
@@ -47,16 +49,13 @@ public class UserVo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public char getAuthStatus() {
-		return authStatus;
-	}
-	public void setAuthStatus(char authStatus) {
-		this.authStatus = authStatus;
-	}
-	
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", nickname=" + nickname + ", email=" + email + ", birth="
-				+ birth + ", password=" + password + ", authStatus=" + authStatus + "]";
+				+ birth + ", password=" + password + "]";
 	}
+
+	
+
+	
 }
