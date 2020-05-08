@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.compile.compiletest.dto.JsonResult;
-import com.compile.compiletest.run.RunPy;
+import com.compile.compiletest.run.RunCs;
 
 @Controller
 @RequestMapping("/compile")
-public class CompileControllerPy {
+public class CompileControllerCs {
 	
 	StringBuffer buffer = new StringBuffer();
 
-	RunPy rtt = new RunPy();
+	RunCs rtt = new RunCs();
 	
 	@ResponseBody
-	@PostMapping("/py")
-	public JsonResult javaCompile(@RequestParam String code) {
-		RunPy rtt = new RunPy();
-		
+	@PostMapping("/cs")
+	public JsonResult compileCpp(@RequestParam String code) {
+		RunCs rtt = new RunCs();
+
 		String result = rtt.execCommand();
 		String errorResult = rtt.execCompile();
 		
@@ -33,17 +33,15 @@ public class CompileControllerPy {
 	}
 	
 	@ResponseBody
-	@PostMapping("/py/save")
-	public JsonResult javaCompileSave(@RequestParam String code) {
-
-		String[] token = code.split("\n");
+	@PostMapping("/cs/save")
+	public JsonResult compileSaveCpp(@RequestParam String code) {
 		
-		buffer.append("# -*- coding: utf-8 -*-\n");
+		String[] token = code.split("\n");
 		
 		for(int i = 0; i < token.length; i++) {
 			buffer.append(token[i] + "\n");
 		}
-		rtt.createFileAsSource(buffer.toString());
+		rtt.createFileAsSource(code);
 		
 		String test = "success";
 		
@@ -51,10 +49,10 @@ public class CompileControllerPy {
 	}
 	
 	@ResponseBody
-	@PostMapping("/py/compile")
+	@PostMapping("/cs/compile")
 	public JsonResult cppCompileexam() {
 
-		RunPy rtt = new RunPy();
+		RunCs rtt = new RunCs();
 
 		String result = rtt.execCompile();
 

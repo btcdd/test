@@ -27,11 +27,6 @@ public class UserController {
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(@ModelAttribute("userVo") UserVo vo) {			
-
-		
-		
-//		userService.join(vo);		
-		
 		return "main";
 	}
 	
@@ -56,6 +51,5 @@ public class UserController {
 		
 		return JsonResult.success(tempKey);
 	}
-	
 	
 }

@@ -1,4 +1,4 @@
-package com.compile.compiletest.Run;
+package com.compile.compiletest.run;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -6,9 +6,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
-public class RunJava {
+public class RunPy {
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -18,43 +17,18 @@ public class RunJava {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "Test.java";
+	private final String FILENAME = "testPy.py";
 	
-	public String inputSource(String source) {
+	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("cmd.exe ");
-		buffer.append("/c ");
-		buffer.append("javac Test.java 2>errJava.txt");
-		
-		createFileAsSource(source);
+		buffer.append("python testPy.py");
 		
 		return buffer.toString();
 	}
 	
-	public String errorResult() {
-		String errorResult = "";
-		try {
-			File file2 = new File("errJava.txt");
-			
-			Scanner scan = new Scanner(file2);
-			
-			while(scan.hasNextLine()) {
-				errorResult += scan.nextLine() + "\n";
-//				System.out.println(scan.nextLine());
-			}
-			System.out.println(errorResult);
-			
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return errorResult;
-	}
-	
-	private void createFileAsSource(String source) {
+	public void createFileAsSource(String source) {
 		try {
 			file = new File(FILENAME);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
@@ -75,9 +49,27 @@ public class RunJava {
 		}
 	}
 	
+	public String execCompile() {
+		try {
+			process = Runtime.getRuntime().exec(inputSource());
+			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			String line = null;
+			readBuffer = new StringBuffer();
+			
+			while((line = bufferedReader.readLine()) != null) {
+				readBuffer.append(line);
+				readBuffer.append("\n");
+			}
+			return readBuffer.toString();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	public String execCommand() {
 		try {
-//			process = Runtime.getRuntime().exec(cmd);
 			process = Runtime.getRuntime().exec(runClass());
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -99,15 +91,10 @@ public class RunJava {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("cmd.exe ");
-		buffer.append("/c ");
-		buffer.append("java Test");
+		buffer.append("python3 testPy.py");
 		
 		return buffer.toString();
 	}
-	
-	
-	
 	
 	public String execSave(String cmd) {
 		try {
@@ -119,26 +106,3 @@ public class RunJava {
 	}
 }
 
-
-
-
-
-
-
-
-
-//public class RunTimeTest {
-//	public static void main(String[] args) {
-//		Cmd cmd = new Cmd();
-//		
-//		StringBuffer buffer = new StringBuffer();
-//		buffer.append("public class Test");
-//		buffer.append("{ public static void main(String[] args)");
-//		buffer.append("{ System.out.println(\"hi\");} }");
-//		
-//		String command = cmd.inputSource(buffer.toString());
-//		String result = cmd.execCommand(command);
-//		
-//		System.out.println(result);
-//	}
-//}
