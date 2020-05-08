@@ -35,15 +35,15 @@ public class CompileControllerPy {
 	@ResponseBody
 	@PostMapping("/py/save")
 	public JsonResult javaCompileSave(@RequestParam String code) {
-//		buffer.append("# -*- coding: utf-8 -*-\n");
-		buffer.insert(0, "# -*- coding: utf-8 -*-\n");
 
 		String[] token = code.split("\n");
+		
+		buffer.append("# -*- coding: utf-8 -*-\n");
 		
 		for(int i = 0; i < token.length; i++) {
 			buffer.append(token[i]);
 		}
-		rtt.createFileAsSource(code);
+		rtt.createFileAsSource(buffer.toString());
 		
 		String test = "success";
 		
