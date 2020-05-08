@@ -41,7 +41,7 @@ public class CompileControllerPy {
 //		buffer.append("# -*- coding: utf-8 -*-\n");
 		
 		for(int i = 0; i < token.length; i++) {
-			buffer.append(token[i]);
+			buffer.append(token[i] + "\n");
 		}
 		rtt.createFileAsSource(buffer.toString());
 		
