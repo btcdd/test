@@ -121,7 +121,7 @@ $(function() {
 </script>
 </head>
 <body>
-   <c:import url="/WEB-INF/views/include/header.jsp" />
+   <c:import url="/WEB-INF/views/include/main-header.jsp" />
     <div class="codeTest">
         <form action="" method="post">
             <table class="tbl-ex">
