@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.compile.compiletest.Run.RunCpp;
 import com.compile.compiletest.dto.JsonResult;
+import com.compile.compiletest.run.RunCpp;
 
 @Controller
 @RequestMapping("/compile")

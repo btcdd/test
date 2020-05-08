@@ -16,7 +16,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function() {
-            $("#change-nickname").dialog({
+            var changeNickname = $("#change-nickname").dialog({
                 autoOpen: false,
                 resizable: false,
                 height: "auto",
@@ -31,8 +31,10 @@
                     }
                 }
             });
-            $("#nickname-btn").on("click", function() {
-                $("#change-nickname").dialog("open");
+            $(document).on("click","#nickname-btn", function(event) {
+            	event.preventDefault();
+            	
+            	changeNickname.dialog("open");
             });
 
             $("#delete-user").dialog({
@@ -50,7 +52,9 @@
                     }
                 }
             });
-            $("#delete-btn").on("click", function() {
+            $("#delete-btn").on("click", function(event) {
+            	event.preventDefault();
+            	
                 $("#delete-user").dialog("open");
             });
 
@@ -69,7 +73,9 @@
                     }
                 }
             });
-            $("#password-btn").on("click", function() {
+            $("#password-btn").on("click", function(event) {
+            	event.preventDefault();
+            	
                 $("#change-password").dialog("open");
             });
         });
@@ -113,59 +119,59 @@
             <button id="delete-btn" style="color: red;">회원 탈퇴</button>
         </div>
     </div>
-
-    <div id="change-nickname" title="닉네임 변경">
-        변경하실 닉네임을 입력해주세요.
-        <form>
-            <fieldset>
-                <label for="name">닉네임 입력 : </label>
-                <input type="text" name="name" id="name" value="에옹이" class="text ui-widget-content ui-corner-all">
-
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
-
-    <div id="change-password" title="비밀번호 변경">
-        <pre>
-            비밀번호를 변경하시려면 현재 비밀번호를 입력해주세요.
-        </pre>
-        <form>
-            <fieldset>
-                <label for="name">현재 비밀번호 : </label>
-                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
-            </fieldset>
-        </form>
-        <pre>
-            변경하시려는 비밀번호를 입력해주세요.
-        </pre>
-        <form>
-            <fieldset>
-                <label for="name">변경 비밀번호 : </label>
-                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
-                <label for="name">비밀번호 확인: </label>
-                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
-
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
-
-    <div id="delete-user" title="회원 탈퇴">
-        <pre>
-            회원 탈퇴를 하시겠습니까?
-            회원 탈퇴를 하시면 문제를 푼 기록이 다 사라집니다.
-            아래 비밀번호를 입력하세요.
-        </pre>
-        <form>
-            <fieldset>
-                <label for="name">비밀번호 입력 : </label>
-                <input type="text" name="delete" id="delete" value="" class="text ui-widget-content ui-corner-all">
-
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
+    
+    <div id="change-nickname" title="닉네임 변경" style="display:none" >
+	        변경하실 닉네임을 입력해주세요.
+	        <form>
+	            <fieldset>
+	                <label for="name">닉네임 입력 : </label>
+	                <input type="text" name="name" id="name" value="에옹이" class="text ui-widget-content ui-corner-all">
+	
+	                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+	            </fieldset>
+	        </form>
+	    </div>
+	
+	    <div id="change-password" title="비밀번호 변경" style="display:none" >
+	        <pre>
+	            비밀번호를 변경하시려면 현재 비밀번호를 입력해주세요.
+	        </pre>
+	        <form>
+	            <fieldset>
+	                <label for="name">현재 비밀번호 : </label>
+	                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+	            </fieldset>
+	        </form>
+	        <pre>
+	            변경하시려는 비밀번호를 입력해주세요.
+	        </pre>
+	        <form>
+	            <fieldset>
+	                <label for="name">변경 비밀번호 : </label>
+	                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+	                <label for="name">비밀번호 확인: </label>
+	                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+	
+	                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+	            </fieldset>
+	        </form>
+	    </div>
+	
+	    <div id="delete-user" title="회원 탈퇴" style="display:none" >
+	        <pre>
+	            회원 탈퇴를 하시겠습니까?
+	            회원 탈퇴를 하시면 문제를 푼 기록이 다 사라집니다.
+	            아래 비밀번호를 입력하세요.
+	        </pre>
+	        <form>
+	            <fieldset>
+	                <label for="name">비밀번호 입력 : </label>
+	                <input type="text" name="delete" id="delete" value="" class="text ui-widget-content ui-corner-all">
+	
+	                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+	            </fieldset>
+	        </form>
+	    </div>
 
 </body>
 

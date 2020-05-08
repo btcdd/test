@@ -34,8 +34,8 @@
                     <td id="title">미로탈출</td>
                     <td>22</td>
                     <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
+                    <td><input type="image" src="${pageContext.servletContext.contextPath }/delete.png" alt="delete" class="delete"></td>
+                    <td><input type="image" src="${pageContext.servletContext.contextPath }/list.png" alt="list" class="list"></td>
                 </tr>
                 <tr>
                     <td>11</td>

@@ -1,4 +1,4 @@
-package com.compile.compiletest.Run;
+package com.compile.compiletest.run;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
