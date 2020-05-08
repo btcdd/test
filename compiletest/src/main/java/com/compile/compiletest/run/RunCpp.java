@@ -1,4 +1,4 @@
-package com.compile.compiletest.Run;
+package com.compile.compiletest.run;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class RunJava {
+public class RunCpp {
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -17,13 +17,13 @@ public class RunJava {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "Test.java";
+	private final String FILENAME = "cppTest.cpp";
 	
-	public String inputSource() { 
+	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("javac -d . Test.java");
+		buffer.append("g++ -o cppTest.exe cppTest.cpp");
 		
 		return buffer.toString();
 	}
@@ -51,7 +51,6 @@ public class RunJava {
 	
 	public String execCompile() {
 		try {
-//			process = Runtime.getRuntime().exec(cmd);
 			process = Runtime.getRuntime().exec(inputSource());
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
@@ -68,6 +67,7 @@ public class RunJava {
 		
 		return null;
 	}
+	
 	
 	public String execCommand() {
 		try {
@@ -92,7 +92,7 @@ public class RunJava {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("java -cp . Test");
+		buffer.append("./cppTest.exe");
 		
 		return buffer.toString();
 	}

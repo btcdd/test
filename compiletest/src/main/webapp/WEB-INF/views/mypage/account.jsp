@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,96 +9,101 @@
 <head>
     <meta charset="UTF-8">
     <title>Code Forest</title>
-    <link rel="stylesheet" href="./account.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/mypage/account.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script type="text/javascript" src="./jquery-3.4.1.js"></script>
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css">  -->
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-        $(function() {
-            $("#change-nickname").dialog({
-                autoOpen: false,
-                resizable: false,
-                height: "auto",
-                width: 400,
-                modal: true,
-                buttons: {
-                    "완료": function() {
-                        $(this).dialog("close");
-                    },
-                    Cancel: function() {
-                        $(this).dialog("close");
-                    }
+    var changeNickname = function(nickname) {
+    	$.ajax({
+            url: '${pageContext.request.contextPath }/mypage/account/nickname',
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            data: "nickname=" + nickname,
+            success: function(response){
+               if(response.result != "success") {
+                  console.error(response.message);
+                  return;
+               }
+            },
+            error: function(xhr, status, e) {
+               console.error(status + ":" + e);
+            }
+         });
+    }
+    	
+    $(function() {
+        $("#change-nickname").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "완료": function() {
+                	changeNickname($('#nickname').val());
+                	$(this).dialog("close");
+                },
+                Cancel: function() {
+                    $(this).dialog("close");
                 }
-            });
-            $("#nickname-btn").on("click", function() {
-                $("#change-nickname").dialog("open");
-            });
-
-            $("#delete-user").dialog({
-                autoOpen: false,
-                resizable: false,
-                height: "auto",
-                width: 400,
-                modal: true,
-                buttons: {
-                    "회원 탈퇴": function() {
-                        $(this).dialog("close");
-                    },
-                    "취소": function() {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-            $("#delete-btn").on("click", function() {
-                $("#delete-user").dialog("open");
-            });
-
-            $("#change-password").dialog({
-                autoOpen: false,
-                resizable: false,
-                height: "auto",
-                width: 400,
-                modal: true,
-                buttons: {
-                    "변경": function() {
-                        $(this).dialog("close");
-                    },
-                    "취소": function() {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-            $("#password-btn").on("click", function() {
-                $("#change-password").dialog("open");
-            });
+            }
         });
+        $(document).on("click","#nickname-btn", function(event) {
+        	event.preventDefault();
+        	
+        	$("#change-nickname").dialog("open");
+        });
+
+        $("#delete-user").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "회원 탈퇴": function() {
+                    $(this).dialog("close");
+                },
+                "취소": function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        $("#delete-btn").on("click", function(event) {
+        	event.preventDefault();
+        	
+            $("#delete-user").dialog("open");
+        });
+
+        $("#change-password").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: {
+                "변경": function() {
+                    $(this).dialog("close");
+                },
+                "취소": function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        $("#password-btn").on("click", function(event) {
+        	event.preventDefault();
+        	
+            $("#change-password").dialog("open");
+        });
+    });
     </script>
 </head>
 
 <body>
-    <div class="header">
-        <div class="head">
-            <div class="container-left clearfix">
-                <div class="logo">
-                    <h3>Code Forest</h3>
-                </div>
-                <div class="menu clearfix">
-                    <div class="menu-item">에옹이</div>
-                    <div class="menu-item">로그아웃</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="sidemenu">
-        <nav>
-            <ul>
-                <li class="menulist"><a href="">마이페이지</a></li>
-                <li class="menulist"><a href="">계정 관리</a></li>
-                <li class="menulist"><a href="">문제 관리</a></li>
-            </ul>
-        </nav>
-    </div>
+    <c:import url="/WEB-INF/views/include/mypage-header.jsp" />
     <div class="container">
         <div class="nickname">
             <div class="line">
@@ -131,59 +139,59 @@
             <button id="delete-btn" style="color: red;">회원 탈퇴</button>
         </div>
     </div>
-
-    <div id="change-nickname" title="닉네임 변경">
-        변경하실 닉네임을 입력해주세요.
-        <form>
-            <fieldset>
-                <label for="name">닉네임 입력 : </label>
-                <input type="text" name="name" id="name" value="에옹이" class="text ui-widget-content ui-corner-all">
-
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
-
-    <div id="change-password" title="비밀번호 변경">
-        <pre>
-            비밀번호를 변경하시려면 현재 비밀번호를 입력해주세요.
-        </pre>
-        <form>
-            <fieldset>
-                <label for="name">현재 비밀번호 : </label>
-                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
-            </fieldset>
-        </form>
-        <pre>
-            변경하시려는 비밀번호를 입력해주세요.
-        </pre>
-        <form>
-            <fieldset>
-                <label for="name">변경 비밀번호 : </label>
-                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
-                <label for="name">비밀번호 확인: </label>
-                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
-
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
-
-    <div id="delete-user" title="회원 탈퇴">
-        <pre>
-            회원 탈퇴를 하시겠습니까?
-            회원 탈퇴를 하시면 문제를 푼 기록이 다 사라집니다.
-            아래 비밀번호를 입력하세요.
-        </pre>
-        <form>
-            <fieldset>
-                <label for="name">비밀번호 입력 : </label>
-                <input type="text" name="delete" id="delete" value="" class="text ui-widget-content ui-corner-all">
-
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>
+    
+    <div id="change-nickname" title="닉네임 변경" style="display:none" >
+	        변경하실 닉네임을 입력해주세요.
+	        <form>
+	            <fieldset>
+	                <label for="name">닉네임 입력 : </label>
+	                <input type="text" name="nickname" id="nickname" value="에옹이" class="text ui-widget-content ui-corner-all">
+	
+	                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+	            </fieldset>
+	        </form>
+	    </div>
+	
+	    <div id="change-password" title="비밀번호 변경" style="display:none" >
+	        <pre>
+	            비밀번호를 변경하시려면 현재 비밀번호를 입력해주세요.
+	        </pre>
+	        <form>
+	            <fieldset>
+	                <label for="name">현재 비밀번호 : </label>
+	                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+	            </fieldset>
+	        </form>
+	        <pre>
+	            변경하시려는 비밀번호를 입력해주세요.
+	        </pre>
+	        <form>
+	            <fieldset>
+	                <label for="name">변경 비밀번호 : </label>
+	                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+	                <label for="name">비밀번호 확인: </label>
+	                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+	
+	                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+	            </fieldset>
+	        </form>
+	    </div>
+	
+	    <div id="delete-user" title="회원 탈퇴" style="display:none" >
+	        <pre>
+	            회원 탈퇴를 하시겠습니까?
+	            회원 탈퇴를 하시면 문제를 푼 기록이 다 사라집니다.
+	            아래 비밀번호를 입력하세요.
+	        </pre>
+	        <form>
+	            <fieldset>
+	                <label for="name">비밀번호 입력 : </label>
+	                <input type="text" name="delete" id="delete" value="" class="text ui-widget-content ui-corner-all">
+	
+	                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+	            </fieldset>
+	        </form>
+	    </div>
 
 </body>
 

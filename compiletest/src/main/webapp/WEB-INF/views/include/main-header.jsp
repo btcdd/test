@@ -17,6 +17,7 @@
 				<div class="menu-item">Coding Training</div>
 				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/login">로그인</a></div>
 				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/join">회원가입</a></div>
+				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/mypage/mypage">마이페이지</a></div>
 			</div>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-package com.compile.compiletest.Run;
+package com.compile.compiletest.run;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class RunC {
+public class RunCs {
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -17,14 +17,14 @@ public class RunC {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "test.c";
+	private final String FILENAME = "testCs.cs";
 	
 	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("gcc -o test.exe test.c");
-				
+		buffer.append("mcs testCs.cs");
+		
 		return buffer.toString();
 	}
 	
@@ -34,7 +34,7 @@ public class RunC {
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
-			bufferWriter.flush(); 
+			bufferWriter.flush();
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -68,6 +68,7 @@ public class RunC {
 		return null;
 	}
 	
+	
 	public String execCommand() {
 		try {
 			process = Runtime.getRuntime().exec(runClass());
@@ -91,7 +92,7 @@ public class RunC {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("./test.exe");
+		buffer.append("mono testCs.exe");
 		
 		return buffer.toString();
 	}
@@ -105,4 +106,3 @@ public class RunC {
 		return null;
 	}
 }
-
