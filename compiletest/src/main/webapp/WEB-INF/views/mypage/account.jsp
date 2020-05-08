@@ -172,15 +172,7 @@
 	    </div>
 	
 	    <div id="change-password" title="비밀번호 변경" style="display:none" >
-	        <pre>
-	            비밀번호를 변경하시려면 현재 비밀번호를 입력해주세요.
-	        </pre>
-	        <form>
-	            <fieldset>
-	                <label for="name">현재 비밀번호 : </label>
-	                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
-	            </fieldset>
-	        </form>
+	        
 	        <pre>
 	            변경하시려는 비밀번호를 입력해주세요.
 	        </pre>
