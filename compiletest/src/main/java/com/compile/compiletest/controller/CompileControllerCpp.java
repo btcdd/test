@@ -23,7 +23,6 @@ public class CompileControllerCpp {
 		RunCpp rtt = new RunCpp();
 
 		String result = rtt.execCommand();
-		
 		String errorResult = rtt.execCompile();
 		
 		String[] res = new String[2];
@@ -55,7 +54,6 @@ public class CompileControllerCpp {
 
 		RunCpp rtt = new RunCpp();
 
-//		String result = rtt.inputSource();
 		String result = rtt.execCompile();
 
 		return JsonResult.success(result);
