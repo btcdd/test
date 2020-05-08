@@ -35,10 +35,10 @@ public class CompileControllerPy {
 	@ResponseBody
 	@PostMapping("/py/save")
 	public JsonResult javaCompileSave(@RequestParam String code) {
-		
+		buffer.append("# -*- coding: utf-8 -*-\n");
+
 		String[] token = code.split("\n");
 		
-//		buffer.append("# -*- coding: utf-8 -*-\n\n");
 		for(int i = 0; i < token.length; i++) {
 			buffer.append(token[i]);
 		}
