@@ -33,6 +33,25 @@
             }
          });
     }
+    
+    var changePublic = function() {
+    	$.ajax({
+            url: '${pageContext.request.contextPath }/mypage/account/public',
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            data: "public=" + public,
+            success: function(response){
+               if(response.result != "success") {
+                  console.error(response.message);
+                  return;
+               }
+            },
+            error: function(xhr, status, e) {
+               console.error(status + ":" + e);
+            }
+         });
+    }
     	
     $(function() {
         $("#change-nickname").dialog({
