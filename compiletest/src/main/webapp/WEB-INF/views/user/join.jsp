@@ -53,7 +53,7 @@ body{
         </div>        
         <div id="content">
             <div id="user">
-                <form id="loginform" action="">
+                <form id="loginform" method="post" action="${pageContext.servletContext.contextPath }/user/join">
                     <h1>회원가입</h1>
                     <div>
                         <label for="nickname">닉네임</label>
@@ -71,7 +71,7 @@ body{
                     </div>
                     <div>
                         <label for="passwordCheck">비밀번호확인</label>
-                        <input id="passwordCheck" name="password" type="password" />
+                        <input id="passwordCheck" name="passwordCheck" type="password" />
                     </div>
                     <div>
                         <input type="button" value="취소" onclick="goMainPage();">

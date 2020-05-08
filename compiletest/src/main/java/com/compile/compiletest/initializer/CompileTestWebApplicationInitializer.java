@@ -1,4 +1,4 @@
-package com.douzone.mysite.initializer;
+package com.compile.compiletest.initializer;
 
 import javax.servlet.Filter;
 
@@ -8,14 +8,15 @@ import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.FrameworkServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.compile.compiletest.config.AppConfig;
 import com.compile.compiletest.config.WebConfig;
 
-public class MySiteWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class CompileTestWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// Root Application Context
-		return new Class<?>[] {};
+		return new Class<?>[] {AppConfig.class};
 	}
 
 	@Override
