@@ -1,21 +1,7 @@
-body {
-    margin: 0;
-    padding: 0;
-}
-.header {
-    background-color: white;
-    border-bottom: 1px solid lightgray;
-}
+body { margin: 0; padding: 0; }
+.header { background-color: white; border-bottom: 1px solid lightgray; }
 
-.container {
-    width: 980px;
-    margin: auto;
-    padding: 20px 0;
-}
-
-.container-left {
-
-}
+.container { width: 980px; margin: auto; padding: 20px 0; }
 
 .logo {
     float: left;
@@ -24,6 +10,8 @@ body {
 
 .logo img {
     display: block;
+    margin-left: 20px;
+    margin-top: 4px;
 }
 
 .menu {
@@ -35,6 +23,13 @@ body {
     margin-right: 10px;
     padding: 8px 10px;
 }
+
+.menu-user { float: right; font-size: 0.8em; margin-top:2px }
+
+.container-left a { text-decoration: none; color: #222; }
+
+.container-left a:visited { color: #222; }
+.container-left a:hover { text-decoration: none; color:rgb(22, 116, 38)}
 
 .codeTest {
     background-color: lightgray;
