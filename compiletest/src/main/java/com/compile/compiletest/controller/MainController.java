@@ -11,5 +11,10 @@ public class MainController {
 	@RequestMapping({"", "/main"})
 	public String index(Model model) {
 		return "main";
-	}	
+	}
+	
+	@RequestMapping("/main-out")
+	public String indexA(Model model) {
+		return "main-out";
+	}
 }
