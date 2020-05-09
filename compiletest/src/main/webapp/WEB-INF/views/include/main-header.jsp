@@ -12,6 +12,7 @@
 			<div class="menu clearfix">
 				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/codetree">Code Tree</a></div>
 				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/codingtest">Coding Test</a></div>
+				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/challenge">Programming Challenge</a></div>
 				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/training">Training</a></div>
 			</div>
 			<div class="menu-user clearfix">
