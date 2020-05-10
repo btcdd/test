@@ -22,16 +22,17 @@ li { display: inline-block; padding: 0 20px}
 
 .intro { text-shadow: 2px 2px 2px black; color: #fff; text-align: left; 
 		 font-family: 'Noto Sans KR', sans-serif; font-size: 2.5em;
-		 width: 600px; padding-left: 250px; padding-top: 200px }
+		 width: 600px; padding-left: 250px; padding-top: 160px }
 		 
 .join-btn { border:1px solid white; border-radius: 10px; outline: 0; font-size:1.5em; 
-			background-color: rgba(0,0,0,0); color: #fff; margin: 15px 0 0 200px; padding: 3px 10px}
+			background-color: rgba(0,0,0,0); color: #fff; margin: 15px 0 0 250px; padding: 3px 10px}
 .join-btn:hover { color: #167426; background-color: #fff; }
 
 .codeTest {
-    background-color: #E3E3E3;
+    background-color: #fff;
     margin: auto;
-    padding-top: 30px
+    padding: 50px 0;
+/* 	background-color: #F7F7F7; */
 }
 
 .leftImg {
@@ -68,25 +69,24 @@ select {
 }
 
 #code {
-    width: 480px; 
-    height: 300px;
+    width: 800px; 
+    height: 500px;
     background-color: #fff;
     color: #000;
     font-family: Consolas, sans-serif;
     line-height: 2em;
     font-stretch: ultra-expanded;
-    padding: 3px 10px;
+    padding: 0 10px;
 }
 #result {
-    width: 480px;
-    height: 150px;
+    width: 600px;
+    height: 500px;
     background-color: #fff;
     color: #000;
     font-family: Consolas, sans-serif;
     line-height: 2em;
     font-stretch: ultra-expanded;
-    padding: 3px 10px;
-    margin-bottom: 10px;
+    padding: 0 10px;
 }
 
 .bottom {
@@ -101,26 +101,39 @@ select {
 }
 
 .btn-save {
-    margin-left: 175px;
-    color:#fff; 
-    border-color: #2861ff;
+	border:1px solid #7B7B7B;
     border-radius: 5px;
-    background-color: #2861ff;
+	outline: 0;
+    background-color: rgba(0,0,0,0);
+    color:#7B7B7B; 
+    margin-left: 370px;
 }
 .btn-save:hover{
+    color:#fff;
+    background-color: #7B7B7B;
+}
+
+.btn-compile {
+    border:1px solid #2352d3;
+    border-radius: 5px;
+	outline: 0;
+    background-color: rgba(0,0,0,0);
+    color:#2352d3; 
+    margin-left: 10px;
+}
+.btn-compile:hover{
     color:#fff;
     background-color: #2352d3;
 }
 
-.btn-compile {
-    margin-left: 5px;
-    color:#fff; 
-    border-color: #3f941d;
+.btn-run {
+    border:1px solid #167426;
     border-radius: 5px;
-    background-color: #3f941d;
-    height: 30px;
+	outline: 0;
+    background-color: rgba(0,0,0,0);
+    color:#167426; 
 }
-.btn-compile:hover{
+.btn-run:hover{
     color:#fff;
-    background-color: #357c18;
+    background-color: #167426;
 }
