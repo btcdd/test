@@ -55,5 +55,9 @@ public class UserService {
 		return random;
 		
 	}
+
+	public UserVo getUser(UserVo vo) {
+		return userRepository.findByEmailAndPassword(vo);
+	}
 	
 }
