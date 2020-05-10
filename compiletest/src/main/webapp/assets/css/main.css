@@ -1,43 +1,32 @@
-body {
-    margin: 0;
-    padding: 0;
-}
-.header {
-    background-color: white;
-    border-bottom: 1px solid lightgray;
-}
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@600&display=swap');
 
-.container {
-    width: 980px;
-    margin: auto;
-    padding: 20px 0;
-}
+body { margin: 0; padding: 0; }
+.header { background-color: white; border-bottom: 1px solid #E3E3E3; }
 
-.container-left {
+.container { width: 980px; margin: auto; padding: 20px 0; }
 
-}
+.logo { float: left; margin-right: 40px; margin-top: 4px;}
 
-.logo {
-    float: left;
-    margin-right: 10px;
-}
+.logo a { text-decoration: none; color:#167426; font-family: 'Teko', sans-serif; font-size: 1.7em; margin-left: 20px; margin-top: 4px; }
+.logo a:visited { color: #167426; }
+.logo a:hover { text-decoration:none; color: #167426; }
 
-.logo img {
-    display: block;
-}
+.menu { float: left;}
 
-.menu {
-    float: left;
-}
+.menu-item { float: left; margin: 3px 10px 0 0;padding: 8px 10px; }
 
-.menu-item {
-    float: left;
-    margin-right: 10px;
-    padding: 8px 10px;
-}
+.menu-user { float: right; font-size: 0.8em; margin-top:2px }
+
+.menu a { text-decoration: none; color: #222; }
+.menu a:visited { color: #222; }
+.menu a:hover { text-decoration: none; color:#167426}
+
+.menu-user a { text-decoration: none; color: #222; }
+.menu-user a:visited { color: #222; }
+.menu-user a:hover { text-decoration: none; color:#167426}
 
 .codeTest {
-    background-color: lightgray;
+    background-color: #E3E3E3;
     margin: auto;
 }
 
