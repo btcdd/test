@@ -17,4 +17,9 @@ public class UserRepository {
 		return sqlSession.insert("user.insert", vo);
 	}
 
+
+	public UserVo findByEmailAndPassword(UserVo vo) {
+		return sqlSession.selectOne("user.findByEmailAndPassword", vo);
+	}
+
 }

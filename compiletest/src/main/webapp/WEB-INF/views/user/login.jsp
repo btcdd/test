@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,17 +78,21 @@ body{
         </div>        
         <div id="content">
             <div id="user">
-                <form id="loginform" name="" method="post" action="#" >
+                <form id="loginform" name="" method="post" action="${pageContext.servletContext.contextPath }/user/auth" >
                     <h1>로그인</h1>
                     <div>
                         <label for="email">이메일</label>
-                        <input id="email" name="email" type="text">
+                        <input id="email" name="email" type="text" value="${userVo.email }">
                     </div>
                     <div>
                         <label for="password">패스워드</label>
                         <input id="password" name="password" type="password" value="">
                     </div>
-                    
+                    <c:if test="${not empty userVo }">
+						<p>
+							로그인이 실패 했습니다.
+						</p>
+					</c:if>
                     <div>
                         <input class="button" type="submit" value="로그인">
                         <button class="button" type="submit" value="회원가입" formaction="#">회원가입</button>

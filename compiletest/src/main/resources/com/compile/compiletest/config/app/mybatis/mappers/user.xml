@@ -12,5 +12,12 @@
 		</selectKey>		
 	</insert>
 
+	<select id="findByEmailAndPassword" parameterType="uservo" resultType="uservo">
+			<![CDATA[
+			select *
+			from user
+			where email = #{email} and password = #{password}
+			]]>
+	</select>
 
 </mapper>

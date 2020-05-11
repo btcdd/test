@@ -14,11 +14,18 @@
 				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/codingtest">Coding Test</a></div>
 				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/challenge">Programming Challenge</a></div>
 				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/training">Training</a></div>
-			</div>
+			</div>			
 			<div class="menu-user clearfix">
-				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/login">로그인</a></div>
-				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/join">회원가입</a></div>
-				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/mypage/mypage">마이페이지</a></div>
+			<c:choose>
+					<c:when test="${empty authUser }">
+						<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/login">로그인</a></div>
+						<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/join">회원가입</a></div>
+					</c:when>
+					<c:otherwise>
+						<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/mypage/mypage">마이페이지</a></div>
+						<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a><li>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>
