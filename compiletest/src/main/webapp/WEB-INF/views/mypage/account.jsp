@@ -15,6 +15,8 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+    var pandan = false;
+
     var changeNickname = function(nickname) {
     	$.ajax({
             url: '${pageContext.request.contextPath }/mypage/account/nickname',
@@ -34,13 +36,13 @@
          });
     }
     
-    var changePublic = function() {
+    var changePassword = function(password) {
     	$.ajax({
-            url: '${pageContext.request.contextPath }/mypage/account/public',
+            url: '${pageContext.request.contextPath }/mypage/account/password',
             async: true,
             type: 'post',
             dataType: 'json',
-            data: "public=" + public,
+            data: "password=" + password,
             success: function(response){
                if(response.result != "success") {
                   console.error(response.message);
@@ -52,8 +54,38 @@
             }
          });
     }
-    	
+    
+    var deleteUser = function(password) {
+    	$.ajax({
+            url: '${pageContext.request.contextPath }/mypage/account/delete',
+            async: true,
+            type: 'post',
+            dataType: 'json',
+            data: "password=" + password,
+            success: function(response){
+               if(response.result != "success") {
+                  console.error(response.message);
+                  return;
+               }
+               
+               if(response.data == 0) {
+            	   pandan = false;
+            	   return;
+               } else {
+            	   pandan = true;
+            	   return;
+               }
+            },
+            error: function(xhr, status, e) {
+               console.error(status + ":" + e);
+            }
+         });
+    }
+    
+    var passwordIncorrect = true;
+    
     $(function() {
+    	
         $("#change-nickname").dialog({
             autoOpen: false,
             resizable: false,
@@ -84,9 +116,22 @@
             modal: true,
             buttons: {
                 "회원 탈퇴": function() {
-                    $(this).dialog("close");
+                	deleteUser($('#delete').val());
+                	console.log(pandan);
+                	if(pandan) {
+                		$('#delete').val('');
+                		$(this).dialog("close");
+                	} else {
+                		if(passwordIncorrect) {
+                			$(this).append("<pre id=passwordIncorrect>비밀번호가 맞지 않습니다.</pre>");
+                			passwordIncorrect = false;
+                		}
+                	}
                 },
                 "취소": function() {
+                	passwordIncorrect = true;
+                	$('#delete').val('');
+                	$('#passwordIncorrect').remove();
                     $(this).dialog("close");
                 }
             }
@@ -105,6 +150,7 @@
             modal: true,
             buttons: {
                 "변경": function() {
+                	changePassword($('#password').val());
                     $(this).dialog("close");
                 },
                 "취소": function() {
@@ -172,7 +218,6 @@
 	    </div>
 	
 	    <div id="change-password" title="비밀번호 변경" style="display:none" >
-	        
 	        <pre>
 	            변경하시려는 비밀번호를 입력해주세요.
 	        </pre>
@@ -181,7 +226,7 @@
 	                <label for="name">변경 비밀번호 : </label>
 	                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
 	                <label for="name">비밀번호 확인: </label>
-	                <input type="text" name="password" id="password" value="" class="text ui-widget-content ui-corner-all">
+	                <input type="text" name="passwordSecond" id="passwordSecond" value="" class="text ui-widget-content ui-corner-all">
 	
 	                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 	            </fieldset>
