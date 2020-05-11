@@ -9,5 +9,35 @@
  			 where no = 1
 		]]>
 	</update>
+	
+	<update id="changePassword" parameterType="string">
+		<![CDATA[
+			update user 
+   			   set password = #{password }
+ 			 where no = 1
+		]]>
+	</update>
+	
+	<update id="foreignKeyChecks" parameterType="long">
+		<![CDATA[
+			set foreign_key_checks = #{num }
+		]]>
+	</update>
+	
+	<delete id="deleteUser" parameterType="string">
+		<![CDATA[
+			delete
+  			  from user
+ 			 where no = 1
+		]]>
+	</delete>
+	
+	<select id="lookUpPassword" parameterType="string" resultType="string">
+		<![CDATA[
+			select password
+  			  from user
+			 where email = #{email }
+		]]>
+	</select>
 
 </mapper>

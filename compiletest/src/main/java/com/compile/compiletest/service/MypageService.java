@@ -14,4 +14,23 @@ public class MypageService {
 	public int changeNickname(String nickname) {
 		return mypageRepository.changeNickname(nickname);
 	}
+
+	public int changePassword(String password) {
+		return mypageRepository.changePassword(password);
+	}
+
+	public int deleteUser(String password) {
+		String email = "1sang@gmail.com";
+		String result = mypageRepository.lookUpPassword(email);
+		
+		if(!result.equals(password)) {
+			return 0;
+		}
+		
+		mypageRepository.foreignKeyChecks(0L);
+		int deleteUser = mypageRepository.deleteUser(email);
+		mypageRepository.foreignKeyChecks(1L);
+		
+		return deleteUser;
+	}
 }

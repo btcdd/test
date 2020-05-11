@@ -22,4 +22,18 @@ public class MypageController {
 		
 		return JsonResult.success(result);
 	}
+	
+	@PostMapping(value="/account/password")
+	public JsonResult changePassword(@RequestParam String password) {
+		int result = mypageService.changePassword(password);
+		
+		return JsonResult.success(result);
+	}
+	
+	@PostMapping(value="/account/delete")
+	public JsonResult deleteUser(@RequestParam String password) {
+		int result = mypageService.deleteUser(password);
+		
+		return JsonResult.success(result);
+	}
 }
