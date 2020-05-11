@@ -1,9 +1,12 @@
 package com.compile.compiletest.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.MypageRepository;
+import com.compile.compiletest.vo.ProblemVo;
 
 @Service
 public class MypageService {
@@ -32,5 +35,9 @@ public class MypageService {
 		mypageRepository.foreignKeyChecks(1L);
 		
 		return deleteUser;
+	}
+
+	public List<ProblemVo> selectProblemList(String email) {
+		return mypageRepository.selectProblemList(email);
 	}
 }

@@ -2,8 +2,6 @@ package com.compile.compiletest.vo;
 
 import java.util.Date;
 
-import javax.mail.internet.InternetAddress;
-
 public class UserVo {
 	private Long no;
 	private String name;
@@ -54,8 +52,4 @@ public class UserVo {
 		return "UserVo [no=" + no + ", name=" + name + ", nickname=" + nickname + ", email=" + email + ", birth="
 				+ birth + ", password=" + password + "]";
 	}
-
-	
-
-	
 }

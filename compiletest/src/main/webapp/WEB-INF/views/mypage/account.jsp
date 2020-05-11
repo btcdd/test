@@ -56,30 +56,35 @@
     }
     
     var deleteUser = function(password) {
-    	$.ajax({
+    	  $.ajax({
             url: '${pageContext.request.contextPath }/mypage/account/delete',
             async: true,
             type: 'post',
             dataType: 'json',
             data: "password=" + password,
             success: function(response){
-               if(response.result != "success") {
-                  console.error(response.message);
-                  return;
-               }
-               
                if(response.data == 0) {
-            	   pandan = false;
-            	   return;
+            	   pandan =  false;            	   
                } else {
             	   pandan = true;
-            	   return;
+            	   $("#delete-user").dialog("close");
                }
+               if(response.result != "success") {
+            	   pandan = false;
+                   console.error(response.message);
+               }
+               return pandan;
+   
             },
             error: function(xhr, status, e) {
                console.error(status + ":" + e);
             }
-         });
+
+            
+         });   
+            return pandan;
+    	 
+    	
     }
     
     var passwordIncorrect = true;
@@ -116,9 +121,8 @@
             modal: true,
             buttons: {
                 "회원 탈퇴": function() {
-                	deleteUser($('#delete').val());
                 	console.log(pandan);
-                	if(pandan) {
+                	if(deleteUser($('#delete').val())) {
                 		$('#delete').val('');
                 		$(this).dialog("close");
                 	} else {

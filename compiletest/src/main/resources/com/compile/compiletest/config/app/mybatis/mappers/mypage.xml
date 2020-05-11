@@ -39,5 +39,13 @@
 			 where email = #{email }
 		]]>
 	</select>
+	
+	<select id="selectProblemList" parameterType="string" resultType="problemvo">
+		<![CDATA[
+			select p.no as no, p.title as title, p.hit as hit, p.recommend as recommend
+			  from problem p, user u
+			 where u.no = 1
+		]]>
+	</select>
 
 </mapper>

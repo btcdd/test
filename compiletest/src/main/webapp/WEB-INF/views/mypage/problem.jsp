@@ -29,94 +29,16 @@
                     <th width="11%">삭제</th>
                     <th width="11%">목록</th>
                 </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td id="title">미로탈출</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td><input type="image" src="./delete.png" alt="delete" class="delete"></td>
-                    <td><input type="image" src="./list.png" alt="list" class="list"></td>
-                </tr>
+              	<c:forEach items='${list }' var='problemvo' varStatus='status'>
+                	<tr>
+                		<td>${problemvo.no }</td>
+	                    <td id="title">${problemvo.title }</td>
+	                    <td>${problemvo.hit }</td>
+	                    <td>${problemvo.recommend }</td>
+	                    <td><input type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
+	                    <td><input type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
+                	</tr>
+                </c:forEach>
             </table>
             <br>
         </div>
