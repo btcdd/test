@@ -3,7 +3,11 @@
 <configuration>
 	<typeAliases >
 		<typeAlias alias="uservo" type="com.compile.compiletest.vo.UserVo"/>
-
+		<typeAlias alias="problemvo" type="com.compile.compiletest.vo.ProblemVo"/>
+		<typeAlias alias="kindvo" type="com.compile.compiletest.vo.KindVo"/>
+		<typeAlias alias="levelvo" type="com.compile.compiletest.vo.LevelVo"/>
+		<typeAlias alias="submitvo" type="com.compile.compiletest.vo.SubmitVo"/>
+		<typeAlias alias="subproblemvo" type="com.compile.compiletest.vo.SubProblemVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/compile/compiletest/config/app/mybatis/mappers/user.xml" />

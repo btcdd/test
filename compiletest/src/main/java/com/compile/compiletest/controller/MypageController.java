@@ -1,13 +1,23 @@
 package com.compile.compiletest.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.compile.compiletest.service.MypageService;
+import com.compile.compiletest.vo.ProblemVo;
 
 @Controller
 @RequestMapping("/mypage")
 public class MypageController {
 		
+	@Autowired
+	private MypageService mypageService;
+	
 	@RequestMapping(value="/mypage", method=RequestMethod.GET)
 	public String mypage() {
 		return "mypage/mypage";
@@ -19,7 +29,13 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/problem", method=RequestMethod.GET)
-	public String problem() {
+	public String problem(Model model) {
+		String email = "1sang@gmail.com";
+		List<ProblemVo> list = mypageService.selectProblemList(email);
+		model.addAttribute("list", list);
+		
+		System.out.println(list);
+		
 		return "mypage/problem";
 	}
 }
