@@ -16,43 +16,41 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script>
 
+var checkValues = new Array();
+$("input[name='type']:checked").each(function(){
+	checkValues.push($(this).val());
+});
+
+var data = {};
+data["type"] = checkValues;
+
 var fetchList = function(){
 	$.ajax({
-		url: '${pageContext.request.contextPath }/${authUser.id }/spa/category',
+		url: '${pageContext.request.contextPath }/training/list',
 		async: true,
-		type: 'get',
-		dataType: 'json',
-		data: '',
+		type: 'post',
+		dataType: "json",
+		data: JSON.stringfy(data),
 		success: function(response){
 			if(response.result != "success"){
 				console.error(response.message);
 				return;
 			}
-			
-			var contextPath = '${pageContext.request.contextPath}/assets/images/delete.jpg';
-			var deleteLink = '${pageContext.servletContext.contextPath }/${authUser.id }/';
-			response.contextPath= contextPath;
-			
-			var html = listTemplate.render(response);
-			$(".admin-cat").append(html);
 		},
 		error: function(xhr, status, e){
 			console.error(status + ":" + e);
 		}
-	});	
+	});
 }
-
 
 $(function() {
 	$('#one').change(function() {
 		if($('#one').is(':checked')) {
-			alert("체크");
-			one = 1;
+			
 		} else {
-			alert("해제");
-			one = 0;
+			
 		}
-	});
+	})
 });
 
 </script>
@@ -70,19 +68,19 @@ $(function() {
                         <th>알고리즘</th>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="one" name="" value="">level1</td>
+                        <td><input type="checkbox" id="one" name="type" value="one">level1</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="two" name="" value="">level2</td>
+                        <td><input type="checkbox" id="two" name="type" value="two">level2</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="three" name="" value="">level3</td>
+                        <td><input type="checkbox" id="three" name="type" value="three">level3</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="four" name="" value="">level4</td>
+                        <td><input type="checkbox" id="four" name="type" value="four">level4</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="five" name="" value="">level5</td>
+                        <td><input type="checkbox" id="five" name="type" value="five">level5</td>
                     </tr>
                 </table>
             </div>

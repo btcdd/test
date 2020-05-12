@@ -10,29 +10,29 @@
 				and p.kind_no = k.no
 		]]>
 		<if test="one != null">
-		<![CDATA[
-		    and p.level_no = 1
-		]]>
+			<![CDATA[
+			    and p.level_no = 1
+			]]>
 		</if>
 		<if test="two != null">
-		<![CDATA[
-		    and p.level_no = 2
-		]]>
+			<![CDATA[
+			    and p.level_no = 2
+			]]>
 		</if>
 		<if test="three != null">
-		<![CDATA[
-		    and p.level_no = 3
-		]]>
+			<![CDATA[
+			    and p.level_no = 3
+			]]>
 		</if>
 		<if test="four != null">
-		<![CDATA[
-		    and p.level_no = 4
-		]]>
+			<![CDATA[
+			    and p.level_no = 4
+			]]>
 		</if>
 		<if test="five != null">
-		<![CDATA[
-		    and p.level_no = 5
-		]]>
+			<![CDATA[
+			    and p.level_no = 5
+			]]>
 		</if>
 <!-- 		<![CDATA[ -->
 <!-- 			    and k.no = 5 -->

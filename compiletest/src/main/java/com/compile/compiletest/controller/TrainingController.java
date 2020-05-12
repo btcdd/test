@@ -24,10 +24,12 @@ public class TrainingController {
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String mypage(Model model) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("one", 1L);
-		map.put("one", 3L);
+//		map.put("one", 1L);
+//		map.put("three", 3L);
 		List<ProblemVo> list = trainingService.selectProblemList(map);
 		model.addAttribute("list", list);
+		
+		System.out.println("ggdgdgd");
 		
 		return "training/list";
 	}
