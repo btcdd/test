@@ -1,6 +1,7 @@
 package com.compile.compiletest.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class TrainingRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<ProblemVo> selectProblemList() {
-		return sqlSession.selectList("training.selectProblemList");
+	public List<ProblemVo> selectProblemList(Map<String, Object> map) {
+		return sqlSession.selectList("training.selectProblemList", map);
 	}
 }

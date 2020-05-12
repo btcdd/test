@@ -158,10 +158,6 @@ $(function() {
 
     </div>
 
-	<div style="background-color: #ff0">
-		one : ${one }
-	</div>
-
 </body>
 
 </html>

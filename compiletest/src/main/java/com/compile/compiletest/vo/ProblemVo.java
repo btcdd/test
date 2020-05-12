@@ -17,6 +17,7 @@ public class ProblemVo {
 	private Long levelNo;
 	private String nickname;
 	private String kind;
+	
 	public Long getNo() {
 		return no;
 	}

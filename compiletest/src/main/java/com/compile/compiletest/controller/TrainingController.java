@@ -1,7 +1,9 @@
 package com.compile.compiletest.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +23,10 @@ public class TrainingController {
 	
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String mypage(Model model) {
-		List<ProblemVo> list = trainingService.selectProblemList();
+		Map<String, Object> map = new HashMap<>();
+		map.put("one", 1L);
+		map.put("one", 3L);
+		List<ProblemVo> list = trainingService.selectProblemList(map);
 		model.addAttribute("list", list);
 		
 		return "training/list";
