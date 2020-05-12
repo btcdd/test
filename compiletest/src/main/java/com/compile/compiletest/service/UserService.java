@@ -59,5 +59,13 @@ public class UserService {
 	public UserVo getUser(UserVo vo) {
 		return userRepository.findByEmailAndPassword(vo);
 	}
+
+	public boolean existUser(String email) {
+		return userRepository.find(email) != null;
+	}
+
+	public boolean existNickname(String nickname) {
+		return userRepository.findNickname(nickname) != null;
+	}
 	
 }

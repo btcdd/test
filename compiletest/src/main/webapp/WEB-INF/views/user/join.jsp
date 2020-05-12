@@ -68,14 +68,78 @@ $(function(){
 	});
 	
 	
-	$('#btn-checkEmail').on('click',function(){
-		//중복확인이 된다면 => $('#auth') 버튼이 나오도록 설정을 한다
+	// 중복확인 완료시 체크표시 출력해야함
+	$('#btn-checkemail').click(function() {
+		var email = $("#email").val();
+		if(email == '') {
+			return;
+		}
+		$.ajax({
+			url: "${pageContext.servletContext.contextPath }/api/user/checkemail?email=" + email,
+			async: true,
+			type: 'get',
+			//contentType: 'application/json'
+			data: '',
+			dataType: 'json',
+			success: function(response) {
+				if(response.result == "fail"){
+					console.error(response.message);
+					return;
+				}
+				
+				if(response.data == true){
+					alert('존재하는 이메일입니다.');
+					$("#email")
+						.val('')
+						.focus();
+					return;
+				}
+				$('#btn-checkemail').hide();
+				$('#img-checkemail').show();
+			},
+			error: function(XHR, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
+	});
+	
+	// 닉네임 중복확인
+	// 중복확인 완료시 체크표시 출력해야함
+	$('#btn-checknickname').click(function() {
+		var nickname = $("#nickname").val();
+		if(nickname == '') {
+			return;
+		}
+		$.ajax({
+			url: "${pageContext.servletContext.contextPath }/api/user/nickname?nickname=" + nickname,
+			async: true,
+			type: 'get',
+			//contentType: 'application/json'
+			data: '',
+			dataType: 'json',
+			success: function(response) {
+				if(response.result == "fail"){
+					console.error(response.message);
+					return;
+				}
+				
+				if(response.data == true){
+					alert('존재하는 닉네임입니다.');
+					$("#nickname")
+						.val('')
+						.focus();
+					return;
+				}
+				$('#btn-checknickname').hide();
+				$('#img-checkemail').show();
+			},
+			error: function(XHR, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
 	});
 	
 });
-
-
-
 
     function goMainPage(){
         location.reload("/");
@@ -105,12 +169,12 @@ $(function(){
                     <div>
                         <label for="nickname">닉네임</label>
                         <input id="nickname" name="nickname" type="text" />
-                        <input type="button" id="btn-checkNickname" value="닉네임중복확인" />
+                        <input type="button" id="btn-checknickname" value="닉네임중복확인" />
                     </div>
                     <div>
                         <label for="email">이메일</label>
                         <input id="email" name="email" type="email" />
-                        <input type="button" id="btn-checkEmail" value="이메일중복확인" />
+                        <input type="button" id="btn-checkemail" value="이메일중복확인" />
                     </div>
                     <div>
                         <label for="password">비밀번호</label>
