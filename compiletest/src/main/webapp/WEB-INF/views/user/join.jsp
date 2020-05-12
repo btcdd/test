@@ -28,6 +28,21 @@ body{
     padding: 20px;
     background-color:white;
 }
+.button{
+    width:100px;
+    background-color: hsl(49, 97%, 48%);
+    border:none;
+    color:#fff;
+    padding: 5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+    border-radius:10px;    
+    
+}
 </style>
 <script>
 
@@ -191,8 +206,8 @@ $(function(){
                         <input id="auth-check-button" type="button" value="인증번호확인">
                     </div>                    
                     <div>
-                        <input type="button" value="취소" onclick="goMainPage();">
-                        <input type="submit" value="가입">
+                    	<a href="${pageContext.servletContext.contextPath }/"><input class="button" value="취소"></input></a>
+                        <input type="submit" class="button" value="회원가입" >                        
                     </div>
                 </form>
             </div>
