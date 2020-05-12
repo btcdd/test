@@ -2,6 +2,7 @@ package com.compile.compiletest.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,17 @@ public class UserController {
 		boolean exist = userService.existNickname(nickname);
 
 		return JsonResult.success(exist);
+	}
+	
+	@ResponseBody
+	@GetMapping("emailAuth")
+	public JsonResult emailAuth(@RequestParam(value="email",required=true,defaultValue="") String email) {
+		
+		int tempKey = userService.getTempKey();
+		userService.sendMail(email,tempKey);
+		
+		
+		return JsonResult.success(tempKey);
 	}
 }
 
