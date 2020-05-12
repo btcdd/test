@@ -22,4 +22,14 @@ public class UserRepository {
 		return sqlSession.selectOne("user.findByEmailAndPassword", vo);
 	}
 
+
+	public Object find(String email) {
+		return sqlSession.selectOne("user.findByEmail", email);
+	}
+
+
+	public Object findNickname(String nickname) {
+		return sqlSession.selectOne("user.findByNickname", nickname);
+	}
+
 }
