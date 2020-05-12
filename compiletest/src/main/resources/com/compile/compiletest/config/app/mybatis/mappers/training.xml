@@ -2,13 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="training">
 	
-	<select id="selectProblemList" resultType="problemvo">
+	<select id="selectProblemList" parameterType="hashmap" resultType="problemvo">
 		<![CDATA[
-			select p.no as no, p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend
-			  from problem p, user u, kind k 
-			 where p.user_no = u.no
-			   and p.kind_no = k.no
+			select p.no as no, p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend, p.level_no as level 
+			from problem p, user u, kind k 
+			where p.user_no = u.no
+				and p.kind_no = k.no
 		]]>
+		<if test="one != null">
+		<![CDATA[
+		    and p.level_no = 1
+		]]>
+		</if>
+		<if test="two != null">
+		<![CDATA[
+		    and p.level_no = 2
+		]]>
+		</if>
+		<if test="three != null">
+		<![CDATA[
+		    and p.level_no = 3
+		]]>
+		</if>
+		<if test="four != null">
+		<![CDATA[
+		    and p.level_no = 4
+		]]>
+		</if>
+		<if test="five != null">
+		<![CDATA[
+		    and p.level_no = 5
+		]]>
+		</if>
+<!-- 		<![CDATA[ -->
+<!-- 			    and k.no = 5 -->
+<!-- 		]]> -->
 	</select>
 	
 	
