@@ -11,11 +11,12 @@ public class ProblemVo {
 	private Long recommend;
 	private Date regDate;
 	private Long userNo;
-	private Long categoryNo;
+	private Long kindNo;
 	private Timestamp startTime;
 	private Timestamp endTime;
 	private Long levelNo;
-	
+	private String nickname;
+	private String kind;
 	public Long getNo() {
 		return no;
 	}
@@ -58,11 +59,11 @@ public class ProblemVo {
 	public void setUserNo(Long userNo) {
 		this.userNo = userNo;
 	}
-	public Long getCategoryNo() {
-		return categoryNo;
+	public Long getKindNo() {
+		return kindNo;
 	}
-	public void setCategoryNo(Long categoryNo) {
-		this.categoryNo = categoryNo;
+	public void setKindNo(Long kindNo) {
+		this.kindNo = kindNo;
 	}
 	public Timestamp getStartTime() {
 		return startTime;
@@ -82,11 +83,24 @@ public class ProblemVo {
 	public void setLevelNo(Long levelNo) {
 		this.levelNo = levelNo;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getKind() {
+		return kind;
+	}
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
 	
 	@Override
 	public String toString() {
 		return "ProblemVo [no=" + no + ", title=" + title + ", password=" + password + ", hit=" + hit + ", recommend="
-				+ recommend + ", regDate=" + regDate + ", userNo=" + userNo + ", categoryNo=" + categoryNo
-				+ ", startTime=" + startTime + ", endTime=" + endTime + ", levelNo=" + levelNo + "]";
-	}	
+				+ recommend + ", regDate=" + regDate + ", userNo=" + userNo + ", kindNo=" + kindNo + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", levelNo=" + levelNo + ", nickname=" + nickname + ", kind="
+				+ kind + "]";
+	}
 }

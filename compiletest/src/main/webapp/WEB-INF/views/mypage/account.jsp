@@ -11,7 +11,6 @@
     <title>Code Forest</title>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/mypage/account.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!-- <link rel="stylesheet" href="/resources/demos/style.css">  -->
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
@@ -74,17 +73,12 @@
                    console.error(response.message);
                }
                return pandan;
-   
             },
             error: function(xhr, status, e) {
                console.error(status + ":" + e);
             }
-
-            
-         });   
-            return pandan;
-    	 
-    	
+          });   
+    	  return pandan;
     }
     
     var passwordIncorrect = true;
@@ -121,7 +115,6 @@
             modal: true,
             buttons: {
                 "회원 탈퇴": function() {
-                	console.log(pandan);
                 	if(deleteUser($('#delete').val())) {
                 		$('#delete').val('');
                 		$(this).dialog("close");
