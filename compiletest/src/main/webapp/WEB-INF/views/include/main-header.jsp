@@ -7,7 +7,7 @@
 	<div class="head">
 		<div class="container-left clearfix">
 			<div class="logo">
-				<a href="">Code Forest</a>
+				<a href="${pageContext.servletContext.contextPath }/main-in">Code Forest</a>
 			</div>
 			<div class="menu clearfix">
 				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/codetree">Code Tree</a></div>
@@ -16,16 +16,8 @@
 				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/training">Training</a></div>
 			</div>			
 			<div class="menu-user clearfix">
-			<c:choose>
-					<c:when test="${empty authUser }">
-						<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/login">로그인</a></div>
-						<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/join">회원가입</a></div>
-					</c:when>
-					<c:otherwise>
-						<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/mypage/mypage">마이페이지</a></div>
-						<li><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a><li>
-					</c:otherwise>
-				</c:choose>
+				<div class="menu-item"><a href="${pageContext.servletContext.contextPath }/mypage/mypage">마이페이지</a></div>
+				<div class="menu-item"><a href="${pageContext.request.contextPath }/user/logout">로그아웃</a></div>
 			</div>
 		</div>
 	</div>

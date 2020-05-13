@@ -13,9 +13,9 @@ body { margin: 0; padding: 0; }
 
 .menu { float: left;}
 
-.menu-item { float: left; margin: 3px 10px 0 0;padding: 8px 10px; }
-
 .menu-user { float: right; font-size: 0.8em; margin-top:2px }
+
+.menu-item { float: left; margin: 3px 10px 0 0; padding: 8px 10px }
 
 .menu a { text-decoration: none; color: #222; }
 .menu a:visited { color: #222; }
