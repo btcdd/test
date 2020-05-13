@@ -29,8 +29,6 @@ public class TrainingController {
 		List<ProblemVo> list = trainingService.selectProblemList(map);
 		model.addAttribute("list", list);
 		
-		System.out.println("ggdgdgd");
-		
 		return "training/list";
 	}
 }

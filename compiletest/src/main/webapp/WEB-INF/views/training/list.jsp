@@ -21,36 +21,60 @@ $("input[name='type']:checked").each(function(){
 	checkValues.push($(this).val());
 });
 
-var data = {};
-data["type"] = checkValues;
+var levelList = new Array();
 
-var fetchList = function(){
+var selectList = function(){
 	$.ajax({
 		url: '${pageContext.request.contextPath }/training/list',
-		async: true,
+		async: false,
 		type: 'post',
-		dataType: "json",
-		data: JSON.stringfy(data),
+		traditional: true,
+		data: {'checkValues':checkValues},
 		success: function(response){
 			if(response.result != "success"){
 				console.error(response.message);
 				return;
 			}
+			levelList = response.data;
 		},
 		error: function(xhr, status, e){
+			console.log('asdfasdf');
 			console.error(status + ":" + e);
 		}
 	});
 }
 
+var fetchList = function() {
+	$(".list tr td").remove();
+	console.log(levelList);
+	var str = "";
+	for(var i = 0; i < levelList.length; i++) {
+		str += '<tr>' +
+    				'<td><a data-no=' + levelList[i].no + '>' + levelList[i].no +'</a></td>' +
+            		'<td id="title">' + levelList[i].title + '</td>' +
+		            '<td>' + levelList[i].kind + '</td>' + 
+		            '<td>' + levelList[i].nickname + '</td>' + 
+		            '<td>' + levelList[i].hit  + '</td>' +
+		            '<td>' + levelList[i].recommend + '</td>' + 
+    			'</tr>';
+	}
+	// $(".list").append("<c:forEach items='${levelList }' var='problemvo' varStatus='status'><tr><td><a data-no='${problemvo.no }'>${problemvo.no }</a></td><td id='title'>${problemvo.title }</td><td>${problemvo.kind }</td><td>${problemvo.nickname }</td><td>${problemvo.hit }</td><td>${problemvo.recommend }</td></tr></c:forEach>");
+	$(".list table").append(str);
+	console.log("asdgasdgasdfasdfaf" + str);
+}
+
 $(function() {
-	$('#one').change(function() {
-		if($('#one').is(':checked')) {
-			
-		} else {
-			
-		}
-	})
+	$('input[name=type]').change(function() {
+		
+		$("input[name=type]:checked").each(function(i) {
+			console.log($(this).val());
+			checkValues.push($(this).val());
+		})
+		selectList();
+		fetchList();
+		
+		checkValues = new Array();
+	});
 });
 
 </script>
@@ -121,14 +145,6 @@ $(function() {
                 </tr>
                 <c:forEach items='${list }' var='problemvo' varStatus='status'>
                 	<tr>
-                		<c:choose>
-							<c:when test="">
-								
-							</c:when>
-							<c:otherwise>
-								
-							</c:otherwise>
-						</c:choose>
                 		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td>
 	                    <td id="title">${problemvo.title }</td>
 	                    <td>${problemvo.kind }</td>
