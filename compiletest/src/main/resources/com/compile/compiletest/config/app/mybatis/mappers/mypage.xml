@@ -47,5 +47,13 @@
 			 where u.no = 1
 		]]>
 	</select>
+	
+	<update id="deleteProblem" parameterType="long">
+		<![CDATA[
+			update problem
+			   set state = 'n'
+			 where no = 1
+		]]>
+	</update>
 
 </mapper>

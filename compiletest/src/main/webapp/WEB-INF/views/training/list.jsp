@@ -10,12 +10,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Forest</title>
-    <link href="list.css" rel="stylesheet" type="text/css">
-    <link href="header.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.servletContext.contextPath }/assets/css/training/list.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.servletContext.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script>
+
+var checkValues = new Array();
+$("input[name='type']:checked").each(function(){
+	checkValues.push($(this).val());
+});
+
+var data = {};
+data["type"] = checkValues;
+
+var fetchList = function(){
+	$.ajax({
+		url: '${pageContext.request.contextPath }/training/list',
+		async: true,
+		type: 'post',
+		dataType: "json",
+		data: JSON.stringfy(data),
+		success: function(response){
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
+	});
+}
+
+$(function() {
+	$('#one').change(function() {
+		if($('#one').is(':checked')) {
+			
+		} else {
+			
+		}
+	})
+});
+
+</script>
+
+
 </head>
 
 <body>
-    <c:import url="/WEB-INF/views/include/header.jsp" />
+    <c:import url="/WEB-INF/views/include/main-header.jsp" />
     <div class="content">
         <div class="menu-bar">
             <div class="algo">
@@ -24,19 +68,19 @@
                         <th>알고리즘</th>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="" value="">level1</td>
+                        <td><input type="checkbox" id="one" name="type" value="one">level1</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="" value="">level2</td>
+                        <td><input type="checkbox" id="two" name="type" value="two">level2</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="" value="">level3</td>
+                        <td><input type="checkbox" id="three" name="type" value="three">level3</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="" value="">level4</td>
+                        <td><input type="checkbox" id="four" name="type" value="four">level4</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="" value="">level5</td>
+                        <td><input type="checkbox" id="five" name="type" value="five">level5</td>
                     </tr>
                 </table>
             </div>
@@ -75,166 +119,24 @@
                     <th>조회수</th>
                     <th>추천수</th>
                 </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
-                <tr>
-                    <td>111</td>
-                    <td>더존비즈온</td>
-                    <td>기업</td>
-                    <td>글쓴이</td>
-                    <td>11</td>
-                    <td>22</td>
-                </tr>
+                <c:forEach items='${list }' var='problemvo' varStatus='status'>
+                	<tr>
+                		<c:choose>
+							<c:when test="">
+								
+							</c:when>
+							<c:otherwise>
+								
+							</c:otherwise>
+						</c:choose>
+                		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td>
+	                    <td id="title">${problemvo.title }</td>
+	                    <td>${problemvo.kind }</td>
+	                    <td>${problemvo.nickname }</td>
+	                    <td>${problemvo.hit }</td>
+	                    <td>${problemvo.recommend }</td>
+                	</tr>
+                </c:forEach>
             </table>
             <div class="make-problem">
                 <button><a href="">문제작성</a></button>

@@ -12,5 +12,6 @@
 	<mappers>
 		<mapper resource="com/compile/compiletest/config/app/mybatis/mappers/user.xml" />
 		<mapper resource="com/compile/compiletest/config/app/mybatis/mappers/mypage.xml" />
+		<mapper resource="com/compile/compiletest/config/app/mybatis/mappers/training.xml" />
 	</mappers>
 </configuration>

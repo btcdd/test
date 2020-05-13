@@ -40,4 +40,8 @@ public class MypageService {
 	public List<ProblemVo> selectProblemList(String email) {
 		return mypageRepository.selectProblemList(email);
 	}
+
+	public int deleteProblem(Long no) {
+		return mypageRepository.deleteProblem(no);
+	}
 }
