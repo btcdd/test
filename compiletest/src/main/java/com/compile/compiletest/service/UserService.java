@@ -35,7 +35,7 @@ public class UserService {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 			messageHelper.setTo(email);
 			messageHelper.setText("인증번호 : "+tempKey);
-			messageHelper.setFrom("wltnfdlek@gmail.com");
+			messageHelper.setFrom("codeforest2020@gmail.com");
 			messageHelper.setSubject("[회원가입 인증번호]");
 			
 			mailSender.send(message);

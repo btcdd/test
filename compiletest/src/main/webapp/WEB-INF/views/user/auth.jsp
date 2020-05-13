@@ -62,7 +62,7 @@ $(function(){
                     <div class="menu clearfix">
                         <div class="menu-item">Code Tree</div>
                         <div class="menu-item">Coding Test</div>
-                        <div class="menu-item">Coding Training</div>
+                        <div class="menu-item">Coding Training</div> 
                     </div>
                 </div>
             </div>

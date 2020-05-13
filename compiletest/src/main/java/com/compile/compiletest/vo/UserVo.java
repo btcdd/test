@@ -2,12 +2,29 @@ package com.compile.compiletest.vo;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserVo {
 	private Long no;
+	
+	 
 	private String name;
+	
+	@NotEmpty
+	@Length(min=1,max=8)
 	private String nickname;
+	
+	@NotEmpty
+	@Email
 	private String email;
+	
+	
 	private Date birth;
+	
+	@NotEmpty
+	@Length(min=4,max=16)
 	private String password;
 	
 	
