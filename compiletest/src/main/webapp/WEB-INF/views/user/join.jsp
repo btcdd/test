@@ -84,7 +84,7 @@ body{
 	var closeLoadingWithMask = function CloseLoadingWithMask(){
 		$('#mask,#loadingImg').hide();
 		$('#mask,#loadingImg').empty();
-	}
+	} 
 	
 
 $(function(){

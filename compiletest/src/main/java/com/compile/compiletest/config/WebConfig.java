@@ -14,5 +14,5 @@ import com.compile.compiletest.config.web.SecurityConfig;
 @ComponentScan("com.compile.compiletest.controller")
 @Import({MvcConfig.class, SecurityConfig.class,MessageConfig.class})
 public class WebConfig {
-	
+	 
 }

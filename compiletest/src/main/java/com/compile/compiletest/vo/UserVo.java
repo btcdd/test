@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UserVo {
 	private Long no;
 	
-	
+	 
 	private String name;
 	
 	@NotEmpty

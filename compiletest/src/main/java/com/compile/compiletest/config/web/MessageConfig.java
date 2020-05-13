@@ -11,7 +11,7 @@ public class MessageConfig {
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
 		messageSource.setBasename("com/compile/compiletest/config/web/properties/messages_ko");
-		messageSource.setDefaultEncoding("UTF-8");
+		messageSource.setDefaultEncoding("UTF-8"); 
 		return messageSource;
 	}
 }

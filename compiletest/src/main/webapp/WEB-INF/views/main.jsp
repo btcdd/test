@@ -167,7 +167,7 @@ $(function() {
                
                <tr>
                     <td colspan="4">
-                       <textarea name="" id="result" readonly></textarea>
+                       <textarea name="" id="result" readonly></textarea> 
                     </td>
                </tr>
             </table>

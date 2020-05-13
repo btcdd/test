@@ -59,7 +59,7 @@ $(function(){
                         <img src="https://user-images.githubusercontent.com/59616862/80387335-7fb8e980-88e3-11ea-99ac-2c643a77a40c.png" alt="CodeForest">
                     </div>
                     <div class="menu clearfix">
-                        <div class="menu-item">Code Tree</div>
+                        <div class="menu-item">Code Tree</div> 
                         <div class="menu-item">Coding Test</div>
                         <div class="menu-item">Coding Training</div>
                     </div>

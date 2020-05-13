@@ -59,7 +59,7 @@ public class UserController {
 	public String joinCheck() {
 		return "user/join-check";
 	}
-
+ 
 	
 	
 	@RequestMapping(value="/auth", method = RequestMethod.POST)

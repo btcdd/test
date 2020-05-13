@@ -27,7 +27,7 @@ public class UserController {
 		return JsonResult.success(tempKey);
 	}	
 	
-	
+	 
 	@RequestMapping(value = "/checkemail", method = RequestMethod.GET)
 	public JsonResult checkEmail(@RequestParam(value="email", required = true, defaultValue = "")String email) {
 		boolean exist = userService.existUser(email);
