@@ -38,18 +38,39 @@ var selectList = function(){
 			levelList = response.data;
 		},
 		error: function(xhr, status, e){
-			console.log('asdfasdf');
+			console.error(status + ":" + e);
+		}
+	});
+}
+
+var originList = function() {
+	$.ajax({
+		url: '${pageContext.request.contextPath }/training/list',
+		async: false,
+		type: 'get',
+		dataType: 'json',
+		data: '',
+		success: function(response){
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}
+			levelList = response.data;
+			
+			fetchList();
+		},
+		error: function(xhr, status, e){
 			console.error(status + ":" + e);
 		}
 	});
 }
 
 var fetchList = function() {
-	$(".list tr td").remove();
+	$(".list #tr").remove();
 	console.log(levelList);
 	var str = "";
 	for(var i = 0; i < levelList.length; i++) {
-		str += '<tr>' +
+		str += '<tr id="tr">' +
     				'<td><a data-no=' + levelList[i].no + '>' + levelList[i].no +'</a></td>' +
             		'<td id="title">' + levelList[i].title + '</td>' +
 		            '<td>' + levelList[i].kind + '</td>' + 
@@ -64,16 +85,24 @@ var fetchList = function() {
 }
 
 $(function() {
+	originList();
+	
 	$('input[name=type]').change(function() {
 		
+		var pandan = false;
 		$("input[name=type]:checked").each(function(i) {
-			console.log($(this).val());
 			checkValues.push($(this).val());
+			pandan = true;
 		})
-		selectList();
-		fetchList();
 		
-		checkValues = new Array();
+		if(!pandan) {
+			originList();
+		}
+		else {
+			selectList();
+			fetchList();
+			checkValues = new Array();
+		}
 	});
 });
 
@@ -143,16 +172,16 @@ $(function() {
                     <th>조회수</th>
                     <th>추천수</th>
                 </tr>
-                <c:forEach items='${list }' var='problemvo' varStatus='status'>
-                	<tr>
-                		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td>
-	                    <td id="title">${problemvo.title }</td>
-	                    <td>${problemvo.kind }</td>
-	                    <td>${problemvo.nickname }</td>
-	                    <td>${problemvo.hit }</td>
-	                    <td>${problemvo.recommend }</td>
-                	</tr>
-                </c:forEach>
+<%--                 <c:forEach items='${list }' var='problemvo' varStatus='status'> --%>
+<!--                 	<tr id="tr"> -->
+<%--                 		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td> --%>
+<%-- 	                    <td id="title">${problemvo.title }</td> --%>
+<%-- 	                    <td>${problemvo.kind }</td> --%>
+<%-- 	                    <td>${problemvo.nickname }</td> --%>
+<%-- 	                    <td>${problemvo.hit }</td> --%>
+<%-- 	                    <td>${problemvo.recommend }</td> --%>
+<!--                 	</tr> -->
+<%--                 </c:forEach> --%>
             </table>
             <div class="make-problem">
                 <button><a href="">문제작성</a></button>
