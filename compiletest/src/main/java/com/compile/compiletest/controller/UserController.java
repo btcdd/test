@@ -1,15 +1,18 @@
 package com.compile.compiletest.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.service.UserService;
 import com.compile.compiletest.vo.UserVo;
 import com.compile.security.AuthUser;
@@ -22,12 +25,21 @@ public class UserController {
 	private UserService userService;	
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join() {
+	public String join(@ModelAttribute UserVo vo) {
 		return "user/join";
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute("userVo") UserVo vo) {
+	public String join(@ModelAttribute @Valid UserVo vo,BindingResult result,Model model) {
+		if(result.hasErrors()) {
+			List<ObjectError> list = result.getAllErrors();
+			for(ObjectError error : list) {
+				System.out.println(error);
+			}
+			System.out.println("들어왔다!!");
+			model.addAllAttributes(result.getModel());
+			return "/user/join";
+		}
 		userService.join(vo);
 		return "redirect:/";
 	}
@@ -48,16 +60,7 @@ public class UserController {
 		return "user/join-check";
 	}
 
-	@ResponseBody
-	@GetMapping("emailAuth")
-	public JsonResult emailAuth(@RequestParam(value="email",required=true,defaultValue="") String email) {
-		
-		int tempKey = userService.getTempKey();
-		userService.sendMail(email,tempKey);
-		
-		
-		return JsonResult.success(tempKey);
-	}
+	
 	
 	@RequestMapping(value="/auth", method = RequestMethod.POST)
 	public void auth() {	
