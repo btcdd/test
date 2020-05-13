@@ -48,20 +48,9 @@ public class UserController {
 		return "user/join-check";
 	}
 
-	@ResponseBody
-	@GetMapping("emailAuth")
-	public JsonResult emailAuth(@RequestParam(value="email",required=true,defaultValue="") String email) {
-		
-		int tempKey = userService.getTempKey();
-		userService.sendMail(email,tempKey);
-		
-		
-		return JsonResult.success(tempKey);
-	}
 	
 	@RequestMapping(value="/auth", method = RequestMethod.POST)
 	public void auth() {	
-		System.out.println("컨트롤러 auth");
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
