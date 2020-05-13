@@ -28,7 +28,9 @@ public class TrainingController {
 		for(int i = 0; i < checkValues.length; i++) {
 			map.put(checkValues[i], checkValues[i]);
 		}
+		
 		map.put("size", map.size());
+		System.out.println(map);
 		List<ProblemVo> levelList = trainingService.selectProblemList(map);
 		
 		return JsonResult.success(levelList);

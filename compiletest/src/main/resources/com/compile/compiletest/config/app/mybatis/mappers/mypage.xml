@@ -45,6 +45,7 @@
 			select p.no as no, p.title as title, p.hit as hit, p.recommend as recommend
 			  from problem p, user u
 			 where u.no = 1
+			   and p.state = 'y'
 		]]>
 	</select>
 	
@@ -52,7 +53,7 @@
 		<![CDATA[
 			update problem
 			   set state = 'n'
-			 where no = 1
+			 where no = #{no }
 		]]>
 	</update>
 

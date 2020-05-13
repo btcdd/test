@@ -12,41 +12,40 @@
                 and p.kind_no = 6
 		]]>
 		
-		and (p.level_no = 1 or p.level_no = 3 or p.level_no = 2)
-		
 		<if test="size != 0">
 			<![CDATA[
-				and	(		
+				and	(
 			]]>
-		</if>
+		
 		<if test="one != null">
 			<![CDATA[
-			    p.level_no = 1 or
+			    p.level_no = 1 or 
 			]]>
 		</if>
 		<if test="two != null">
 			<![CDATA[
-			    p.level_no = 2 or
+			    p.level_no = 2 or 
 			]]>
 		</if>
 		<if test="three != null">
 			<![CDATA[
-			    p.level_no = 3 or
+			    p.level_no = 3 or 
 			]]>
 		</if>
 		<if test="four != null">
 			<![CDATA[
-			    p.level_no = 4 or
+			    p.level_no = 4 or 
 			]]>
 		</if>
 		<if test="five != null">
 			<![CDATA[
-			    p.level_no = 5 or
+			    p.level_no = 5 or 
 			]]>
 		</if>
 		<![CDATA[
-		p.user_no = 10000)		
+		 0=1)
 		]]>
+		</if>
 <!-- 		<![CDATA[ -->
 <!-- 			    and k.no = 5 -->
 <!-- 		]]> -->
