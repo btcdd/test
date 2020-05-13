@@ -7,33 +7,46 @@
 			select p.no as no, p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend, p.level_no as level 
 			from problem p, user u, kind k 
 			where p.user_no = u.no
+				and p.user_no = 10000
 				and p.kind_no = k.no
+                and p.kind_no = 6
 		]]>
+		
+		and (p.level_no = 1 or p.level_no = 3 or p.level_no = 2)
+		
+		<if test="size != 0">
+			<![CDATA[
+				and	(		
+			]]>
+		</if>
 		<if test="one != null">
 			<![CDATA[
-			    and p.level_no = 1
+			    p.level_no = 1 or
 			]]>
 		</if>
 		<if test="two != null">
 			<![CDATA[
-			    and p.level_no = 2
+			    p.level_no = 2 or
 			]]>
 		</if>
 		<if test="three != null">
 			<![CDATA[
-			    and p.level_no = 3
+			    p.level_no = 3 or
 			]]>
 		</if>
 		<if test="four != null">
 			<![CDATA[
-			    and p.level_no = 4
+			    p.level_no = 4 or
 			]]>
 		</if>
 		<if test="five != null">
 			<![CDATA[
-			    and p.level_no = 5
+			    p.level_no = 5 or
 			]]>
 		</if>
+		<![CDATA[
+		p.user_no = 10000)		
+		]]>
 <!-- 		<![CDATA[ -->
 <!-- 			    and k.no = 5 -->
 <!-- 		]]> -->
