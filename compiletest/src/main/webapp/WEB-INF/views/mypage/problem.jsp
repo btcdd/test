@@ -57,6 +57,48 @@ $(function() {
 		dialogDelete.dialog('open');
 	});
 	
+	// 문제 푼 사람 리스트 출력
+	var dialogList = $("#problem-list").dialog({
+		autoOpen: false,
+		resizable: false,
+		height: "auto",
+		width: 1200,
+		modal: true,
+		buttons: {
+			"내보내기": function() {
+				
+			},
+			"취소": function() {
+				$(this).dialog('close');
+			}
+		},
+		close: function() {
+			$("#hidden-no").val('');
+		}
+	});
+	
+	$(document).on('click', '.list', function(event) {
+		event.preventDefault();
+		
+		var no = $(this).data('no');		
+		console.log(no);
+		$.ajax({
+			url: '${pageContext.servletContext.contextPath }/mypage/problem/list/' + no,
+			async: true,
+			type: 'post',
+			dataType: 'json',
+			data: '',
+			success: function(response) {
+				console.log(response.data);
+				$("")
+				dialogList.dialog('open');
+			},
+			error: function(xhr, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
+	});
+	
 });
 
 
@@ -88,7 +130,7 @@ $(function() {
 	                    <td>${problemvo.hit }</td>
 	                    <td>${problemvo.recommend }</td>
 	                    <td><input type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
-	                    <td><input type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
+	                    <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
                 	</tr>
                 </c:forEach>
             </table>
@@ -107,6 +149,30 @@ $(function() {
     		<input type="hidden" id="hidden-no" value="">
     		<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     	</form>
+    </div>
+    
+    <div id="problem-list" title="문제 푼 사람 리스트" style="display: none">
+    	<table class="problem-list-table">
+    		<tr>
+            	<th>이름</th>
+                <th>이메일</th>
+                <th>닉네임</th>
+                <th>시도 횟수</th>
+                <th>언어</th>
+                <th>해결 시간</th>
+            </tr>
+	        <c:forEach items='' var='submitVo' varStatus='status'>
+	           	<tr>
+	           		<td>${submitVo.name }</td>
+	                <td>${submitVo.email }</td>
+	                <td>${submitVo.nickname }</td>
+	                <td>${submitVo.tryCount }</td>
+	                <td>${submitVo.lang }</td>
+	                <td>${submitVo.solveTime }</td>
+	           	</tr>
+	        </c:forEach>
+    	</table>
+
     </div>
     
 </body>

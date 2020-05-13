@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SubmitVo;
 
 @Repository
 public class MypageRepository {
@@ -40,5 +41,9 @@ public class MypageRepository {
 
 	public int deleteProblem(Long no) {
 		return sqlSession.delete("mypage.deleteProblem", no);
+	}
+
+	public List<SubmitVo> problemSolveList(Long no) {
+		return sqlSession.selectList("mypage.problemSolveList", no);
 	}
 }

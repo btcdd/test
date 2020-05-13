@@ -1,5 +1,7 @@
 package com.compile.compiletest.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.service.MypageService;
+import com.compile.compiletest.vo.SubmitVo;
 
 @RestController("MypageController")
 @RequestMapping("/mypage")
@@ -42,6 +45,14 @@ public class MypageController {
 	@DeleteMapping(value="/problem/delete/{no}")
 	public JsonResult deleteProblem(@PathVariable("no") Long no) {
 		int result = mypageService.deleteProblem(no);
+		
+		return JsonResult.success(result);
+	}
+	
+	// 문제 푼 사람 리스트
+	@PostMapping(value="/problem/list/{no}")
+	public JsonResult listProblem(@PathVariable("no") Long no) {
+		List<SubmitVo> result = mypageService.problemSolveList(no);
 		
 		return JsonResult.success(result);
 	}

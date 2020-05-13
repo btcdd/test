@@ -20,7 +20,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }    
- #loginform{
+ #login-form{
     width:350px;
     margin:100px auto;
     border: 1px solid gray;
@@ -50,13 +50,49 @@ $(function(){
 	
 	var tempKey = null;
 	
+	$("#login-form").submit(function(e) {
+		e.preventDefault();
+		
+		if($("#name").val() == '') {
+			alert("이름이 비어있습니다.");
+			$("#name").focus();
+			return;
+		}
+		
+		if($("#email").val() == '') {
+			alert("이메일이 비어있습니다.");
+			$("#email").focus();
+			return;
+		}
+		
+		if($("#password").val() == '') {
+			alert("비밀번호가 비어있습니다.");
+			$("#password").focus();
+			return;
+		}
+		
+		if($("passwordCheck").is(":hidden")) {
+			alert("비밀번호 확인을 입력하지 않았습니다.");
+			$("#email").focus();
+			return;
+		}
+		
+		if($("#auth-check").is(":checked") == false) {
+			alert("악관 동의가 필요합니다");
+			$("#agree-prov").focus();
+			return;
+		}
+		
+		this.submit();
+	});	
+	
 	$('#auth').on('click',function(){
 		
 		var email = $('#email').val();
 		
 		
 		$.ajax({
-			url:'${pageContext.request.contextPath}/user/emailAuth',
+			url:'${pageContext.request.contextPath}/api/user/emailAuth',
 			async:true,
 			type:'get',
 			dataType:'json',
@@ -179,7 +215,7 @@ $(function(){
         </div>        
         <div id="content">
             <div id="user">
-                <form id="loginform" method="post" action="${pageContext.servletContext.contextPath }/user/join">
+                <form id="login-form" method="post" action="${pageContext.servletContext.contextPath }/user/join">
                     <h1>회원가입</h1>
                     <div>
                         <label for="nickname">닉네임</label>

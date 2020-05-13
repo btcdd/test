@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.MypageRepository;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SubmitVo;
 
 @Service
 public class MypageService {
@@ -43,5 +44,9 @@ public class MypageService {
 
 	public int deleteProblem(Long no) {
 		return mypageRepository.deleteProblem(no);
+	}
+
+	public List<SubmitVo> problemSolveList(Long no) {
+		return mypageRepository.problemSolveList(no);
 	}
 }
