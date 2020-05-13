@@ -34,7 +34,7 @@ public class MypageController {
 		
 		return JsonResult.success(result);
 	}
-	
+	 
 	@PostMapping(value="/account/delete")
 	public JsonResult deleteUser(@RequestParam String password) {
 		int result = mypageService.deleteUser(password);

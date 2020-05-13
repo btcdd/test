@@ -23,7 +23,7 @@ body{
     background-size: cover;
 }
 
-#loginform{
+#login-form{
     width:350px;
     margin:100px auto;
     border: 1px solid gray;
@@ -53,11 +53,7 @@ body{
 }
 </style>
 <script>
-    function join(frm){
-        frm.action="//";
-        frm.submit();
-        return true;
-    }
+ 
 </script>
 </head>
 <body>
@@ -71,14 +67,14 @@ body{
                     <div class="menu clearfix">
                         <div class="menu-item">Code Tree</div>
                         <div class="menu-item">Coding Test</div>
-                        <div class="menu-item">Coding Training</div>
+                        <div class="menu-item">Coding Training</div> 
                     </div>
                 </div>
             </div>
         </div>        
         <div id="content">
             <div id="user">
-                <form id="loginform" name="" method="post" action="${pageContext.servletContext.contextPath }/user/auth" >
+                <form id="login-form" name="" method="post" action="${pageContext.servletContext.contextPath }/user/auth" >
                     <h1>로그인</h1>
                     <div>
                         <label for="email">이메일</label>
@@ -95,7 +91,11 @@ body{
 					</c:if>
                     <div >
                         <input class="button" type="submit" value="로그인">
-                        <a href="${pageContext.servletContext.contextPath }/user/join"><input class="button" value="회원가입"></input></a>
+
+	                    <a href="${pageContext.servletContext.contextPath }/user/join"><input class="button" value="회원가입" /></a>
+
+
+
                     </div>
                         
                     <div>

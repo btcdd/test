@@ -26,7 +26,7 @@ $(function() {
 			"삭제": function() {
 				var no = $("#hidden-no").val();
 				$.ajax({
-					url: '${pageContext.servletContext.contextPath }/mypage/problem/delete' + no,
+					url: '${pageContext.servletContext.contextPath }/mypage/problem/delete/' + no,
 					async: true,
 					type: 'delete',
 					dataType: 'json',
@@ -129,8 +129,9 @@ $(function() {
 	                    <td id="title">${problemvo.title }</td>
 	                    <td>${problemvo.hit }</td>
 	                    <td>${problemvo.recommend }</td>
-	                    <td><input type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
-	                    <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
+
+	                    <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
+                      <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
                 	</tr>
                 </c:forEach>
             </table>

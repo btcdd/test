@@ -18,4 +18,9 @@ public class TrainingService {
 	public List<ProblemVo> selectProblemList(Map<String, Object> map) {
 		return trainingRepository.selectProblemList(map);
 	}
+
+	public List<ProblemVo> selectProblemListOrigin() {
+		
+		return trainingRepository.selectProblemListOrigin();
+	}
 }

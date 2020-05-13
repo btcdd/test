@@ -204,7 +204,7 @@ $(function() {
 	    	<h3 class="text-secondary">Code Forest</h3> 
 	    	<p>Code Forest - Online Compiler
 	    	<address> 연락처 : 
-	    		<a href="codeforest@gmail.com">codeforest@gmail.com</a>
+	    		<a href="codeforest@gmail.com">codeforest@gmail.com</a> 
 	    	</address> 
 	    	<small>Copyright &copy; 2020 Code Forest</small> 
 	    </div>

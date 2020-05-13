@@ -18,4 +18,8 @@ public class TrainingRepository {
 	public List<ProblemVo> selectProblemList(Map<String, Object> map) {
 		return sqlSession.selectList("training.selectProblemList", map);
 	}
+
+	public List<ProblemVo> selectProblemListOrigin() {
+		return sqlSession.selectList("training.selectProblemListOrigin");
+	}
 }

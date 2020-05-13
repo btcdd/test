@@ -1,24 +1,27 @@
 package com.compile.compiletest.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+//github.com/btcdd/test.git
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.service.UserService;
 
-@Controller("UserApiController")
+@RestController("UserApiController")
 @RequestMapping("/api/user")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
-	@ResponseBody
+
+	
+	 
 	@RequestMapping(value = "/checkemail", method = RequestMethod.GET)
 	public JsonResult checkEmail(@RequestParam(value="email", required = true, defaultValue = "")String email) {
 		boolean exist = userService.existUser(email);
@@ -26,7 +29,7 @@ public class UserController {
 		return JsonResult.success(exist);
 	}
 	
-	@ResponseBody
+	
 	@RequestMapping(value = "/nickname", method = RequestMethod.GET)
 	public JsonResult checkNickname(@RequestParam(value="nickname", required = true, defaultValue = "")String nickname) {
 		boolean exist = userService.existNickname(nickname);
@@ -34,6 +37,7 @@ public class UserController {
 		return JsonResult.success(exist);
 	}
 	
+
 	@ResponseBody
 	@GetMapping("emailAuth")
 	public JsonResult emailAuth(@RequestParam(value="email",required=true,defaultValue="") String email) {
@@ -44,6 +48,7 @@ public class UserController {
 		
 		return JsonResult.success(tempKey);
 	}
+
 }
 
 
