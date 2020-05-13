@@ -93,6 +93,7 @@ $(function(){
 	
 	var tempKey = null;
 	
+
 	$('#btn-auth').on('click',function(){
 		
 		var email = $('#email').val();
