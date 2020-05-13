@@ -30,7 +30,6 @@ public class TrainingController {
 		}
 		map.put("size", map.size());
 		List<ProblemVo> levelList = trainingService.selectProblemList(map);
-		System.out.println(levelList);
 		
 		return JsonResult.success(levelList);
 	}
