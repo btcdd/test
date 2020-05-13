@@ -400,8 +400,11 @@ $(function(){
                         <img id='img-checkauth' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
                     </div>                    
                     <div>
-                    	<a href="${pageContext.servletContext.contextPath }/"><input class="button" value="취소" /></a>
-                        <input type="submit" class="button" value="가입">
+
+
+                    	<a href="${pageContext.servletContext.contextPath }/"><input class="button" value="취소"></input></a>
+                        <input type="submit" class="button" value="회원가입" >                        
+
                     </div>
                 </form:form>
             </div>

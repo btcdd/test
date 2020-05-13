@@ -1,10 +1,12 @@
 package com.compile.compiletest.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//github.com/btcdd/test.git
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
@@ -17,15 +19,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("emailAuth")
-	public JsonResult emailAuth(@RequestParam(value="email",required=true,defaultValue="") String email) {
-		
-		int tempKey = userService.getTempKey();
-		userService.sendMail(email,tempKey);
-		
-		
-		return JsonResult.success(tempKey);
-	}	
+
 	
 	 
 	@RequestMapping(value = "/checkemail", method = RequestMethod.GET)
@@ -43,7 +37,18 @@ public class UserController {
 		return JsonResult.success(exist);
 	}
 	
-	
+
+	@ResponseBody
+	@GetMapping("emailAuth")
+	public JsonResult emailAuth(@RequestParam(value="email",required=true,defaultValue="") String email) {
+		
+		int tempKey = userService.getTempKey();
+		userService.sendMail(email,tempKey);
+		
+		
+		return JsonResult.success(tempKey);
+	}
+
 }
 
 

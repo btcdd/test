@@ -37,4 +37,8 @@ public class MypageRepository {
 	public List<ProblemVo> selectProblemList(String email) {
 		return sqlSession.selectList("mypage.selectProblemList", email);
 	}
+
+	public int deleteProblem(Long no) {
+		return sqlSession.delete("mypage.deleteProblem", no);
+	}
 }

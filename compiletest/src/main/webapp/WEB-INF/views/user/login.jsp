@@ -89,15 +89,19 @@ body{
 							로그인이 실패 했습니다.
 						</p>
 					</c:if>
-                    <div>
+                    <div >
                         <input class="button" type="submit" value="로그인">
+
 	                    <a href="${pageContext.servletContext.contextPath }/user/join"><input class="button" value="회원가입" /></a>
+
+
+
                     </div>
+                        
                     <div>
                         <a href="./find.html">비밀번호찾기</a>
                     </div>
                 </form>
-                
             </div>
         </div>
 

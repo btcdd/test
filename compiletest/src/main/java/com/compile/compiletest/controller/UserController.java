@@ -59,12 +59,9 @@ public class UserController {
 	public String joinCheck() {
 		return "user/join-check";
 	}
- 
-	
 	
 	@RequestMapping(value="/auth", method = RequestMethod.POST)
 	public void auth() {	
-		System.out.println("컨트롤러 auth");
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
