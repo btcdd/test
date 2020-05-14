@@ -36,4 +36,16 @@
 			]]>	
 	</select>
 
+	<update id="updatePasswordAndEmail" parameterType="map">
+		<![CDATA[
+			update user set
+				password = #{password}
+			where email = #{email}
+		]]>	
+	</update>
+
 </mapper>
+
+
+
+

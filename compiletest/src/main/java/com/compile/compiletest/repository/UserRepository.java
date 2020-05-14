@@ -1,5 +1,8 @@
 package com.compile.compiletest.repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,6 +33,14 @@ public class UserRepository {
 
 	public Object findNickname(String nickname) {
 		return sqlSession.selectOne("user.findByNickname", nickname);
+	}
+
+
+	public int update(String password,String email) {
+		Map<String,String> map = new HashMap<>();
+		map.put("password",password);
+		map.put("email", email);
+		return sqlSession.update("user.updatePasswordAndEmail",map);
 	}
 
 }

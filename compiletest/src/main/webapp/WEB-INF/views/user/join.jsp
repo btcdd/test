@@ -27,7 +27,7 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }    
- #join-form{
+ #login-form{
     width:350px;
     margin:100px auto;
     border: 1px solid gray;
@@ -59,7 +59,8 @@ body{
  		var widthWindow = window.innerWidth;
 		var heightWindow = window.innerHeight;
 
-
+		
+		
 		var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none;opacity: 0.7;background-color: #fff;z-index: 99;text-align: center; '></div>";
 		var loadingImg = '';
 		
@@ -93,6 +94,7 @@ $(function(){
 	
 	
 	
+	
 	var tempKey = null;
 	
 
@@ -121,9 +123,6 @@ $(function(){
 		});
 		
 		
-		//여기
-		
-		
 		
 		
 	});
@@ -149,7 +148,7 @@ $(function(){
 	
 	//------------------------------------------------------------------------------------------------------------------------------------
 	
-	$("#join-form").submit(function(e){
+	$("#login-form").submit(function(e){
 			e.preventDefault();
 	
 			if($("#nickname").val() ==''){
@@ -196,8 +195,7 @@ $(function(){
 		$('#img-checknickname').hide();
 	});
 
-	// 닉네임 중복확인
-	// 중복확인 완료시 체크표시 출력해야함
+	
 	$('#btn-checknickname').click(function() {
 		var nickname = $("#nickname").val();
 		if(nickname == '') {
@@ -241,7 +239,7 @@ $(function(){
 		$('#auth').hide();
 	});	
 	
-	// 중복확인 완료시 체크표시 출력해야함
+	
 	$('#btn-checkemail').click(function() {
 		var email = $("#email").val();
 		if(email == '') {
@@ -251,7 +249,6 @@ $(function(){
 			url: "${pageContext.servletContext.contextPath }/api/user/checkemail?email=" + email,
 			async: true,
 			type: 'get',
-			//contentType: 'application/json'
 			data: '',
 			dataType: 'json',
 			success: function(response) {
@@ -323,7 +320,7 @@ $(function(){
         <div id="content">
             <div id="user">
                 <form:form 
-                	id="join-form" 
+                	id="login-form" 
                 	modelAttribute="userVo" 
                 	method="post" 
                 	action="${pageContext.servletContext.contextPath }/user/join">
