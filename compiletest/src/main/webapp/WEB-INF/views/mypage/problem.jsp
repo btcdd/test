@@ -15,6 +15,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>    
 <script>
 
+
 $(function() {
 	var dialogDelete = $("#dialog-delete").dialog({
 		autoOpen: false,
@@ -73,6 +74,7 @@ $(function() {
 			}
 		},
 		close: function() {
+			$(".problem-list-table > tbody > tr").remove();
 			$("#hidden-no").val('');
 		}
 	});
@@ -90,7 +92,18 @@ $(function() {
 			data: '',
 			success: function(response) {
 				console.log(response.data);
-				$("")
+				var table = "";				
+				for(var i in response.data) {
+					table += "<tbody id='tbody'>" +
+							"<tr><td>" + response.data[i].name + "</td>" +
+							"<td>" + response.data[i].email + "</td>" + 
+							"<td>" + response.data[i].nickname + "</td>" +
+							"<td>" + response.data[i].tryCount + "</td>" + 
+							"<td>" + response.data[i].lang + "</td>" +
+							"<td>" + response.data[i].solveTime + "</td></tr></tbody>";
+							
+				}			
+				$(".problem-list-table").append(table);
 				dialogList.dialog('open');
 			},
 			error: function(xhr, status, e) {
@@ -162,16 +175,7 @@ $(function() {
                 <th>언어</th>
                 <th>해결 시간</th>
             </tr>
-	        <c:forEach items='' var='submitVo' varStatus='status'>
-	           	<tr>
-	           		<td>${submitVo.name }</td>
-	                <td>${submitVo.email }</td>
-	                <td>${submitVo.nickname }</td>
-	                <td>${submitVo.tryCount }</td>
-	                <td>${submitVo.lang }</td>
-	                <td>${submitVo.solveTime }</td>
-	           	</tr>
-	        </c:forEach>
+           
     	</table>
 
     </div>
