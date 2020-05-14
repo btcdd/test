@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,28 +10,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Find</title>
 <link href="" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/user/find-password.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-<style>
-body{
-    font-family: serif;
-}
-#user{
-    height:900px;
-    padding-top:200px;
-    background-image:url(../../images/forest1.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-}    
- #login-form{
-    width:350px;
-    margin:100px auto;
-    border: 1px solid gray;
-    border-radius: 10px;
-    padding: 20px;
-    background-color:white;
-}
-</style>
 <script>
 var loadingWithMask = function LoadingWithMask(){
 		
@@ -106,20 +91,7 @@ $(function(){
 </head>
 <body>
     <div id="container">
-        <div class="header">
-            <div class="head">
-                <div class="container-left clearfix">
-                    <div class="logo">
-                        <img src="https://user-images.githubusercontent.com/59616862/80387335-7fb8e980-88e3-11ea-99ac-2c643a77a40c.png" alt="CodeForest">
-                    </div>
-                    <div class="menu clearfix">
-                        <div class="menu-item">Code Tree</div>
-                        <div class="menu-item">Coding Test</div>
-                        <div class="menu-item">Coding Training</div> 
-                    </div>
-                </div>
-            </div>
-        </div>        
+        <c:import url="/WEB-INF/views/include/user-header.jsp" />          
         <div id="content">
             <div id="user">
                 <form id="login-form" method="post" action="${pageContext.servletContext.contextPath }/user/reset">

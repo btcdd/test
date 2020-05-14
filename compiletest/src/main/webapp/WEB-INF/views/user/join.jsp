@@ -12,48 +12,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Join</title>
 <link href="" rel="stylesheet" type="text/css">
-<link href="${pageContext.servletContext.contextPath }/assets/css/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/user/join.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>   
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
-body{
-    font-family: 'Nanum Gothic Coding', monospace;
-}
-#user{
-    height:900px;
-    padding-top:200px;
-    background-image:url(../../images/forest1.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-}    
- #login-form{
-    width:350px;
-    margin:100px auto;
-    border: 1px solid gray;
-    border-radius: 10px;
-    padding: 20px;
-    background-color:white;
-}
-.button{
-    width:100px;
-    background-color: hsl(49, 97%, 48%);
-    border:none;
-    color:#fff;
-    padding: 5px 0;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    margin: 4px;
-    cursor: pointer;
-    border-radius:10px;    
-    
-}
-</style>
 <script>
-
-
 var loadingWithMask = function LoadingWithMask(){
 		
  	var widthWindow = window.innerWidth;
@@ -290,7 +253,7 @@ $(function(){
                         <img id='img-checkemail' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
                         <form:errors path="email"/>
-                        </p>                        
+                        </p>
                     </div>
                     <div>
                         <label for="password">비밀번호</label>
@@ -313,7 +276,7 @@ $(function(){
                     </div>                    
                     <div>
                     	<a href="${pageContext.servletContext.contextPath }/"><input class="button" value="취소"></input></a>
-                        <input type="submit" class="button" value="회원가입" >                        
+                        <input type="submit" class="button" value="가입" >                        
                     </div>
                 </form:form>
             </div>
