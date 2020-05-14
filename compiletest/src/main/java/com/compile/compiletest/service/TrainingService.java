@@ -15,12 +15,16 @@ public class TrainingService {
 	@Autowired
 	private TrainingRepository trainingRepository;
 
-	public List<ProblemVo> selectProblemList(Map<String, Object> map) {
-		return trainingRepository.selectProblemList(map);
+	public List<ProblemVo> selectLevelList(Map<String, Object> map) {
+		return trainingRepository.selectLevelList(map);
 	}
 
 	public List<ProblemVo> selectProblemListOrigin() {
 		
 		return trainingRepository.selectProblemListOrigin();
+	}
+
+	public List<ProblemVo> selectOrganizationList(Map<String, Object> map) {
+		return trainingRepository.selectOrganizationList(map);
 	}
 }

@@ -15,11 +15,15 @@ public class TrainingRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<ProblemVo> selectProblemList(Map<String, Object> map) {
-		return sqlSession.selectList("training.selectProblemList", map);
+	public List<ProblemVo> selectLevelList(Map<String, Object> map) {
+		return sqlSession.selectList("training.selectLevelList", map);
 	}
 
 	public List<ProblemVo> selectProblemListOrigin() {
 		return sqlSession.selectList("training.selectProblemListOrigin");
+	}
+
+	public List<ProblemVo> selectOrganizationList(Map<String, Object> map) {
+		return sqlSession.selectList("training.selectOrganizationList", map);
 	}
 }
