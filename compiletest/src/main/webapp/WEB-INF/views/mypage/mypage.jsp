@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/mypage/mypage.css">
 </head>
 
-
 <body>
 	<c:import url="/WEB-INF/views/include/mypage-header.jsp" />
     <div class="container">
