@@ -12,10 +12,9 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/mypage/problem.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/table2excel.js"></script>
 <script>
-
-
 $(function() {
 	var dialogDelete = $("#dialog-delete").dialog({
 		autoOpen: false,
@@ -66,15 +65,18 @@ $(function() {
 		width: 1200,
 		modal: true,
 		buttons: {
-			"내보내기": function() {
-				
+			"다운로드": function() {		
+				var title = $("#hidden-title").val();
+				$(".problem-list-table").table2excel({
+					filename: title
+				})
 			},
 			"취소": function() {
 				$(this).dialog('close');
 			}
 		},
 		close: function() {
-			$(".problem-list-table > tbody > tr").remove();
+			$(".problem-list-table > #tbody > tr").remove();
 			$("#hidden-no").val('');
 		}
 	});
@@ -83,7 +85,9 @@ $(function() {
 		event.preventDefault();
 		
 		var no = $(this).data('no');		
-		console.log(no);
+		var title = $(this).data('title');
+		$('#hidden-title').val(title);
+		console.log($('#hidden-title').val());
 		$.ajax({
 			url: '${pageContext.servletContext.contextPath }/mypage/problem/list/' + no,
 			async: true,
@@ -113,8 +117,6 @@ $(function() {
 	});
 	
 });
-
-
 </script>
     
 </head>
@@ -139,12 +141,12 @@ $(function() {
               	<c:forEach items='${list }' var='problemvo' varStatus='status'>
                 	<tr>
                 		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td>
-	                    <td id="title">${problemvo.title }</td>
+	                    <td>${problemvo.title }</td>
 	                    <td>${problemvo.hit }</td>
 	                    <td>${problemvo.recommend }</td>
 
 	                    <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
-                      <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
+                      <td><input data-no="${problemvo.no }" data-title="${problemvo.title }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
                 	</tr>
                 </c:forEach>
             </table>
@@ -166,6 +168,7 @@ $(function() {
     </div>
     
     <div id="problem-list" title="문제 푼 사람 리스트" style="display: none">
+    	<input type="hidden" id="hidden-title" value="">
     	<table class="problem-list-table">
     		<tr>
             	<th>이름</th>
