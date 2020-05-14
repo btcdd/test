@@ -12,6 +12,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.compile.compiletest.service.UserService;
 import com.compile.compiletest.vo.UserVo;
@@ -66,6 +67,27 @@ public class UserController {
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public void logout() {	
+	}
+	
+	@RequestMapping(value="/find",method = RequestMethod.GET)
+	public String find() {
+		return "/user/find-password";
+	}
+	
+	@RequestMapping(value="/reset",method=RequestMethod.POST)
+	public String reset(@RequestParam("email") String email,Model model) {
+		model.addAttribute("email",email);
+		return "/user/reset-password";
+	}
+	
+	@RequestMapping(value="/change",method=RequestMethod.POST)
+	public String change(
+			@RequestParam("password") String password,
+			@RequestParam("email") String email) {
+		System.out.println(password);
+		System.out.println(email);
+		userService.updatePassword(password,email);
+		return "/user/login";
 	}
 	
 }

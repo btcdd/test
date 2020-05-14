@@ -94,12 +94,10 @@ body{
 
 	                    <a href="${pageContext.servletContext.contextPath }/user/join"><input class="button" value="회원가입" /></a>
 
-
-
                     </div>
                         
                     <div>
-                        <a href="./find.html">비밀번호찾기</a>
+                        <a href="${pageContext.servletContext.contextPath }/user/find">비밀번호찾기</a>
                     </div>
                 </form>
             </div>
