@@ -68,6 +68,7 @@ $(function() {
 			"다운로드": function() {		
 				var title = $("#hidden-title").val();
 				$(".problem-list-table").table2excel({
+					exclude: ".discard",
 					filename: title.concat(".xls")
 				})
 			},
@@ -99,12 +100,12 @@ $(function() {
 				var table = "";				
 				for(var i in response.data) {
 					table += "<tbody id='tbody'>" +
-							"<tr><td>" + response.data[i].name + "</td>" +
-							"<td>" + response.data[i].email + "</td>" + 
-							"<td>" + response.data[i].nickname + "</td>" +
-							"<td>" + response.data[i].tryCount + "</td>" + 
-							"<td>" + response.data[i].lang + "</td>" +
-							"<td>" + response.data[i].solveTime + "</td></tr></tbody>";							
+							"<tr><td id='name'>" + response.data[i].name + "</td>" +
+							"<td id='email'>" + response.data[i].email + "</td>" + 
+							"<td id='nickname'>" + response.data[i].nickname + "</td>" +
+							"<td id='try-count'>" + response.data[i].tryCount + "</td>" + 
+							"<td id='lang'>" + response.data[i].lang + "</td>" +
+							"<td id='solve-time'>" + response.data[i].solveTime + "</td></tr></tbody>";							
 				}			
 				$(".problem-list-table").append(table);
 				dialogList.dialog('open');
@@ -114,6 +115,28 @@ $(function() {
 			}
 		});
 	});
+	
+	
+	$(document).ready(function(){
+	    $(".check-box input").on('click', function(){
+	    	var value = $(this).val();
+	    	console.log(value);
+	        if($(this).prop("checked")){
+	        	$(".problem-list-table > #tbody > tr > td#".concat(value)).show();
+	        	$(".problem-list-table > #tbody > tr > td#".concat(value)).removeClass();
+				$(".problem-list-table tr th#".concat(value)).show();
+				$(".problem-list-table tr th#".concat(value)).removeClass();
+	        }else{
+	        	$(".problem-list-table > #tbody > tr > td#".concat(value)).hide();
+	        	$(".problem-list-table > #tbody > tr > td#".concat(value)).addClass('discard');
+				$(".problem-list-table tr th#".concat(value)).hide();
+				$(".problem-list-table tr th#".concat(value)).addClass('discard');
+	        }
+	    });
+	});
+
+
+
 	
 });
 </script>
@@ -168,14 +191,22 @@ $(function() {
     
     <div id="problem-list" title="문제 푼 사람 리스트" style="display: none">
     	<input type="hidden" id="hidden-title" value="">
+    	<div class="check-box">
+	    	<label><input type="checkbox" name="problem-list-table" value="name" checked>이름</label>
+	    	<label><input type="checkbox" name="problem-list-table" value="email" checked>이메일</label>
+	    	<label><input type="checkbox" name="problem-list-table" value="nickname" checked>닉네임</label>
+	    	<label><input type="checkbox" name="problem-list-table" value="try-count" checked>시도횟수</label>
+	    	<label><input type="checkbox" name="problem-list-table" value="lang" checked>언어</label>
+	    	<label><input type="checkbox" name="problem-list-table" value="solve-time" checked>해결시간</label>
+    	</div>
     	<table class="problem-list-table">
     		<tr>
-            	<th>이름</th>
-                <th>이메일</th>
-                <th>닉네임</th>
-                <th>시도 횟수</th>
-                <th>언어</th>
-                <th>해결 시간</th>
+            	<th id="name">이름</th>
+                <th id="email">이메일</th>
+                <th id="nickname">닉네임</th>
+                <th id="try-count">시도횟수</th>
+                <th id="lang">언어</th>
+                <th id="solve-time">해결시간</th>
             </tr>
            
     	</table>
