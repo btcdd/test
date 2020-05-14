@@ -14,9 +14,57 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
     <title>Code Forest</title>
-
 <script>
 
+var index = 1;
+
+var addSubProblem = function() {
+	var str = '<div class="sub-title">' + 
+	        	'문제 제목<input type="text" name="subProblemList[' + index + '].title"/>' +
+		        '</div>' +
+		        '<div class="prob-content">' + 
+		            '<div class="prob-content-title">내용</div>' + 
+		            '<textarea id="prob-content-text" name="subProblemList[' + index + '].contents"></textarea>' + 
+		        '</div>' + 
+		        '<br />' + 
+		
+		        '<div class="ex-input">' + 
+		            '<div class="ex-input-title">예제 입력</div>' + 
+		            '<textarea id="ex-input-text" name="subProblemList[' + index + '].examInput"></textarea>' + 
+		        '</div>' + 
+		
+		        '<div class="ex-output">' + 
+		            '<div class="ex-input-title">예제 출력</div>' + 
+		            '<textarea id="ex-output-text" name="subProblemList[' + index + '].examOutput"></textarea>' + 
+		        '</div>' + 
+		
+				
+		        '<div class="answer-code">' + 
+		            '<div class="ex-input-title">정답 코드</div>' +
+					'<div>' + 
+						'<select name="lang">' + 
+							'<option value="none" selected="selected">언어선택</option>' + 
+							'<option value="c">C</option>' + 
+							'<option value="cpp">C++</option>' + 
+							'<option value="cs">C#</option>' + 
+							'<option value="java">JAVA</option>' + 
+							'<option value="js">JavaScript</option>' + 
+							'<option value="py">Python</option>' + 
+			             '</select>' + 
+		             '</div>' + 
+		            '<textarea id="answer-code-text" name="subProblemList[' + index + '].correctCode"></textarea>' + 
+		        '</div>';
+		        
+	$('.a').append(str);
+	index++;
+}
+
+
+$(function() {
+	$('#addSubProblem').click(function() {
+		addSubProblem();
+	})
+});
 
 </script>
 </head>
@@ -47,49 +95,51 @@
 	        </div>
 	        <br />
 	        <div class="title">
-	        	문제집 제목<input type="text" name="title"/>
+	        	문제집 제목<input type="text" name="title" />
 	        </div>
 	        <br />
-	        
-	        <div class="sub-title">
-	        	문제 제목<input type="text" name="subProblemList[0].title"/>
-	        </div>
-	        <div class="prob-content">
-	            <div class="prob-content-title">내용</div>
-	            <textarea id="prob-content-text" name="subProblemList[0].contents"></textarea>
-	        </div>
-	        <br />
-	
-	        <div class="ex-input">
-	            <div class="ex-input-title">예제 입력</div>
-	            <textarea id="ex-input-text" name="subProblemList[0].examInput"></textarea>
-	        </div>
-	
-	        <div class="ex-output">
-	            <div class="ex-input-title">예제 출력</div>
-	            <textarea id="ex-output-text" name="subProblemList[0].examOutput"></textarea>
-	        </div>
-	
-			
-	        <div class="answer-code">
-	            <div class="ex-input-title">정답 코드</div>
-				<div>
-					<select name="lang">
-						<option value="none" selected="selected">언어선택</option>
-						<option value="c">C</option>
-						<option value="cpp">C++</option>
-						<option value="cs">C#</option>
-						<option value="java">JAVA</option>
-						<option value="js">JavaScript</option>
-						<option value="py">Python</option>
-		             </select>
-	             </div>
-	            <textarea id="answer-code-text" name="subProblemList[0].correctCode"></textarea>
-	        </div>
-	        
-	        <a href="${pageContext.servletContext.contextPath }/training"><button>취소</button></a>
+	        <div class="a">
+		        <div class="sub-title">
+		        	문제 제목<input type="text" name="subProblemList[0].title"/>
+		        </div>
+		        <div class="prob-content">
+		            <div class="prob-content-title">내용</div>
+		            <textarea id="prob-content-text" name="subProblemList[0].contents"></textarea>
+		        </div>
+		        <br />
+		
+		        <div class="ex-input">
+		            <div class="ex-input-title">예제 입력</div>
+		            <textarea id="ex-input-text" name="subProblemList[0].examInput"></textarea>
+		        </div>
+		
+		        <div class="ex-output">
+		            <div class="ex-input-title">예제 출력</div>
+		            <textarea id="ex-output-text" name="subProblemList[0].examOutput"></textarea>
+		        </div>
+		
+				
+		        <div class="answer-code0">
+		            <div class="ex-input-title">정답 코드</div>
+					<div>
+						<select name="lang">
+							<option value="none" selected="selected">언어선택</option>
+							<option value="c">C</option>
+							<option value="cpp">C++</option>
+							<option value="cs">C#</option>
+							<option value="java">JAVA</option>
+							<option value="js">JavaScript</option>
+							<option value="py">Python</option>
+			             </select>
+		             </div>
+		            <textarea id="answer-code-text" name="subProblemList[0].correctCode"></textarea>
+		        </div>
+			</div>        
+	        <a href="${pageContext.servletContext.contextPath }/training">취소</a>
 	        <input type="submit" value="등록">
 	        
+	        <a id="addSubProblem">추가</a>
+			  
 	        <br />
 	        <br />
 	        <br />

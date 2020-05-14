@@ -35,6 +35,6 @@ public class TrainingController {
 		
 		trainingService.insert(subProblemList, problemVo);
 		
-		return "training";
+		return "redirect:/training";
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.compile.compiletest.repository.TrainingRepository;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SubProblemList;
+import com.compile.compiletest.vo.SubProblemVo;
 
 @Service
 public class TrainingService {
@@ -36,7 +37,20 @@ public class TrainingService {
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("problemNo", problemNo);
-		map.put("subProblemList", subProblemList.getSubProblemList());
+		
+		List<SubProblemVo> list = subProblemList.getSubProblemList();
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getExamInput() == "") {
+				list.get(i).setExamInput("null");
+				System.out.println("하이1");
+			}
+			if(list.get(i).getCorrectCode() == "") {
+				list.get(i).setCorrectCode("null");
+				System.out.println("하이1");
+			}
+		}
+		
+		map.put("subProblemList", list);
 		
 		trainingRepository.insertSubProblem(map);
 	}

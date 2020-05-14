@@ -36,6 +36,8 @@ public class TrainingRepository {
 	}
 
 	public int insertSubProblem(Map<String, Object> map) {
+		System.out.println(map.get("subProblemList"));
+		System.out.println(map.get("problemNo"));
 		return sqlSession.insert("training.insertSubProblem", map);
 	}
 }
