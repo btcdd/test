@@ -36,11 +36,13 @@ public class UserRepository {
 	}
 
 
-	public int update(String password,String email) {
-		Map<String,String> map = new HashMap<>();
-		map.put("password",password);
-		map.put("email", email);
-		return sqlSession.update("user.updatePasswordAndEmail",map);
+	public int update(UserVo vo) {
+		return sqlSession.update("user.updatePasswordAndEmail",vo);
+	}
+
+
+	public String findNicknameByEmail(String email) {
+		return sqlSession.selectOne("user.findNicknameByEmail",email);
 	}
 
 }
