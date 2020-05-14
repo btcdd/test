@@ -93,7 +93,7 @@ $(function() {
 		})
 		
 		if(!pandan) {
-			originList();
+			originList();a
 		}
 		else {
 			selectList();
