@@ -68,7 +68,7 @@ $(function() {
 			"다운로드": function() {		
 				var title = $("#hidden-title").val();
 				$(".problem-list-table").table2excel({
-					filename: title
+					filename: title.concat(".xls")
 				})
 			},
 			"취소": function() {
@@ -87,7 +87,7 @@ $(function() {
 		var no = $(this).data('no');		
 		var title = $(this).data('title');
 		$('#hidden-title').val(title);
-		console.log($('#hidden-title').val());
+		
 		$.ajax({
 			url: '${pageContext.servletContext.contextPath }/mypage/problem/list/' + no,
 			async: true,
@@ -104,8 +104,7 @@ $(function() {
 							"<td>" + response.data[i].nickname + "</td>" +
 							"<td>" + response.data[i].tryCount + "</td>" + 
 							"<td>" + response.data[i].lang + "</td>" +
-							"<td>" + response.data[i].solveTime + "</td></tr></tbody>";
-							
+							"<td>" + response.data[i].solveTime + "</td></tr></tbody>";							
 				}			
 				$(".problem-list-table").append(table);
 				dialogList.dialog('open');
@@ -132,7 +131,7 @@ $(function() {
             <table class="quiz-table">
                 <tr>
                     <th width="10%">번호</th>
-                    <th width="53%" id="title">제목</th>
+                    <th width="53%">제목</th>
                     <th width="11%">조회수</th>
                     <th width="11%">추천수</th>
                     <th width="11%">삭제</th>
