@@ -22,7 +22,7 @@ public class TrainingController {
 	private TrainingService trainingService;
 	
 	@PostMapping(value="/list")
-	public JsonResult selectProblemList(String[] checkValues) {
+	public JsonResult selectProblemList(String category, String[] checkValues) {
 		
 		List<ProblemVo> levelList;
 		
@@ -31,15 +31,16 @@ public class TrainingController {
 			for(int i = 0; i < checkValues.length; i++) {
 				map.put(checkValues[i], checkValues[i]);
 			}
-			
 			map.put("size", map.size());
-			levelList = trainingService.selectProblemList(map);
+			
+			if("level".equals(category)) {
+				levelList = trainingService.selectLevelList(map);
+			} else {
+				levelList = trainingService.selectOrganizationList(map);
+			}
 		} else {
 			levelList = trainingService.selectProblemListOrigin();
 		}
-		
-		System.out.println(levelList);
-		
 		return JsonResult.success(levelList);
 	}
 	
