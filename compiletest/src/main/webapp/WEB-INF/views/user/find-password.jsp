@@ -30,48 +30,42 @@ body{
 }
 </style>
 <script>
-	var loadingWithMask = function LoadingWithMask(){
+var loadingWithMask = function LoadingWithMask(){
 		
-		var widthWindow = window.innerWidth;
-		var heightWindow = window.innerHeight;
+	var widthWindow = window.innerWidth;
+	var heightWindow = window.innerHeight;
 		
+	var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none;opacity: 0.7;background-color: #fff;z-index: 99;text-align: center; '></div>";
+	var loadingImg = '';
 			
-			
-		var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none;opacity: 0.7;background-color: #fff;z-index: 99;text-align: center; '></div>";
-		var loadingImg = '';
-			
-		loadingImg += "<div id='loadingImg'>";
-		loadingImg += "<img src='${pageContext.request.contextPath}/assets/images/user/packman.gif' style='position: absolute; top: 50%; left: 50%;z-index: 100;'/>";
-		loadingImg += "</div>";
-			
-			
-		$('body').append(mask).append(loadingImg);		
+	loadingImg += "<div id='loadingImg'>";
+	loadingImg += "<img src='${pageContext.request.contextPath}/assets/images/user/packman.gif' style='position: absolute; top: 50%; left: 50%;z-index: 100;'/>";
+	loadingImg += "</div>";
+					
+	$('body').append(mask).append(loadingImg);		
 		
-		$('#mask').css({
-			'width':widthWindow,
-			'height':heightWindow,
-			'opacity':'0.3'
-		});
+	$('#mask').css({
+		'width':widthWindow,
+		'height':heightWindow,
+		'opacity':'0.3'
+	});
 			
-		$('#mask').show();
-		$('#loadingImg').show();
+	$('#mask').show();
+	$('#loadingImg').show();
 		
-	}
+}
 	
-	var closeLoadingWithMask = function CloseLoadingWithMask(){
-		$('#mask,#loadingImg').hide();
-		$('#mask,#loadingImg').empty();
-	}
-
+var closeLoadingWithMask = function CloseLoadingWithMask(){
+	$('#mask,#loadingImg').hide();
+	$('#mask,#loadingImg').empty();
+}
 
 $(function(){
 	var tempKey = null;
 	
 	$('#btn-auth').on('click',function(){
 		
-				
-		var email = $('#email').val();
-		
+		var email = $('#email').val();	
 		if(email == ''){
 			alert('이메일을 입력하세요.');
 			$("#email").focus();
@@ -86,13 +80,11 @@ $(function(){
 			type:'get',
 			dataType:'json',
 			data:'email='+ email,
-			success:function(response){
-				
+			success:function(response){	
 				alert('인증번호가 발송되었습니다.');
 				console.log(response.data);//인증키
 				tempKey = response.data;
-				closeLoadingWithMask();
-				
+				closeLoadingWithMask();	
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
@@ -101,19 +93,13 @@ $(function(){
 	});
 	
 	$('#auth-check-button').on('click',function(){
-		
 		if( ($('#auth-check').val() == tempKey) && ($('#auth-check').val() != "") ){			
-			//인증번호가 맞다면 링크를 보내준다.
 			console.log("인증번호 맞았음");
 			$('#login-form').submit();
-			/* document.getElementById('login-form').submit(); */
-
 		}else{
-			//인증번호가 틀렸다고 메시지를 띄워준다.
 			alert('인증번호 다시 확인해주세요.');
 		}
-	});
-		
+	});	
 	
 });
 </script>
@@ -145,7 +131,6 @@ $(function(){
                     <div id="auth" >
                     	<label for="auth-check">인증 번호 입력</label>
                     	<input id="auth-check" type="text" name="Auth"/>
-                    	
                     	<input id="btn-auth" type="button" value="인증번호 전송" />
                         <input id="auth-check-button" type="button" value="인증번호확인">
                     </div>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,19 +36,15 @@ $(function(){
 	
 	$("#login-form").submit(function(e){
 		e.preventDefault();
-		
 		if( $('#password').val() == ''  || $('#passwordcheck').val() == ''){
 			alert('비밀번호를 입력하세요');
 			return;
 		}
-		
 		if( $('#password').val() != $('#passwordcheck').val() ){
 			alert('비밀번호가 다릅니다');
 			console.log("다름");
 			return;
 		}
-		
-		
 		this.submit();
 	});
 		
@@ -75,6 +73,7 @@ $(function(){
             <div id="user">
                 <form id="login-form" method="post" action="${pageContext.servletContext.contextPath }/user/change">
                 	<input type="hidden" name="email" value="${email}" />
+                	<input type="hidden" name="nickname" value="${nickname}" />
                     <h1>비밀번호 재설정</h1>
                     <div>
                         <label for="password">새로운 비밀번호 입력 : </label>
@@ -84,6 +83,15 @@ $(function(){
                         <label for="passwordcheck">새로운 비밀번호 확인 : </label>
                         <input id="passwordcheck" name="passwordcheck" type="password">
                     </div>
+                        <p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
+                        <spring:hasBindErrors name="userVo">
+                        	<c:if test='${errors.hasFieldErrors("password") }' ><br/>
+                        		<spring:message
+                        			code='${errors.getFieldError("password").codes[0] }'
+                        		/>
+                        	</c:if>
+                        </spring:hasBindErrors>
+                        </p>                    
                     <div>
                         <input type="submit" value="비밀번호 재설정완료" />          
                     </div>

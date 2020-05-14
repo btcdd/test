@@ -54,77 +54,58 @@ body{
 <script>
 
 
-	var loadingWithMask = function LoadingWithMask(){
+var loadingWithMask = function LoadingWithMask(){
 		
- 		var widthWindow = window.innerWidth;
-		var heightWindow = window.innerHeight;
+ 	var widthWindow = window.innerWidth;
+	var heightWindow = window.innerHeight;
 
+	var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none;opacity: 0.7;background-color: #fff;z-index: 99;text-align: center; '></div>";
+	var loadingImg = '';
 		
+	loadingImg += "<div id='loadingImg'>";
+	loadingImg += "<img src='${pageContext.request.contextPath}/assets/images/user/packman.gif' style='position: absolute; top: 50%; left: 50%;z-index: 100;'/>";
+	loadingImg += "</div>";
 		
-		var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none;opacity: 0.7;background-color: #fff;z-index: 99;text-align: center; '></div>";
-		var loadingImg = '';
-		
-		loadingImg += "<div id='loadingImg'>";
-		loadingImg += "<img src='${pageContext.request.contextPath}/assets/images/user/packman.gif' style='position: absolute; top: 50%; left: 50%;z-index: 100;'/>";
-		loadingImg += "</div>";
-		
-		
-		$('body').append(mask).append(loadingImg);		
-	
-		$('#mask').css({
-			'width':widthWindow,
-			'height':heightWindow,
-			'opacity':'0.3'
-		});
-		
-		$('#mask').show();
-		
-		
-		$('#loadingImg').show();
-		
-	}
-	
-	var closeLoadingWithMask = function CloseLoadingWithMask(){
-		$('#mask,#loadingImg').hide();
-		$('#mask,#loadingImg').empty();
-	} 
-	
+	$('body').append(mask).append(loadingImg);	
+	$('#mask').css({
+		'width':widthWindow,
+		'height':heightWindow,
+		'opacity':'0.3'
+	});
+	$('#mask').show();
+	$('#loadingImg').show();
+}
 
+var closeLoadingWithMask = function CloseLoadingWithMask(){
+	$('#mask,#loadingImg').hide();
+	$('#mask,#loadingImg').empty();
+} 
+	
 $(function(){
-	
-	
-	
-	
+
 	var tempKey = null;
-	
 
 	$('#btn-auth').on('click',function(){
 		
 		var email = $('#email').val();
-		
 		loadingWithMask();
+		
 		$.ajax({
 			url:'${pageContext.request.contextPath}/api/user/emailAuth',
 			async:true,
 			type:'get',
 			dataType:'json',
 			data:'email='+ email,
-			success:function(response){
-				
+			success:function(response){	
 				alert('인증번호가 발송되었습니다.');
 				console.log(response.data);//인증키
 				tempKey = response.data;
 				closeLoadingWithMask();
-				
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
 			}
 		});
-		
-		
-		
-		
 	});
 	
 	$('#auth-check-button').on('click',function(){
@@ -134,19 +115,11 @@ $(function(){
 			$('#btn-auth').hide();
 			$('#auth-check-button').hide();
 		}else{
-			
-			
-			
-			
 			$('#img-checkauth').hide();
 			$('#btn-auth').show();
-			$('#auth-check-button').show();
-			
-			
+			$('#auth-check-button').show();	
 		}
 	});
-	
-	//------------------------------------------------------------------------------------------------------------------------------------
 	
 	$("#login-form").submit(function(e){
 			e.preventDefault();
@@ -184,9 +157,6 @@ $(function(){
 				$("#auth-check").focus();
 				return;
 			}
-			
-			
-			
 			this.submit();
 		});	
 	
@@ -211,10 +181,8 @@ $(function(){
 				if(response.result == "fail"){
 					console.error(response.message);
 					return;
-				}
-				
-				if(response.data == true){
-									
+				}	
+				if(response.data == true){					
 					$("#nickname")
 						.val('')
 						.focus();
@@ -228,17 +196,12 @@ $(function(){
 			}
 		});
 	});
-	
-
-	
-	//------------------------------------------------------------------------------------------------------------------------------------
 
 	$('#email').change(function(){
 		$('#btn-checkemail').show();
 		$('#img-checkemail').hide();
 		$('#auth').hide();
 	});	
-	
 	
 	$('#btn-checkemail').click(function() {
 		var email = $("#email").val();
@@ -256,7 +219,6 @@ $(function(){
 					console.error(response.message);
 					return;
 				}
-				
 				if(response.data == true){
 					alert('존재하는 닉네임입니다.');
 					$("#email")
@@ -266,15 +228,13 @@ $(function(){
 				}
 				$('#btn-checkemail').hide();
 				$('#img-checkemail').show();
-				$('#auth').show();
-				
+				$('#auth').show();	
 			},
 			error: function(XHR, status, e) {
 				console.error(status + ":" + e);
 			}
 		});
 	});
-	
 	
 	$('#passwordcheck').blur(function(){
 		if( $('#password').val() != $('#passwordcheck').val() ){
@@ -287,6 +247,7 @@ $(function(){
 			console.log("맞음");
 		}
 	});
+	
 	$('#password').change(function(){
 		if( $('#password').val() != $('#passwordcheck').val() ){
 			$('#password-warning').show();
@@ -299,19 +260,7 @@ $(function(){
 		}
 	});	
 	
-		
-	
-	
-	
-	
-	
-
-
-	
-	
 });
-
-   
 </script>
 </head>
 <body>
@@ -327,40 +276,24 @@ $(function(){
                     <h1>회원가입</h1>
                     <div>
                         <label for="nickname">닉네임</label>
-                        <!-- <input id="nickname" name="nickname" type="text" /> -->
                         <form:input path="nickname"/>
                         <input type="button" id="btn-checknickname" value="닉네임중복확인" /> 
                         <img id='img-checknickname' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
                         <p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
-                        <spring:hasBindErrors name="userVo">
-                        	<c:if test='${errors.hasFieldErrors("nickname") }' ><br/>
-                        		<spring:message
-                        			code='${errors.getFieldError("nickname").codes[0] }'
-                        		/>
-                        	</c:if>
-                        </spring:hasBindErrors>
+                        <form:errors path="nickname"/>
                         </p>
                     </div>
                     <div>
                         <label for="email">이메일</label>
-                        <!-- <input id="email" name="email" type="email" /> -->
                         <form:input path="email"/>
                         <input type="button" id="btn-checkemail" value="이메일중복확인" />
                         <img id='img-checkemail' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
-                        <%-- <spring:hasBindErrors name="userVo">
-                        	<c:if test='${errors.hasFieldErrors("email") }' ><br/>
-                        		<spring:message
-                        			code='${errors.getFieldError("email").codes[0] }'
-                        		/>
-                        	</c:if>
-                        </spring:hasBindErrors> --%>
                         <form:errors path="email"/>
                         </p>                        
                     </div>
                     <div>
                         <label for="password">비밀번호</label>
-                        <!-- <input id="password" name="password" type="password" /> -->
                         <form:input path="password" type="password"/>
                     </div>
                     <div>
@@ -368,30 +301,19 @@ $(function(){
                         <input id="passwordcheck" name="passwordcheck" type="password" />
                         <div id="password-warning"></div>
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
-<%--                         <spring:hasBindErrors name="userVo">
-                        	<c:if test='${errors.hasFieldErrors("password") }' ><br/>
-                        		<spring:message
-                        			code='${errors.getFieldError("password").codes[0] }'
-                        		/>
-                        	</c:if>
-                        </spring:hasBindErrors> --%>
                         <form:errors path="password"/>
                         </p>                        
                     </div>
                     <div id="auth" style='display:none'>
                         <label for="auth-check">인증 번호 입력 : </label>
-                       
                         <input id="auth-check" type="text" name="Auth" />
                         <input id="btn-auth"  type="button" value="인증번호보내기">
                         <input id="auth-check-button" type="button" value="인증번호확인">
                         <img id='img-checkauth' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
                     </div>                    
                     <div>
-
-
                     	<a href="${pageContext.servletContext.contextPath }/"><input class="button" value="취소"></input></a>
                         <input type="submit" class="button" value="회원가입" >                        
-
                     </div>
                 </form:form>
             </div>
