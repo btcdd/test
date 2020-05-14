@@ -17,9 +17,6 @@
 <script>
 
 var checkValues = new Array();
-$("input[name='type']:checked").each(function(){
-	checkValues.push($(this).val());
-});
 
 var levelList = new Array();
 
@@ -87,10 +84,27 @@ var fetchList = function() {
 $(function() {
 	originList();
 	
-	$('input[name=type]').change(function() {
+	$('input[name=level]').change(function() {
 		
 		var pandan = false;
-		$("input[name=type]:checked").each(function(i) {
+		$("input[name=level]:checked").each(function(i) {
+			checkValues.push($(this).val());
+			pandan = true;
+		})
+		
+		if(!pandan) {
+			originList();
+		}
+		else {
+			selectList();
+			fetchList();
+			checkValues = new Array();
+		}
+	});
+	
+	$('input[name=organization]').change(function() {
+		var pandan = false;
+		$("input[name=organization]:checked").each(function(i) {
 			checkValues.push($(this).val());
 			pandan = true;
 		})
@@ -121,19 +135,19 @@ $(function() {
                         <th>알고리즘</th>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="one" name="type" value="one">level1</td>
+                        <td><input type="checkbox" id="one" name="level" value="one">level1</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="two" name="type" value="two">level2</td>
+                        <td><input type="checkbox" id="two" name="level" value="two">level2</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="three" name="type" value="three">level3</td>
+                        <td><input type="checkbox" id="three" name="level" value="three">level3</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="four" name="type" value="four">level4</td>
+                        <td><input type="checkbox" id="four" name="level" value="four">level4</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="five" name="type" value="five">level5</td>
+                        <td><input type="checkbox" id="five" name="level" value="five">level5</td>
                     </tr>
                 </table>
             </div>
@@ -144,19 +158,19 @@ $(function() {
                         <th>분류</th>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="" value="">기업</td>
+                        <td><input type="checkbox" name="organization" value="enterprise">기업</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="" value="">개인</td>
+                        <td><input type="checkbox" name="organization" value="individual">개인</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="" value="">학원</td>
+                        <td><input type="checkbox" name="organization" value="academy">학원</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="" value="">학교</td>
+                        <td><input type="checkbox" name="organization" value="school">학교</td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="" value="">기타</td>
+                        <td><input type="checkbox" name="organization" value="other">기타</td>
                     </tr>
                 </table>
             </div>

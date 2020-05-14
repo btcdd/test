@@ -12,11 +12,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Join</title>
 <link href="" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/header.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>   
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
 body{
-    font-family: serif;
+    font-family: 'Nanum Gothic Coding', monospace;
 }
 #user{
     height:900px;
@@ -314,20 +316,7 @@ $(function(){
 </head>
 <body>
     <div id="container">
-        <div class="header">
-            <div class="head">
-                <div class="container-left clearfix">
-                    <div class="logo">
-                        <img src="https://user-images.githubusercontent.com/59616862/80387335-7fb8e980-88e3-11ea-99ac-2c643a77a40c.png" alt="CodeForest">
-                    </div>
-                    <div class="menu clearfix">
-                        <div class="menu-item">Code Tree</div>
-                        <div class="menu-item">Coding Test</div>
-                        <div class="menu-item">Coding Training</div>
-                    </div>
-                </div>
-            </div>
-        </div>        
+        <c:import url="/WEB-INF/views/include/user-header.jsp" />        
         <div id="content">
             <div id="user">
                 <form:form 
