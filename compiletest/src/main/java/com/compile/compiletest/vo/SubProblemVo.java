@@ -2,6 +2,7 @@ package com.compile.compiletest.vo;
 
 public class SubProblemVo {
 	private Long no;
+	private String title;
 	private String contents;
 	private String examInput;
 	private String correctCode;
@@ -13,6 +14,12 @@ public class SubProblemVo {
 	}
 	public void setNo(Long no) {
 		this.no = no;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getContents() {
 		return contents;
@@ -47,7 +54,7 @@ public class SubProblemVo {
 	
 	@Override
 	public String toString() {
-		return "SubProblemVo [no=" + no + ", contents=" + contents + ", examInput=" + examInput + ", correctCode="
-				+ correctCode + ", examOutput=" + examOutput + ", problemNo=" + problemNo + "]";
+		return "SubProblemVo [no=" + no + ", title=" + title + ", contents=" + contents + ", examInput=" + examInput
+				+ ", correctCode=" + correctCode + ", examOutput=" + examOutput + ", problemNo=" + problemNo + "]";
 	}
 }

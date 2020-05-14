@@ -2,10 +2,13 @@ package com.compile.compiletest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.compile.compiletest.service.TrainingService;
+import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SubProblemList;
 
 @Controller
 @RequestMapping("/training")
@@ -26,8 +29,11 @@ public class TrainingController {
 	}
 	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String problemWriteSuccess() {
-
+	public String problemWriteSuccess(
+			@ModelAttribute SubProblemList subProblemList,
+			ProblemVo problemVo) {
+		
+		trainingService.insert(subProblemList, problemVo);
 		
 		return "training";
 	}

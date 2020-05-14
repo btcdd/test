@@ -1,5 +1,6 @@
 package com.compile.compiletest.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.TrainingRepository;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SubProblemList;
 
 @Service
 public class TrainingService {
@@ -26,5 +28,16 @@ public class TrainingService {
 
 	public List<ProblemVo> selectOrganizationList(Map<String, Object> map) {
 		return trainingRepository.selectOrganizationList(map);
+	}
+
+	public void insert(SubProblemList subProblemList, ProblemVo problemVo) {
+		trainingRepository.insertProblem(problemVo);
+		Long problemNo = trainingRepository.selectProblemNo();
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("problemNo", problemNo);
+		map.put("subProblemList", subProblemList.getSubProblemList());
+		
+		trainingRepository.insertSubProblem(map);
 	}
 }

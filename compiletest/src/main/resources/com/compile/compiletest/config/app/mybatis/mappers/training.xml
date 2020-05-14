@@ -109,5 +109,30 @@
 <!-- 		]]> -->
 	</select>
 	
+	<insert id="insertProblem" parameterType="problemvo">
+		<![CDATA[
+			insert 
+  			  into problem
+			values (null, #{title }, null, 0, 0, now(), 1, #{kindNo }, null,null, 6, 'y')
+		]]>
+	</insert>
+	
+	<select id="selectProblemNo" resultType="long">
+		<![CDATA[
+			  select no
+			    from problem 
+			order by no desc limit 1
+		]]>
+	</select>
+	
+	<insert id="insertSubProblem" parameterType="hashmap">
+		<foreach collection="subProblemList" item="item" separator=",">
+		<![CDATA[
+			insert 
+			  into sub_problem 
+			values (null, #{item.title }, #{item.contents }, #{item.examInput }, #{item.correctCode}, #{item.examOutput }, #{problemNo },'y');
+		]]>
+		</foreach>
+	</insert>
 	
 </mapper>

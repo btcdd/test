@@ -26,4 +26,16 @@ public class TrainingRepository {
 	public List<ProblemVo> selectOrganizationList(Map<String, Object> map) {
 		return sqlSession.selectList("training.selectOrganizationList", map);
 	}
+
+	public int insertProblem(ProblemVo problemVo) {
+		return sqlSession.insert("training.insertProblem", problemVo);
+	}
+
+	public Long selectProblemNo() {
+		return sqlSession.selectOne("training.selectProblemNo");
+	}
+
+	public int insertSubProblem(Map<String, Object> map) {
+		return sqlSession.insert("training.insertSubProblem", map);
+	}
 }
