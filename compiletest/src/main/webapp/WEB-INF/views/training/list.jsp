@@ -22,7 +22,7 @@ var levelList = new Array();
 
 var selectList = function(category){
 	$.ajax({
-		url: '${pageContext.request.contextPath }/training/list',
+		url: '${pageContext.request.contextPath }/api/training/list',
 		async: false,
 		type: 'post',
 		traditional: true,
@@ -45,7 +45,7 @@ var selectList = function(category){
 
 var originList = function() {
 	$.ajax({
-		url: '${pageContext.request.contextPath }/training/list',
+		url: '${pageContext.request.contextPath }/api/training/list',
 		async: false,
 		type: 'get',
 		dataType: 'json',

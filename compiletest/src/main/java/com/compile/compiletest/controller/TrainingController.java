@@ -60,4 +60,20 @@ public class TrainingController {
 		
 		return "training/view";
 	}
+	
+	@RequestMapping(value="/modify/{problemNo}", method=RequestMethod.GET)
+	public String problemModify(@PathVariable("problemNo") Long problemNo, Model model) {
+		
+		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
+		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("problemVo", problemVo);
+		map.put("list", list);
+		map.put("listSize", list.size());
+
+		model.addAllAttributes(map);
+		
+		return "training/modify";
+	}
 }

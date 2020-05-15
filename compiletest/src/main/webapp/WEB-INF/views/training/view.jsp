@@ -73,7 +73,7 @@ $(function() {
 				</div>
 			</c:forEach>
         </div>
-        <button id="modify">수정하기</button>
+        <a href="${pageContext.servletContext.contextPath }/training/modify/${problemVo.no }">수정하기</a>
     </div>
 </body>
 

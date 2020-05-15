@@ -26,7 +26,7 @@ $(function() {
 			"삭제": function() {
 				var no = $("#hidden-no").val();
 				$.ajax({
-					url: '${pageContext.servletContext.contextPath }/mypage/problem/delete/' + no,
+					url: '${pageContext.servletContext.contextPath }/api/mypage/problem/delete/' + no,
 					async: true,
 					type: 'delete',
 					dataType: 'json',
@@ -94,7 +94,7 @@ $(function() {
 		$('#hidden-title').val(title);
 		
 		$.ajax({
-			url: '${pageContext.servletContext.contextPath }/mypage/problem/list/' + no,
+			url: '${pageContext.servletContext.contextPath }/api/mypage/problem/list/' + no,
 			async: true,
 			type: 'post',
 			dataType: 'json',
