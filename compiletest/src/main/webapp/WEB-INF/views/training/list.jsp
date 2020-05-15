@@ -93,9 +93,13 @@ $(function() {
 		})
 		
 		if(!pandan) {
+			$("input[name=organization]").removeAttr("disabled");
+
 			originList();
 		}
 		else {
+			$("input[name=organization]").attr("disabled", true);
+			
 			var category = 'level';
 			selectList(category);
 			fetchList();
@@ -111,9 +115,13 @@ $(function() {
 		})
 		
 		if(!pandan) {
+			$("input[name=level]").removeAttr("disabled");
+			
 			originList();
 		}
 		else {
+			$("input[name=level]").attr("disabled", true);
+			
 			var category = 'organization';
 			selectList(category);
 			fetchList();
