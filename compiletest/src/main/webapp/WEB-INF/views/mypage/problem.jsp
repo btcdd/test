@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/mypage/problem.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/table2excel.js"></script>
 <script>
-
 $(function() {
 	var dialogDelete = $("#dialog-delete").dialog({
 		autoOpen: false,
@@ -65,14 +65,19 @@ $(function() {
 		width: 1200,
 		modal: true,
 		buttons: {
-			"내보내기": function() {
-				
+			"다운로드": function() {		
+				var title = $("#hidden-title").val();
+				$(".problem-list-table").table2excel({
+					exclude: ".discard",
+					filename: title.concat(".xls")
+				})
 			},
 			"취소": function() {
 				$(this).dialog('close');
 			}
 		},
 		close: function() {
+			$(".problem-list-table > #tbody > tr").remove();
 			$("#hidden-no").val('');
 		}
 	});
@@ -81,7 +86,9 @@ $(function() {
 		event.preventDefault();
 		
 		var no = $(this).data('no');		
-		console.log(no);
+		var title = $(this).data('title');
+		$('#hidden-title').val(title);
+		
 		$.ajax({
 			url: '${pageContext.servletContext.contextPath }/mypage/problem/list/' + no,
 			async: true,
@@ -90,7 +97,17 @@ $(function() {
 			data: '',
 			success: function(response) {
 				console.log(response.data);
-				$("")
+				var table = "";				
+				for(var i in response.data) {
+					table += "<tbody id='tbody'>" +
+							"<tr><td id='name'>" + response.data[i].name + "</td>" +
+							"<td id='email'>" + response.data[i].email + "</td>" + 
+							"<td id='nickname'>" + response.data[i].nickname + "</td>" +
+							"<td id='try-count'>" + response.data[i].tryCount + "</td>" + 
+							"<td id='lang'>" + response.data[i].lang + "</td>" +
+							"<td id='solve-time'>" + response.data[i].solveTime + "</td></tr></tbody>";							
+				}			
+				$(".problem-list-table").append(table);
 				dialogList.dialog('open');
 			},
 			error: function(xhr, status, e) {
@@ -99,9 +116,29 @@ $(function() {
 		});
 	});
 	
+	
+	$(document).ready(function(){
+	    $(".check-box input").on('click', function(){
+	    	var value = $(this).val();
+	    	console.log(value);
+	        if($(this).prop("checked")){
+	        	$(".problem-list-table > #tbody > tr > td#".concat(value)).show();
+	        	$(".problem-list-table > #tbody > tr > td#".concat(value)).removeClass();
+				$(".problem-list-table tr th#".concat(value)).show();
+				$(".problem-list-table tr th#".concat(value)).removeClass();
+	        }else{
+	        	$(".problem-list-table > #tbody > tr > td#".concat(value)).hide();
+	        	$(".problem-list-table > #tbody > tr > td#".concat(value)).addClass('discard');
+				$(".problem-list-table tr th#".concat(value)).hide();
+				$(".problem-list-table tr th#".concat(value)).addClass('discard');
+	        }
+	    });
+	});
+
+
+
+	
 });
-
-
 </script>
     
 </head>
@@ -117,7 +154,7 @@ $(function() {
             <table class="quiz-table">
                 <tr>
                     <th width="10%">번호</th>
-                    <th width="53%" id="title">제목</th>
+                    <th width="53%">제목</th>
                     <th width="11%">조회수</th>
                     <th width="11%">추천수</th>
                     <th width="11%">삭제</th>
@@ -126,12 +163,12 @@ $(function() {
               	<c:forEach items='${list }' var='problemvo' varStatus='status'>
                 	<tr>
                 		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td>
-	                    <td id="title">${problemvo.title }</td>
+	                    <td>${problemvo.title }</td>
 	                    <td>${problemvo.hit }</td>
 	                    <td>${problemvo.recommend }</td>
 
 	                    <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
-                      <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
+                      <td><input data-no="${problemvo.no }" data-title="${problemvo.title }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
                 	</tr>
                 </c:forEach>
             </table>
@@ -153,25 +190,25 @@ $(function() {
     </div>
     
     <div id="problem-list" title="문제 푼 사람 리스트" style="display: none">
+    	<input type="hidden" id="hidden-title" value="">
+    	<div class="check-box">
+	    	<label><input type="checkbox" name="problem-list-table" value="name" checked>이름</label>
+	    	<label><input type="checkbox" name="problem-list-table" value="email" checked>이메일</label>
+	    	<label><input type="checkbox" name="problem-list-table" value="nickname" checked>닉네임</label>
+	    	<label><input type="checkbox" name="problem-list-table" value="try-count" checked>시도횟수</label>
+	    	<label><input type="checkbox" name="problem-list-table" value="lang" checked>언어</label>
+	    	<label><input type="checkbox" name="problem-list-table" value="solve-time" checked>해결시간</label>
+    	</div>
     	<table class="problem-list-table">
     		<tr>
-            	<th>이름</th>
-                <th>이메일</th>
-                <th>닉네임</th>
-                <th>시도 횟수</th>
-                <th>언어</th>
-                <th>해결 시간</th>
+            	<th id="name">이름</th>
+                <th id="email">이메일</th>
+                <th id="nickname">닉네임</th>
+                <th id="try-count">시도횟수</th>
+                <th id="lang">언어</th>
+                <th id="solve-time">해결시간</th>
             </tr>
-	        <c:forEach items='' var='submitVo' varStatus='status'>
-	           	<tr>
-	           		<td>${submitVo.name }</td>
-	                <td>${submitVo.email }</td>
-	                <td>${submitVo.nickname }</td>
-	                <td>${submitVo.tryCount }</td>
-	                <td>${submitVo.lang }</td>
-	                <td>${submitVo.solveTime }</td>
-	           	</tr>
-	        </c:forEach>
+           
     	</table>
 
     </div>

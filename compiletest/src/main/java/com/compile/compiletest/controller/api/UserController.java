@@ -19,33 +19,23 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-
-	
-	 
 	@RequestMapping(value = "/checkemail", method = RequestMethod.GET)
 	public JsonResult checkEmail(@RequestParam(value="email", required = true, defaultValue = "")String email) {
 		boolean exist = userService.existUser(email);
-
 		return JsonResult.success(exist);
 	}
-	
 	
 	@RequestMapping(value = "/nickname", method = RequestMethod.GET)
 	public JsonResult checkNickname(@RequestParam(value="nickname", required = true, defaultValue = "")String nickname) {
 		boolean exist = userService.existNickname(nickname);
-
 		return JsonResult.success(exist);
 	}
-	
 
 	@ResponseBody
 	@GetMapping("emailAuth")
 	public JsonResult emailAuth(@RequestParam(value="email",required=true,defaultValue="") String email) {
-		
 		int tempKey = userService.getTempKey();
 		userService.sendMail(email,tempKey);
-		
-		
 		return JsonResult.success(tempKey);
 	}
 

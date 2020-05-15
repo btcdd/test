@@ -36,4 +36,24 @@
 			]]>	
 	</select>
 
+	<update id="updatePasswordAndEmail" parameterType="uservo">
+		<![CDATA[
+			update user set
+				password = #{password}
+			where email = #{email}
+		]]>	
+	</update>
+
+	<select id="findNicknameByEmail" parameterType="string" resultType="string" >
+		<![CDATA[
+			select nickname
+			from user
+			where email = #{email }
+			]]>	
+	</select>
+
 </mapper>
+
+
+
+
