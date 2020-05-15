@@ -67,19 +67,17 @@ var originList = function() {
 
 var fetchList = function() {
 	$(".list #tr").remove();
-	console.log(levelList);
 	var str = "";
 	for(var i = 0; i < levelList.length; i++) {
 		str += '<tr id="tr">' +
     				'<td><a data-no=' + levelList[i].no + '>' + levelList[i].no +'</a></td>' +
-            		'<td id="title">' + levelList[i].title + '</td>' +
+            		'<td id="title"><a href="${pageContext.servletContext.contextPath }/training/view/' + levelList[i].no + '">' + levelList[i].title + '</a></td>' +
 		            '<td>' + levelList[i].kind + '</td>' + 
 		            '<td>' + levelList[i].nickname + '</td>' + 
 		            '<td>' + levelList[i].hit  + '</td>' +
 		            '<td>' + levelList[i].recommend + '</td>' + 
     			'</tr>';
 	}
-	// $(".list").append("<c:forEach items='${levelList }' var='problemvo' varStatus='status'><tr><td><a data-no='${problemvo.no }'>${problemvo.no }</a></td><td id='title'>${problemvo.title }</td><td>${problemvo.kind }</td><td>${problemvo.nickname }</td><td>${problemvo.hit }</td><td>${problemvo.recommend }</td></tr></c:forEach>");
 	$(".list table").append(str);
 }
 
@@ -95,9 +93,13 @@ $(function() {
 		})
 		
 		if(!pandan) {
+			$("input[name=organization]").removeAttr("disabled");
+
 			originList();
 		}
 		else {
+			$("input[name=organization]").attr("disabled", true);
+			
 			var category = 'level';
 			selectList(category);
 			fetchList();
@@ -113,9 +115,13 @@ $(function() {
 		})
 		
 		if(!pandan) {
+			$("input[name=level]").removeAttr("disabled");
+			
 			originList();
 		}
 		else {
+			$("input[name=level]").attr("disabled", true);
+			
 			var category = 'organization';
 			selectList(category);
 			fetchList();
@@ -190,16 +196,6 @@ $(function() {
                     <th>조회수</th>
                     <th>추천수</th>
                 </tr>
-<%--                 <c:forEach items='${list }' var='problemvo' varStatus='status'> --%>
-<!--                 	<tr id="tr"> -->
-<%--                 		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td> --%>
-<%-- 	                    <td id="title">${problemvo.title }</td> --%>
-<%-- 	                    <td>${problemvo.kind }</td> --%>
-<%-- 	                    <td>${problemvo.nickname }</td> --%>
-<%-- 	                    <td>${problemvo.hit }</td> --%>
-<%-- 	                    <td>${problemvo.recommend }</td> --%>
-<!--                 	</tr> -->
-<%--                 </c:forEach> --%>
             </table>
             <div class="make-problem">
                 <a href="${pageContext.servletContext.contextPath }/training/write"><button>문제작성</button></a>

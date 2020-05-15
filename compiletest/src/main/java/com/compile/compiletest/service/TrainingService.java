@@ -54,4 +54,12 @@ public class TrainingService {
 		
 		trainingRepository.insertSubProblem(map);
 	}
+
+	public ProblemVo selectProblemOne(Long no) {
+		return trainingRepository.selectProblemOne(no);
+	}
+
+	public List<SubProblemVo> selectSubProblem(Long no) {
+		return trainingRepository.selectSubProblem(no);
+	}
 }
