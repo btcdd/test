@@ -9,17 +9,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Code Forest</title>
-<link href="header.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/view.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.servletContext.contextPath }/assets/css/main/main.css" rel="stylesheet" type="text/css">    
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script>
-	$(function() {
-		$(".pro").on("click", function() {
-			$(".open").toggle("slow");
-		});
+
+
+
+$(function() {
+	
+	var no;
+	
+	$(".problem").click(function() {
+		no = $(this).children().attr("id");
+		
+		$(".open" + no).toggle("slow");
 	});
+
+});
 </script>
 </head>
 
@@ -27,63 +35,43 @@
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
     <div class="container">
         <div class="top">
-            <p class="division">111</p>
-            <p>2020 더존비즈온 1차</p>
+            <p class="division">${problemVo.no }</p>
+            <p>${problemVo.title }</p>
             <button><a href="">코드 트리로 가져오기</a></button>
             <button><a href="">통계</a></button>
         </div>
         
         <div class="problem-list">
-            <div class="problem">
-                <div class="pro">
-                    <p class="division">문제1</p>
-                    <p id="click">미로찾기</p>
-                    <button>맞은 사람</button>
-                    <div class="open">
-	                    <div class="explain">
-	                        <p>
-	                            안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestestestest
-	                        </p>
-	                    </div>
-	                    <div class="example">
-	                        <div class="input">
-	                            <fieldset>
-	                                <legend class="example-division">예제 입력</legend>
-	                                <div class="input-content">5</div>
-	                            </fieldset>
-	                        </div>
-	                        <div class="result">
-	                            <fieldset>
-	                                <legend class="example-division">예제 출력</legend>
-	                                <div class="result-content">*****</div>
-	                            </fieldset>
-	                        </div>
-	                    </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="problem">
-                <div class="pro">
-                    <p>문제2</p>
-                    <p>미로찾기</p>
-                    <button>맞은 사람</button>
-                </div>
-            </div>
-            <div class="problem">
-                <div class="pro">
-                    <p>문제3</p>
-                    <p>미로찾기</p>
-                    <button>맞은 사람</button>
-                </div>
-            </div>
-            <div class="problem">
-                <div class="pro">
-                    <p>문제4</p>
-                    <p>미로찾기</p>
-                    <button>맞은 사람</button>
-                </div>
-            </div>
+        	<c:forEach items='${list }' var='vo' step='1' varStatus='status'>
+				<div class="problem">
+					<div class="pro pro${status.index + 1}" id="${status.index + 1}">
+						<p class="division">문제 ${status.index + 1}</p>
+						<p id="click">${vo.title }</p>
+						<button>맞은 사람</button>
+						
+						<div class="open${status.index + 1}">
+							<div class="explain">
+								<p>${vo.contents }</p>
+							</div>
+							<div class="example">
+								<div class="input">
+									<fieldset>
+										<legend class="example-division">예제 입력</legend>
+										<div class="input-content">${vo.examInput }</div>
+									</fieldset>
+								</div>
+								<div class="result">
+									<fieldset>
+										<legend class="example-division">예제 출력</legend>
+										<div class="result-content">${vo.examOutput }</div>
+									</fieldset>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</c:forEach>
         </div>
         <button id="modify">수정하기</button>
     </div>
