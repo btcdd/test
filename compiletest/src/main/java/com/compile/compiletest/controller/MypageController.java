@@ -1,6 +1,5 @@
 package com.compile.compiletest.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.compile.compiletest.service.MypageService;
-import com.compile.compiletest.vo.ProblemVo;
 
 @Controller
 @RequestMapping("/mypage")

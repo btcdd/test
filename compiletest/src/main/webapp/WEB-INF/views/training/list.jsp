@@ -187,6 +187,12 @@ $(function() {
         </div>
 
         <div class="list">
+        
+			<form id="search_form" action="${pageContext.request.contextPath }/training" method="get">
+				<input type="text" id="kwd" name="kwd" value="${keyword }">
+				<input type="submit" value="찾기">
+			</form>        
+        
             <table>
                 <tr>
                     <th>번호</th>
@@ -197,22 +203,38 @@ $(function() {
                     <th>추천수</th>
                 </tr>
             </table>
+
+			<!-- pager 추가 -->
+			<div class ="pager">
+				<c:if test="${map.prev }">
+					<span>[ <a href="${pageContext.request.contextPath }/training?p=${map.startPageNum -1}">이전</a> ]</span>
+				</c:if>				
+				
+				<c:forEach begin="${map.startPageNum }" end="${map.endPageNum }" var="page">
+					<span>
+						<c:if test="${map.select != page }">
+							<a href="${pageContext.request.contextPath }/training?p=${page}">${page}</a>
+						</c:if>
+						
+						<c:if test="${map.select == page }">
+							<b>${page }</b>
+						</c:if>
+					</span>
+				</c:forEach>
+					
+				<c:if test="${map.next }">
+					<span>[ <a href="${pageContext.request.contextPath }/training?p=${map.endPageNum +1}">다음</a> ]</span>
+				</c:if>											
+			</div>
+			<!-- pager 추가 -->            
+            
+            
             <div class="make-problem">
                 <a href="${pageContext.servletContext.contextPath }/training/write"><button>문제작성</button></a>
             </div>
-            <div class="pager">
-                <ul>
-                    <li>◀</li>
-                    <li class="selected">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>▶</li>
-                </ul>
-            </div>
+				
+ 
         </div>
-
     </div>
 
 </body>

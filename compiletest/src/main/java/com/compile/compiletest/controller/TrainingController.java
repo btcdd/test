@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.ProblemVo;
@@ -24,8 +25,16 @@ public class TrainingController {
 	@Autowired
 	private TrainingService trainingService;
 	
+	
+	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	public String training() {
+	public String training(
+			@RequestParam(value="p",required=true,defaultValue="1") int currentPage,
+			@RequestParam(value="kwd",required=true,defaultValue="") String keyword,
+			Model model) {
+		Map<String,Object> map = trainingService.getContentsList(currentPage,keyword);
+		model.addAttribute("map",map);
+		System.out.println(map);
 		return "training/list";
 	}
 	

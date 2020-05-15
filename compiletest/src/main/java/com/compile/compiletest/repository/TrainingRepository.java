@@ -1,5 +1,6 @@
 package com.compile.compiletest.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,4 +48,19 @@ public class TrainingRepository {
 	public List<SubProblemVo> selectSubProblem(Long no) {
 		return sqlSession.selectList("training.selectSubProblem", no);
 	}
+
+	public int getTotalCount(String keyword) {
+		return sqlSession.selectOne("training.totalCount",keyword);
+	}
+
+
+	public List<ProblemVo> selectTrainingList(int displayPost, int postNum, String keyword) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("displayPost",displayPost);
+		map.put("postNum",postNum);
+		map.put("keyword",keyword);
+		List<ProblemVo> list = sqlSession.selectList("training.selectTrainingList",map);
+		return list;
+	}
+
 }
