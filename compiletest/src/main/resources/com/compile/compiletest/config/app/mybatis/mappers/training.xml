@@ -150,7 +150,7 @@
 	
 	<select id="selectSubProblem" parameterType="long" resultType="subproblemvo">
 		<![CDATA[
-			  select title, contents, exam_input as examInput, exam_output as examOutput 
+			  select title, contents, exam_input as examInput, exam_output as examOutput, correct_code as correctCode
 				from sub_problem 
 			   where problem_no = #{no }
 		]]>

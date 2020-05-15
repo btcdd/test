@@ -15,7 +15,7 @@ import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.ProblemVo;
 
 @RestController("TrainingController")
-@RequestMapping("/training")
+@RequestMapping("/api/training")
 public class TrainingController {
 	
 	@Autowired
@@ -47,6 +47,8 @@ public class TrainingController {
 	@GetMapping(value="/list")
 	public JsonResult originProblemList() {
 		List<ProblemVo> levelList = trainingService.selectProblemListOrigin();
+		
+		
 		
 		return JsonResult.success(levelList);
 	}

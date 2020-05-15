@@ -18,7 +18,7 @@
 
     var changeNickname = function(nickname) {
     	$.ajax({
-            url: '${pageContext.request.contextPath }/mypage/account/nickname',
+            url: '${pageContext.request.contextPath }/api/mypage/account/nickname',
             async: true,
             type: 'post',
             dataType: 'json',
@@ -37,7 +37,7 @@
     
     var changePassword = function(password) {
     	$.ajax({
-            url: '${pageContext.request.contextPath }/mypage/account/password',
+            url: '${pageContext.request.contextPath }/api/mypage/account/password',
             async: true,
             type: 'post',
             dataType: 'json',
@@ -56,7 +56,7 @@
     
     var deleteUser = function(password) {
     	  $.ajax({
-            url: '${pageContext.request.contextPath }/mypage/account/delete',
+            url: '${pageContext.request.contextPath }/api/mypage/account/delete',
             async: true,
             type: 'post',
             dataType: 'json',
