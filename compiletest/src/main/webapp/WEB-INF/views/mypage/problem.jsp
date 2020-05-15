@@ -164,7 +164,7 @@ $(function() {
                     <th width="11%">삭제</th>
                     <th width="11%">목록</th>
                 </tr>
-              	<c:forEach items='${list }' var='problemvo' varStatus='status'>
+              	<c:forEach items='${map.list }' var='problemvo' varStatus='status'>
                 	<tr>
                 		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td>
 	                    <td>${problemvo.title }</td>
@@ -176,6 +176,34 @@ $(function() {
                 	</tr>
                 </c:forEach>
             </table>
+				
+				
+				
+				<!-- pager 추가 -->
+				<div class ="pager">
+					<c:if test="${map.prev }">
+						<span>[ <a href="${pageContext.request.contextPath }/mypage/problem?p=${map.startPageNum -1}">이전</a> ]</span>
+					</c:if>				
+					
+					<c:forEach begin="${map.startPageNum }" end="${map.endPageNum }" var="page">
+						<span>
+							<c:if test="${map.select != page }">
+								<a href="${pageContext.request.contextPath }/mypage/problem?p=${page}">${page}</a>
+							</c:if>
+							
+							<c:if test="${map.select == page }">
+								<b>${page }</b>
+							</c:if>
+						</span>
+					</c:forEach>
+						
+					<c:if test="${map.next }">
+						<span>[ <a href="${pageContext.request.contextPath }/mypage/problem?p=${map.endPageNum +1}">다음</a> ]</span>
+					</c:if>											
+				</div>
+				<!-- pager 추가 -->           
+            
+            
             <br>
         </div>
 

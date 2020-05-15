@@ -1,6 +1,8 @@
 package com.compile.compiletest.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,14 @@ public class MypageRepository {
 		sqlSession.update("mypage.foreignKeyChecks", 0L);
 	}
 
-	public List<ProblemVo> selectProblemList(String email) {
-		return sqlSession.selectList("mypage.selectProblemList", email);
+	public List<ProblemVo> selectProblemList(int displayPost, int postNum) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("displayPost",displayPost);
+		map.put("postNum",postNum);		
+		List<ProblemVo> list = sqlSession.selectList("mypage.selectProblemList",map);
+		return list;
 	}
-
+	
 	public int deleteProblem(Long no) {
 		return sqlSession.delete("mypage.deleteProblem", no);
 	}
@@ -46,4 +52,10 @@ public class MypageRepository {
 	public List<SubmitVo> problemSolveList(Long no) {
 		return sqlSession.selectList("mypage.problemSolveList", no);
 	}
+
+	public int getTotalCount() {
+		return sqlSession.selectOne("mypage.totalCount");
+	}
+
+	
 }

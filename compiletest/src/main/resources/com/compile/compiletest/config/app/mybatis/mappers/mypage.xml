@@ -40,12 +40,13 @@
 		]]>
 	</select>
 	
-	<select id="selectProblemList" parameterType="string" resultType="problemvo">
+	<select id="selectProblemList" parameterType="map"  resultType="problemvo">
 		<![CDATA[
 			select p.no as no, p.title as title, p.hit as hit, p.recommend as recommend
 			  from problem p, user u
 			 where u.no = 1
 			   and p.state = 'y'
+			   limit #{displayPost}, #{postNum}
 		]]>
 	</select>
 	
@@ -65,5 +66,14 @@
 			group by u.email
 		]]>
 	</select>
+
+
+	<select id="totalCount" resultType="integer">
+		<![CDATA[
+			select count(*) from problem 
+		]]>
+	</select>
+	
+	
 
 </mapper>
