@@ -77,6 +77,7 @@ $(function() {
 			}
 		},
 		close: function() {
+			$(".problem-list-table tr th").removeClass();
 			$(".problem-list-table tr th").show();
 			$(".box-component").each(function(){
 			       $(this).prop('checked',true);

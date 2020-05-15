@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class TrainingController {
 	}
 	
 	@RequestMapping(value="/view/{problemNo}", method=RequestMethod.GET)
-	public String problemView(@PathVariable("problemNo") Long problemNo) {
+	public String problemView(@PathVariable("problemNo") Long problemNo, Model model) {
 		
 		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
 		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
@@ -53,10 +54,10 @@ public class TrainingController {
 		
 		map.put("problemVo", problemVo);
 		map.put("list", list);
-		
-		System.out.println(problemVo);
-		System.out.println(list);
+		map.put("listSize", list.size());
 
+		model.addAllAttributes(map);
+		
 		return "training/view";
 	}
 }
