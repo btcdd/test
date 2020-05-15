@@ -139,4 +139,21 @@
 		</foreach>
 	</insert>
 	
+	
+	<select id="selectProblemOne" parameterType="long" resultType="problemvo">
+		<![CDATA[
+			  select no, title, recommend
+			    from problem
+			   where no = #{no }
+		]]>
+	</select>
+	
+	<select id="selectSubProblem" parameterType="long" resultType="subproblemvo">
+		<![CDATA[
+			  select title, contents, exam_input as examInput, exam_output as examOutput 
+				from sub_problem 
+			   where problem_no = #{no }
+		]]>
+	</select>
+	
 </mapper>

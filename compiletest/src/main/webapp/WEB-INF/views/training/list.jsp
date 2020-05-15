@@ -78,7 +78,6 @@ var fetchList = function() {
 		            '<td>' + levelList[i].recommend + '</td>' + 
     			'</tr>';
 	}
-	// $(".list").append("<c:forEach items='${levelList }' var='problemvo' varStatus='status'><tr><td><a data-no='${problemvo.no }'>${problemvo.no }</a></td><td id='title'>${problemvo.title }</td><td>${problemvo.kind }</td><td>${problemvo.nickname }</td><td>${problemvo.hit }</td><td>${problemvo.recommend }</td></tr></c:forEach>");
 	$(".list table").append(str);
 }
 

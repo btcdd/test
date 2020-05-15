@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Forest</title>
     <link href="header.css" rel="stylesheet" type="text/css">
-    <link href="${pageContext.servletContext.contextPath }/assets/css/training/codingtraining2.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.servletContext.contextPath }/assets/css/training/view.css" rel="stylesheet" type="text/css">
         <link href="${pageContext.servletContext.contextPath }/assets/css/main/main.css" rel="stylesheet" type="text/css">
     
 </head>
@@ -26,7 +26,7 @@
             <button><a href="">내 코드 트리로 가져오기</a></button>
             <button><a href="">통계</a></button>
         </div>
-
+        
         <div class="problem-list">
             <div class="problem">
                 <div class="pro">
