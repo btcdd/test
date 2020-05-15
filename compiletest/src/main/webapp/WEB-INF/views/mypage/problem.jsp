@@ -77,6 +77,10 @@ $(function() {
 			}
 		},
 		close: function() {
+			$(".problem-list-table tr th").show();
+			$(".box-component").each(function(){
+			       $(this).prop('checked',true);
+			});
 			$(".problem-list-table > #tbody > tr").remove();
 			$("#hidden-no").val('');
 		}
@@ -192,12 +196,12 @@ $(function() {
     <div id="problem-list" title="문제 푼 사람 리스트" style="display: none">
     	<input type="hidden" id="hidden-title" value="">
     	<div class="check-box">
-	    	<label><input type="checkbox" name="problem-list-table" value="name" checked>이름</label>
-	    	<label><input type="checkbox" name="problem-list-table" value="email" checked>이메일</label>
-	    	<label><input type="checkbox" name="problem-list-table" value="nickname" checked>닉네임</label>
-	    	<label><input type="checkbox" name="problem-list-table" value="try-count" checked>시도횟수</label>
-	    	<label><input type="checkbox" name="problem-list-table" value="lang" checked>언어</label>
-	    	<label><input type="checkbox" name="problem-list-table" value="solve-time" checked>해결시간</label>
+	    	<label><input class="box-component" type="checkbox" name="problem-list-table" value="name" checked>이름</label>
+	    	<label><input class="box-component" type="checkbox" name="problem-list-table" value="email" checked>이메일</label>
+	    	<label><input class="box-component" type="checkbox" name="problem-list-table" value="nickname" checked>닉네임</label>
+	    	<label><input class="box-component" type="checkbox" name="problem-list-table" value="try-count" checked>시도횟수</label>
+	    	<label><input class="box-component" type="checkbox" name="problem-list-table" value="lang" checked>언어</label>
+	    	<label><input class="box-component" type="checkbox" name="problem-list-table" value="solve-time" checked>해결시간</label>
     	</div>
     	<table class="problem-list-table">
     		<tr>
