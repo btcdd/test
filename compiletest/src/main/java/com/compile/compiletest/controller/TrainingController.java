@@ -37,4 +37,10 @@ public class TrainingController {
 		
 		return "redirect:/training";
 	}
+	
+	@RequestMapping(value="/view/{no}", method=RequestMethod.GET)
+	public String problemView() {
+		
+		return "training/view";
+	}
 }

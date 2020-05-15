@@ -10,11 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Forest</title>
     <link href="header.css" rel="stylesheet" type="text/css">
-    <link href="codingtraning2.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.servletContext.contextPath }/assets/css/training/codingtraining2.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.servletContext.contextPath }/assets/css/main/main.css" rel="stylesheet" type="text/css">
+    
 </head>
 
 <body>
-    <c:import url="/WEB-INF/views/include/header.jsp" />
+    <c:import url="/WEB-INF/views/include/main-header.jsp" />
     <div class="container">
         <div class="top">
             <p>111</p>

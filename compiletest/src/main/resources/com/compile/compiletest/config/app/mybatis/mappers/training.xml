@@ -127,11 +127,14 @@
 	</select>
 	
 	<insert id="insertSubProblem" parameterType="hashmap">
-		<foreach collection="subProblemList" item="item" separator=" , ">
 		<![CDATA[
 			insert 
 			  into sub_problem 
-			values (null, '${item.title }', '${item.contents }', '${item.examInput }', '${item.correctCode}', '${item.examOutput }', ${problemNo },'y')
+			values
+		]]>
+		<foreach collection="subProblemList" item="item" separator=",">
+		<![CDATA[
+			 (null, "${item.title }", "${item.contents }", "${item.examInput }", "${item.correctCode}", "${item.examOutput }", ${problemNo },'y')
 		]]>
 		</foreach>
 	</insert>
