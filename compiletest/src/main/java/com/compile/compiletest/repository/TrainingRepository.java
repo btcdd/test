@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SubProblemVo;
 
 @Repository
 public class TrainingRepository {
@@ -36,8 +37,14 @@ public class TrainingRepository {
 	}
 
 	public int insertSubProblem(Map<String, Object> map) {
-		System.out.println(map.get("subProblemList"));
-		System.out.println(map.get("problemNo"));
 		return sqlSession.insert("training.insertSubProblem", map);
+	}
+
+	public ProblemVo selectProblemOne(Long no) {
+		return sqlSession.selectOne("training.selectProblemOne", no);
+	}
+
+	public List<SubProblemVo> selectSubProblem(Long no) {
+		return sqlSession.selectList("training.selectSubProblem", no);
 	}
 }
