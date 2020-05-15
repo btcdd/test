@@ -15,11 +15,29 @@ public class TrainingRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<ProblemVo> selectProblemList(Map<String, Object> map) {
-		return sqlSession.selectList("training.selectProblemList", map);
+	public List<ProblemVo> selectLevelList(Map<String, Object> map) {
+		return sqlSession.selectList("training.selectLevelList", map);
 	}
 
 	public List<ProblemVo> selectProblemListOrigin() {
 		return sqlSession.selectList("training.selectProblemListOrigin");
+	}
+
+	public List<ProblemVo> selectOrganizationList(Map<String, Object> map) {
+		return sqlSession.selectList("training.selectOrganizationList", map);
+	}
+
+	public int insertProblem(ProblemVo problemVo) {
+		return sqlSession.insert("training.insertProblem", problemVo);
+	}
+
+	public Long selectProblemNo() {
+		return sqlSession.selectOne("training.selectProblemNo");
+	}
+
+	public int insertSubProblem(Map<String, Object> map) {
+		System.out.println(map.get("subProblemList"));
+		System.out.println(map.get("problemNo"));
+		return sqlSession.insert("training.insertSubProblem", map);
 	}
 }

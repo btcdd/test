@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Forest</title>
     <link href="${pageContext.servletContext.contextPath }/assets/css/training/list.css" rel="stylesheet" type="text/css">
-    <link href="${pageContext.servletContext.contextPath }/assets/css/main.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.servletContext.contextPath }/assets/css/main/main.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script>
@@ -20,13 +20,16 @@ var checkValues = new Array();
 
 var levelList = new Array();
 
-var selectList = function(){
+var selectList = function(category){
 	$.ajax({
 		url: '${pageContext.request.contextPath }/training/list',
 		async: false,
 		type: 'post',
 		traditional: true,
-		data: {'checkValues':checkValues},
+		data: {
+			'category': category,
+			'checkValues':checkValues
+		},
 		success: function(response){
 			if(response.result != "success"){
 				console.error(response.message);
@@ -78,7 +81,6 @@ var fetchList = function() {
 	}
 	// $(".list").append("<c:forEach items='${levelList }' var='problemvo' varStatus='status'><tr><td><a data-no='${problemvo.no }'>${problemvo.no }</a></td><td id='title'>${problemvo.title }</td><td>${problemvo.kind }</td><td>${problemvo.nickname }</td><td>${problemvo.hit }</td><td>${problemvo.recommend }</td></tr></c:forEach>");
 	$(".list table").append(str);
-	console.log("asdgasdgasdfasdfaf" + str);
 }
 
 $(function() {
@@ -96,7 +98,8 @@ $(function() {
 			originList();
 		}
 		else {
-			selectList();
+			var category = 'level';
+			selectList(category);
 			fetchList();
 			checkValues = new Array();
 		}
@@ -113,7 +116,8 @@ $(function() {
 			originList();
 		}
 		else {
-			selectList();
+			var category = 'organization';
+			selectList(category);
 			fetchList();
 			checkValues = new Array();
 		}
@@ -198,7 +202,7 @@ $(function() {
 <%--                 </c:forEach> --%>
             </table>
             <div class="make-problem">
-                <button><a href="">문제작성</a></button>
+                <a href="${pageContext.servletContext.contextPath }/training/write"><button>문제작성</button></a>
             </div>
             <div class="pager">
                 <ul>

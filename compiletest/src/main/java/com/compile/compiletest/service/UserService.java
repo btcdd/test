@@ -67,5 +67,14 @@ public class UserService {
 	public boolean existNickname(String nickname) {
 		return userRepository.findNickname(nickname) != null;
 	}
+
+	public boolean updatePassword(UserVo vo) {
+		return userRepository.update(vo) == 1;
+		
+	}
+
+	public String getNickname(String email) {
+		return userRepository.findNicknameByEmail(email);
+	}
 	
 }
