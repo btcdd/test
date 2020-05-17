@@ -63,7 +63,7 @@ var addSubProblem = function() {
 $(function() {
 	$('#addSubProblem').click(function() {
 		addSubProblem();
-	})
+	});
 });
 
 </script>
