@@ -62,10 +62,11 @@ public class TrainingService {
 	}
 
 	public void modify(SubProblemList subProblemList, Long problemNo) {
+		List<SubProblemVo> list = subProblemList.getSubProblemList();
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("problemNo", problemNo);
-		
-		List<SubProblemVo> list = subProblemList.getSubProblemList();
+		map.put("listSize", list.size());
 		
 		for(int i = 0; i < list.size(); i++) {
 			if(list.get(i).getExamInput() == "") {
@@ -79,5 +80,13 @@ public class TrainingService {
 		map.put("subProblemList", list);
 		
 		trainingRepository.modify(map);
+	}
+
+	public void deleteSubProblem(SubProblemList subProblemList) {
+		List<SubProblemVo> list = subProblemList.getSubProblemList();
+		Map<String, Object> map = new HashMap<>();
+		map.put("subProblemlist", list);
+		
+		trainingRepository.deleteSubProblem(map);
 	}	
 }

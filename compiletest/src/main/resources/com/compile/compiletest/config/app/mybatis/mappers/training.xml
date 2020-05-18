@@ -170,7 +170,6 @@
 		
 	</insert>
 	
-	
 	<select id="selectProblemOne" parameterType="long" resultType="problemvo">
 		<![CDATA[
 			  select no, title, recommend
@@ -186,5 +185,24 @@
 			   where problem_no = #{no }
 		]]>
 	</select>
+	
+	<delete id="deleteSubProblem" parameterType="hashmap">
+		@index := 0
+		<![CDATA[
+			  delete
+			    from sub_problem
+			   where no not in (null, 
+		]]>
+		<foreach collection="subProblemList" item="item" separator="," open="(" close=")">
+			<if test="item.no != null">
+				<![CDATA[
+					${item.no }
+				]]>
+			</if>	
+		</foreach>  
+		<![CDATA[
+			)
+		]]>
+	</delete>
 	
 </mapper>

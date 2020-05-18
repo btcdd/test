@@ -82,11 +82,8 @@ public class TrainingController {
 	public String problemModifySubmit(@ModelAttribute SubProblemList subProblemList,
 				ProblemVo problemVo,
 				@PathVariable("problemNo") Long problemNo, Model model) {
-		
-		
-		
+		trainingService.deleteSubProblem(subProblemList);
 		trainingService.modify(subProblemList, problemNo);
-		
 		
 		return "redirect:/training/view/" + problemNo;
 	}

@@ -19,11 +19,11 @@
 var index = ${listSize };
 
 var addSubProblem = function() {
-	var str = 	'<div class="subproblem' + index + '">' +
+	var str = 	'<div class="subproblem' + index + '" id= "'+ index + '">' +
 				'<input type="hidden" id="no" name="subProblemList[' + index + '].no" value="${vo.no }">' + 
 				'<div class="sub-title">' + 
 	        	'문제 제목<input type="text" name="subProblemList[' + index + '].title"/>' +
-	        	'<a href="${pageContext.servletContext.contextPath }/training/subproblem/delete" id="delete">삭제</a>' + 
+	        	'<div class="delete"><a>삭제</a></div>' + 
 		        '</div>' +
 		        '<div class="prob-content">' + 
 		            '<div class="prob-content-title">내용</div>' + 
@@ -67,14 +67,26 @@ var addSubProblem = function() {
 	
 }
 
+var correct = function() {
+	console.log('밖에 index'+ index);
+}
+
 $(function() {
 	$('#addSubProblem').click(function() {
 		addSubProblem();
 	});
 	
-	$('#delete').click(function() {
+	var no;
+	
+	$('.delete').click(function() {
+		no = $(this).parent().parent().attr("id");
+		index--;
 		
+		$(".subproblem" + no).remove();
+		
+		correct();
 	});
+	
 });
 
 </script>
@@ -106,16 +118,16 @@ $(function() {
 	        </div>
 	        <br />
 	        <div class="title">
-	        	문제집 제목<input type="text" name="title" value=${problemVo.title }/>
+	        	문제집 제목<input type="text" name="title" value="${problemVo.title }" />
 	        </div>
 	        <br />
 		        <div class="a">
 	        <c:forEach items='${list }' var='vo' step='1' varStatus='status'>
-	        	<div class="subproblem${status.index }">
+	        	<div class="subproblem${status.index }" id="${status.index }">
 	        		<input type="hidden" id="no" name="subProblemList[${status.index }].no" value="${vo.no }">
 			        <div class="sub-title">
-			        	문제 제목<input type="text" name="subProblemList[${status.index }].title" value=${vo.title }/>
-			        	<a href="${pageContext.servletContext.contextPath }/training/subproblem/delete" id="delete">삭제</a>
+			        	문제 제목<input type="text" name="subProblemList[${status.index }].title" value="${vo.title }" />
+			        	<div class="delete"><a>삭제</a></div>
 			        </div>
 			        <div class="prob-content">
 			            <div class="prob-content-title">내용</div>
@@ -132,7 +144,6 @@ $(function() {
 			            <div class="ex-input-title">예제 출력</div>
 			            <textarea id="ex-output-text" name="subProblemList[${status.index }].examOutput">${vo.examOutput }</textarea>
 			        </div>
-			
 					
 			        <div class="answer-code0">
 			            <div class="ex-input-title">정답 코드</div>
