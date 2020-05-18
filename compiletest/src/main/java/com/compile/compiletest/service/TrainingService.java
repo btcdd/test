@@ -42,11 +42,9 @@ public class TrainingService {
 		for(int i = 0; i < list.size(); i++) {
 			if(list.get(i).getExamInput() == "") {
 				list.get(i).setExamInput("null");
-				System.out.println("하이1");
 			}
 			if(list.get(i).getCorrectCode() == "") {
 				list.get(i).setCorrectCode("null");
-				System.out.println("하이1");
 			}
 		}
 		
@@ -62,4 +60,24 @@ public class TrainingService {
 	public List<SubProblemVo> selectSubProblem(Long no) {
 		return trainingRepository.selectSubProblem(no);
 	}
+
+	public void modify(SubProblemList subProblemList, Long problemNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("problemNo", problemNo);
+		
+		List<SubProblemVo> list = subProblemList.getSubProblemList();
+		
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getExamInput() == "") {
+				list.get(i).setExamInput("null");
+			}
+			if(list.get(i).getCorrectCode() == "") {
+				list.get(i).setCorrectCode("null");
+			}
+		}
+		
+		map.put("subProblemList", list);
+		
+		trainingRepository.modify(map);
+	}	
 }

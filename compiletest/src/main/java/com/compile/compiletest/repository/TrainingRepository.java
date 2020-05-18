@@ -47,4 +47,8 @@ public class TrainingRepository {
 	public List<SubProblemVo> selectSubProblem(Long no) {
 		return sqlSession.selectList("training.selectSubProblem", no);
 	}
+
+	public int modify(Map<String, Object> map) {
+		return sqlSession.update("training.modify", map);
+	}
 }

@@ -16,11 +16,14 @@
     <title>Code Forest</title>
 <script>
 
-var index = 1;
+var index = ${listSize };
 
 var addSubProblem = function() {
-	var str = '<div class="sub-title">' + 
+	var str = 	'<div class="subproblem' + index + '">' +
+				'<input type="hidden" id="no" name="subProblemList[' + index + '].no" value="${vo.no }">' + 
+				'<div class="sub-title">' + 
 	        	'문제 제목<input type="text" name="subProblemList[' + index + '].title"/>' +
+	        	'<a href="${pageContext.servletContext.contextPath }/training/subproblem/delete" id="delete">삭제</a>' + 
 		        '</div>' +
 		        '<div class="prob-content">' + 
 		            '<div class="prob-content-title">내용</div>' + 
@@ -53,16 +56,24 @@ var addSubProblem = function() {
 			             '</select>' + 
 		             '</div>' + 
 		            '<textarea id="answer-code-text" name="subProblemList[' + index + '].correctCode"></textarea>' + 
-		        '</div>';
-		        
+		        '</div>' +
+		       '</div>';
+	
 	$('.a').append(str);
+	
+	console.log(index);
+	
 	index++;
+	
 }
-
 
 $(function() {
 	$('#addSubProblem').click(function() {
 		addSubProblem();
+	});
+	
+	$('#delete').click(function() {
+		
 	});
 });
 
@@ -71,7 +82,7 @@ $(function() {
 <body>
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
     
-    <form method="post" action="${pageContext.servletContext.contextPath }/training/write">
+    <form method="post" action="${pageContext.servletContext.contextPath }/training/modify/${problemVo.no }">
 	    <div class="regist">
 	        <div class="privateAndPassword">
 	            <div class="private">코딩테스트 <input type="checkbox"></div>
@@ -95,46 +106,54 @@ $(function() {
 	        </div>
 	        <br />
 	        <div class="title">
-	        	문제집 제목<input type="text" name="title" />
+	        	문제집 제목<input type="text" name="title" value=${problemVo.title }/>
 	        </div>
 	        <br />
-	        <div class="a">
-		        <div class="sub-title">
-		        	문제 제목<input type="text" name="subProblemList[0].title"/>
-		        </div>
-		        <div class="prob-content">
-		            <div class="prob-content-title">내용</div>
-		            <textarea id="prob-content-text" name="subProblemList[0].contents"></textarea>
-		        </div>
-		        <br />
-		
-		        <div class="ex-input">
-		            <div class="ex-input-title">예제 입력</div>
-		            <textarea id="ex-input-text" name="subProblemList[0].examInput"></textarea>
-		        </div>
-		
-		        <div class="ex-output">
-		            <div class="ex-input-title">예제 출력</div>
-		            <textarea id="ex-output-text" name="subProblemList[0].examOutput"></textarea>
-		        </div>
-		
+		        <div class="a">
+	        <c:forEach items='${list }' var='vo' step='1' varStatus='status'>
+	        	<div class="subproblem${status.index }">
+	        		<input type="hidden" id="no" name="subProblemList[${status.index }].no" value="${vo.no }">
+			        <div class="sub-title">
+			        	문제 제목<input type="text" name="subProblemList[${status.index }].title" value=${vo.title }/>
+			        	<a href="${pageContext.servletContext.contextPath }/training/subproblem/delete" id="delete">삭제</a>
+			        </div>
+			        <div class="prob-content">
+			            <div class="prob-content-title">내용</div>
+			            <textarea id="prob-content-text" name="subProblemList[${status.index }].contents">${vo.contents }</textarea>
+			        </div>
+			        <br />
+			
+			        <div class="ex-input">
+			            <div class="ex-input-title">예제 입력</div>
+			            <textarea id="ex-input-text" name="subProblemList[${status.index }].examInput">${vo.examInput }</textarea>
+			        </div>
+			
+			        <div class="ex-output">
+			            <div class="ex-input-title">예제 출력</div>
+			            <textarea id="ex-output-text" name="subProblemList[${status.index }].examOutput">${vo.examOutput }</textarea>
+			        </div>
+			
+					
+			        <div class="answer-code0">
+			            <div class="ex-input-title">정답 코드</div>
+						<div>
+							<select name="lang">
+								<option value="none" selected="selected">언어선택</option>
+								<option value="c">C</option>
+								<option value="cpp">C++</option>
+								<option value="cs">C#</option>
+								<option value="java">JAVA</option>
+								<option value="js">JavaScript</option>
+								<option value="py">Python</option>
+				             </select>
+			             </div>
+			            <textarea id="answer-code-text" name="subProblemList[${status.index }].correctCode">${vo.correctCode }</textarea>
+			        </div>
+			     </div>
 				
-		        <div class="answer-code0">
-		            <div class="ex-input-title">정답 코드</div>
-					<div>
-						<select name="lang">
-							<option value="none" selected="selected">언어선택</option>
-							<option value="c">C</option>
-							<option value="cpp">C++</option>
-							<option value="cs">C#</option>
-							<option value="java">JAVA</option>
-							<option value="js">JavaScript</option>
-							<option value="py">Python</option>
-			             </select>
-		             </div>
-		            <textarea id="answer-code-text" name="subProblemList[0].correctCode"></textarea>
-		        </div>
-			</div>        
+			</c:forEach>
+			</div>
+			
 	        <a href="${pageContext.servletContext.contextPath }/training">취소</a>
 	        <input type="submit" value="등록">
 	        

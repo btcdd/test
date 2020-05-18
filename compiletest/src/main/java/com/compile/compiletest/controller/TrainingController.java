@@ -70,10 +70,24 @@ public class TrainingController {
 		
 		map.put("problemVo", problemVo);
 		map.put("list", list);
+		
 		map.put("listSize", list.size());
 
 		model.addAllAttributes(map);
 		
 		return "training/modify";
+	}
+	
+	@RequestMapping(value="/modify/{problemNo}", method=RequestMethod.POST)
+	public String problemModifySubmit(@ModelAttribute SubProblemList subProblemList,
+				ProblemVo problemVo,
+				@PathVariable("problemNo") Long problemNo, Model model) {
+		
+		
+		
+		trainingService.modify(subProblemList, problemNo);
+		
+		
+		return "redirect:/training/view/" + problemNo;
 	}
 }
