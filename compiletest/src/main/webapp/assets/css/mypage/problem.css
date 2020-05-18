@@ -65,7 +65,8 @@ a:visited {
 }
 
 .list,
-.delete {
+.delete,
+.sp-delete {
     width: 25px;
 }
 

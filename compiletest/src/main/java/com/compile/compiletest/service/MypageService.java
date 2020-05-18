@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.MypageRepository;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.SubmitVo;
 
 
@@ -95,5 +96,13 @@ public class MypageService {
 		map.put("next",next);
 		
 		return map;
+	}
+
+	public List<SubProblemVo> findSubProblem(Long no) {
+		return mypageRepository.findSubProblem(no);
+	}
+
+	public int deleteSubProblem(Long no) {
+		return mypageRepository.deleteSubProblem(no);
 	}
 }

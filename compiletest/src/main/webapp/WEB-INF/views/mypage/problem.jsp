@@ -57,8 +57,8 @@ $(function() {
 		dialogDelete.dialog('open');
 	});
 	
-	// 문제 푼 사람 리스트 출력
-	var dialogList = $("#problem-list").dialog({
+	// ------------------------------------- 문제 푼 사람 리스트 출력 --------------------------------------
+	var dialogList = $(".problem-list").dialog({
 		autoOpen: false,
 		resizable: false,
 		height: "auto",
@@ -140,6 +140,90 @@ $(function() {
 	    });
 	});
 	
+	// ------------------------------------------- 서브 문제 출력 -------------------------------------------------------
+	$("#problem-title").on('click', function() { 
+        console.log($(this).data('no'));        
+    	var no = $(this).data('no');
+    	
+    	if($("." + no).css('display') == 'none') {
+    		$("." + no + " > .sub-problem-tbody > tr").remove();
+    	}
+    	
+        $.ajax({
+			url: '${pageContext.servletContext.contextPath }/mypage/sub-problem/' + no,
+			async: true,
+			type: 'post',
+			dataType: 'json',
+			data: '',
+			success: function(response) {
+				if(response.data.length == 0) {
+					return;
+				}
+				console.log(response.data);
+				var tr = "";				
+				for(var i in response.data) {
+					tr += "<tr id='sub-problem" + no + "'><td>(" + no + "-" + response.data[i].no +")</td>" + 
+						"<td>" + response.data[i].title + "</td>" + 
+						'<td><input data-no="' + response.data[i].no + '" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="sp-delete"></td>'
+
+				}			
+				$("." + no + " .sub-problem-tbody").append(tr);
+				$("." + no).toggle();
+			},
+			error: function(xhr, status, e) {
+				console.error(status + ":" + e);
+			}
+		});    
+	});
+	
+	// ----------------------------------------------- 서브 문제 삭제 ----------------------------------------
+	var dialogSpDelete = $("#dialog-delete-sp").dialog({
+		autoOpen: false,
+		resizable: false,
+		height: "auto",
+		width: 400,
+		modal: true,
+		buttons: {
+			"삭제": function() {
+				var no = $("#hidden-sp-no").val();
+				var tableClass = $("#hidden-table-class").val();
+				$.ajax({
+					url: '${pageContext.servletContext.contextPath }/mypage/sub-problem/delete/' + no,
+					async: true,
+					type: 'delete',
+					dataType: 'json',
+					data: '',
+					success: function(response) {		
+						console.log("tableClass="+tableClass);
+						
+						dialogSpDelete.dialog('close');
+					},
+					error: function(xhr, status, e) {
+						console.error(status + ":" + e);
+					}
+				});
+			},
+			"취소": function() {
+				$(this).dialog('close');
+			}
+		},
+		close: function() {			
+			$("#hidden-sp-no").val('');
+			$("#hidden-table-class").val('');
+		}
+	});
+	
+	$(document).on('click', '.sp-delete', function(event) {
+		event.preventDefault();
+		
+		var spNo = $(this).data('no');
+		var tableClass = $("#sub-problem-table").attr('class');
+		console.log("sbno=" + spNo);
+		$('#hidden-sp-no').val(spNo);
+		$('#hidden-table-class').val(tableClass);
+		dialogSpDelete.dialog('open');
+	});
+	
 });
 </script>
     
@@ -154,25 +238,44 @@ $(function() {
             </div>
             <br>
             <table class="quiz-table">
-                <tr>
-                    <th width="10%">번호</th>
-                    <th width="53%">제목</th>
-                    <th width="11%">조회수</th>
-                    <th width="11%">추천수</th>
-                    <th width="11%">삭제</th>
-                    <th width="11%">목록</th>
-                </tr>
-              	<c:forEach items='${map.list }' var='problemvo' varStatus='status'>
-                	<tr>
-                		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td>
-	                    <td>${problemvo.title }</td>
-	                    <td>${problemvo.hit }</td>
-	                    <td>${problemvo.recommend }</td>
-
-	                    <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
-                      <td><input data-no="${problemvo.no }" data-title="${problemvo.title }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
-                	</tr>
-                </c:forEach>
+            	<thead>
+	                <tr>
+	                    <th width="10%">번호</th>
+	                    <th width="53%">제목</th>
+	                    <th width="11%">조회수</th>
+	                    <th width="11%">추천수</th>
+	                    <th width="11%">삭제</th>
+	                    <th width="11%">목록</th>
+	                </tr>
+                </thead>
+                <tbody id="problem-tbody">
+                	
+	              	<c:forEach items='${map.list }' var='problemvo' varStatus='status'>
+	                	<tr class="list-contents" data-no="${problemvo.no }">
+	                		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td>
+		                    <td id="problem-title" data-no="${problemvo.no }">${problemvo.title }</td>
+		                    <td>${problemvo.hit }</td>
+		                    <td>${problemvo.recommend }</td>
+		                    <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
+	                      <td><input data-no="${problemvo.no }" data-title="${problemvo.title }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
+	                	</tr>
+	                	
+	                	<tr>
+	                		<td></td>
+		                	<td>
+			                	<table id="sub-problem-table" class="${problemvo.no }" style="display: none;">
+			                		<tbody class="sub-problem-tbody">
+			                		
+			                		</tbody>
+			                	</table>
+		                	</td>
+		               	</tr>	
+		                      	
+	             		
+	                	
+	                </c:forEach>
+                </tbody>
+                
             </table>
 				
 				
@@ -219,7 +322,20 @@ $(function() {
     	</form>
     </div>
     
-    <div id="problem-list" title="문제 푼 사람 리스트" style="display: none">
+    <div id="dialog-delete-sp" title="서브 문제 삭제" style="display: none">
+    	<p>
+    		<span class="ui-icon ui-icon-alert" style="float: left; margin: 12px 12px 20px 0;">	
+    		</span>
+    		해당 서브 문제를 삭제하시겠습니까?
+    	</p>
+    	<form>
+    		<input type="hidden" id="hidden-sp-no" value="">
+    		<input type="hidden" id="hidden-table-class" value="">
+    		<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    	</form>
+    </div>
+    
+    <div class="problem-list" title="문제 푼 사람 리스트" style="display: none">
     	<input type="hidden" id="hidden-title" value="">
     	<div class="check-box">
 	    	<label><input class="box-component" type="checkbox" name="problem-list-table" value="name" checked>이름</label>
@@ -237,8 +353,7 @@ $(function() {
                 <th id="try-count">시도횟수</th>
                 <th id="lang">언어</th>
                 <th id="solve-time">해결시간</th>
-            </tr>
-           
+            </tr>           
     	</table>
 
     </div>
