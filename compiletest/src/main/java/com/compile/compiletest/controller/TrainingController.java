@@ -27,14 +27,20 @@ public class TrainingController {
 	
 	
 	
-	@RequestMapping(value="", method=RequestMethod.GET)
+	@RequestMapping(value={"","/list"}, method=RequestMethod.GET)
 	public String training(
 			@RequestParam(value="p",required=true,defaultValue="1") int currentPage,
 			@RequestParam(value="kwd",required=true,defaultValue="") String keyword,
 			Model model) {
-		Map<String,Object> map = trainingService.getContentsList(currentPage,keyword);
-		model.addAttribute("map",map);
-		System.out.println(map);
+		
+		if(!keyword.equals("")) {
+			Map<String,Object> map = trainingService.getContentsList(currentPage,keyword);
+			model.addAttribute("map",map);
+			model.addAttribute("p",currentPage);
+		}else {
+			model.addAttribute("p",currentPage);
+		}
+		
 		return "training/list";
 	}
 	
@@ -43,6 +49,7 @@ public class TrainingController {
 		
 		return "training/write";
 	}
+
 	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String problemWriteSuccess(

@@ -162,14 +162,14 @@
 		<choose>
 			<when test="_parameter == null or _parameter == ''">
 				<![CDATA[
-					select count(*) from problem 
+					select count(*) from problem p where p.state = 'y'
 				]]>
 			</when>
 			<otherwise>
 			 <![CDATA[
 				 select count(*) from problem p,user u
 				 where
-				 	p.user_no = u.no and
+				 	p.user_no = u.no and p.state = 'y' and
 				 	(title like '%${_parameter}%' or nickname like '%${_parameter}%')
 			 ]]>
 			</otherwise>			
@@ -187,10 +187,11 @@
 						p.title as title, 
 						p.hit as hit, 
 						p.recommend as recommend, 
-						u.nickname
-					  from problem p, user u
+						u.nickname,
+						k.name as kind
+					  from problem p, user u, kind k
 					 where 
-					  	p.user_no = u.no
+					  	p.user_no = u.no and k.no = p.kind_no
 					   	and p.state = 'y'
 					   	limit #{displayPost}, #{postNum}
 				]]>			
@@ -202,10 +203,11 @@
 						p.title as title, 
 						p.hit as hit, 
 						p.recommend as recommend, 
-						u.nickname
-					  from problem p, user u
+						u.nickname,
+						k.name as kind
+					  from problem p, user u, kind k
 					 where 
-					  	p.user_no = u.no
+					  	p.user_no = u.no and k.no = p.kind_no
 					  	and (title like '%${keyword}%' or nickname like '%${keyword}%')
 					   	and p.state = 'y'
 					   	limit #{displayPost}, #{postNum}

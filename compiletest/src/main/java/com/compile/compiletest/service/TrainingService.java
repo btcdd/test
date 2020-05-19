@@ -69,7 +69,7 @@ public class TrainingService {
 	public Map<String, Object> getContentsList(int currentPage, String keyword) {
 		//게시물 총 갯수
 		int count = trainingRepository.getTotalCount(keyword);
-		
+		System.out.println(count);
 		//하단 페이징 번호([게시물 총 갯수 / 한 페이지에 출력할 갯수]의 올림)
 		int pageNum = (int)Math.ceil((double)count/postNum);
 		
@@ -109,6 +109,8 @@ public class TrainingService {
 		map.put("next",next);
 		
 		map.put("keyword",keyword);
+		
+		map.put("count", count);
 		
 		return map;
 	}
