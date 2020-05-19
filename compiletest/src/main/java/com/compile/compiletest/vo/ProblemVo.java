@@ -17,6 +17,7 @@ public class ProblemVo {
 	private Long levelNo;
 	private String nickname;
 	private String kind;
+	private int priority;
 	
 	public Long getNo() {
 		return no;
@@ -95,13 +96,19 @@ public class ProblemVo {
 	}
 	public void setKind(String kind) {
 		this.kind = kind;
+	}	
+	public int getPriority() {
+		return priority;
 	}
-	
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
 	@Override
 	public String toString() {
 		return "ProblemVo [no=" + no + ", title=" + title + ", password=" + password + ", hit=" + hit + ", recommend="
 				+ recommend + ", regDate=" + regDate + ", userNo=" + userNo + ", kindNo=" + kindNo + ", startTime="
 				+ startTime + ", endTime=" + endTime + ", levelNo=" + levelNo + ", nickname=" + nickname + ", kind="
-				+ kind + "]";
+				+ kind + ", priority=" + priority + "]";
 	}
+	
 }

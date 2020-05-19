@@ -4,14 +4,21 @@
 	
 	<select id="selectTestList" resultType="problemvo">
 		<![CDATA[
-			  select p.no as no, p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend, p.level_no as level 
+			  select p.no as no, p.title as title, k.name as kind, u.nickname as nickname, p.hit as hit, p.recommend as recommend, p.level_no as level ,
+				case
+					when start_time <= now() and end_time > now() then 1
+				    when start_time > now() then 2
+				    when end_time <= now() then 3
+				    else 4
+				end priority
 			    from problem p, user u, kind k 
 			   where p.user_no = u.no
 				 and p.kind_no = k.no
                  and p.level_no = 6
                  and state = 'y'
-                 and end_time is null
-			order by p.reg_date desc
+                 and p.start_time is not null
+                 and p.end_time is not null
+			order by priority, p.reg_date desc
 		]]>
 	</select>	
 	
