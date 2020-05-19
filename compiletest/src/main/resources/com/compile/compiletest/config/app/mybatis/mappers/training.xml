@@ -129,16 +129,46 @@
 	<insert id="insertSubProblem" parameterType="hashmap">
 		<![CDATA[
 			insert 
-			  into sub_problem 
+			into sub_problem 
 			values
 		]]>
 		<foreach collection="subProblemList" item="item" separator=",">
-		<![CDATA[
-			 (null, "${item.title }", "${item.contents }", "${item.examInput }", "${item.correctCode}", "${item.examOutput }", ${problemNo },'y')
-		]]>
+			<![CDATA[
+				(null, "${item.title }", "${item.contents }", "${item.examInput }", "${item.correctCode}", "${item.examOutput }", ${problemNo },'y')
+			]]>
 		</foreach>
 	</insert>
 	
+	<insert id="modify" parameterType="hashmap" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			insert 
+			  into sub_problem (no, title, contents, exam_input, correct_code, exam_output, problem_no, state)
+			values
+		]]>
+		<foreach collection="subProblemList" item="item" separator=",">
+			<![CDATA[
+				(
+			]]>
+			<if test="item.no == null">
+				<![CDATA[
+					null
+				]]>
+			</if>	
+			<if test="item.no != null">
+				<![CDATA[
+					${item.no }
+				]]>
+			</if>
+			<![CDATA[
+				, "${item.title }", "${item.contents }", "${item.examInput }", "${item.correctCode}", "${item.examOutput }", #{problemNo },"y")
+			]]>
+		</foreach>
+		<![CDATA[
+			on duplicate key update no = values(no), title = values(title), contents = values(contents), exam_input = values(exam_input), correct_code = values(correct_code), 
+					 			exam_output = values(exam_output), problem_no = #{problemNo }, state = values(state)
+		]]>
+		
+	</insert>
 	
 	<select id="selectProblemOne" parameterType="long" resultType="problemvo">
 		<![CDATA[
@@ -150,13 +180,11 @@
 	
 	<select id="selectSubProblem" parameterType="long" resultType="subproblemvo">
 		<![CDATA[
-			  select title, contents, exam_input as examInput, exam_output as examOutput, correct_code as correctCode
+			  select no, title, contents, exam_input as examInput, exam_output as examOutput, correct_code as correctCode
 				from sub_problem 
 			   where problem_no = #{no }
 		]]>
 	</select>
-	
-	
 	
 	<select id="totalCount" parameterType="string" resultType="integer">
 		<choose>
@@ -176,8 +204,6 @@
 		</choose>
 	</select>	
 	
-	
-
 	<select id="selectTrainingList" parameterType="map" resultType="problemvo">
 		<choose>
 			<when test="keyword == null or keyword == ''">
@@ -217,5 +243,22 @@
 
 	</select>	
 	
+	<delete id="deleteSubProblem" parameterType="hashmap">
+		<![CDATA[
+			  delete
+			    from sub_problem
+			   where no in (
+		]]>
+		<foreach collection="deleteNoList" item="item" separator=",">
+			<if test="item != null">
+				<![CDATA[
+					${item }
+				]]>
+			</if>
+		</foreach>  
+		<![CDATA[
+			)
+		]]>
+	</delete>
 	
 </mapper>

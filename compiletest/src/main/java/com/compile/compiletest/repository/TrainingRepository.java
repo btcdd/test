@@ -63,4 +63,11 @@ public class TrainingRepository {
 		return list;
 	}
 
+	public int modify(Map<String, Object> map) {
+		return sqlSession.update("training.modify", map);
+	}
+
+	public int deleteSubProblem(Map<String, Object> map) {
+		return sqlSession.delete("training.deleteSubProblem", map);
+	}
 }

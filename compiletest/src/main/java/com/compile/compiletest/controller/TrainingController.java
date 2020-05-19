@@ -86,10 +86,36 @@ public class TrainingController {
 		
 		map.put("problemVo", problemVo);
 		map.put("list", list);
+		
 		map.put("listSize", list.size());
 
 		model.addAllAttributes(map);
 		
 		return "training/modify";
+	}
+	
+	@RequestMapping(value="/modify/{problemNo}", method=RequestMethod.POST)
+	public String problemModifySubmit(@ModelAttribute SubProblemList subProblemList,
+				ProblemVo problemVo,
+				@PathVariable("problemNo") Long problemNo, Model model,
+				@RequestParam(value = "array", required = true, defaultValue = "") Long[] array) {
+	
+		List<SubProblemVo> list = subProblemList.getSubProblemList();
+		
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getTitle() == null) {
+				list.remove(i);
+			}
+		}
+		
+		System.out.println(list);
+		
+		if(array.length > 0) {
+			trainingService.deleteSubProblem(subProblemList, array);
+		}
+		if(list.size() > 0) {
+			trainingService.modify(subProblemList, problemNo);
+		}
+		return "redirect:/training/view/" + problemNo;
 	}
 }

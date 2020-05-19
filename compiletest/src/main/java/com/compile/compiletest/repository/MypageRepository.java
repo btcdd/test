@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.SubmitVo;
 
 @Repository
@@ -55,6 +56,17 @@ public class MypageRepository {
 
 	public int getTotalCount() {
 		return sqlSession.selectOne("mypage.totalCount");
+	}
+
+	public List<SubProblemVo> findSubProblem(Long no) {
+		return  sqlSession.selectList("mypage.findSubProblem", no);
+	}
+
+	public int deleteSubProblem(Long no) {
+		int foreignKeyChecks = sqlSession.update("mypage.foreignKeyChecks");
+		int result = sqlSession.delete("mypage.deleteSubProblem", no);		
+		
+		return result;
 	}
 
 	

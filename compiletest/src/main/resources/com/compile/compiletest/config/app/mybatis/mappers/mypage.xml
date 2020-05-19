@@ -18,9 +18,9 @@
 		]]>
 	</update>
 	
-	<update id="foreignKeyChecks" parameterType="long">
+	<update id="foreignKeyChecks">
 		<![CDATA[
-			set foreign_key_checks = #{num }
+			set foreign_key_checks = 0
 		]]>
 	</update>
 	
@@ -76,8 +76,22 @@
 			where 
 				p.user_no = u.no and u.no = 1
 		]]>
+	</select>	
+	
+	<select id="findSubProblem" parameterType="long"  resultType="subproblemvo">
+		<![CDATA[
+			select no, title, contents, exam_input as examInput, correct_code as correctCode, exam_input as examInput, problem_no as problemNo, state
+			from sub_problem sp
+			where problem_no = #{no }
+		]]>
 	</select>
-	
-	
+
+	<delete id="deleteSubProblem" parameterType="long">
+		<![CDATA[
+			delete
+  			  from sub_problem
+ 			 where no = #{no }
+		]]>
+	</delete>
 
 </mapper>

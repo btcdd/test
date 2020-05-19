@@ -29,6 +29,18 @@
 				<tr>
 					<td>${vo.no }</td>
 					<td>${vo.title }
+						<c:choose>
+							<c:when test="${vo.priority == 1 }">
+								진행중
+							</c:when>
+							<c:when test="${vo.priority == 2 }">
+								예정
+							</c:when>
+							<c:when test="${vo.priority == 3 }">
+								마감
+							</c:when>
+						</c:choose>
+					</td>
 					<td>${vo.kind }</td>
 					<td>${vo.nickname }</td>
 					<td>${vo.regDate }</td>
