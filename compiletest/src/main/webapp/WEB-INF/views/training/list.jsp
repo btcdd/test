@@ -20,6 +20,8 @@ var checkValues = new Array();
 
 var levelList = new Array();
 
+var map = new Map();
+
 var selectList = function(category){
 	$.ajax({
 		url: '${pageContext.request.contextPath }/api/training/list',
@@ -43,19 +45,34 @@ var selectList = function(category){
 	});
 }
 
-var originList = function() {
+
+var originList = function(page) {
+	
+	
+	if($('#kwd').val() == ''){
+		console.log('값 없음');
+	}
 	$.ajax({
 		url: '${pageContext.request.contextPath }/api/training/list',
 		async: false,
 		type: 'get',
 		dataType: 'json',
-		data: '',
+		data: 'p='+page,
 		success: function(response){
 			if(response.result != "success"){
 				console.error(response.message);
 				return;
 			}
-			levelList = response.data;
+			map = response.data;
+			
+			console.log(map);
+			
+			//console.log(map.pageNum);
+			//console.log(map.list.length);
+			//console.log(map.list[0]);
+			//console.log(map.list[0].no);
+			//console.log(map.list[3]);
+			//console.log(map.list[3].no);			
 			
 			fetchList();
 		},
@@ -65,25 +82,136 @@ var originList = function() {
 	});
 }
 
-var fetchList = function() {
-	$(".list #tr").remove();
-	var str = "";
-	for(var i = 0; i < levelList.length; i++) {
-		str += '<tr id="tr">' +
-    				'<td><a data-no=' + levelList[i].no + '>' + levelList[i].no +'</a></td>' +
-            		'<td id="title"><a href="${pageContext.servletContext.contextPath }/training/view/' + levelList[i].no + '">' + levelList[i].title + '</a></td>' +
-		            '<td>' + levelList[i].kind + '</td>' + 
-		            '<td>' + levelList[i].nickname + '</td>' + 
-		            '<td>' + levelList[i].hit  + '</td>' +
-		            '<td>' + levelList[i].recommend + '</td>' + 
-    			'</tr>';
-	}
-	$(".list table").append(str);
+var originList2 = function(page,kwd) {
+
+	$.ajax({
+		url: '${pageContext.request.contextPath }/api/training/list',
+		async: false,
+		type: 'get',
+		dataType: 'json',
+		data: {"p":page,"kwd":kwd},
+		success: function(response){
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}
+			map = response.data;
+			
+			console.log(map);
+			console.log(map.keyword);	
+			console.log(map.list.length);
+			
+			fetchList2();
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
+	});
 }
 
-$(function() {
-	originList();
+
+var fetchList = function() {
+	$(".list #tr").remove();
+	$(".list .pager").remove();
+	var str = "";
+	for(var i = 0; i< map.list.length;i++){
+			str += '<tr id="tr">' +
+			'<td><a data-no=' + map.list[i].no + '>' + map.list[i].no +'</a></td>' +
+			'<td id="title"><a href="${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + '">' + map.list[i].title + '</a></td>' +
+	        '<td>' + map.list[i].kind + '</td>' + 
+	        '<td>' + map.list[i].nickname + '</td>' + 
+	        '<td>' + map.list[i].hit  + '</td>' +
+	        '<td>' + map.list[i].recommend + '</td>' + 
+		'</tr>';		
+	}
+
+	$(".list table").append(str);
 	
+	var str2 = "<div class='pager'>";
+	
+  	if(map.prev){
+		str2 += '<span>[ <a href="${pageContext.request.contextPath }/training/list?p='+(map.startPageNum -1)+'&kwd='+map.keyword+'">이전</a> ]</span>';
+		
+	}	
+	for(var i = map.startPageNum;i<map.endPageNum;i++){
+		str2 += '<span>';
+		if(map.select != i ){
+			str2 += '<a href="${pageContext.request.contextPath}/training/list?p='+i+'&kwd='+map.keyword+'">'+i+'</a>';	
+		}
+		if(map.select == i){
+			str2 += '<b>'+i+'</b>';
+		}
+		str2 += '</span>';
+	}
+	if(map.next){
+		str2 += '<span>[ <a href="${pageContext.request.contextPath }/training/list?p='+(map.endPageNum +1)+'&kwd='+map.keyword+'">다음</a> ]</span>';
+	}	 
+	str2 += "</div>"; 
+		
+	$(".list table").after(str2);
+}
+
+
+var fetchList2 = function() {
+	$(".list #tr").remove();
+	$(".list .pager").remove();
+	var str = "";
+	for(var i = 0; i< map.list.length;i++){
+			str += '<tr id="tr">' +
+			'<td><a data-no=' + map.list[i].no + '>' + map.list[i].no +'</a></td>' +
+			'<td id="title"><a href="${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + '">' + map.list[i].title + '</a></td>' +
+	        '<td>' + map.list[i].kind + '</td>' + 
+	        '<td>' + map.list[i].nickname + '</td>' + 
+	        '<td>' + map.list[i].hit  + '</td>' +
+	        '<td>' + map.list[i].recommend + '</td>' + 
+		'</tr>';		
+	}
+
+	$(".list table").append(str);
+	
+	var str2 = "<div class='pager'>";
+	
+  	if(map.prev){
+		str2 += '<span>[ <a href="${pageContext.request.contextPath }/training/list?p='+(map.startPageNum -1)+'&kwd='+map.keyword+'">이전</a> ]</span>';
+
+	}	
+	for(var i = map.startPageNum;i<map.endPageNum;i++){
+		str2 += '<span>';
+		if(map.select != i ){
+			str2 += '<a href="${pageContext.request.contextPath}/training/list?p='+i+'&kwd='+map.keyword+'">'+i+'</a>';	
+		}
+		if(map.select == i){
+			str2 += '<b>'+i+'</b>';
+		}
+		str2 += '</span>';
+	}
+	if(map.next){
+		str2 += '<span>[ <a href="${pageContext.request.contextPath }/training/list?p='+(map.endPageNum +1)+'&kwd='+map.keyword+'">다음</a> ]</span>';
+	}	 
+	str2 += "</div>"; 
+		
+	$(".list table").after(str2);
+}
+
+
+$(function() {
+	var page = ${p };
+	
+	originList(page);
+	
+	var k = $('#kwd').val();
+	
+	if(k != ''){
+		originList2(page,k);
+	}
+	
+	$('#search').on('click',function(){
+ 		var kwd = $('#kwd').val();
+		originList2(page,kwd);
+	});
+	
+
+/*	
 	$('input[name=level]').change(function() {
 		
 		var pandan = false;
@@ -106,7 +234,8 @@ $(function() {
 			checkValues = new Array();
 		}
 	});
-	
+	*/
+	/*
 	$('input[name=organization]').change(function() {
 		var pandan = false;
 		$("input[name=organization]:checked").each(function(i) {
@@ -128,6 +257,7 @@ $(function() {
 			checkValues = new Array();
 		}
 	});
+	*/
 });
 
 </script>
@@ -187,6 +317,15 @@ $(function() {
         </div>
 
         <div class="list">
+        
+<%-- 		<form id="search_form" action="${pageContext.request.contextPath }/training/list" method="get">
+				<input type="text" id="kwd" name="kwd" value="${keyword }">
+				<input type="submit" value="찾기">
+			</form>         --%>
+        	<div>
+	        	<input type="text" id="kwd" name="kwd" value="${map.keyword }">
+	        	<input type="button" id="search" value="찾기">
+        	</div>
             <table>
                 <tr>
                     <th>번호</th>
@@ -196,23 +335,49 @@ $(function() {
                     <th>조회수</th>
                     <th>추천수</th>
                 </tr>
+<%-- 				<c:forEach items="${map.list }" var="vo" varStatus="status">
+					<tr>
+						<td>${vo.no }</td>
+						<td>${vo.title }</td>
+						<td>${vo.kind }</td>
+						<td>${vo.nickname }</td>
+						<td>${vo.hit }</td>
+						<td>${vo.recommend }</td>
+					</tr>
+				</c:forEach>  --%>               
             </table>
+		
+			<!-- pager 추가 -->
+<%-- 			<div class ="pager">
+ 				<c:if test="${map.prev }">
+					<span>[ <a href="${pageContext.request.contextPath }/training?p=${map.startPageNum -1}&kwd=${map.keyword}">이전</a> ]</span>
+				</c:if>				
+				
+				<c:forEach begin="${map.startPageNum }" end="${map.endPageNum }" var="page">
+					<span>
+						<c:if test="${map.select != page }">
+							<a href="${pageContext.request.contextPath }/training?p=${page}&kwd=${map.keyword}">${page}</a>
+						</c:if>
+						
+						<c:if test="${map.select == page }">
+							<b>${page }</b>
+						</c:if>
+					</span>
+				</c:forEach>
+					
+				<c:if test="${map.next }">
+					<span>[ <a href="${pageContext.request.contextPath }/training?p=${map.endPageNum +1}&kwd=${map.keyword}">다음</a> ]</span>
+				</c:if> 											
+			</div> --%>
+			<!-- pager 추가 -->            
+            
+            
             <div class="make-problem">
                 <a href="${pageContext.servletContext.contextPath }/training/write"><button>문제작성</button></a>
             </div>
-            <div class="pager">
-                <ul>
-                    <li>◀</li>
-                    <li class="selected">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>▶</li>
-                </ul>
-            </div>
-        </div>
-
+		</div>		
+ 
+        
     </div>
 
 </body>

@@ -45,7 +45,6 @@
 			select p.no as no, p.title as title, p.hit as hit, p.recommend as recommend
 			  from problem p, user u
 			 where u.no = 1
-			   and p.state = 'y'
 			   limit #{displayPost}, #{postNum}
 		]]>
 	</select>
@@ -70,7 +69,12 @@
 
 	<select id="totalCount" resultType="integer">
 		<![CDATA[
-			select count(*) from problem 
+			select
+				count(*) 
+			from 
+				problem p, user u 
+			where 
+				p.user_no = u.no and u.no = 1
 		]]>
 	</select>	
 	
