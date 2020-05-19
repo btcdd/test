@@ -52,4 +52,6 @@ public class TrainingController {
 		
 		return JsonResult.success(levelList);
 	}
+	
+	
 }

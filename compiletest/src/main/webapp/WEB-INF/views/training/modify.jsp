@@ -18,7 +18,7 @@
 
 var index = ${listSize };
 
-var array = [];
+var array = new Array();
 var top = 0;
 
 var addSubProblem = function() {
@@ -70,14 +70,12 @@ var addSubProblem = function() {
 	
 }
 
-var correct = function() {
-	console.log('밖에 index'+ index);
-}
-
 $(function() {
 	$('#addSubProblem').click(function() {
 		addSubProblem();
 	});
+	
+	array = new Array();
 	
 	var no;
 	
@@ -85,11 +83,14 @@ $(function() {
 		no = $(this).parent().parent().attr("id");
 		index--;
 		
-		array[top++] = no;
+		var deleteNo = $(this).parent().parent().attr("value");
+		array.push(deleteNo);
 		
 		$(".subproblem" + no).remove();
-		
-		correct();
+	});
+	
+	$('.submit').click(function() {
+		$('.privateAndPassword').append('<input type="hidden" name="array" value="' + array + '">');
 	});
 });
 
@@ -127,7 +128,7 @@ $(function() {
 	        <br />
 		        <div class="a">
 	        <c:forEach items='${list }' var='vo' step='1' varStatus='status'>
-	        	<div class="subproblem${status.index }" id="${status.index }">
+	        	<div class="subproblem${status.index }" id="${status.index }" value="${vo.no }">
 	        		<input type="hidden" id="no" name="subProblemList[${status.index }].no" value="${vo.no }">
 			        <div class="sub-title">
 			        	문제 제목<input type="text" name="subProblemList[${status.index }].title" value="${vo.title }" />
@@ -170,7 +171,7 @@ $(function() {
 			</div>
 			
 	        <a href="${pageContext.servletContext.contextPath }/training">취소</a>
-	        <input type="submit" value="등록">
+	        <input type="submit" value="등록" class="submit">
 	        
 	        <a id="addSubProblem">추가</a>
 			  

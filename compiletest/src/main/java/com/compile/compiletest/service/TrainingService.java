@@ -82,11 +82,12 @@ public class TrainingService {
 		trainingRepository.modify(map);
 	}
 
-	public void deleteSubProblem(SubProblemList subProblemList) {
+	public void deleteSubProblem(SubProblemList subProblemList, Long[] array) {
 		List<SubProblemVo> list = subProblemList.getSubProblemList();
 		Map<String, Object> map = new HashMap<>();
 		map.put("subProblemList", list);
-		System.out.println("여기는" + map.get("subProblemList"));
+		
+		map.put("deleteNoList", array);
 		
 		trainingRepository.deleteSubProblem(map);
 	}	
