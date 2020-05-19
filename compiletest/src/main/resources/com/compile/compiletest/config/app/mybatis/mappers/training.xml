@@ -158,7 +158,7 @@
 				<![CDATA[
 					${item.no }
 				]]>
-			</if>	
+			</if>
 			<![CDATA[
 				, "${item.title }", "${item.contents }", "${item.examInput }", "${item.correctCode}", "${item.examOutput }", #{problemNo },"y")
 			]]>
@@ -190,12 +190,12 @@
 		<![CDATA[
 			  delete
 			    from sub_problem
-			   where no not in (0
+			   where no in (
 		]]>
-		<foreach collection="subProblemList" item="item" separator=",">
-			<if test="item.no != null">
+		<foreach collection="deleteNoList" item="item" separator=",">
+			<if test="item != null">
 				<![CDATA[
-					, ${item.no }
+					${item }
 				]]>
 			</if>
 		</foreach>  
