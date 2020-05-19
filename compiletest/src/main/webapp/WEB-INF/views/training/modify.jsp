@@ -18,6 +18,9 @@
 
 var index = ${listSize };
 
+var array = [];
+var top = 0;
+
 var addSubProblem = function() {
 	var str = 	'<div class="subproblem' + index + '" id= "'+ index + '">' +
 				'<input type="hidden" id="no" name="subProblemList[' + index + '].no" value="${vo.no }">' + 
@@ -82,11 +85,12 @@ $(function() {
 		no = $(this).parent().parent().attr("id");
 		index--;
 		
+		array[top++] = no;
+		
 		$(".subproblem" + no).remove();
 		
 		correct();
 	});
-	
 });
 
 </script>

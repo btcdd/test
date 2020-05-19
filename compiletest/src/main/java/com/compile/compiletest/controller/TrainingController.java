@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.ProblemVo;
@@ -82,6 +83,7 @@ public class TrainingController {
 	public String problemModifySubmit(@ModelAttribute SubProblemList subProblemList,
 				ProblemVo problemVo,
 				@PathVariable("problemNo") Long problemNo, Model model) {
+		
 		trainingService.deleteSubProblem(subProblemList);
 		trainingService.modify(subProblemList, problemNo);
 		

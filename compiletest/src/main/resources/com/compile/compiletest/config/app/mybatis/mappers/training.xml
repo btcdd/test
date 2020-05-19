@@ -187,18 +187,17 @@
 	</select>
 	
 	<delete id="deleteSubProblem" parameterType="hashmap">
-		@index := 0
 		<![CDATA[
 			  delete
 			    from sub_problem
-			   where no not in (null, 
+			   where no not in (0
 		]]>
-		<foreach collection="subProblemList" item="item" separator="," open="(" close=")">
+		<foreach collection="subProblemList" item="item" separator=",">
 			<if test="item.no != null">
 				<![CDATA[
-					${item.no }
+					, ${item.no }
 				]]>
-			</if>	
+			</if>
 		</foreach>  
 		<![CDATA[
 			)

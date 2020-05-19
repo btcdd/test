@@ -85,7 +85,8 @@ public class TrainingService {
 	public void deleteSubProblem(SubProblemList subProblemList) {
 		List<SubProblemVo> list = subProblemList.getSubProblemList();
 		Map<String, Object> map = new HashMap<>();
-		map.put("subProblemlist", list);
+		map.put("subProblemList", list);
+		System.out.println("여기는" + map.get("subProblemList"));
 		
 		trainingRepository.deleteSubProblem(map);
 	}	

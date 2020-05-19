@@ -53,6 +53,7 @@ public class TrainingRepository {
 	}
 
 	public int deleteSubProblem(Map<String, Object> map) {
+		System.out.println(map.get("subProblemList"));
 		return sqlSession.delete("training.deleteSubProblem", map);
 	}
 }
