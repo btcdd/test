@@ -16,7 +16,7 @@ import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.SubmitVo;
 
 @RestController("MypageController")
-@RequestMapping("/mypage")
+@RequestMapping("/api/mypage")
 public class MypageController {
 	
 	@Autowired

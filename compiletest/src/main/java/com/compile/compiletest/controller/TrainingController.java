@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.ProblemVo;
@@ -59,5 +60,33 @@ public class TrainingController {
 		model.addAllAttributes(map);
 		
 		return "training/view";
+	}
+	
+	@RequestMapping(value="/modify/{problemNo}", method=RequestMethod.GET)
+	public String problemModify(@PathVariable("problemNo") Long problemNo, Model model) {
+		
+		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
+		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("problemVo", problemVo);
+		map.put("list", list);
+		
+		map.put("listSize", list.size());
+
+		model.addAllAttributes(map);
+		
+		return "training/modify";
+	}
+	
+	@RequestMapping(value="/modify/{problemNo}", method=RequestMethod.POST)
+	public String problemModifySubmit(@ModelAttribute SubProblemList subProblemList,
+				ProblemVo problemVo,
+				@PathVariable("problemNo") Long problemNo, Model model) {
+		
+		trainingService.deleteSubProblem(subProblemList);
+		trainingService.modify(subProblemList, problemNo);
+		
+		return "redirect:/training/view/" + problemNo;
 	}
 }
