@@ -1,4 +1,4 @@
-package com.compile.compiletest.runLang;
+package com.compile.compiletest.runlanguage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
