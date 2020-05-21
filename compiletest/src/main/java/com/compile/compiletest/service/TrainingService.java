@@ -101,7 +101,7 @@ public class TrainingService {
 		map.put("select",currentPage);
 
 		map.put("startPageNum",startPageNum);
-		map.put("endPageNum",endPageNum);		
+		map.put("endPageNum",endPageNum + 1);		
 
 		map.put("prev",prev);
 		map.put("next",next);

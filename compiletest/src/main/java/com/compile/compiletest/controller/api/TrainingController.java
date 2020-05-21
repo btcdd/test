@@ -51,12 +51,8 @@ public class TrainingController {
 			@RequestParam(value="p",required=true,defaultValue="1") int currentPage,
 			@RequestParam(value="kwd",required=true,defaultValue="") String keyword,
 			Model model) {
-		Map<String,Object> map = trainingService.getContentsList(currentPage,keyword);
-		System.out.println("originProblemList출력");
-		
+		Map<String,Object> map = trainingService.getContentsList(currentPage,keyword);		
 		
 		return JsonResult.success(map);
 	}
-	
-	
 }

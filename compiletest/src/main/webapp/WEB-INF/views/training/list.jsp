@@ -22,32 +22,7 @@ var levelList = new Array();
 
 var map = new Map();
 
-var selectList = function(category){
-	$.ajax({
-		url: '${pageContext.request.contextPath }/api/training/list',
-		async: false,
-		type: 'post',
-		traditional: true,
-		data: {
-			'category': category,
-			'checkValues':checkValues
-		},
-		success: function(response){
-			if(response.result != "success"){
-				console.error(response.message);
-				return;
-			}
-			levelList = response.data;
-		},
-		error: function(xhr, status, e){
-			console.error(status + ":" + e);
-		}
-	});
-}
-
-
-var originList = function(page) {
-	
+var originList = function(page, kwd) {
 	
 	if($('#kwd').val() == ''){
 		console.log('값 없음');
@@ -57,7 +32,10 @@ var originList = function(page) {
 		async: false,
 		type: 'get',
 		dataType: 'json',
-		data: 'p='+page,
+		data: {
+			'p': page,
+			'kwd': kwd
+		},
 		success: function(response){
 			if(response.result != "success"){
 				console.error(response.message);
@@ -72,7 +50,7 @@ var originList = function(page) {
 			//console.log(map.list[0]);
 			//console.log(map.list[0].no);
 			//console.log(map.list[3]);
-			//console.log(map.list[3].no);			
+			//console.log(map.list[3].no);
 			
 			fetchList();
 		},
@@ -81,34 +59,6 @@ var originList = function(page) {
 		}
 	});
 }
-
-var originList2 = function(page,kwd) {
-
-	$.ajax({
-		url: '${pageContext.request.contextPath }/api/training/list',
-		async: false,
-		type: 'get',
-		dataType: 'json',
-		data: {"p":page,"kwd":kwd},
-		success: function(response){
-			if(response.result != "success"){
-				console.error(response.message);
-				return;
-			}
-			map = response.data;
-			
-			console.log(map);
-			console.log(map.keyword);	
-			console.log(map.list.length);
-			
-			fetchList2();
-		},
-		error: function(xhr, status, e){
-			console.error(status + ":" + e);
-		}
-	});
-}
-
 
 var fetchList = function() {
 	$(".list #tr").remove();
@@ -122,7 +72,7 @@ var fetchList = function() {
 	        '<td>' + map.list[i].nickname + '</td>' + 
 	        '<td>' + map.list[i].hit  + '</td>' +
 	        '<td>' + map.list[i].recommend + '</td>' + 
-		'</tr>';		
+		'</tr>';
 	}
 
 	$(".list table").append(str);
@@ -150,64 +100,17 @@ var fetchList = function() {
 		
 	$(".list table").after(str2);
 }
-
-
-var fetchList2 = function() {
-	$(".list #tr").remove();
-	$(".list .pager").remove();
-	var str = "";
-	for(var i = 0; i< map.list.length;i++){
-			str += '<tr id="tr">' +
-			'<td><a data-no=' + map.list[i].no + '>' + map.list[i].no +'</a></td>' +
-			'<td id="title"><a href="${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + '">' + map.list[i].title + '</a></td>' +
-	        '<td>' + map.list[i].kind + '</td>' + 
-	        '<td>' + map.list[i].nickname + '</td>' + 
-	        '<td>' + map.list[i].hit  + '</td>' +
-	        '<td>' + map.list[i].recommend + '</td>' + 
-		'</tr>';		
-	}
-
-	$(".list table").append(str);
-	
-	var str2 = "<div class='pager'>";
-	
-  	if(map.prev){
-		str2 += '<span>[ <a href="${pageContext.request.contextPath }/training/list?p='+(map.startPageNum -1)+'&kwd='+map.keyword+'">이전</a> ]</span>';
-
-	}	
-	for(var i = map.startPageNum;i<map.endPageNum;i++){
-		str2 += '<span>';
-		if(map.select != i ){
-			str2 += '<a href="${pageContext.request.contextPath}/training/list?p='+i+'&kwd='+map.keyword+'">'+i+'</a>';	
-		}
-		if(map.select == i){
-			str2 += '<b>'+i+'</b>';
-		}
-		str2 += '</span>';
-	}
-	if(map.next){
-		str2 += '<span>[ <a href="${pageContext.request.contextPath }/training/list?p='+(map.endPageNum +1)+'&kwd='+map.keyword+'">다음</a> ]</span>';
-	}	 
-	str2 += "</div>"; 
-		
-	$(".list table").after(str2);
-}
-
 
 $(function() {
 	var page = ${p };
 	
-	originList(page);
+	var kwd = $('#kwd').val();
 	
-	var k = $('#kwd').val();
-	
-	if(k != ''){
-		originList2(page,k);
-	}
+	originList(page, kwd);
 	
 	$('#search').on('click',function(){
  		var kwd = $('#kwd').val();
-		originList2(page,kwd);
+		originList(page,kwd);
 	});
 	
 

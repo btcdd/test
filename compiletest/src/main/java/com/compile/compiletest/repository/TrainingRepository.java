@@ -59,7 +59,7 @@ public class TrainingRepository {
 		map.put("displayPost",displayPost);
 		map.put("postNum",postNum);
 		map.put("keyword",keyword);
-		List<ProblemVo> list = sqlSession.selectList("training.selectTrainingList",map);
+		List<ProblemVo> list = sqlSession.selectList("training.selectProblemListOrigin",map);
 		return list;
 	}
 
