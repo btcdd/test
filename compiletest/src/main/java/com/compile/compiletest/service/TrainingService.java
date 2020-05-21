@@ -57,8 +57,21 @@ public class TrainingService {
 	}
 
 	public Map<String, Object> getContentsList(int currentPage, String keyword, String category, String[] checkValues) {
+		int count;
 		//게시물 총 갯수
-		int count = trainingRepository.getTotalCount(keyword);
+		if("".equals(category) || checkValues == null) {
+			count = trainingRepository.getTotalCount(keyword);
+		} else {
+			int size = checkValues.length;
+			
+			if("level".equals(category)) {
+				count = trainingRepository.getLevelListCount(keyword, size, checkValues);
+			} else {
+				count = trainingRepository.getOrganizationListCount(keyword, size, checkValues);
+			}
+		}
+		
+		
 		//하단 페이징 번호([게시물 총 갯수 / 한 페이지에 출력할 갯수]의 올림)
 		int pageNum = (int)Math.ceil((double)count/postNum);
 		//출력할 게시물

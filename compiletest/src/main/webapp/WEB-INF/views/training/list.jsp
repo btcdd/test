@@ -126,7 +126,14 @@ $(function() {
 	});
 
 	$('input[name=level]').change(function() {
-		page = $('span b').parent().attr('id');
+		
+		if($("input[name=level]").is(":checked")) {
+			page = $('span b').parent().attr('id');
+		} else {
+			page = '1';
+			category = '';
+		}
+		
 		levelChecked(page, kwd);
 		
 		disabled('level','organization');

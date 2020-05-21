@@ -206,6 +206,99 @@
 			 ]]>
 			</otherwise>			
 		</choose>
+	</select>
+	
+	<select id="getLevelListCount" parameterType="hashmap" resultType="integer">
+		<![CDATA[
+			select count(*) 
+			from problem p, user u, kind k 
+			where p.user_no = u.no
+				and p.user_no = 10000
+				and p.kind_no = k.no
+				and (title like '%${keyword}%' or nickname like '%${keyword}%')
+                and p.kind_no = 6
+		]]>
+		
+		<if test="size != 0">
+			<![CDATA[
+				and	(
+			]]>
+		
+		<if test="one != null">
+			<![CDATA[
+			    p.level_no = 1 or 
+			]]>
+		</if>
+		<if test="two != null">
+			<![CDATA[
+			    p.level_no = 2 or 
+			]]>
+		</if>
+		<if test="three != null">
+			<![CDATA[
+			    p.level_no = 3 or 
+			]]>
+		</if>
+		<if test="four != null">
+			<![CDATA[
+			    p.level_no = 4 or 
+			]]>
+		</if>
+		<if test="five != null">
+			<![CDATA[
+			    p.level_no = 5 or 
+			]]>
+		</if>
+		<![CDATA[
+		 0=1)
+		]]>
+		</if>
+	</select>
+	
+	<select id="getOrganizationListCount" parameterType="hashmap" resultType="integer">
+		<![CDATA[
+			select count(*)
+			  from problem p, user u, kind k
+			 where p.user_no = u.no
+			   and p.kind_no = k.no
+			   and (title like '%${keyword}%' or nickname like '%${keyword}%')
+			   and p.level_no = 6
+		]]>
+		
+		<if test="size != 0">
+			<![CDATA[
+				and	(
+			]]>
+		
+		<if test="enterprise != null">
+			<![CDATA[
+			    p.kind_no = 1 or 
+			]]>
+		</if>
+		<if test="individual != null">
+			<![CDATA[
+			    p.kind_no = 2 or 
+			]]>
+		</if>
+		<if test="academy != null">
+			<![CDATA[
+			    p.kind_no = 3 or 
+			]]>
+		</if>
+		<if test="school != null">
+			<![CDATA[
+			    p.kind_no = 4 or 
+			]]>
+		</if>
+		<if test="other != null">
+			<![CDATA[
+			    p.kind_no = 5 or 
+			]]>
+		</if>
+		<![CDATA[
+		 0=1)
+		]]>
+		</if>
 	</select>	
 	
 	<select id="selectTrainingList" parameterType="map" resultType="problemvo">

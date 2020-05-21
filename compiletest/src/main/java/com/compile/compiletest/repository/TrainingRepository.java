@@ -89,4 +89,25 @@ public class TrainingRepository {
 	public int deleteSubProblem(Map<String, Object> map) {
 		return sqlSession.delete("training.deleteSubProblem", map);
 	}
+
+	public int getLevelListCount(String keyword, int size, String[] checkValues) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("keyword",keyword);
+		map.put("size",size);
+		for(int i = 0; i < size; i++) {
+			map.put(checkValues[i], checkValues[i]);
+		}
+		return sqlSession.selectOne("training.getLevelListCount", map);
+	}
+
+	public int getOrganizationListCount(String keyword, int size, String[] checkValues) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("keyword",keyword);
+		map.put("size",size);
+		for(int i = 0; i < size; i++) {
+			map.put(checkValues[i], checkValues[i]);
+		}
+		
+		return sqlSession.selectOne("training.getOrganizationListCount", map);
+	}
 }
