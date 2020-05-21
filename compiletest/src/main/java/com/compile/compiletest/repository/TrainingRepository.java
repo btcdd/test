@@ -106,6 +106,7 @@ public class TrainingRepository {
 		map.put("size",size);
 		for(int i = 0; i < size; i++) {
 			map.put(checkValues[i], checkValues[i]);
+			System.out.println(checkValues[i]);
 		}
 		
 		return sqlSession.selectOne("training.getOrganizationListCount", map);
