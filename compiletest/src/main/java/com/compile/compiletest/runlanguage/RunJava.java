@@ -1,4 +1,4 @@
-package com.compile.compiletest.runLang;
+package com.compile.compiletest.runlanguage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class RunCs {
+public class RunJava {
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -17,13 +17,13 @@ public class RunCs {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "testCs.cs";
+	private final String FILENAME = "Test.java";
 	
-	public String inputSource() {
+	public String inputSource() { 
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("mcs testCs.cs");
+		buffer.append("javac -d . Test.java");
 		
 		return buffer.toString();
 	}
@@ -51,6 +51,7 @@ public class RunCs {
 	
 	public String execCompile() {
 		try {
+//			process = Runtime.getRuntime().exec(cmd);
 			process = Runtime.getRuntime().exec(inputSource());
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
@@ -67,7 +68,6 @@ public class RunCs {
 		
 		return null;
 	}
-	
 	
 	public String execCommand() {
 		try {
@@ -92,7 +92,7 @@ public class RunCs {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("mono testCs.exe");
+		buffer.append("java -cp . Test");
 		
 		return buffer.toString();
 	}
