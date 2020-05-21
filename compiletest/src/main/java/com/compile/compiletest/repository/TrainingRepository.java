@@ -17,7 +17,17 @@ public class TrainingRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public List<ProblemVo> selectLevelList(Map<String, Object> map) {
+	public List<ProblemVo> selectLevelList(int displayPost, int postNum, String keyword, int size, String[] checkValues) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("displayPost",displayPost);
+		map.put("postNum",postNum);
+		map.put("keyword",keyword);
+		map.put("size", size);
+		
+		for(int i = 0; i < size; i++) {
+			map.put(checkValues[i], checkValues[i]);
+		}
+		
 		return sqlSession.selectList("training.selectLevelList", map);
 	}
 
@@ -25,7 +35,17 @@ public class TrainingRepository {
 		return sqlSession.selectList("training.selectProblemListOrigin");
 	}
 
-	public List<ProblemVo> selectOrganizationList(Map<String, Object> map) {
+	public List<ProblemVo> selectOrganizationList(int displayPost, int postNum, String keyword, int size, String[] checkValues) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("displayPost",displayPost);
+		map.put("postNum",postNum);
+		map.put("keyword",keyword);
+		map.put("size", size);
+		
+		for(int i = 0; i < size; i++) {
+			map.put(checkValues[i], checkValues[i]);
+		}
+		
 		return sqlSession.selectList("training.selectOrganizationList", map);
 	}
 
@@ -59,8 +79,7 @@ public class TrainingRepository {
 		map.put("displayPost",displayPost);
 		map.put("postNum",postNum);
 		map.put("keyword",keyword);
-		List<ProblemVo> list = sqlSession.selectList("training.selectTrainingList",map);
-		return list;
+		return sqlSession.selectList("training.selectProblemListOrigin",map);
 	}
 
 	public int modify(Map<String, Object> map) {
@@ -69,5 +88,26 @@ public class TrainingRepository {
 
 	public int deleteSubProblem(Map<String, Object> map) {
 		return sqlSession.delete("training.deleteSubProblem", map);
+	}
+
+	public int getLevelListCount(String keyword, int size, String[] checkValues) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("keyword",keyword);
+		map.put("size",size);
+		for(int i = 0; i < size; i++) {
+			map.put(checkValues[i], checkValues[i]);
+		}
+		return sqlSession.selectOne("training.getLevelListCount", map);
+	}
+
+	public int getOrganizationListCount(String keyword, int size, String[] checkValues) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("keyword",keyword);
+		map.put("size",size);
+		for(int i = 0; i < size; i++) {
+			map.put(checkValues[i], checkValues[i]);
+		}
+		
+		return sqlSession.selectOne("training.getOrganizationListCount", map);
 	}
 }

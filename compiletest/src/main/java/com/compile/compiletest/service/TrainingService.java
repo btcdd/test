@@ -21,17 +21,9 @@ public class TrainingService {
 	@Autowired
 	private TrainingRepository trainingRepository;
 
-	public List<ProblemVo> selectLevelList(Map<String, Object> map) {
-		return trainingRepository.selectLevelList(map);
-	}
-
 	public List<ProblemVo> selectProblemListOrigin() {
 		
 		return trainingRepository.selectProblemListOrigin();
-	}
-
-	public List<ProblemVo> selectOrganizationList(Map<String, Object> map) {
-		return trainingRepository.selectOrganizationList(map);
 	}
 
 	public void insert(SubProblemList subProblemList, ProblemVo problemVo) {
@@ -64,50 +56,67 @@ public class TrainingService {
 		return trainingRepository.selectSubProblem(no);
 	}
 
-	public Map<String, Object> getContentsList(int currentPage, String keyword) {
+	public Map<String, Object> getContentsList(int currentPage, String keyword, String category, String[] checkValues) {
+		int count;
 		//게시물 총 갯수
-		int count = trainingRepository.getTotalCount(keyword);
-		System.out.println(count);
+		if("".equals(category) || checkValues == null) {
+			count = trainingRepository.getTotalCount(keyword);
+		} else {
+			int size = checkValues.length;
+			
+			if("level".equals(category)) {
+				count = trainingRepository.getLevelListCount(keyword, size, checkValues);
+			} else {
+				count = trainingRepository.getOrganizationListCount(keyword, size, checkValues);
+			}
+		}
+		
+		
 		//하단 페이징 번호([게시물 총 갯수 / 한 페이지에 출력할 갯수]의 올림)
 		int pageNum = (int)Math.ceil((double)count/postNum);
-		
 		//출력할 게시물
 		int displayPost = (currentPage -1) * postNum;
-		
 		//표시되는 페이지 번호 중 마지막 번호
 		int endPageNum = (int)(Math.ceil((double)currentPage / (double)pageNum_cnt) * pageNum_cnt);
-		
 		//표시되는 페이지 번호 중 첫번째 번호
 		int startPageNum = endPageNum - (pageNum_cnt - 1);
-		
 		//마지막번호 재계산
 		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)pageNum_cnt));
-		
 		if(endPageNum > endPageNum_tmp) {
 			endPageNum = endPageNum_tmp;
 		}
-		
 		boolean prev = startPageNum == 1 ? false : true;//시작 페이지 번호가 1일 때를 제외하곤 무조건 출력
+		boolean next = endPageNum * pageNum_cnt >= count ? false : true;//마지막 페이지 번호가 총 게시물 갯수보다 작다면, 다음 구간이 있다는 의미이므로 출력
 		
-		boolean next = endPageNum * pageNum_cnt >= count ? false : true;//마지막 페이지 번호가 총 게시물 갯수보다 작다면, 다음 구간이 있다는 의미이므로 출력		
+		List<ProblemVo> list;
 		
-		List<ProblemVo> list = trainingRepository.selectTrainingList(displayPost,postNum,keyword);
+		////////////////
+		
+		if("".equals(category) || checkValues == null) {
+			list = trainingRepository.selectTrainingList(displayPost,postNum,keyword);
+		} else {
+			int size = checkValues.length;
+			
+			if("level".equals(category)) {
+				list = trainingRepository.selectLevelList(displayPost,postNum,keyword, size, checkValues);
+			} else {
+				list = trainingRepository.selectOrganizationList(displayPost,postNum,keyword, size, checkValues);
+			}
+			
+		}
+		
+		/////////////////
+		
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("list",list);		
 		map.put("pageNum",pageNum);
-		
-
 		map.put("select",currentPage);
-
 		map.put("startPageNum",startPageNum);
-		map.put("endPageNum",endPageNum);		
-
+		map.put("endPageNum",endPageNum + 1);		
 		map.put("prev",prev);
 		map.put("next",next);
-		
 		map.put("keyword",keyword);
-		
 		map.put("count", count);
 		
 		return map;
