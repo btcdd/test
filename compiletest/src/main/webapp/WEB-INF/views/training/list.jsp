@@ -17,24 +17,23 @@
 <script>
 
 var checkValues = new Array();
+var page = '1';
+var category = '';
+var kwd = '';
 
-var levelList = new Array();
-
-var map = new Map();
-
-var originList = function(page, kwd) {
+var originList = function(page, kwd, category) {
 	
-	if($('#kwd').val() == ''){
-		console.log('값 없음');
-	}
 	$.ajax({
 		url: '${pageContext.request.contextPath }/api/training/list',
 		async: false,
-		type: 'get',
+		type: 'post',
 		dataType: 'json',
+		traditional: true,
 		data: {
-			'p': page,
-			'kwd': kwd
+			'page': page,
+			'kwd': kwd,
+			'category': category,
+			'checkValues': checkValues
 		},
 		success: function(response){
 			if(response.result != "success"){
@@ -42,16 +41,7 @@ var originList = function(page, kwd) {
 				return;
 			}
 			map = response.data;
-			
-			console.log(map);
-			
-			//console.log(map.pageNum);
-			//console.log(map.list.length);
-			//console.log(map.list[0]);
-			//console.log(map.list[0].no);
-			//console.log(map.list[3]);
-			//console.log(map.list[3].no);
-			
+						
 			fetchList();
 		},
 		error: function(xhr, status, e){
@@ -62,31 +52,30 @@ var originList = function(page, kwd) {
 
 var fetchList = function() {
 	$(".list #tr").remove();
-	$(".list .pager").remove();
+	$(".list .page").remove();
 	var str = "";
-	for(var i = 0; i< map.list.length;i++){
-			str += '<tr id="tr">' +
-			'<td><a data-no=' + map.list[i].no + '>' + map.list[i].no +'</a></td>' +
-			'<td id="title"><a href="${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + '">' + map.list[i].title + '</a></td>' +
-	        '<td>' + map.list[i].kind + '</td>' + 
-	        '<td>' + map.list[i].nickname + '</td>' + 
-	        '<td>' + map.list[i].hit  + '</td>' +
-	        '<td>' + map.list[i].recommend + '</td>' + 
-		'</tr>';
+	for(var i = 0; i < map.list.length;i++){
+		str += '<tr id="tr">' +
+		'<td><a data-no=' + map.list[i].no + '>' + map.list[i].no +'</a></td>' +
+		'<td id="title"><a href="${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + '">' + map.list[i].title + '</a></td>' +
+        '<td>' + map.list[i].kind + '</td>' + 
+        '<td>' + map.list[i].nickname + '</td>' + 
+        '<td>' + map.list[i].hit  + '</td>' +
+        '<td>' + map.list[i].recommend + '</td>' + 
+	'</tr>';		
 	}
-
 	$(".list table").append(str);
 	
 	var str2 = "<div class='pager'>";
 	
-  	if(map.prev){
-		str2 += '<span>[ <a href="${pageContext.request.contextPath }/training/list?p='+(map.startPageNum -1)+'&kwd='+map.keyword+'">이전</a> ]</span>';
+		if(map.prev){
+		str2 += '<span>[이전]</span>';
 		
 	}	
-	for(var i = map.startPageNum;i<map.endPageNum;i++){
-		str2 += '<span>';
+	for(var i = map.startPageNum; i < map.endPageNum; i++){
+		str2 += '<span class="page" id="' + i + '">';
 		if(map.select != i ){
-			str2 += '<a href="${pageContext.request.contextPath}/training/list?p='+i+'&kwd='+map.keyword+'">'+i+'</a>';	
+			str2 += i;
 		}
 		if(map.select == i){
 			str2 += '<b>'+i+'</b>';
@@ -94,74 +83,68 @@ var fetchList = function() {
 		str2 += '</span>';
 	}
 	if(map.next){
-		str2 += '<span>[ <a href="${pageContext.request.contextPath }/training/list?p='+(map.endPageNum +1)+'&kwd='+map.keyword+'">다음</a> ]</span>';
+		str2 += '<span>[다음]</span>';
 	}	 
 	str2 += "</div>"; 
 		
 	$(".list table").after(str2);
 }
 
+var levelChecked = function(page, kwd) {
+	
+	$("input[name=level]:checked").each(function(i) {
+		checkValues.push($(this).val());
+		category = 'level';
+	})
+	$("input[name=organization]:checked").each(function(i) {
+		checkValues.push($(this).val());
+		category = 'organization';
+	})
+	
+	originList(page, kwd, category);
+	checkValues = new Array();
+}
+
+var disabled = function(add, remove) {
+	if(category === add) {
+		$("input[name=" + remove + "]").attr("disabled", true);
+	} else if(category === '') {
+		$("input[name=" + add + "]").removeAttr("disabled");
+		$("input[name=" + remove + "]").removeAttr("disabled");
+	} else {
+		$("input[name=" + remove + "]").removeAttr("disabled");
+	}
+	category = '';
+}
+
 $(function() {
-	var page = ${p };
+	originList('1', '', '');
 	
-	var kwd = $('#kwd').val();
-	
-	originList(page, kwd);
-	
-	$('#search').on('click',function(){
- 		var kwd = $('#kwd').val();
-		originList(page,kwd);
+	$(document).on("click", ".page", function() {
+		page = $(this).attr('id');
+		levelChecked(page, kwd);
 	});
-	
 
-/*	
 	$('input[name=level]').change(function() {
+		page = $('span b').parent().attr('id');
+		levelChecked(page, kwd);
 		
-		var pandan = false;
-		$("input[name=level]:checked").each(function(i) {
-			checkValues.push($(this).val());
-			pandan = true;
-		})
-		
-		if(!pandan) {
-			$("input[name=organization]").removeAttr("disabled");
-
-			originList();
-		}
-		else {
-			$("input[name=organization]").attr("disabled", true);
-			
-			var category = 'level';
-			selectList(category);
-			fetchList();
-			checkValues = new Array();
-		}
+		disabled('level','organization');
 	});
-	*/
-	/*
+	
 	$('input[name=organization]').change(function() {
-		var pandan = false;
-		$("input[name=organization]:checked").each(function(i) {
-			checkValues.push($(this).val());
-			pandan = true;
-		})
+		page = $('span b').parent().attr('id');
+		levelChecked(page, kwd);
 		
-		if(!pandan) {
-			$("input[name=level]").removeAttr("disabled");
-			
-			originList();
-		}
-		else {
-			$("input[name=level]").attr("disabled", true);
-			
-			var category = 'organization';
-			selectList(category);
-			fetchList();
-			checkValues = new Array();
-		}
+		disabled('organization','level');
 	});
-	*/
+	
+	$('#search').on('click', function() {
+		kwd = $('#kwd').val();
+		levelChecked(page, kwd);
+	});
 });
+
 
 </script>
 
@@ -220,13 +203,8 @@ $(function() {
         </div>
 
         <div class="list">
-        
-<%-- 		<form id="search_form" action="${pageContext.request.contextPath }/training/list" method="get">
-				<input type="text" id="kwd" name="kwd" value="${keyword }">
-				<input type="submit" value="찾기">
-			</form>         --%>
         	<div>
-	        	<input type="text" id="kwd" name="kwd" value="${map.keyword }">
+	        	<input type="text" id="kwd" name="kwd" value="">
 	        	<input type="button" id="search" value="찾기">
         	</div>
             <table>
