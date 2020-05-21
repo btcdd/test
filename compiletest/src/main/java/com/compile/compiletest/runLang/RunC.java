@@ -1,4 +1,4 @@
-package com.compile.compiletest.run;
+package com.compile.compiletest.runLang;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class RunCpp {
+public class RunC {
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -17,14 +17,14 @@ public class RunCpp {
 	private File file;
 	private BufferedWriter bufferWriter;
 	
-	private final String FILENAME = "cppTest.cpp";
+	private final String FILENAME = "test.c";
 	
 	public String inputSource() {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("g++ -o cppTest.exe cppTest.cpp");
-		
+		buffer.append("gcc -o test.exe test.c");
+				
 		return buffer.toString();
 	}
 	
@@ -34,7 +34,7 @@ public class RunCpp {
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
-			bufferWriter.flush();
+			bufferWriter.flush(); 
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -68,7 +68,6 @@ public class RunCpp {
 		return null;
 	}
 	
-	
 	public String execCommand() {
 		try {
 			process = Runtime.getRuntime().exec(runClass());
@@ -92,7 +91,7 @@ public class RunCpp {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("./cppTest.exe");
+		buffer.append("./test.exe");
 		
 		return buffer.toString();
 	}
@@ -106,3 +105,4 @@ public class RunCpp {
 		return null;
 	}
 }
+
