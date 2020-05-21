@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.compile.compiletest.dto.JsonResult;
-import com.compile.compiletest.run.RunCpp;
+import com.compile.compiletest.runLang.RunCpp;
 
 @Controller
 @RequestMapping("/compile")
