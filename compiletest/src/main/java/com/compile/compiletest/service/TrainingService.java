@@ -77,7 +77,6 @@ public class TrainingService {
 		int displayPost = (currentPage -1) * postNum;
 		//표시되는 페이지 번호 중 마지막 번호
 		int endPageNum = (int)(Math.ceil((double)currentPage / (double)pageNum_cnt) * pageNum_cnt);
-		System.out.println(endPageNum);
 		//표시되는 페이지 번호 중 첫번째 번호
 		int startPageNum = endPageNum - (pageNum_cnt - 1);
 		//마지막번호 재계산
