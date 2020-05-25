@@ -35,9 +35,6 @@ body{
     border: none;
     display: block;
     font-size: 1em;
-}
-
-div.email-area {
     border-bottom: 2px solid #c4c5c4;
     padding: 20px 0 9px;
 }
@@ -50,10 +47,12 @@ div.email-area {
     background: none;
     border: none;
     font-size: 1em;
+    border-bottom: 2px solid #c4c5c4;
+    padding: 20px 0 9px;
 }
 
 .login-button{
-    margin-left: 28px;
+    margin-left: 26px;
     margin-top: 20px;
     width:300px;
     height: 40px;
@@ -70,7 +69,7 @@ div.email-area {
 }
 
 .join-button {
-    margin-left: 28px;
+    margin-left: 26px;
     margin-top: 10px;
     width: 300px;
     height: 33px;
@@ -87,7 +86,7 @@ div.email-area {
 }
 
 .findpassword {
-    margin-left: 123px;
+    margin-left: 130px;
     margin-top: 25px;
 }
 

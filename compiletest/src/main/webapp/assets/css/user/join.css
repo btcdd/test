@@ -13,7 +13,7 @@ body{
 }
 
 #login-form{
-    height: 330px;
+    height: 270px;
     width:420px;
     margin-left: auto;
     margin-right: auto;
@@ -69,6 +69,22 @@ label {
     border-bottom: 2px solid #c4c5c4;
 }
 
+#auth-check {
+    margin-left: 30px;
+    width: 250px;
+    height: 18px;
+    font-size: 1em;
+    border: none;
+    background: none;
+    border-bottom: 2px solid #c4c5c4;
+}
+
+#btn-auth {
+    background-color: #A5A5A5;
+    color: #fff;
+    vertical-align: -4px;
+}
+
 #btn-checknickname {
     background-color: #A5A5A5;
     color: #fff;
@@ -81,9 +97,18 @@ label {
     vertical-align: -4px;
 }
 
+#auth-check-button {
+    width: 110px;
+    background-color: #A5A5A5;
+    color: #fff;
+    vertical-align: -4px;
+    margin-left: 287px;
+    margin-top: 5px;
+}
+
 .cancel-button{
-    margin-left: 30px;
-    margin-top: 30px;
+    margin-left: 23px;
+    margin-top: 12px;
     width:100px;
     height: 50px;
     background-color: #A5A5A5;
@@ -99,6 +124,7 @@ label {
 
 .join-button {
     margin-left: 170px;
+    margin-right: 19px;
     width:100px;
     height: 50px;
     background-color: #006000;
@@ -111,4 +137,3 @@ label {
     cursor: pointer;
     border-radius:10px;
 }
-

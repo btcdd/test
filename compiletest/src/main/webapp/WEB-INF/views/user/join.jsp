@@ -101,7 +101,7 @@ $(function(){
 				return;
 			}
 			if($("#img-checkemail").is(":hidden")){
-				alert('닉네임 중복 체크를 하지 않았습니다.');
+				alert('이메일 중복 체크를 하지 않았습니다.');
 				return;
 			}
 			if($("#password").val() ==''){
@@ -114,7 +114,7 @@ $(function(){
 				$("#passwordcheck").focus();
 				return;
 			}	
-			if( ($("#auth-check").val() =='') || (tempKey != $("#auth-check").val()) ){
+			if( ($("#auth-check").val() =='') || (tempKey != $("#auth-check").val())) {
 				alert('인증번호가 일치하지 않습니다.');
 				$("#auth-check").focus();
 				return;
@@ -140,7 +140,7 @@ $(function(){
 			data: '',
 			dataType: 'json',
 			success: function(response) {
-				if(response.result == "fail"){
+				if(response.result == "fail") {
 					console.error(response.message);
 					return;
 				}	
@@ -190,7 +190,15 @@ $(function(){
 				}
 				$('#btn-checkemail').hide();
 				$('#img-checkemail').show();
-				$('#auth').show();	
+				
+				// 관우 코드
+				
+				$('#login-form').css('height', '330px');
+				
+				
+				////////////
+				
+				$('#auth').show();
 			},
 			error: function(XHR, status, e) {
 				console.error(status + ":" + e);
@@ -203,9 +211,17 @@ $(function(){
 			$('#password-warning').show();
 			$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
             $('#password-warning').css('color', 'red');
+            
+            // 관우 코드
+            $('#login-form').css('height', '400px');
+            /////////////////
+            
 			console.log("다름");
 		} else{
 			$('#password-warning').hide();
+			// 관우 코드
+			$('#login-form').css('height', '330px');
+			///////////////////
 			console.log("맞음");
 		}
 	});
@@ -217,7 +233,12 @@ $(function(){
             $('#password-warning').css('color', 'red');
 			console.log("다름");
 		} else{
+			
 			$('#password-warning').hide();
+			// 관우 코드
+			$('#login-form').css('height', '330px');
+			///////////////////
+			
 			console.log("맞음");
 		}
 	});
@@ -266,8 +287,8 @@ $(function(){
                         </p>                        
                     </div>
                     <div id="auth" style='display:none'>
-                        <label for="auth-check">인증 번호 입력 : </label>
-                        <input id="auth-check" type="text" name="Auth" />
+                        <label for="auth-check"></label>
+                        <input id="auth-check" type="text" name="Auth" placeholder="인증번호를 입력해주세요."/>
                         <input id="btn-auth"  type="button" value="인증번호보내기">
                         <input id="auth-check-button" type="button" value="인증번호확인">
                         <img id='img-checkauth' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
