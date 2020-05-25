@@ -15,7 +15,7 @@ import com.compile.compiletest.vo.SubProblemVo;
 @Service
 public class TrainingService {
 
-	private static final int postNum = 10; //한 페이지에 출력할 게시물 갯수
+	private static final int postNum = 15; //한 페이지에 출력할 게시물 갯수
 	private static final int pageNum_cnt = 10; 		//한번에 표시할 페이징 번호의 갯수
 	
 	@Autowired
@@ -71,7 +71,6 @@ public class TrainingService {
 			}
 		}
 		
-		
 		//하단 페이징 번호([게시물 총 갯수 / 한 페이지에 출력할 갯수]의 올림)
 		int pageNum = (int)Math.ceil((double)count/postNum);
 		//출력할 게시물
@@ -90,8 +89,6 @@ public class TrainingService {
 		
 		List<ProblemVo> list;
 		
-		////////////////
-		
 		if("".equals(category) || checkValues == null) {
 			list = trainingRepository.selectTrainingList(displayPost,postNum,keyword);
 		} else {
@@ -102,10 +99,7 @@ public class TrainingService {
 			} else {
 				list = trainingRepository.selectOrganizationList(displayPost,postNum,keyword, size, checkValues);
 			}
-			
 		}
-		
-		/////////////////
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		

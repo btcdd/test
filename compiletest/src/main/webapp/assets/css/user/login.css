@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
 body{
     font-family: 'Nanum Gothic Coding', monospace;
+    background-image: url('https://user-images.githubusercontent.com/59616862/81469572-984ccc00-9220-11ea-909c-f38341900047.jpg');
 }
 #user{
     height:900px;
