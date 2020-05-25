@@ -118,29 +118,31 @@ input[type=text] {
 }
 
 .problem-no {
-    display: inline;
+    float: left;
+    width: 22%;
+    text-align: center;
     border: 1px #336600;
     color: #FCFBF4;
     border-radius: 15px;
     background-color: #336600; 
     padding: 2px 9px;
+    margin-top: 7px;
 }
 
 .problem-recommend {
-    display: inline;
+    float: left;
     line-height: 0px;
-    margin-left: 85px;
+    margin: 5px 0 0 85px;
     color: rgb(34, 34, 34);
 }
 
 .like {
     width: 35px;
-    display: inline-block;
-    margin-bottom: 7px;
     vertical-align: middle;
 }
 
 .problem-title {
+    margin-top: 5px;
 }
 
 .problem-kind {
