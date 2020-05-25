@@ -16,6 +16,13 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script>
 
+function onKeyDown() {
+	if(event.keyCode == 13) {
+		kwd = $('#kwd').val();
+		levelChecked(page, kwd);
+	}
+}
+
 var checkValues = new Array();
 var page = '1';
 var category = '';
@@ -51,26 +58,25 @@ var originList = function(page, kwd, category) {
 }
 
 var fetchList = function() {
-	$(".list #tr").remove();
-	$(".list .page").remove();
+
+    $(".list .problem-box").remove();
+	$(".list .pager").remove();
 	var str = "";
 	for(var i = 0; i < map.list.length;i++){
-		str += '<tr id="tr">' +
-		'<td><a data-no=' + map.list[i].no + '>' + map.list[i].no +'</a></td>' +
-		'<td id="title"><a href="${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + '">' + map.list[i].title + '</a></td>' +
-        '<td>' + map.list[i].kind + '</td>' + 
-        '<td>' + map.list[i].nickname + '</td>' + 
-        '<td>' + map.list[i].hit  + '</td>' +
-        '<td>' + map.list[i].recommend + '</td>' + 
-	'</tr>';		
+		str += '<div class="problem-box" onclick="location.href=' + "'" + '${pageContext.servletContext.contextPath }/training/view/' + map.list[i].no + "'" + '">' +
+		'<div class="problem-no"><a data-no=' + map.list[i].no + '>' + map.list[i].no +'</a></div>' +
+        '<div class="problem-recommend"><img src="${pageContext.servletContext.contextPath }/assets/images/like.png" class="like" />' + map.list[i].recommend + '</div>' + 
+		'<div class="problem-title" id="title">' + map.list[i].title + '</div>' +
+        '<div class="problem-user">' + map.list[i].nickname + '</div>' + 
+        '<div class="problem-kind">' + map.list[i].kind + '</div>' + 
+	'</div>';		
 	}
-	$(".list table").append(str);
+	$(".problems").append(str);
 	
 	var str2 = "<div class='pager'>";
 	
-		if(map.prev){
-		str2 += '<span>[이전]</span>';
-		
+	if(page != '1'){
+		str2 += '<span class="prev">◀</span>';
 	}	
 	for(var i = map.startPageNum; i < map.endPageNum; i++){
 		str2 += '<span class="page" id="' + i + '">';
@@ -83,11 +89,11 @@ var fetchList = function() {
 		str2 += '</span>';
 	}
 	if(map.next){
-		str2 += '<span>[다음]</span>';
+		str2 += '<span class="next">▶</span>';
 	}	 
 	str2 += "</div>"; 
 		
-	$(".list table").after(str2);
+	$(".problems").after(str2);
 }
 
 var levelChecked = function(page, kwd) {
@@ -124,6 +130,24 @@ $(function() {
 		page = $(this).attr('id');
 		levelChecked(page, kwd);
 	});
+	
+	$(document).on("click", ".prev", function() {
+		page = $('span b').parent().attr('id');
+		var prevNo = parseInt(page) - 1;
+		page = String(prevNo);
+		
+		console.log(typeof(page) + " page: " + page + " / " + typeof(prevNo) + ":" + prevNo);
+		
+		levelChecked(page, kwd);
+	});
+	
+	$(document).on("click", ".next", function() {
+		page = $('span b').parent().attr('id');
+		var prevNo = parseInt(page) + 1;
+		page = String(prevNo);
+		console.log(typeof(page) + " page: " + page + " / " + typeof(prevNo) + ":" + prevNo);
+		levelChecked(page, kwd);
+	});
 
 	$('input[name=level]').change(function() {
 		
@@ -154,10 +178,7 @@ $(function() {
 
 
 </script>
-
-
 </head>
-
 <body>
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
     <div class="content">
@@ -168,19 +189,24 @@ $(function() {
                         <th>알고리즘</th>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="one" name="level" value="one">level1</td>
+                        <td><input type="checkbox" id="one" name="level" value="one">
+                            <label for="one"><span></span>level 1</label></td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="two" name="level" value="two">level2</td>
+                        <td><input type="checkbox" id="two" name="level" value="two">
+                            <label for="two"><span></span>level 2</label></td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="three" name="level" value="three">level3</td>
+                        <td><input type="checkbox" id="three" name="level" value="three">
+                            <label for="three"><span></span>level 3</label></td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="four" name="level" value="four">level4</td>
+                        <td><input type="checkbox" id="four" name="level" value="four">
+                            <label for="four"><span></span>level 4</label></td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" id="five" name="level" value="five">level5</td>
+                        <td><input type="checkbox" id="five" name="level" value="five">
+                            <label for="five"><span></span>level 5</label></td>
                     </tr>
                 </table>
             </div>
@@ -191,83 +217,40 @@ $(function() {
                         <th>분류</th>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="organization" value="enterprise">기업</td>
+                        <td><input type="checkbox" id="enterprise" name="organization" value="enterprise">
+                            <label for="enterprise"><span></span>기업</label></td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="organization" value="individual">개인</td>
+                        <td><input type="checkbox" id="individual" name="organization" value="individual">
+                            <label for="individual"><span></span>개인</label></td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="organization" value="academy">학원</td>
+                        <td><input type="checkbox" id="academy" name="organization" value="academy">
+                            <label for="academy"><span></span>학원</label></td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="organization" value="school">학교</td>
+                        <td><input type="checkbox" id="school" name="organization" value="school">
+                            <label for="school"><span></span>학교</label></td>
                     </tr>
                     <tr id="sub">
-                        <td><input type="checkbox" name="organization" value="other">기타</td>
+                        <td><input type="checkbox" id="other" name="organization" value="other">
+                            <label for="other"><span></span>기타</label></td>
                     </tr>
                 </table>
             </div>
-        </div>
+        </div> <!-- div menu-bar -->
 
         <div class="list">
-        	<div>
-	        	<input type="text" id="kwd" name="kwd" value="">
-	        	<input type="button" id="search" value="찾기">
-        	</div>
-            <table>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>분류</th>
-                    <th>글쓴이</th>
-                    <th>조회수</th>
-                    <th>추천수</th>
-                </tr>
-<%-- 				<c:forEach items="${map.list }" var="vo" varStatus="status">
-					<tr>
-						<td>${vo.no }</td>
-						<td>${vo.title }</td>
-						<td>${vo.kind }</td>
-						<td>${vo.nickname }</td>
-						<td>${vo.hit }</td>
-						<td>${vo.recommend }</td>
-					</tr>
-				</c:forEach>  --%>               
-            </table>
-		
-			<!-- pager 추가 -->
-<%-- 			<div class ="pager">
- 				<c:if test="${map.prev }">
-					<span>[ <a href="${pageContext.request.contextPath }/training?p=${map.startPageNum -1}&kwd=${map.keyword}">이전</a> ]</span>
-				</c:if>				
-				
-				<c:forEach begin="${map.startPageNum }" end="${map.endPageNum }" var="page">
-					<span>
-						<c:if test="${map.select != page }">
-							<a href="${pageContext.request.contextPath }/training?p=${page}&kwd=${map.keyword}">${page}</a>
-						</c:if>
-						
-						<c:if test="${map.select == page }">
-							<b>${page }</b>
-						</c:if>
-					</span>
-				</c:forEach>
-					
-				<c:if test="${map.next }">
-					<span>[ <a href="${pageContext.request.contextPath }/training?p=${map.endPageNum +1}&kwd=${map.keyword}">다음</a> ]</span>
-				</c:if> 											
-			</div> --%>
-			<!-- pager 추가 -->            
-            
-            
-            <div class="make-problem">
-                <a href="${pageContext.servletContext.contextPath }/training/write"><button>문제작성</button></a>
+            <div class="search">
+                <input type="text" id="kwd" name="kwd" placeholder="Search.." onKeyDown="onKeyDown();">
+                <input type="button" id="search" value="검색" >
+                <button class="make-problem" onclick="${pageContext.servletContext.contextPath }/training/write">문제작성</button>
             </div>
-		</div>		
- 
-        
+            <div class="problems">
+            </div> <!-- div problems -->
+        </div> <!-- div list -->
     </div>
-
+<%-- 	<c:import url="/WEB-INF/views/include/footer.jsp" /> --%>
 </body>
 
 </html>

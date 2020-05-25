@@ -10,9 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Find</title>
 <link href="" rel="stylesheet" type="text/css">
-<link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/include/user-header.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/user/find-password.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script>
 var loadingWithMask = function LoadingWithMask(){
@@ -27,7 +26,7 @@ var loadingWithMask = function LoadingWithMask(){
 	loadingImg += "<img src='${pageContext.request.contextPath}/assets/images/user/packman.gif' style='position: absolute; top: 50%; left: 50%;z-index: 100;'/>";
 	loadingImg += "</div>";
 					
-	$('body').append(mask).append(loadingImg);		
+	$('body').append(mask).append(loadingImg);
 		
 	$('#mask').css({
 		'width':widthWindow,
@@ -37,12 +36,11 @@ var loadingWithMask = function LoadingWithMask(){
 			
 	$('#mask').show();
 	$('#loadingImg').show();
-		
 }
 	
 var closeLoadingWithMask = function CloseLoadingWithMask(){
-	$('#mask,#loadingImg').hide();
-	$('#mask,#loadingImg').empty();
+	$('#mask, #loadingImg').hide();
+	$('#mask, #loadingImg').empty();
 }
 
 $(function(){
@@ -81,7 +79,7 @@ $(function(){
 		if( ($('#auth-check').val() == tempKey) && ($('#auth-check').val() != "") ){			
 			console.log("인증번호 맞았음");
 			$('#login-form').submit();
-		}else{
+		} else{
 			alert('인증번호 다시 확인해주세요.');
 		}
 	});	
@@ -91,20 +89,19 @@ $(function(){
 </head>
 <body>
     <div id="container">
-        <c:import url="/WEB-INF/views/include/user-header.jsp" />          
+        <c:import url="/WEB-INF/views/include/user-header.jsp" />
         <div id="content">
             <div id="user">
                 <form id="login-form" method="post" action="${pageContext.servletContext.contextPath }/user/reset">
-                    <h1>비밀번호 찾기</h1>
                     <div>
-                        <label for="email">이메일 입력 : </label>
-                        <input id="email" name="email" type="email" />
+                        <label for="email"></label>
+                        <input id="email" name="email" type="email" placeholder="가입하신 이메일을 입력해주세요."/>
+                        <input id="btn-auth" type="button" value="인증번호 전송" />
                     </div>
                     <div id="auth" >
-                    	<label for="auth-check">인증 번호 입력</label>
-                    	<input id="auth-check" type="text" name="Auth"/>
-                    	<input id="btn-auth" type="button" value="인증번호 전송" />
-                        <input id="auth-check-button" type="button" value="인증번호확인">
+                    	<label for="auth-check"></label>
+                    	<input id="auth-check" type="text" name="Auth"/ placeholder="인증번호를 입력해주세요.">
+                        <input id="auth-check-button" type="button" value="계속">
                     </div>
                 </form>
             </div>

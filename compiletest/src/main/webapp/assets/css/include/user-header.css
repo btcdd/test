@@ -1,0 +1,12 @@
+.logo {
+    display: block;
+    margin-left: 770px;
+    margin-top: 260px;
+}
+
+.logo a {
+    font-size: 4em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
