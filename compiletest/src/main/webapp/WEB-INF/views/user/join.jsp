@@ -12,24 +12,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Join</title>
 <link href="" rel="stylesheet" type="text/css">
-<link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/include/user-header.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/user/join.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>   
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script>
 var loadingWithMask = function LoadingWithMask(){
 		
  	var widthWindow = window.innerWidth;
 	var heightWindow = window.innerHeight;
 
-	var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none;opacity: 0.7;background-color: #fff;z-index: 99;text-align: center; '></div>";
+	var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none; opacity: 0.7;background-color: #fff;z-index: 99;text-align: center;'></div>";
 	var loadingImg = '';
 		
 	loadingImg += "<div id='loadingImg'>";
 	loadingImg += "<img src='${pageContext.request.contextPath}/assets/images/user/packman.gif' style='position: absolute; top: 50%; left: 50%;z-index: 100;'/>";
 	loadingImg += "</div>";
 		
-	$('body').append(mask).append(loadingImg);	
+	$('body').append(mask).append(loadingImg);
 	$('#mask').css({
 		'width':widthWindow,
 		'height':heightWindow,
@@ -205,7 +204,7 @@ $(function(){
 			$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
             $('#password-warning').css('color', 'red');
 			console.log("다름");
-		}else{
+		} else{
 			$('#password-warning').hide();
 			console.log("맞음");
 		}
@@ -217,29 +216,28 @@ $(function(){
 			$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
             $('#password-warning').css('color', 'red');
 			console.log("다름");
-		}else{
+		} else{
 			$('#password-warning').hide();
 			console.log("맞음");
 		}
-	});	
+	});
 	
 });
 </script>
 </head>
 <body>
     <div id="container">
-        <c:import url="/WEB-INF/views/include/user-header.jsp" />        
+        <c:import url="/WEB-INF/views/include/user-header.jsp" />
         <div id="content">
             <div id="user">
-                <form:form 
+                <form:form
                 	id="login-form" 
-                	modelAttribute="userVo" 
-                	method="post" 
+                	modelAttribute="userVo"
+                	method="post"
                 	action="${pageContext.servletContext.contextPath }/user/join">
-                    <h1>회원가입</h1>
                     <div>
-                        <label for="nickname">닉네임</label>
-                        <form:input path="nickname"/>
+                        <label for="nickname"></label>
+                        <form:input id="nickname" path="nickname" placeholder="닉네임을 입력해주세요"/>
                         <input type="button" id="btn-checknickname" value="닉네임중복확인" /> 
                         <img id='img-checknickname' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
                         <p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
@@ -247,21 +245,21 @@ $(function(){
                         </p>
                     </div>
                     <div>
-                        <label for="email">이메일</label>
-                        <form:input path="email"/>
+                        <label for="email"></label>
+                        <form:input id="email" path="email" placeholder="이메일을 입력해주세요"/>
                         <input type="button" id="btn-checkemail" value="이메일중복확인" />
                         <img id='img-checkemail' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
-                        <form:errors path="email"/>
+                        <form:errors path="email" />
                         </p>
                     </div>
                     <div>
-                        <label for="password">비밀번호</label>
-                        <form:input path="password" type="password"/>
+                        <label for="password"></label>
+                        <form:input id="password" path="password" type="password" placeholder="비밀번호를 입력해주세요"/>
                     </div>
                     <div>
-                        <label for="passwordcheck">비밀번호확인</label>
-                        <input id="passwordcheck" name="passwordcheck" type="password" />
+                        <label for="passwordcheck"></label>
+                        <input id="passwordcheck" name="passwordcheck" type="password" placeholder="비밀번호를 다시 입력해주세요"/>
                         <div id="password-warning"></div>
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
                         <form:errors path="password"/>
@@ -275,8 +273,8 @@ $(function(){
                         <img id='img-checkauth' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
                     </div>                    
                     <div>
-                    	<a href="${pageContext.servletContext.contextPath }/"><input class="button" value="취소"></input></a>
-                        <input type="submit" class="button" value="가입" >                        
+                    	<a href="${pageContext.servletContext.contextPath }/"><input class="cancel-button" value="취소"></input></a>
+                        <input type="submit" class="join-button" value="가입" >                        
                     </div>
                 </form:form>
             </div>
