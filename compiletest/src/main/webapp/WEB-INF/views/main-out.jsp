@@ -150,9 +150,9 @@ $(function() {
 		<div class="intro">
 			<p>온라인에서</p>
 			<p>쉽고 간단하게</p>
-			<p>코딩을 시작해보세요</p>
+			<p class="end">코딩을 시작해보세요</p>
 		</div>
-		<button class="join-btn">Get Started</button>
+		<a  class="join-btn" href="${pageContext.request.contextPath }/user/login">Get Started</a>
 	</div>
 	<div class="codeTest">
         <form action="" method="post">
