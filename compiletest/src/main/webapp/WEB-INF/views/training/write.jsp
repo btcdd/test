@@ -17,6 +17,10 @@
 
 var index = 1;
 
+var str;
+
+var buttonStr;
+
 /*
 var index = 1;
 
@@ -70,84 +74,82 @@ $(function() {
 });
 */
 
-
-function openCity(evt, cityName) {
-	// Declare all variables
-	var i, tabcontent, tablinks;
-
-	// Get all elements with class="tabcontent" and hide them
-	tabcontent = document.getElementsByClassName("tabcontent");
-	for (i = 0; i < tabcontent.length; i++) {
-		tabcontent[i].style.display = "none";
-	}
-
-	// Get all elements with class="tablinks" and remove the class "active"
-	tablinks = document.getElementsByClassName("tablinks");
-	for (i = 0; i < tablinks.length; i++) {
-		tablinks[i].className = tablinks[i].className.replace(" active", "");
-	}
-
-	// Show the current tab, and add an "active" class to the link that opened the tab
-	document.getElementById(cityName).style.display = "block";
-	evt.currentTarget.className += " active";
-}
-
-function problemAdd() {
-	var str = '<div id="test" class="tabcontent"><div class="sub-title">' + 
+var problemAdd = function() {
+	
+	str = '<div class="prob' + index + '" class="tabcontent"><div class="sub-title">' + 
+				'<h3>문제 ' + (index+1) + '</h3>' + 
 				'문제 제목<input type="text" name="subProblemList[' + index + '].title"/>' +
 			    '</div>' +
 			    '<div class="prob-content">' + 
 			        '<div class="prob-content-title">내용</div>' + 
 			        '<textarea id="prob-content-text" name="subProblemList[' + index + '].contents"></textarea>' + 
-			    '</div></div>';
+			    '</div>' + 
+			'<div class="ex-input">' + 
+	            '<div class="ex-input-title">예제 입력</div>' + 
+	            '<textarea id="ex-input-text" name="subProblemList[' + index + '].examInput"></textarea>' + 
+	        '</div>' + 
+	        '<div class="ex-output">' + 
+	            '<div class="ex-input-title">예제 출력</div>' + 
+	            '<textarea id="ex-output-text" name="subProblemList[' + index + '].examOutput"></textarea>' + 
+	        '</div>' + 
+	        '<div class="answer-code' + index + '">' + 
+	            '<div class="ex-input-title">정답 코드</div>' + 
+				'<div>' + 
+					'<select name="lang">' + 
+						'<option value="none" selected="selected">언어선택</option>' + 
+						'<option value="c">C</option>' + 
+						'<option value="cpp">C++</option>' + 
+						'<option value="cs">C#</option>' + 
+						'<option value="java">JAVA</option>' + 
+						'<option value="js">JavaScript</option>' + 
+						'<option value="py">Python</option>' + 
+		             '</select>' + 
+	             '</div>' + 
+	            '<textarea id="answer-code-text" name="subProblemList[' + index + '].correctCode"></textarea>' + 
+	        '</div></div>';
 	
-	var buttonStr = '<button class="tablinks" onclick="openCity(event, "test")>test</button>';
-	
-	$("#3").after(buttonStr);
-	
-	$("#Tokyo").after(str);
+	// var buttonStr = '<button class="tablinks" id="' + index + '" onclick="openCity(event, ' + "'prob" + index + "')" + '">문제 ' + index + '</button>';
+	buttonStr = '<li id="' + index + '" class="tablinks"><span class="a">문제 ' + (index + 1) + '</span></li>';
 }
+
+$(function() {
+	$('#addSubProblem').click(function() {
+		event.preventDefault();
+		
+		problemAdd();
+		
+		$("#" + (index-1)).after(buttonStr);
+		$(".prob" + (index-1)).after(str);
+		$('.prob' + (index-1)).hide();
+		
+		index++;
+	});
+	
+	$(document).on("click", ".tablinks", function() {
+		event.preventDefault();
+		
+		$('.tabcontent').children().hide();
+		
+		problemAdd();
+		
+		var ind = $(this).attr('id');
+		
+		$('.prob' + (ind)).show();
+	});
+});
 
 </script>
 </head>
 <body>
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
     
-    <div class="tab">
-		<button class="tablinks" onclick="openCity(event, 'London')">London</button>
-		<button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-		<button class="tablinks333" id="3" onclick="openCity(event, 'Tokyo')">Tokyo</button>
-		<button class="tablinks" onclick="problemAdd()">+</button>
-	</div>
-	
-	<div id="London" class="tabcontent">
-		<h3>London</h3>
-		<div class="privateAndPassword">
-            <div class="private">코딩테스트 <input type="checkbox"></div>
-            <div class="password">비밀번호 <input type="password"></div>
-        </div>
-        <div class="date">
-            <div class="start-date">시작일자 <input type="datetime-local"></div>
-            <div class="end-date">마감일자 <input type="datetime-local"></div>
-        </div>
-	</div>
-	
+
+	<!--
 	<div id="Paris" class="tabcontent">
 		<h3>Paris</h3>
 		<p>Paris is the capital of France.</p>
 	</div>
-	
-	<div id="Tokyo" class="tabcontent">
-		<h3>Tokyo</h3>
-		<p>Tokyo is the capital of Japan.</p>
-	</div>
-	
-	<div id="Seoul" class="tabcontent">
-		<h3>+</h3>
-		<p>Add!</p>
-	</div>
-	
-    <!--  
+	 -->
 	    <form method="post" action="${pageContext.servletContext.contextPath }/training/write">
 		    <div class="regist">
 		        <div class="privateAndPassword">
@@ -176,53 +178,66 @@ function problemAdd() {
 		        </div>
 		        <br />
 		        
-		        <div class="problem">
-			        <div class="sub-title">
-			        	문제 제목<input type="text" name="subProblemList[0].title"/>
-			        </div>
-			        <div class="prob-content">
-			            <div class="prob-content-title">내용</div>
-			            <textarea id="prob-content-text" name="subProblemList[0].contents"></textarea>
-			        </div>
-			        <br />
+		<div class="tab">
+			<ul>
+				<li id="0" class="tablinks"><span class="a">문제 1</span></li>
+				<li><a id="addSubProblem"><span class="addProblem">+</span></a></li>
+			</ul>
+<!-- 		<button class="tablinks" id="1" onclick="openCity(event, 'prob1')">문제 1</button> -->
+<!-- 		<a id="addSubProblem" class="tablinks" onclick=><button class="tablinks" onclick="problemAdd()">+</button></a> -->
+	</div>
+	
+	<div id="problem" class="tabcontent">
+		<div class="prob0">
+			<h3>문제 1</h3>
+	        <div class="sub-title">
+	        	문제 제목<input type="text" name="subProblemList[0].title"/>
+	        </div>
+	        <div class="prob-content">
+	            <div class="prob-content-title">내용</div>
+	            <textarea id="prob-content-text" name="subProblemList[0].contents"></textarea>
+	        </div>
+	        <br />
+	
+	        <div class="ex-input">
+	            <div class="ex-input-title">예제 입력</div>
+	            <textarea id="ex-input-text" name="subProblemList[0].examInput"></textarea>
+	        </div>
+	
+	        <div class="ex-output">
+	            <div class="ex-input-title">예제 출력</div>
+	            <textarea id="ex-output-text" name="subProblemList[0].examOutput"></textarea>
+	        </div>
+	
 			
-			        <div class="ex-input">
-			            <div class="ex-input-title">예제 입력</div>
-			            <textarea id="ex-input-text" name="subProblemList[0].examInput"></textarea>
-			        </div>
-			
-			        <div class="ex-output">
-			            <div class="ex-input-title">예제 출력</div>
-			            <textarea id="ex-output-text" name="subProblemList[0].examOutput"></textarea>
-			        </div>
-			
-					
-			        <div class="answer-code0">
-			            <div class="ex-input-title">정답 코드</div>
-						<div>
-							<select name="lang">
-								<option value="none" selected="selected">언어선택</option>
-								<option value="c">C</option>
-								<option value="cpp">C++</option>
-								<option value="cs">C#</option>
-								<option value="java">JAVA</option>
-								<option value="js">JavaScript</option>
-								<option value="py">Python</option>
-				             </select>
-			             </div>
-			            <textarea id="answer-code-text" name="subProblemList[0].correctCode"></textarea>
-			        </div>
-				</div>        
+	        <div class="answer-code0">
+	            <div class="ex-input-title">정답 코드</div>
+				<div>
+					<select name="lang">
+						<option value="none" selected="selected">언어선택</option>
+						<option value="c">C</option>
+						<option value="cpp">C++</option>
+						<option value="cs">C#</option>
+						<option value="java">JAVA</option>
+						<option value="js">JavaScript</option>
+						<option value="py">Python</option>
+		             </select>
+	             </div>
+	            <textarea id="answer-code-text" name="subProblemList[0].correctCode"></textarea>
+	        </div>
+		</div>
+	</div>
+		
 		        <a href="${pageContext.servletContext.contextPath }/training">취소</a>
 		        <input type="submit" value="등록">
 		        
+		        <!-- 
 		        <a id="addSubProblem">추가</a>
-				  
+				  -->
 		        <br />
 		        <br />
 		        <br />
 		    </div>
 	    </form>
-    -->
 </body>
 </html>

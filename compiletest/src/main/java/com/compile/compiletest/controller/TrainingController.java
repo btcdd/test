@@ -37,7 +37,6 @@ public class TrainingController {
 		return "training/write";
 	}
 
-	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String problemWriteSuccess(
 			@ModelAttribute SubProblemList subProblemList,
