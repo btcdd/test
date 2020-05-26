@@ -77,7 +77,7 @@ public class RunJava {
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			bufferedReader2 = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			
-			System.out.println(bufferedReader2);
+			System.out.println("gdgd:" + bufferedReader2);
 			
 			String line = null;
 			readBuffer = new StringBuffer();
