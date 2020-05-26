@@ -76,13 +76,15 @@ public class RunJava {
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			bufferedReader2 = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-			
-			System.out.println("gdgd:" + bufferedReader2);
-			
+						
 			String line = null;
 			readBuffer = new StringBuffer();
 			
 			while((line = bufferedReader.readLine()) != null) {
+				readBuffer.append(line);
+				readBuffer.append("\n");
+			}
+			while((line = bufferedReader2.readLine()) != null) {
 				readBuffer.append(line);
 				readBuffer.append("\n");
 			}
