@@ -13,9 +13,19 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- code mirror -->
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/js/codemirror.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/codemirror.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/clike.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/css/codemirror.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/abcdef.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/blackboard.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/dracula.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/duotone-light.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/eclipse.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/moxer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/neat.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/panda-syntax.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/solarized.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/ttcn.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/js/codemirror.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/mode/clike.js"></script>
 
 <script>
 $(function() {
@@ -130,9 +140,16 @@ $(function() {
    var code = $('.CodeMirror')[0];
    var editor = CodeMirror.fromTextArea(code, {
    		lineNumbers: true,
-   		mode: 'text/x-java'
+   		mode: 'text/x-java',
+   		theme: 'dracula',
+   		matchBrackets: true
    });
    
+   $('.theme').click(function() {
+	   var theme = $(".theme option:selected").val();
+	   
+	   editor.setOption("theme", theme);
+   });
 });
 
 </script>
@@ -184,6 +201,25 @@ $(function() {
 	                      <option value="java">JAVA</option>
 	                      <option value="js">JavaScript</option>
 	                      <option value="py">Python</option>
+	                  </select>
+                  </td>
+                  <td>
+	                  <select class="theme" name="theme">
+	                    <option value="none" selected="selected">테마선택</option>
+	                  	<optgroup label="black">
+	                      <option value="abcdef">abcdef</option>
+	                      <option value="blackboard">blackboard</option>
+	                      <option value="dracula">dracula</option>
+	                      <option value="moxer">moxer</option>
+	                      <option value="panda-syntax">panda-syntax</option>
+	                    </optgroup>
+	                    <optgroup label="white">
+	                      <option value="duotone-light">duotone-light</option>
+	                      <option value="eclipse">eclipse</option>
+	                      <option value="neat">neat</option>
+	                      <option value="ttcn">ttcn</option>
+	                      <option value="solarized">solarized</option>
+	                    </optgroup>
 	                  </select>
                   </td>
                   <td>
