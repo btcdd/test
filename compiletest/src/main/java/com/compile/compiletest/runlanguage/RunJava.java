@@ -12,6 +12,7 @@ public class RunJava {
 	private StringBuffer buffer;
 	private Process process;
 	private BufferedReader bufferedReader;
+	private BufferedReader bufferedReader2;
 	private StringBuffer readBuffer;
 	
 	private File file;
@@ -74,6 +75,10 @@ public class RunJava {
 			process = Runtime.getRuntime().exec(runClass());
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			bufferedReader2 = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			
+			System.out.println(bufferedReader2);
+			
 			String line = null;
 			readBuffer = new StringBuffer();
 			
