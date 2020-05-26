@@ -23,6 +23,9 @@ public class CompileControllerJava {
 		
 		RunJava rtt = new RunJava();
 		
+
+		System.out.println("왜 안나3333333와");
+		
 		String result = rtt.execCommand();
 //		String errorResult = rtt.errorResult();
 		String errorResult = rtt.execCompile();
@@ -42,6 +45,8 @@ public class CompileControllerJava {
 		
 		String[] token = code.split("\n");
 		
+		System.out.println("왜 안나와");
+		
 		for(int i = 0; i < token.length; i++) {
 			buffer.append(token[i]);
 		}
@@ -57,6 +62,8 @@ public class CompileControllerJava {
 	@PostMapping("/java/compile")
 	public JsonResult javaCompileexam() {
 
+
+		System.out.println("왜 안나와2");
 		RunJava rtt = new RunJava();
 
 //		String result = rtt.inputSource();
