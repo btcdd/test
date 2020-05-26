@@ -1,17 +1,11 @@
 package com.compile.compiletest.controller.api;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,12 +32,12 @@ public class TrainingController {
 		return JsonResult.success(map);
 	}
 	
-	@PostMapping("/mylist/{problemNo}")
-	public JsonResult mylist(@PathVariable("problemNo") Long problemNo) {
-		System.out.println("click!!!@!@!!");
+	@PostMapping("/mylist")
+	public JsonResult mylist(Long no) {
+		System.out.println("click!!!@!@!!" + no);
 		
-		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
-		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
+		ProblemVo problemVo = trainingService.selectProblemOne(no);
+		List<SubProblemVo> list = trainingService.selectSubProblem(no);
 		
 		
 		Map<String, Object> map = new HashMap<>();
@@ -51,7 +45,7 @@ public class TrainingController {
 		map.put("problemVo", problemVo);
 		map.put("list", list);
 		map.put("listSize", list.size());
-		map.put("problemNo", problemNo);
+		map.put("problemNo", no);
 		
 		return JsonResult.success(map);
 	}

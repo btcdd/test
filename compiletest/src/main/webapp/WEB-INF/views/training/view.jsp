@@ -34,11 +34,11 @@ $(function() {
 		
 		console.log("codetreeNo >>" + problemNo);
 		$.ajax({
-			url:'${pageContext.request.contextPath }/api/training/mylist/'+problemNo,
-			async:false,
+			url:'${pageContext.request.contextPath }/api/training/mylist',
+			async:true,
 			type:'post',
 			dataType:'json',
-			data:'',
+			data:'no='+ problemNo,
 			success:function(response){
 				console.log(response.data.problemNo);
 
@@ -71,7 +71,7 @@ $(function() {
             <p class="division">${problemVo.no }</p>
             <p>${problemVo.title }</p>
             <button id='problem-no'>코드 트리로 가져오기</button>
-            <button><a href="">통계</a></button>
+            <button>통계</button>
         </div>
         
         <div class="problem-list">

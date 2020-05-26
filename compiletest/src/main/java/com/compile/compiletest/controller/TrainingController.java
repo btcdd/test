@@ -17,6 +17,7 @@ import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SubProblemList;
 import com.compile.compiletest.vo.SubProblemVo;
+import com.compile.security.Auth;
 
 @Controller
 @RequestMapping("/training")
@@ -25,12 +26,14 @@ public class TrainingController {
 	@Autowired
 	private TrainingService trainingService;
 	
+	@Auth
 	@RequestMapping(value={"","/list"}, method=RequestMethod.GET)
 	public String training() {
 		
 		return "training/list";
 	}
 	
+	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String problemWrite() {
 		
@@ -38,6 +41,7 @@ public class TrainingController {
 	}
 
 	
+	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String problemWriteSuccess(
 			@ModelAttribute SubProblemList subProblemList,
@@ -48,6 +52,7 @@ public class TrainingController {
 		return "redirect:/training";
 	}
 	
+	@Auth
 	@RequestMapping(value="/view/{problemNo}", method=RequestMethod.GET)
 	public String problemView(@PathVariable("problemNo") Long problemNo, Model model) {
 		
@@ -64,6 +69,7 @@ public class TrainingController {
 		return "training/view";
 	}
 	
+	@Auth
 	@RequestMapping(value="/modify/{problemNo}", method=RequestMethod.GET)
 	public String problemModify(@PathVariable("problemNo") Long problemNo, Model model) {
 		
@@ -81,6 +87,7 @@ public class TrainingController {
 		return "training/modify";
 	}
 	
+	@Auth
 	@RequestMapping(value="/modify/{problemNo}", method=RequestMethod.POST)
 	public String problemModifySubmit(@ModelAttribute SubProblemList subProblemList,
 				ProblemVo problemVo,

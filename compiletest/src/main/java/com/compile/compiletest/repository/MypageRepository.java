@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.SubmitVo;
+import com.compile.compiletest.vo.UserVo;
 
 @Repository
 public class MypageRepository {
@@ -18,16 +19,16 @@ public class MypageRepository {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public int changeNickname(String nickname) {
-		return sqlSession.update("mypage.changeNickname", nickname);
+	public int changeNickname(UserVo vo ) {
+		return sqlSession.update("mypage.changeNickname", vo);
 	}
 
-	public int changePassword(String password) {
-		return sqlSession.update("mypage.changePassword", password);
+	public int changePassword(UserVo vo) {
+		return sqlSession.update("mypage.changePassword", vo);
 	}
 
-	public int deleteUser(String email) {
-		return sqlSession.delete("mypage.deleteUser", email);
+	public int deleteUser(UserVo vo) {
+		return sqlSession.delete("mypage.deleteUser", vo);
 	}
 
 	public String lookUpPassword(String email) {
@@ -38,10 +39,11 @@ public class MypageRepository {
 		sqlSession.update("mypage.foreignKeyChecks", 0L);
 	}
 
-	public List<ProblemVo> selectProblemList(int displayPost, int postNum) {
+	public List<ProblemVo> selectProblemList(int displayPost, int postNum, Long userNo) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("displayPost",displayPost);
-		map.put("postNum",postNum);		
+		map.put("postNum",postNum);	
+		map.put("userNo",userNo);		
 		List<ProblemVo> list = sqlSession.selectList("mypage.selectProblemList",map);
 		return list;
 	}
@@ -54,8 +56,8 @@ public class MypageRepository {
 		return sqlSession.selectList("mypage.problemSolveList", no);
 	}
 
-	public int getTotalCount() {
-		return sqlSession.selectOne("mypage.totalCount");
+	public int getTotalCount(Long userNo) {
+		return sqlSession.selectOne("mypage.totalCount", userNo);
 	}
 
 	public List<SubProblemVo> findSubProblem(Long no) {
