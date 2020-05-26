@@ -141,7 +141,7 @@ $(function() {
    var editor = CodeMirror.fromTextArea(code, {
    		lineNumbers: true,
    		mode: 'text/x-java',
-   		theme: 'dracula',
+   		theme: 'panda-syntax',
    		matchBrackets: true
    });
    
@@ -149,6 +149,51 @@ $(function() {
 	   var theme = $(".theme option:selected").val();
 	   
 	   editor.setOption("theme", theme);
+   });
+   
+   $('.lang').click(function() {
+	   var lang = $(".lang option:selected").val();
+	   var face = '';
+	   
+	   if(lang === 'c') {
+		   face = '#include <stdio.h>\n\n' + 
+			   'int main() {\n' + 
+			   	'\tprintf("Hello CodeForest!\\n");\n\n' + 
+			   	'\treturn 0;\n' + 
+			   '}';
+	   } else if(lang === 'cpp') {
+		   face = '#include <iostream>\n\n' + 
+			   		'using namespace std;\n\n' + 
+			   'int main()\n' + 
+			   '{\n' + 
+			       '\tcout << "Hello CodeForest!" << endl;\n\n' + 
+			       '\treturn 0;\n' + 
+			   '}';
+	   } else if(lang === 'cs') {
+		   face = 'using System;\n\n' + 
+			   		'class HelloWorld {\n\n' + 
+			     	'\tstatic void Main() {\n' +  
+			       '\t\tConsole.WriteLine("Hello CodeForest");\n' + 
+			     '\t}\n' + 
+			   '}';
+	   } else if(lang === 'java') {
+		   face = '/*\n' + 
+	   		"* 기본 언어 : 'JAVA'\n" + 
+		   "* 기본 테마 : 'panda-syntax'\n" + 
+		   '*/\n' + 
+		  'public class Test{\n' + 
+		  		'\tpublic static void main(String[] args) {\n' + 
+		      		'\t\tSystem.out.println("Hello CodeForest!");\n' + 
+		      '\t}\n' + 
+		  '}\n';
+	   } else if(lang === 'js') {
+		   face = 'var str = "Hello CodeForest";\n\n' + 
+		   			'console.log(str);';
+	   } else if(lang === 'py') {
+		   face = 'print("Hello World")';
+	   }
+	   
+	   editor.setValue(face);
    });
 });
 
@@ -193,25 +238,23 @@ $(function() {
             <table class="tbl-ex">
                <tr>
                   <td>
-	                  <select name="lang">
-	                      <option value="none" selected="selected">언어선택</option>
+	                  <select class="lang" name="lang">
 	                      <option value="c">C</option>
 	                      <option value="cpp">C++</option>
 	                      <option value="cs">C#</option>
-	                      <option value="java">JAVA</option>
+	                      <option value="java" selected="selected">JAVA</option>
 	                      <option value="js">JavaScript</option>
 	                      <option value="py">Python</option>
 	                  </select>
                   </td>
                   <td>
 	                  <select class="theme" name="theme">
-	                    <option value="none" selected="selected">테마선택</option>
 	                  	<optgroup label="black">
 	                      <option value="abcdef">abcdef</option>
 	                      <option value="blackboard">blackboard</option>
 	                      <option value="dracula">dracula</option>
 	                      <option value="moxer">moxer</option>
-	                      <option value="panda-syntax">panda-syntax</option>
+	                      <option value="panda-syntax" selected="selected">panda-syntax</option>
 	                    </optgroup>
 	                    <optgroup label="white">
 	                      <option value="duotone-light">duotone-light</option>
