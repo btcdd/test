@@ -9,9 +9,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/problem-write.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/sample.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/cheditor.js"></script>
 <title>Code Forest</title>
 <script>
 
@@ -83,7 +84,9 @@ $(function() {
 		
 		$('.prob' + (ind)).show();
 	});
+	
 });
+
 
 </script>
 </head>
@@ -134,7 +137,11 @@ $(function() {
 	        </div>
 	        <div class="prob-content">
 	            <div class="prob-content-title">내용</div>
-	            <textarea class="cheditor" id="prob-content-text" name="subProblemList[0].contents"></textarea>
+	            <textarea class="ckeditor" id="prob-content-text" name="subProblemList[0].contents"></textarea>
+	            <textarea class="ckeditor" id="editor" name="subProblemList[0].contents"></textarea>
+<!-- 				<textarea id="editor1" name="editor1">&lt;p&gt;Initial value.&lt;/p&gt;</textarea> -->
+<!-- 				<script type="text/javascript"> -->
+<!-- 				</script> -->
 	        </div>
 	        <br />
 	

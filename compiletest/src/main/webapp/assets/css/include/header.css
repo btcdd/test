@@ -3,8 +3,6 @@
 body { margin: 0; padding: 0; }
 .header { background-color: white; border-bottom: 1px solid #E3E3E3; }
 
-.container { width: 980px; margin: auto; padding: 20px 0; }
-
 .logo { float: left; margin-right: 40px; margin-top: 4px;}
 
 .logo a { text-decoration: none; color:#167426; font-family: 'Teko', sans-serif; font-size: 1.7em; margin-left: 20px; margin-top: 4px; }
