@@ -55,7 +55,7 @@ $(function(){
 		$.ajax({
 			url:'${pageContext.request.contextPath}/api/user/emailAuth',
 			async:true,
-			type:'get',
+			type:'post',
 			dataType:'json',
 			data:'email='+ email,
 			success:function(response){	
@@ -136,7 +136,7 @@ $(function(){
 		$.ajax({
 			url: "${pageContext.servletContext.contextPath }/api/user/nickname?nickname=" + nickname,
 			async: true,
-			type: 'get',
+			type: 'post',
 			data: '',
 			dataType: 'json',
 			success: function(response) {
@@ -173,7 +173,7 @@ $(function(){
 		$.ajax({
 			url: "${pageContext.servletContext.contextPath }/api/user/checkemail?email=" + email,
 			async: true,
-			type: 'get',
+			type: 'post',
 			data: '',
 			dataType: 'json',
 			success: function(response) {

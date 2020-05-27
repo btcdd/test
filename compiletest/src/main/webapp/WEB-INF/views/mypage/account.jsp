@@ -14,6 +14,25 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+    var logout = function() {
+		$.ajax({
+            url: '${pageContext.request.contextPath }/user/logout',
+            async: false,
+            type: 'get',
+            dataType: '',
+            data: '',
+            success: function(response){
+            	console.log("로그 아웃");
+            },
+            error: function(xhr, status, e) {
+               console.error(status + ":" + e);
+            }
+         });
+	};
+    
+    var no = '${authUser.no}';
+    var email = '${authUser.email}'
+    
     var pandan = false;
 
     var changeNickname = function(nickname) {
@@ -22,7 +41,10 @@
             async: true,
             type: 'post',
             dataType: 'json',
-            data: "nickname=" + nickname,
+            data: {
+            	"nickname" : nickname,
+            	"no" : no
+            },
             success: function(response){
                if(response.result != "success") {
                   console.error(response.message);
@@ -41,7 +63,10 @@
             async: true,
             type: 'post',
             dataType: 'json',
-            data: "password=" + password,
+            data: {
+            	"password" : password,
+            	"no" : no
+            },
             success: function(response){
                if(response.result != "success") {
                   console.error(response.message);
@@ -60,7 +85,11 @@
             async: true,
             type: 'post',
             dataType: 'json',
-            data: "password=" + password,
+            data: {
+            	"password" : password,
+            	"email" : email,
+            	"no" : no
+            },
             success: function(response){
                if(response.data == 0) {
             	   pandan =  false;            	   
@@ -109,7 +138,7 @@
 
         $("#delete-user").dialog({
             autoOpen: false,
-            resizable: false,
+            resizable: false,4
             height: "auto",
             width: 400,
             modal: true,
@@ -117,7 +146,9 @@
                 "회원 탈퇴": function() {
                 	if(deleteUser($('#delete').val())) {
                 		$('#delete').val('');
-                		$(this).dialog("close");
+                		logout();
+                		$(this).dialog("close");                	
+                		
                 	} else {
                 		if(passwordIncorrect) {
                 			$(this).append("<pre id=passwordIncorrect>비밀번호가 맞지 않습니다.</pre>");

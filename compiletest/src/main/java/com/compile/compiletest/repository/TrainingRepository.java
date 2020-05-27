@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SubProblemVo;
+import com.compile.compiletest.vo.UserVo;
 
 @Repository
 public class TrainingRepository {
@@ -110,5 +111,9 @@ public class TrainingRepository {
 		}
 		
 		return sqlSession.selectOne("training.getOrganizationListCount", map);
+	}
+
+	public UserVo userFindByProblemNo(Long problemNo) {
+		return sqlSession.selectOne("training.userFindByProblemNo", problemNo);
 	}
 }

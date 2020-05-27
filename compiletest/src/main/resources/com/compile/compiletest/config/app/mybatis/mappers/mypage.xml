@@ -2,19 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">
 	
-	<update id="changeNickname" parameterType="string">
+	<update id="changeNickname" parameterType="uservo">
 		<![CDATA[
 			update user 
    			   set nickname = #{nickname }
- 			 where no = 1
+ 			 where no = #{no }
 		]]>
 	</update>
 	
-	<update id="changePassword" parameterType="string">
+	<update id="changePassword" parameterType="uservo">
 		<![CDATA[
 			update user 
    			   set password = #{password }
- 			 where no = 1
+ 			 where no = #{no }
 		]]>
 	</update>
 	
@@ -24,11 +24,11 @@
 		]]>
 	</update>
 	
-	<delete id="deleteUser" parameterType="string">
+	<delete id="deleteUser" parameterType="uservo">
 		<![CDATA[
 			delete
   			  from user
- 			 where no = 1
+ 			 where no = #{no } and email = #{email } and password = #{password }
 		]]>
 	</delete>
 	
@@ -44,7 +44,7 @@
 		<![CDATA[
 			select p.no as no, p.title as title, p.hit as hit, p.recommend as recommend
 			  from problem p, user u
-			 where u.no = 1
+			 where u.no = #{userNo } and p.user_no = u.no
 			   limit #{displayPost}, #{postNum}
 		]]>
 	</select>
@@ -67,14 +67,14 @@
 	</select>
 
 
-	<select id="totalCount" resultType="integer">
+	<select id="totalCount" parameterType="long" resultType="integer">
 		<![CDATA[
 			select
 				count(*) 
 			from 
 				problem p, user u 
 			where 
-				p.user_no = u.no and u.no = 1
+				p.user_no = u.no and u.no = #{userNo }
 		]]>
 	</select>	
 	

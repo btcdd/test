@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.compile.compiletest.service.UserService;
 import com.compile.compiletest.vo.UserVo;
+import com.compile.security.Auth;
 import com.compile.security.AuthUser;
 
 @Controller
@@ -49,6 +50,7 @@ public class UserController {
 	public void auth() {
 	}
 	
+	@Auth
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public void logout() {	
 	}

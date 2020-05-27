@@ -11,6 +11,7 @@ import com.compile.compiletest.repository.TrainingRepository;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SubProblemList;
 import com.compile.compiletest.vo.SubProblemVo;
+import com.compile.compiletest.vo.UserVo;
 
 @Service
 public class TrainingService {
@@ -143,5 +144,9 @@ public class TrainingService {
 		map.put("deleteNoList", array);
 		
 		trainingRepository.deleteSubProblem(map);
+	}
+
+	public UserVo userFindByProblemNo(Long problemNo) {
+		return trainingRepository.userFindByProblemNo(problemNo);
 	}	
 }
