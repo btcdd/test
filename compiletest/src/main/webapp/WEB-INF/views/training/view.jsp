@@ -37,8 +37,8 @@ $(function() {
         <div class="top">
             <p class="division">${problemVo.no }</p>
             <p>${problemVo.title }</p>
-            <button><a href="">코드 트리로 가져오기</a></button>
-            <button><a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }">통계</a></button>
+            <a href=""><button>코드 트리로 가져오기</button></a>
+            <a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }"><button>통계</button></a>
         </div>
         
         <div class="problem-list">
