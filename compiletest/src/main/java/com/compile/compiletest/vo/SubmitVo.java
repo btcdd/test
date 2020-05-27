@@ -13,6 +13,7 @@ public class SubmitVo {
 	private Timestamp solveTime;
 	private String lang;
 	private int tryCount;
+	private int problemNo;
 
 	public String getName() {
 		return name;
@@ -93,12 +94,22 @@ public class SubmitVo {
 	public void setTryCount(int tryCount) {
 		this.tryCount = tryCount;
 	}
+	
+	public int getProblemNo() {
+		return problemNo;
+	}
+
+	public void setProblemNo(int problemNo) {
+		this.problemNo = problemNo;
+	}
 
 	@Override
 	public String toString() {
 		return "SubmitVo [name=" + name + ", nickname=" + nickname + ", email=" + email + ", code=" + code + ", answer="
 				+ answer + ", subproblemNo=" + subproblemNo + ", userNo=" + userNo + ", solveTime=" + solveTime
-				+ ", lang=" + lang + ", tryCount=" + tryCount + "]";
+				+ ", lang=" + lang + ", tryCount=" + tryCount + ", problemNo=" + problemNo + "]";
 	}
+
+	
 
 }
