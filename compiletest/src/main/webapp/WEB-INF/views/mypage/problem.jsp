@@ -33,6 +33,9 @@ $(function() {
 					data: '',
 					success: function(response) {
 						dialogDelete.dialog('close');
+						// 삭제 추가해야하는 곳
+						$(".list-contents[data-no=" + no + "]").remove();
+						$(".sub-problem-contents" + no).remove();
 					},
 					error: function(xhr, status, e) {
 						console.error(status + ":" + e);
@@ -260,7 +263,7 @@ $(function() {
 	                      <td><input data-no="${problemvo.no }" data-title="${problemvo.title }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
 	                	</tr>
 	                	
-	                	<tr>
+	                	<tr class="sub-problem-contents${problemvo.no }">
 	                		<td></td>
 		                	<td>
 			                	<table id="sub-problem-table" class="${problemvo.no }" style="display: none;">
