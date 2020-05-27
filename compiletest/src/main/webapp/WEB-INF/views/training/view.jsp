@@ -106,7 +106,9 @@ $(function() {
 				</div>
 			</c:forEach>
         </div>
-        <a href="${pageContext.servletContext.contextPath }/training/modify/${problemVo.no }">수정하기</a>
+        <c:if test="${problemVo.userNo eq authUser.no }">
+        	<a href="${pageContext.servletContext.contextPath }/training/modify/${problemVo.no }">수정하기</a>
+        </c:if>
     </div>
 </body>
 

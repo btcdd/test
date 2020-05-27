@@ -358,4 +358,13 @@
 		]]>
 	</delete>
 	
+	<select id="userFindByProblemNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+			  select u.no, u.name, u.nickname, u.email, u.birth, u.password
+				from user u, problem p
+				where u.no = p.user_no and p.no = #{problemNo }
+				limit 1;
+		]]>
+	</select>
+	
 </mapper>
