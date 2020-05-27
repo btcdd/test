@@ -3,40 +3,19 @@ body {
     padding: 0;
 }
 
-.header {
-    background-color: rgb(22, 116, 38);
-    color: white;
+.sidemenu {
+	width: 250px;
+	height: 300px;
+	margin-left: 30px;
+    left: 300px;
 }
 
-.head {
-    width: 1320px;
-    margin: auto;
-    padding: 0 0 5px 0;
-}
-
-.container {
-	background: #ff0;
+.statistics-container {
     width: 845px;
-    margin-left: 550px;
+    margin-left: 300px;
+    margin-top: -300px;
     border: 1px solid rgb(180, 180, 180);
     border-radius: 1%;
-}
-
-.menu {
-    float: right;
-    margin-top: 5px;
-}
-
-.menu-item {
-    float: left;
-    margin-right: 10px;
-    font-size: small;
-}
-
-.sidemenu {
-	width: 100px;
-	background-color: #f00;
-    left: 300px;
 }
 
 ul {
@@ -59,12 +38,6 @@ ul {
 .line {
     border-bottom: 1px solid lightgray;
     margin-bottom: 10px;
-}
-
-.clearfix::after {
-    content: "";
-    display: block;
-    clear: both;
 }
 
 table {
