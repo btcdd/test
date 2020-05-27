@@ -127,4 +127,10 @@ public class TrainingController {
 		
 		return "training/statistics";
 	}
+	
+	@RequestMapping(value="/answerlist/{problemNo}", method=RequestMethod.GET)
+	public String problemAnswerList(@PathVariable("problemNo") Long problemNo) {
+		
+		return "training/answer-list";
+	}
 }
