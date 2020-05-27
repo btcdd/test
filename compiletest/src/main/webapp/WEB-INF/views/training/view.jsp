@@ -15,7 +15,7 @@
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script>
 
-
+var problemNo = '${problemVo.no}';
 
 $(function() {
 	
@@ -27,6 +27,39 @@ $(function() {
 		$(".open" + no).toggle("slow");
 	});
 
+	
+	$("#problem-no").on('click',function(){
+		console.log('click!!!');
+		
+		
+		console.log("codetreeNo >>" + problemNo);
+		$.ajax({
+			url:'${pageContext.request.contextPath }/api/training/mylist',
+			async:true,
+			type:'post',
+			dataType:'json',
+			data:'no='+ problemNo,
+			success:function(response){
+				console.log(response.data.problemNo);
+
+				
+				var url = "http://127.0.0.1:9999/"+response.data.problemNo;
+				console.log("url>" + url);
+				window.open(url);
+				
+			},
+			error: function(xhr, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
+		
+	});
+	
+	
+	
+	
+	
+	
 });
 </script>
 </head>
@@ -36,7 +69,6 @@ $(function() {
     <div class="container">
         <div class="top">
             <p class="division">${problemVo.no }</p>
-            <p>${problemVo.title }</p>
             <button><a href="">코드 트리로 가져오기</a></button>
             <button><a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }">통계</a></button>
         </div>
@@ -73,7 +105,9 @@ $(function() {
 				</div>
 			</c:forEach>
         </div>
-        <a href="${pageContext.servletContext.contextPath }/training/modify/${problemVo.no }">수정하기</a>
+        <c:if test="${problemVo.userNo eq authUser.no }">
+        	<a href="${pageContext.servletContext.contextPath }/training/modify/${problemVo.no }">수정하기</a>
+        </c:if>
     </div>
 </body>
 

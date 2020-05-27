@@ -2,6 +2,8 @@ package com.compile.compiletest.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.compile.compiletest.service.MypageService;
+import com.compile.compiletest.vo.UserVo;
+import com.compile.security.Auth;
 
 @Controller
 @RequestMapping("/mypage")
@@ -18,21 +22,25 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 	
+	@Auth
 	@RequestMapping(value="/mypage", method=RequestMethod.GET)
 	public String mypage() {
 		return "mypage/mypage";
 	}
 	
+	@Auth
 	@RequestMapping(value="/account", method=RequestMethod.GET)
 	public String account() {
 		return "mypage/account";
 	}
 	
+	@Auth
 	@RequestMapping(value="/problem", method=RequestMethod.GET)
 	public String problem(
 			@RequestParam(value="p",required=true,defaultValue="1") int currentPage,
-			Model model) {
-		
+			Model model,
+			HttpSession session) {
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
 	////////////////////////////////////////////////////////////////	
 		
 //		List<ProblemVo> list = mypageService.selectProblemList();
@@ -41,7 +49,7 @@ public class MypageController {
 //		System.out.println(list);
 	//////////////////////////////////////////////////////////////////
 		
-		Map<String,Object> map = mypageService.getContentsList(currentPage);
+		Map<String,Object> map = mypageService.getContentsList(currentPage, authUser.getNo());
 		model.addAttribute("map",map);		
 		
 		return "mypage/problem";

@@ -10,6 +10,10 @@ public class CodeTreeController {
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String mypage() {
-		return "codetree/codetree";
+		return "redirect://localhost:9999";
 	}
 }
+/*
+ * @RequestMapping(value="", method=RequestMethod.GET) public String mypage() {
+ * return "codetree/codetree"; }
+ */
