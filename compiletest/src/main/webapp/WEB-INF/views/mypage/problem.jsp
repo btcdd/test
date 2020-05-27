@@ -162,9 +162,9 @@ $(function() {
 				console.log(response.data);
 				var tr = "";				
 				for(var i in response.data) {
-					tr += "<tr id='sub-problem" + no + "'><td>(" + no + "-" + response.data[i].no +")</td>" + 
+					tr += "<tr id='sub-problem" + response.data[i].no + "'><td>(" + no + "-" + response.data[i].no +")</td>" + 
 						"<td>" + response.data[i].title + "</td>" + 
-						'<td><input data-no="' + response.data[i].no + '" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="sp-delete"></td>'
+						'<td><input data-no="' + response.data[i].no + '" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="sp-delete"></td></tr>'
 
 				}			
 				$("." + no + " .sub-problem-tbody").append(tr);
@@ -194,9 +194,9 @@ $(function() {
 					dataType: 'json',
 					data: '',
 					success: function(response) {		
-						console.log("tableClass="+tableClass);
-						
-						dialogSpDelete.dialog('close');
+						console.log("tableClass="+tableClass);						
+						dialogSpDelete.dialog('close');						
+						$('#sub-problem'+no).remove();
 					},
 					error: function(xhr, status, e) {
 						console.error(status + ":" + e);
@@ -218,7 +218,7 @@ $(function() {
 		
 		var spNo = $(this).data('no');
 		var tableClass = $("#sub-problem-table").attr('class');
-		console.log("sbno=" + spNo);
+		console.log("spno=" + spNo);
 		$('#hidden-sp-no').val(spNo);
 		$('#hidden-table-class').val(tableClass);
 		dialogSpDelete.dialog('open');
