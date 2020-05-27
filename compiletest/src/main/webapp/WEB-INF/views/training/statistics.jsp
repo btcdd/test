@@ -20,12 +20,9 @@
 	    <div class="sidemenu">
 	        <nav>
 	            <ul>
-	                <li class="menulist">A - 집 떠나와 열차 타고</li>
-	                <li class="menulist">B - 훈련소로 가는 날</li>
-	                <li class="menulist">C - 부모님께 큰절 하고</li>
-	                <li class="menulist">D - 대문 밖을 나설 때</li>
-	                <li class="menulist">E - 가슴 속에 무엇인가</li>
-	                <li class="menulist">F - 아쉬움이 남지만</li>
+	            	<c:forEach items='${subProblemList }' var='vo' step='1' varStatus='status'>
+		                <li class="menulist">문제 ${status.index + 1} - ${vo.title }</li>
+		            </c:forEach>
 	            </ul>
 	        </nav>
 	    </div>
@@ -39,12 +36,9 @@
 	                <thead>
 	                    <tr>
 	                        <th></th>
-	                        <th>A</th>
-	                        <th>B</th>
-	                        <th>C</th>
-	                        <th>D</th>
-	                        <th>E</th>
-	                        <th>F</th>
+	                        <c:forEach items='${subProblemList }' var='vo' step='1' varStatus='status'>
+	                        	<th>문제 ${status.index + 1 }</th>
+	                        </c:forEach>
 	                        <th>합계</th>
 	                    </tr>
 	                </thead>
@@ -117,16 +111,6 @@
 	                        <td>5</td>
 	                        <td>2</td>
 	                        <td>12</td>
-	                        <td>46</td>
-	                    </tr>
-	                    <tr>
-	                        <th>맞은 사람</th>
-	                        <td>4</td>
-	                        <td>21</td>
-	                        <td>14</td>
-	                        <td>5</td>
-	                        <td>2</td>
-	                        <td>13</td>
 	                        <td>46</td>
 	                    </tr>
 	                    <tr>

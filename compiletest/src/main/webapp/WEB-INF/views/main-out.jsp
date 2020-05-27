@@ -283,7 +283,16 @@ $(function() {
                </tr>
                <tr>
                   <td colspan="4">
-                      <textarea name="code" class="CodeMirror" id="code"></textarea>
+                      <textarea name="code" class="CodeMirror" id="code">
+/*
+* 기본 언어 : 'JAVA'
+* 기본 테마 : 'panda-syntax'
+*/
+public class Test{
+	public static void main(String[] args) {
+		System.out.println("Hello CodeForest!");
+	}
+}</textarea>
                   </td>
                   <td>
                      <textarea name="" id="result" readonly></textarea>

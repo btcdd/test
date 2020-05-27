@@ -104,7 +104,16 @@ public class TrainingController {
 	}
 	
 	@RequestMapping(value="/statistics/{problemNo}", method=RequestMethod.GET)
-	public String problemStatistics(@PathVariable("problemNo") Long problemNo) {
+	public String problemStatistics(
+			@PathVariable("problemNo") Long problemNo,
+			Model model) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		List<SubProblemVo> subProblemList = trainingService.selectSubProblem(problemNo);
+		map.put("subProblemList", subProblemList);
+		
+		model.addAllAttributes(map);
 		
 		return "training/statistics";
 	}
