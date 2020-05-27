@@ -44,7 +44,6 @@ public class TrainingController {
 		return "training/write";
 	}
 
-
 	@Auth
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String problemWriteSuccess(
@@ -114,9 +113,6 @@ public class TrainingController {
 				list.remove(i);
 			}
 		}
-
-		System.out.println(list);
-
 		if(array.length > 0) {
 			trainingService.deleteSubProblem(subProblemList, array);
 		}
@@ -124,5 +120,11 @@ public class TrainingController {
 			trainingService.modify(subProblemList, problemNo);
 		}
 		return "redirect:/training/view/" + problemNo;
+	}
+	
+	@RequestMapping(value="/statistics/{problemNo}", method=RequestMethod.GET)
+	public String problemStatistics(@PathVariable("problemNo") Long problemNo) {
+		
+		return "training/statistics";
 	}
 }

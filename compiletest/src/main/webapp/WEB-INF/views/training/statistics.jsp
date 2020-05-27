@@ -6,12 +6,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Code Forest</title>
-    <link rel="stylesheet" href="./problem-statistics.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Forest</title>
+<link href="${pageContext.servletContext.contextPath }/assets/css/training/statistics.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 </head>
 <body>
-    <c:import url="/WEB-INF/views/include/header.jsp" />
+    <c:import url="/WEB-INF/views/include/main-header.jsp" />
     <div class="sidemenu">
         <nav>
             <ul>
@@ -147,9 +152,6 @@
                 </tbody>
             </table>
         </div>
-
     </div>
-
 </body>
-
 </html>
