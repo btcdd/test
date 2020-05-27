@@ -15,17 +15,11 @@ body {
 }
 
 .container {
+	background: #ff0;
     width: 845px;
     margin-left: 550px;
-    margin-top: 20px;
-    padding: 10px 20px;
     border: 1px solid rgb(180, 180, 180);
     border-radius: 1%;
-}
-
-.logo {
-    float: left;
-    margin-left: 40px;
 }
 
 .menu {
@@ -40,9 +34,9 @@ body {
 }
 
 .sidemenu {
-    position: fixed;
+	width: 100px;
+	background-color: #f00;
     left: 300px;
-    margin: auto;
 }
 
 ul {

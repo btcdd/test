@@ -12,6 +12,7 @@ public class RunJava {
 	private StringBuffer buffer;
 	private Process process;
 	private BufferedReader bufferedReader;
+	private BufferedReader bufferedReader2;
 	private StringBuffer readBuffer;
 	
 	private File file;
@@ -44,7 +45,7 @@ public class RunJava {
 				file = null;
 			} catch (IOException e) {
 				e.printStackTrace();
-				System.exit(1);;
+				System.exit(1);
 			}
 		}
 	}
@@ -74,10 +75,16 @@ public class RunJava {
 			process = Runtime.getRuntime().exec(runClass());
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			bufferedReader2 = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+						
 			String line = null;
 			readBuffer = new StringBuffer();
 			
 			while((line = bufferedReader.readLine()) != null) {
+				readBuffer.append(line);
+				readBuffer.append("\n");
+			}
+			while((line = bufferedReader2.readLine()) != null) {
 				readBuffer.append(line);
 				readBuffer.append("\n");
 			}

@@ -69,9 +69,8 @@ $(function() {
     <div class="container">
         <div class="top">
             <p class="division">${problemVo.no }</p>
-            <p>${problemVo.title }</p>
-            <button id='problem-no'>코드 트리로 가져오기</button>
-            <button>통계</button>
+            <button><a href="">코드 트리로 가져오기</a></button>
+            <button><a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }">통계</a></button>
         </div>
         
         <div class="problem-list">

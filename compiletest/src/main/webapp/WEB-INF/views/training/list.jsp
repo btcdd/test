@@ -80,7 +80,7 @@ var fetchList = function() {
 	}	
 	for(var i = map.startPageNum; i < map.endPageNum; i++){
 		str2 += '<span class="page" id="' + i + '">';
-		if(map.select != i ){
+		if(map.select != i ) {
 			str2 += i;
 		}
 		if(map.select == i){
@@ -91,7 +91,7 @@ var fetchList = function() {
 	if(map.next){
 		str2 += '<span class="next">▶</span>';
 	}	 
-	str2 += "</div>"; 
+	str2 += "</div>";
 		
 	$(".problems").after(str2);
 }
@@ -244,7 +244,7 @@ $(function() {
             <div class="search">
                 <input type="text" id="kwd" name="kwd" placeholder="Search.." onKeyDown="onKeyDown();">
                 <input type="button" id="search" value="검색" >
-                <button class="make-problem" onclick="${pageContext.servletContext.contextPath }/training/write">문제작성</button>
+                <button class="make-problem" onclick="location.href='${pageContext.servletContext.contextPath }/training/write'">문제작성</button>
             </div>
             <div class="problems">
             </div> <!-- div problems -->
