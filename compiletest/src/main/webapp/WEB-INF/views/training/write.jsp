@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +11,7 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/cheditor.js"></script>
 <title>Code Forest</title>
 <script>
 
@@ -20,59 +20,6 @@ var index = 1;
 var str;
 
 var buttonStr;
-
-/*
-var index = 1;
-
-var addSubProblem = function() {
-	var str = '<div class="sub-title">' + 
-	        	'문제 제목<input type="text" name="subProblemList[' + index + '].title"/>' +
-		        '</div>' +
-		        '<div class="prob-content">' + 
-		            '<div class="prob-content-title">내용</div>' + 
-		            '<textarea id="prob-content-text" name="subProblemList[' + index + '].contents"></textarea>' + 
-		        '</div>' + 
-		        '<br />' + 
-		
-		        '<div class="ex-input">' + 
-		            '<div class="ex-input-title">예제 입력</div>' + 
-		            '<textarea id="ex-input-text" name="subProblemList[' + index + '].examInput"></textarea>' + 
-		        '</div>' + 
-		
-		        '<div class="ex-output">' + 
-		            '<div class="ex-input-title">예제 출력</div>' + 
-		            '<textarea id="ex-output-text" name="subProblemList[' + index + '].examOutput"></textarea>' + 
-		        '</div>' + 
-				
-		        '<div class="answer-code">' + 
-		            '<div class="ex-input-title">정답 코드</div>' +
-					'<div>' + 
-						'<select name="lang">' + 
-							'<option value="none" selected="selected">언어선택</option>' + 
-							'<option value="c">C</option>' + 
-							'<option value="cpp">C++</option>' + 
-							'<option value="cs">C#</option>' + 
-							'<option value="java">JAVA</option>' + 
-							'<option value="js">JavaScript</option>' + 
-							'<option value="py">Python</option>' + 
-			             '</select>' + 
-		             '</div>' + 
-		            '<textarea id="answer-code-text" name="subProblemList[' + index + '].correctCode"></textarea>' + 
-		        '</div>';
-		        
-	$('.problem').append(str);
-	index++;
-}
-
-
-$(function() {
-	$('#addSubProblem').click(function() {
-		addSubProblem();
-	})
-	
-	$('.problem').tabs();
-});
-*/
 
 var problemAdd = function() {
 	
@@ -142,14 +89,6 @@ $(function() {
 </head>
 <body>
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
-    
-
-	<!--
-	<div id="Paris" class="tabcontent">
-		<h3>Paris</h3>
-		<p>Paris is the capital of France.</p>
-	</div>
-	 -->
 	    <form method="post" action="${pageContext.servletContext.contextPath }/training/write">
 		    <div class="regist">
 		        <div class="privateAndPassword">
@@ -195,7 +134,7 @@ $(function() {
 	        </div>
 	        <div class="prob-content">
 	            <div class="prob-content-title">내용</div>
-	            <textarea id="prob-content-text" name="subProblemList[0].contents"></textarea>
+	            <textarea class="cheditor" id="prob-content-text" name="subProblemList[0].contents"></textarea>
 	        </div>
 	        <br />
 	
