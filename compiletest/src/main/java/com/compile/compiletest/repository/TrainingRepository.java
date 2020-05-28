@@ -125,8 +125,32 @@ public class TrainingRepository {
 		return sqlSession.selectOne("training.userFindByProblemNo", problemNo);
 	}
 	
-	public List<AnswerUserListVo> selectAnswerUserList(Long subProblemNo) {
-		return sqlSession.selectList("training.selectAnswerUserList", subProblemNo);
+	public int getAnswerUserListTotalCount(Long subProblemNo) {
+		return sqlSession.selectOne("training.getAnswerUserListTotalCount",subProblemNo);
+	}
+	
+	public int getAnswerUserLangListTotalCount(Long subProblemNo, String lang) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("subProblemNo", subProblemNo);
+		map.put("lang", lang);
+		return sqlSession.selectOne("training.getAnswerUserLangListTotalCount", map);
+	}
+	
+	public List<AnswerUserListVo> selectAnswerUserList(int displayPost, int postNum,Long subProblemNo) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("displayPost",displayPost);
+		map.put("postNum",postNum);
+		map.put("subProblemNo",subProblemNo);
+		return sqlSession.selectList("training.selectAnswerUserList", map);
+	}
+	
+	public List<AnswerUserListVo> selectAnswerUserLangList(int displayPost, int postNum,Long subProblemNo, String lang) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("displayPost",displayPost);
+		map.put("postNum",postNum);
+		map.put("subProblemNo", subProblemNo);
+		map.put("lang", lang);
+		return sqlSession.selectList("training.selectAnswerUserLangList", map);
 	}
 	
 }

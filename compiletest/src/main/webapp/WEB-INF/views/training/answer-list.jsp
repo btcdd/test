@@ -30,8 +30,81 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/mode/clike.js"></script>
 
 <script>
+var page = '1';
+var language;
+
+var originList = function(page, language) {
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath }/api/training/answerlist',
+		async: false,
+		type: 'post',
+		dataType: 'json',
+		traditional: true,
+		data: {
+			'page': page,
+			'language': language,
+			'subProblemNo' : ${subProblemNo}
+		},
+		success: function(response){
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}
+			map = response.data;
+			console.log("map : " + map.list);
+						 
+			fetchList();
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
+	});
+}
+
+var fetchList = function() {
+
+    $("#answer-user tbody tr").remove();
+	$(".correct-person-list .pager").remove();
+	var str = "";
+	for(var i = 0; i < map.list.length; i++){
+		str += '<tr>' + 
+            '<td>' + map.list[i].nickname + '</td>' + 
+            '<td>' + map.list[i].lang + '</td>' + 
+            '<td>' + map.list[i].tryCnt + '</td>' + 
+            '<td class="' + i + '" id="showCode">코드 보기</td>' + 
+            '<td id="hiddenCode' + i + '" style="display:none">' + map.list[i].code + '</td>' + 
+         '</tr>';		
+	}
+	
+	console.log(str);
+	
+	$("#answer-user tbody").append(str);
+	
+	var str2 = "<div class='pager'>";
+	
+	if(page != '1'){
+		str2 += '<span class="prev">◀</span>';
+	}	
+	for(var i = map.startPageNum; i < map.endPageNum; i++){
+		str2 += '<span class="page" id="' + i + '">';
+		if(map.select != i ) {
+			str2 += i;
+		}
+		if(map.select == i){
+			str2 += '<b>'+i+'</b>';
+		}
+		str2 += '</span>';
+	}
+	if(map.next){
+		str2 += '<span class="next">▶</span>';
+	}	 
+	str2 += "</div>";
+		
+	$("#answer-user").after(str2);
+}
+
 $(function() {
-   
    var code = $('.CodeMirror')[0];
    var editor = CodeMirror.fromTextArea(code, {
    		lineNumbers: true,
@@ -99,6 +172,30 @@ $(function() {
    });
    
    
+   $("#answer-user tbody tr").remove();
+   
+   // ---------------------------------------------------------------
+
+	originList('1', '');
+	
+	$(document).on("click", ".page", function() {
+		page = $(this).attr('id');
+		originList(page,'');
+		console.log("page : " + page);
+	});
+	
+	$(document).on("click", ".prev", function() {
+		page = $('span b').parent().attr('id');
+		var prevNo = parseInt(page) - 1;
+		page = String(prevNo);
+	});
+	
+	$(document).on("click", ".next", function() {
+		page = $('span b').parent().attr('id');
+		var prevNo = parseInt(page) + 1;
+		page = String(prevNo);
+	});
+   
 });
 
 </script>
@@ -155,7 +252,7 @@ $(function() {
            </table>
        </div>
        <div class="correct-person-list">
-           <table class="type09">
+           <table class="type09" id="answer-user">
                <thead>
                <tr>
                    <th scope="cols" style="text-align: center;">닉네임</th>
@@ -166,13 +263,13 @@ $(function() {
                </thead>
                <tbody>
 				<c:forEach items='${list }' var='vo' step='1' varStatus='status'>
-	                <tr>
-	                   <td>${vo.nickname }</td>
-	                   <td>${vo.lang }</td>
-	                   <td>${vo.tryCnt }</td>
-	                   <td class="${status.index }" id="showCode">코드 보기</td>
-	                   <td id="hiddenCode${status.index }" style="display:none">${vo.code }</td>
-	                </tr>
+<!-- 	                <tr> -->
+<%-- 	                   <td>${vo.nickname }</td> --%>
+<%-- 	                   <td>${vo.lang }</td> --%>
+<%-- 	                   <td>${vo.tryCnt }</td> --%>
+<%-- 	                   <td class="${status.index }" id="showCode">코드 보기</td> --%>
+<%-- 	                   <td id="hiddenCode${status.index }" style="display:none">${vo.code }</td> --%>
+<!-- 	                </tr> -->
 				</c:forEach>
                </tbody>
            </table>

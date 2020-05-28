@@ -149,9 +149,10 @@ public class TrainingController {
 			@PathVariable("subProblemNo") Long subProblemNo,
 			Model model) {
 		
+		model.addAttribute("subProblemNo", subProblemNo);
 		model.addAttribute("index", index);
 		model.addAllAttributes(trainingService.selectAnswerList(subProblemNo));
-		model.addAllAttributes(trainingService.selectAnswerUserList(subProblemNo));
+//		model.addAllAttributes(trainingService.selectAnswerUserList(subProblemNo));
 		return "training/answer-list";
 	}
 }

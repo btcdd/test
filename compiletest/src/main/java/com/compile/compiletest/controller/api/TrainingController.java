@@ -50,6 +50,24 @@ public class TrainingController {
 		return JsonResult.success(map);
 	}
 	
+	@PostMapping("/answerlist")
+	public JsonResult answerList(String page, String language, String subProblemNo) {
+		System.out.println("page : " + page  +" / language : " + language + "/ subProblemNo : " + subProblemNo);
+		
+		int p = Integer.parseInt(page);
+		Map<String, Object> map = trainingService.selectAnswerUserList(p, Long.parseLong(subProblemNo), language);
+		
+		System.out.println(map);
+//		ProblemVo problemVo = trainingService.selectProblemOne(no);
+//		List<SubProblemVo> list = trainingService.selectSubProblem(no);
+//		
+//		map.put("problemVo", problemVo);
+//		map.put("list", list);
+//		map.put("listSize", list.size());
+//		map.put("problemNo", no);
+		
+		return JsonResult.success(map);
+	}
 	
 	
 }

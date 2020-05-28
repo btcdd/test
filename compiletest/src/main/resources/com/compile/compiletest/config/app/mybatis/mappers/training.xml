@@ -395,13 +395,42 @@
 		]]>
 	</select>
 	
-	<select id="selectAnswerUserList" parameterType="long" resultType="answeruserlistvo">
+	<select id="getAnswerUserListTotalCount" parameterType="long" resultType="integer">
+		select count(*)
+		from submit s, user u
+		where s.user_no = u.no
+		and s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+	</select>
+	
+	<select id="getAnswerUserLangListTotalCount" parameterType="map" resultType="integer">
+		select count(*)
+		from submit s, user u
+		where s.user_no = u.no
+		and s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+		and lang = #{lang }
+	</select>
+	
+	<select id="selectAnswerUserList" parameterType="map" resultType="answeruserlistvo">
 		select s.code as code, u.nickname as nickname, s.lang as lang, s.try as tryCnt
 		from submit s, user u
 		where s.user_no = u.no
 		and s.subproblem_no = #{subProblemNo }
 		and s.answer = 'y'
 		order by solve_time desc
-		limit 0, 14;
+		limit #{displayPost}, #{postNum}
 	</select>
+	
+	<select id="selectAnswerUserLangList" parameterType="map" resultType="answeruserlistvo">
+		select s.code as code, u.nickname as nickname, s.lang as lang, s.try as tryCnt
+		from submit s, user u
+		where s.user_no = u.no
+		and s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+		and lang = #{lang }
+		order by solve_time desc
+		limit #{displayPost}, #{postNum}
+	</select>
+	
 </mapper>
