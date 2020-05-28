@@ -143,9 +143,15 @@ public class TrainingController {
 		return "training/statistics";
 	}
 	
-	@RequestMapping(value="/answerlist/{problemNo}", method=RequestMethod.GET)
-	public String problemAnswerList(@PathVariable("problemNo") Long problemNo) {
+	@RequestMapping(value="/answerlist/{index}/{subProblemNo}", method=RequestMethod.GET)
+	public String problemAnswerList(
+			@PathVariable("index") Long index,
+			@PathVariable("subProblemNo") Long subProblemNo,
+			Model model) {
 		
+		model.addAttribute("index", index);
+		model.addAllAttributes(trainingService.selectAnswerList(subProblemNo));
+		model.addAllAttributes(trainingService.selectAnswerUserList(subProblemNo));
 		return "training/answer-list";
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.TrainingRepository;
+import com.compile.compiletest.vo.AnswerUserListVo;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemList;
@@ -204,8 +205,64 @@ public class TrainingService {
 		map.put("subStatisticsList", subStatisticsList);
 		
 		return map;
-}
+	}
+	
 	public UserVo userFindByProblemNo(Long problemNo) {
 		return trainingRepository.userFindByProblemNo(problemNo);
-	}	
+	}
+
+	public Map<String, Object> selectAnswerList(Long subProblemNo) {
+		Map<String, Object> map = new HashMap<>();
+		List<StatisticsVo> list = trainingRepository.selectStatistics(subProblemNo);
+		
+		for(int j = 0; j < list.size(); j++) {
+			if(!(list.get(j).getCount() > 0)) {
+				list.get(j).setCount(0);
+			}
+		}
+		
+		SubStatisticsVo subStatisticsVo = new SubStatisticsVo();
+		
+		for(int j = 0; j < list.size(); j++) {
+			String language = list.get(j).getLanguage();
+			
+			if("c".equals(language)) {
+				subStatisticsVo.setC(list.get(j).getCount());
+			} else if("cpp".equals(language)) {
+				subStatisticsVo.setCpp(list.get(j).getCount());
+			} else if("cs".equals(language)) {
+				subStatisticsVo.setCs(list.get(j).getCount());
+			} else if("java".equals(language)) {
+				subStatisticsVo.setJava(list.get(j).getCount());
+			} else if("js".equals(language)) {
+				subStatisticsVo.setJs(list.get(j).getCount());
+			} else if("py".equals(language)) {
+				subStatisticsVo.setPy(list.get(j).getCount());
+			} else if("y".equals(language)) {
+				subStatisticsVo.setY(list.get(j).getCount());
+			} else if("n".equals(language)) {
+				subStatisticsVo.setN(list.get(j).getCount());
+			}
+		}
+		int y = subStatisticsVo.getY();
+		int n = subStatisticsVo.getN();
+		
+		double tmp = (double)y / (double)(y+n) * 100.0;
+		double rate = Math.round(tmp * 100) / 100.0;
+		
+		subStatisticsVo.setRate(rate);
+		
+		map.put("subStatisticsVo", subStatisticsVo);
+		return map;
+	}
+
+	public Map<String, Object> selectAnswerUserList(Long subProblemNo) {
+		Map<String, Object> map = new HashMap<>();
+		List<AnswerUserListVo> list = trainingRepository.selectAnswerUserList(subProblemNo);
+		map.put("list",list);
+		return map;
+	}
+	
+	
+	
 }
