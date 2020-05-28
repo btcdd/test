@@ -1,5 +1,6 @@
 package com.compile.compiletest.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.TrainingRepository;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemList;
 import com.compile.compiletest.vo.SubProblemVo;
+import com.compile.compiletest.vo.SubStatisticsVo;
 
 @Service
 public class TrainingService {
@@ -143,5 +146,62 @@ public class TrainingService {
 		map.put("deleteNoList", array);
 		
 		trainingRepository.deleteSubProblem(map);
+	}
+
+	public Map<String, Object> selectStatistics(List<SubProblemVo> subProblemList, List<Long> subProblemNoList) {
+		Map<String, Object> map = new HashMap<>();
+		
+		List<SubStatisticsVo> subStatisticsList = new ArrayList<>();
+		
+		for(int i = 0; i < subProblemNoList.size(); i++) {
+			map.put("subProblemNo", subProblemNoList.get(i));
+			
+			List<StatisticsVo> list = trainingRepository.selectStatistics(map);
+			
+			for(int j = 0; j < list.size(); j++) {
+				if(!(list.get(j).getCount() > 0)) {
+					list.get(j).setCount(0);
+				}
+			}
+			
+			SubStatisticsVo subStatisticsVo = new SubStatisticsVo();
+			
+			for(int j = 0; j < list.size(); j++) {
+				String language = list.get(j).getLanguage();
+				
+				if("c".equals(language)) {
+					subStatisticsVo.setC(list.get(j).getCount());
+				} else if("cpp".equals(language)) {
+					subStatisticsVo.setCpp(list.get(j).getCount());
+				} else if("cs".equals(language)) {
+					subStatisticsVo.setCs(list.get(j).getCount());
+				} else if("java".equals(language)) {
+					subStatisticsVo.setJava(list.get(j).getCount());
+				} else if("js".equals(language)) {
+					subStatisticsVo.setJs(list.get(j).getCount());
+				} else if("py".equals(language)) {
+					subStatisticsVo.setPy(list.get(j).getCount());
+				} else if("y".equals(language)) {
+					subStatisticsVo.setY(list.get(j).getCount());
+				} else if("n".equals(language)) {
+					subStatisticsVo.setN(list.get(j).getCount());
+				}
+			}
+			int y = subStatisticsVo.getY();
+			int n = subStatisticsVo.getN();
+			
+			double tmp = (double)y / (double)(y+n) * 100.0;
+			double rate = Math.round(tmp * 100) / 100.0;
+			
+			subStatisticsVo.setRate(rate);
+			
+			subStatisticsList.add(subStatisticsVo);
+		}
+		
+		map.put("size", subProblemList.size());
+		map.put("subProblemList", subProblemList);
+		map.put("subStatisticsList", subStatisticsList);
+		
+		return map;
 	}	
 }

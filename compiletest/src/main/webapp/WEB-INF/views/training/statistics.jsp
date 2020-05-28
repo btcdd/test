@@ -12,9 +12,9 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/statistics.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 </head>
+
 <body>
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
 	    <div class="sidemenu">
@@ -36,102 +36,65 @@
 	                <thead>
 	                    <tr>
 	                        <th></th>
-	                        <c:forEach items='${subProblemList }' var='vo' step='1' varStatus='status'>
-	                        	<th>문제 ${status.index + 1 }</th>
+	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
+								<th>문제 ${status.index+1 }</th>	                        
 	                        </c:forEach>
-	                        <th>합계</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
 	                    <tr>
 	                        <th>맞았습니다</th>
-	                        <td>4</td>
-	                        <td>21</td>
-	                        <td>14</td>
-	                        <td>5</td>
-	                        <td>2</td>
-	                        <td>3</td>
-	                        <td>46</td>
+	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
+								<td>${vo.y }</td>	                        
+	                        </c:forEach>
 	                    </tr>
 	                    <tr>
 	                        <th>틀렸습니다</th>
-	                        <td>4</td>
-	                        <td>21</td>
-	                        <td>14</td>
-	                        <td>5</td>
-	                        <td>2</td>
-	                        <td>22</td>
-	                        <td>46</td>
+	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
+								<td>${vo.n }</td>	                        
+	                        </c:forEach>
 	                    </tr>
 	                    <tr>
 	                        <th>C</th>
-	                        <td>4</td>
-	                        <td>21</td>
-	                        <td>14</td>
-	                        <td>5</td>
-	                        <td>2</td>
-	                        <td>4</td>
-	                        <td>46</td>
+	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
+								<td>${vo.c }</td>	                        
+	                        </c:forEach>
 	                    </tr>
 	                    <tr>
 	                        <th>C++</th>
-	                        <td>4</td>
-	                        <td>21</td>
-	                        <td>14</td>
-	                        <td>5</td>
-	                        <td>2</td>
-	                        <td>5</td>
-	                        <td>46</td>
+	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
+								<td>${vo.cpp }</td>	                        
+	                        </c:forEach>
+	                    </tr>
+	                    <tr>
+	                        <th>C#</th>
+	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
+								<td>${vo.cs }</td>	                        
+	                        </c:forEach>
 	                    </tr>
 	                    <tr>
 	                        <th>Java</th>
-	                        <td>4</td>
-	                        <td>21</td>
-	                        <td>14</td>
-	                        <td>5</td>
-	                        <td>2</td>
-	                        <td>42</td>
-	                        <td>46</td>
+	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
+								<td>${vo.java }</td>	                        
+	                        </c:forEach>
 	                    </tr>
 	                    <tr>
 	                        <th>JavaScript</th>
-	                        <td>4</td>
-	                        <td>21</td>
-	                        <td>14</td>
-	                        <td>5</td>
-	                        <td>2</td>
-	                        <td>21</td>
-	                        <td>46</td>
+	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
+								<td>${vo.js }</td>	                        
+	                        </c:forEach>
 	                    </tr>
 	                    <tr>
 	                        <th>Python</th>
-	                        <td>4</td>
-	                        <td>21</td>
-	                        <td>14</td>
-	                        <td>5</td>
-	                        <td>2</td>
-	                        <td>12</td>
-	                        <td>46</td>
+	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
+								<td>${vo.py }</td>	                        
+	                        </c:forEach>
 	                    </tr>
 	                    <tr>
 	                        <th>정답율</th>
-	                        <td>4</td>
-	                        <td>21</td>
-	                        <td>14</td>
-	                        <td>5</td>
-	                        <td>2</td>
-	                        <td>14</td>
-	                        <td>46</td>
-	                    </tr>
-	                    <tr>
-	                        <th>합계</th>
-	                        <td>4</td>
-	                        <td>21</td>
-	                        <td>14</td>
-	                        <td>5</td>
-	                        <td>2</td>
-	                        <td>15</td>
-	                        <td>46</td>
+	                        <c:forEach items='${subStatisticsList }' var='vo' step='1' varStatus='status'>
+								<td>${vo.rate }%</td>	                        
+	                        </c:forEach>
 	                    </tr>
 	                </tbody>
 	            </table>

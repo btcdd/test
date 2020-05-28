@@ -334,7 +334,7 @@
 					  	and (title like '%${keyword}%' or nickname like '%${keyword}%')
 					   	and p.state = 'y'
 					   	limit #{displayPost}, #{postNum}
-				]]>				
+				]]>
 			</otherwise>
 		</choose>
 
@@ -357,5 +357,20 @@
 			)
 		]]>
 	</delete>
+	
+	
+	<select id="selectStatistics" parameterType="map" resultType="statisticsvo">
+		  select lang as language, count(*) as count
+		    from submit s, sub_problem sp
+		   where s.subproblem_no = sp.no
+		     and s.subproblem_no = #{subProblemNo }
+		group by lang
+		   union
+		  select answer as language, count(*) as count
+		    from submit s, sub_problem sp
+		   where s.subproblem_no = sp.no
+		     and s.subproblem_no = #{subProblemNo }
+		group by answer
+	</select>
 	
 </mapper>
