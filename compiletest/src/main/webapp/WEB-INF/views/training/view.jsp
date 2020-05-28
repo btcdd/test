@@ -39,7 +39,7 @@ $(function() {
 			data:'no='+ problemNo,
 			success:function(response){
 				console.log(response.data.problemNo);
-
+				
 				
 				var url = "http://127.0.0.1:9999/"+response.data.problemNo;
 				console.log("url>" + url);
