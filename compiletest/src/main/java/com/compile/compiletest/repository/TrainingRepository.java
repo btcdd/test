@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.UserVo;
 
@@ -107,12 +108,15 @@ public class TrainingRepository {
 		map.put("size",size);
 		for(int i = 0; i < size; i++) {
 			map.put(checkValues[i], checkValues[i]);
-			System.out.println(checkValues[i]);
 		}
 		
 		return sqlSession.selectOne("training.getOrganizationListCount", map);
 	}
 
+	public List<StatisticsVo> selectStatistics(Map<String, Object> map) {
+		return sqlSession.selectList("training.selectStatistics", map);
+  }
+  
 	public UserVo userFindByProblemNo(Long problemNo) {
 		return sqlSession.selectOne("training.userFindByProblemNo", problemNo);
 	}

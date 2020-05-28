@@ -8,6 +8,7 @@
 		<typeAlias alias="levelvo" type="com.compile.compiletest.vo.LevelVo"/>
 		<typeAlias alias="submitvo" type="com.compile.compiletest.vo.SubmitVo"/>
 		<typeAlias alias="subproblemvo" type="com.compile.compiletest.vo.SubProblemVo"/>
+		<typeAlias alias="statisticsvo" type="com.compile.compiletest.vo.StatisticsVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/compile/compiletest/config/app/mybatis/mappers/user.xml" />

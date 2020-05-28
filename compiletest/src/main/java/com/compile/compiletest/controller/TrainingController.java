@@ -1,5 +1,6 @@
 package com.compile.compiletest.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,7 +124,21 @@ public class TrainingController {
 	}
 	
 	@RequestMapping(value="/statistics/{problemNo}", method=RequestMethod.GET)
-	public String problemStatistics(@PathVariable("problemNo") Long problemNo) {
+	public String problemStatistics(
+			@PathVariable("problemNo") Long problemNo,
+			Model model) {
+		
+		List<SubProblemVo> subProblemList = trainingService.selectSubProblem(problemNo);
+		
+		// sub_problem 의 넘버 리스트를 저장해준다.
+		List<Long> subProblemNoList = new ArrayList<Long>();
+		for(int i = 0; i < subProblemList.size(); i++) {
+			subProblemNoList.add(subProblemList.get(i).getNo());
+		}
+		
+		Map<String, Object> map = trainingService.selectStatistics(subProblemList, subProblemNoList);
+		
+		model.addAllAttributes(map);
 		
 		return "training/statistics";
 	}
