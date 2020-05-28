@@ -69,7 +69,7 @@ var fetchList = function() {
 		'<div class="problem-title" id="title">' + map.list[i].title + '</div>' +
         '<div class="problem-user">' + map.list[i].nickname + '</div>' + 
         '<div class="problem-kind">' + map.list[i].kind + '</div>' + 
-	'</div>';		
+	'</div>';
 	}
 	$(".problems").append(str);
 	
