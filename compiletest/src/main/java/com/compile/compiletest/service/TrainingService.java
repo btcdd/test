@@ -291,8 +291,6 @@ public class TrainingService {
 		
 		if("".equals(language)) {
 			list = trainingRepository.selectAnswerUserList(displayPost,postNum,subProblemNo);
-			System.err.println("displayPost " + displayPost + "/ postNum : " + postNum);
-			System.err.println(list.size());
 		} else {
 			list = trainingRepository.selectAnswerUserLangList(displayPost,postNum,subProblemNo, language);
 		}

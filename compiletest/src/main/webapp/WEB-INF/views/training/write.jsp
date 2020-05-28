@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+
+<script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/ckeditor/ckeditor.js"></script>
+
 <title>Code Forest</title>
 <script>
 
@@ -85,6 +88,16 @@ $(function() {
 		$('.prob' + (ind)).show();
 	});
 	
+	CKEDITOR.replace('contents');
+	
+	// 코딩테스트 체크박스를 체크하면, 비밀번호와 시작 일자, 마감 일자를 설정할 수 있는 칸이 나타난다.
+	$('.codingtest').click(function() {
+		if($(this).prop("checked")) {
+			
+		} else {
+			$(".privateAndPassword .password").remove();
+		}
+	});
 });
 
 
@@ -95,7 +108,7 @@ $(function() {
 	    <form method="post" action="${pageContext.servletContext.contextPath }/training/write">
 		    <div class="regist">
 		        <div class="privateAndPassword">
-		            <div class="private">코딩테스트 <input type="checkbox"></div>
+		            <div class="private">코딩테스트 <input class="codingtest" type="checkbox"></div>
 		            <div class="password">비밀번호 <input type="password"></div>
 		        </div>
 		        <div class="date">
@@ -138,7 +151,8 @@ $(function() {
 	        <div class="prob-content">
 	            <div class="prob-content-title">내용</div>
 	            <textarea class="ckeditor" id="prob-content-text" name="subProblemList[0].contents"></textarea>
-	            <textarea class="ckeditor" id="editor" name="subProblemList[0].contents"></textarea>
+	            
+	            <textarea class="ckeditor" id="prob-content-text" name="subProblemList[0].contents"></textarea>
 <!-- 				<textarea id="editor1" name="editor1">&lt;p&gt;Initial value.&lt;/p&gt;</textarea> -->
 <!-- 				<script type="text/javascript"> -->
 <!-- 				</script> -->
