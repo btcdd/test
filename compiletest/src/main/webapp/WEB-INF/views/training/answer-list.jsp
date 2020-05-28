@@ -31,7 +31,7 @@
 
 <script>
 var page = '1';
-var language;
+var language = '';
 
 var originList = function(page, language) {
 	
@@ -52,7 +52,6 @@ var originList = function(page, language) {
 				return;
 			}
 			map = response.data;
-			console.log("map : " + map.list);
 						 
 			fetchList();
 		},
@@ -76,8 +75,6 @@ var fetchList = function() {
             '<td id="hiddenCode' + i + '" style="display:none">' + map.list[i].code + '</td>' + 
          '</tr>';		
 	}
-	
-	console.log(str);
 	
 	$("#answer-user tbody").append(str);
 	
@@ -167,35 +164,37 @@ $(function() {
    $(document).on('click', '#showCode', function(event) {
 	  var index = $(this).attr("class");
 	  var code = $("#hiddenCode" + index).text();
-	  console.log("code : " + code + "/index:" + index);
 	  editor.setValue(code);
    });
    
    
-   $("#answer-user tbody tr").remove();
-   
    // ---------------------------------------------------------------
 
-	originList('1', '');
+	originList(page, language);
 	
 	$(document).on("click", ".page", function() {
 		page = $(this).attr('id');
-		originList(page,'');
-		console.log("page : " + page);
+		originList(page, language);
 	});
 	
 	$(document).on("click", ".prev", function() {
 		page = $('span b').parent().attr('id');
 		var prevNo = parseInt(page) - 1;
 		page = String(prevNo);
+		originList(page, language);
 	});
 	
 	$(document).on("click", ".next", function() {
 		page = $('span b').parent().attr('id');
 		var prevNo = parseInt(page) + 1;
 		page = String(prevNo);
+		originList(page, language);
 	});
    
+	$('.language').change(function() {
+		language = $(".language option:selected").val();
+		originList(page, language);
+	});
 });
 
 </script>
@@ -251,6 +250,17 @@ $(function() {
                </tbody>
            </table>
        </div>
+       	<div>
+	       <select class="language" name="language">
+	           <option value="all-language" selected="selected">모든 언어</option>	       	
+	           <option value="c">C</option>
+	           <option value="cpp">C++</option>
+	           <option value="cs">C#</option>
+	           <option value="java">JAVA</option>
+	           <option value="js">Java Script</option>
+	           <option value="py">Python</option>
+	       </select>
+      </div>
        <div class="correct-person-list">
            <table class="type09" id="answer-user">
                <thead>
@@ -275,23 +285,24 @@ $(function() {
            </table>
        </div>
        <div class="code-mirror">
-       <select class="theme" name="theme">
-       	<optgroup label="black">
-           <option value="abcdef">abcdef</option>
-           <option value="blackboard">blackboard</option>
-           <option value="dracula">dracula</option>
-           <option value="moxer">moxer</option>
-           <option value="panda-syntax" selected="selected">panda-syntax</option>
-         </optgroup>
-         <optgroup label="white">
-           <option value="duotone-light">duotone-light</option>
-           <option value="eclipse">eclipse</option>
-           <option value="neat">neat</option>
-           <option value="ttcn">ttcn</option>
-           <option value="solarized">solarized</option>
-         </optgroup>
-       </select>
-       <textarea name="code" class="CodeMirror" id="code"></textarea></div>
+	       <select class="theme" name="theme">
+	       	<optgroup label="black">
+	           <option value="abcdef">abcdef</option>
+	           <option value="blackboard">blackboard</option>
+	           <option value="dracula">dracula</option>
+	           <option value="moxer">moxer</option>
+	           <option value="panda-syntax" selected="selected">panda-syntax</option>
+	         </optgroup>
+	         <optgroup label="white">
+	           <option value="duotone-light">duotone-light</option>
+	           <option value="eclipse">eclipse</option>
+	           <option value="neat">neat</option>
+	           <option value="ttcn">ttcn</option>
+	           <option value="solarized">solarized</option>
+	         </optgroup>
+	       </select>
+	       <textarea name="code" class="CodeMirror" id="code"></textarea>
+      </div>
    </div>
 </body>
 </html>
