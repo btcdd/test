@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemVo;
+import com.compile.compiletest.vo.UserVo;
 
 @Repository
 public class TrainingRepository {
@@ -114,5 +115,9 @@ public class TrainingRepository {
 
 	public List<StatisticsVo> selectStatistics(Map<String, Object> map) {
 		return sqlSession.selectList("training.selectStatistics", map);
+  }
+  
+	public UserVo userFindByProblemNo(Long problemNo) {
+		return sqlSession.selectOne("training.userFindByProblemNo", problemNo);
 	}
 }

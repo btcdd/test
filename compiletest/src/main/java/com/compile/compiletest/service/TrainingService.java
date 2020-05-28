@@ -14,6 +14,7 @@ import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemList;
 import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.SubStatisticsVo;
+import com.compile.compiletest.vo.UserVo;
 
 @Service
 public class TrainingService {
@@ -203,5 +204,8 @@ public class TrainingService {
 		map.put("subStatisticsList", subStatisticsList);
 		
 		return map;
+}
+	public UserVo userFindByProblemNo(Long problemNo) {
+		return trainingRepository.userFindByProblemNo(problemNo);
 	}	
 }

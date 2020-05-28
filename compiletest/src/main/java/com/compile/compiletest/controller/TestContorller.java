@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.compile.compiletest.service.TestService;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.security.Auth;
 
 @Controller
 @RequestMapping("/codingtest")
@@ -18,6 +19,7 @@ public class TestContorller {
 	@Autowired
 	private TestService testService;
 	
+	@Auth
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String training(Model model) {
 		List<ProblemVo> list = testService.selectTestList();

@@ -176,7 +176,7 @@
 	
 	<select id="selectProblemOne" parameterType="long" resultType="problemvo">
 		<![CDATA[
-			  select no, title, recommend
+			  select no, title, recommend , start_time as startTime, end_time as endTime , user_no as userNo , kind_no as kindNo
 			    from problem
 			   where no = #{no }
 		]]>
@@ -358,7 +358,6 @@
 		]]>
 	</delete>
 	
-	
 	<select id="selectStatistics" parameterType="map" resultType="statisticsvo">
 		  select lang as language, count(*) as count
 		    from submit s, sub_problem sp
@@ -371,6 +370,14 @@
 		   where s.subproblem_no = sp.no
 		     and s.subproblem_no = #{subProblemNo }
 		group by answer
+  </select>
+	<select id="userFindByProblemNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+			  select u.no, u.name, u.nickname, u.email, u.birth, u.password
+				from user u, problem p
+				where u.no = p.user_no and p.no = #{problemNo }
+				limit 1;
+		]]>
 	</select>
 	
 </mapper>
