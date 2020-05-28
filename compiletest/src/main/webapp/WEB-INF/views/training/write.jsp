@@ -33,7 +33,7 @@ var problemAdd = function() {
 			    '</div>' +
 			    '<div class="prob-content">' + 
 			        '<div class="prob-content-title">내용</div>' + 
-			        '<textarea id="prob-content-text" name="subProblemList[' + index + '].contents"></textarea>' + 
+			        '<textarea class="ckeditor" id="prob-content-text" name="subProblemList[' + index + '].contents"></textarea>' + 
 			    '</div>' + 
 			'<div class="ex-input">' + 
 	            '<div class="ex-input-title">예제 입력</div>' + 
@@ -61,6 +61,7 @@ var problemAdd = function() {
 	
 	// var buttonStr = '<button class="tablinks" id="' + index + '" onclick="openCity(event, ' + "'prob" + index + "')" + '">문제 ' + index + '</button>';
 	buttonStr = '<li id="' + index + '" class="tablinks"><span class="a">문제 ' + (index + 1) + '</span></li>';
+	
 }
 
 $(function() {
@@ -88,14 +89,22 @@ $(function() {
 		$('.prob' + (ind)).show();
 	});
 	
-	CKEDITOR.replace('contents');
+	// CKEDITOR.replace('contents');
 	
 	// 코딩테스트 체크박스를 체크하면, 비밀번호와 시작 일자, 마감 일자를 설정할 수 있는 칸이 나타난다.
 	$('.codingtest').click(function() {
 		if($(this).prop("checked")) {
+			var passwordStr = '<div class="password">비밀번호 <input type="password"></div>';
+			var startDateStr = '<div class="start-date">시작일자 <input type="datetime-local"></div>';
+			var endDateStr = '<div class="end-date">마감일자 <input type="datetime-local"></div>';
 			
+			$(".privateAndPassword").append(passwordStr);
+			$(".date").append(startDateStr);
+			$(".date").append(endDateStr);
 		} else {
 			$(".privateAndPassword .password").remove();
+			$(".date .start-date").remove();
+			$(".date .end-date").remove();
 		}
 	});
 });
@@ -109,11 +118,11 @@ $(function() {
 		    <div class="regist">
 		        <div class="privateAndPassword">
 		            <div class="private">코딩테스트 <input class="codingtest" type="checkbox"></div>
-		            <div class="password">비밀번호 <input type="password"></div>
+		            <!-- <div class="password">비밀번호 <input type="password"></div> -->
 		        </div>
 		        <div class="date">
-		            <div class="start-date">시작일자 <input type="datetime-local"></div>
-		            <div class="end-date">마감일자 <input type="datetime-local"></div>
+		            <!-- <div class="start-date">시작일자 <input type="datetime-local"></div> -->
+		            <!-- <div class="end-date">마감일자 <input type="datetime-local"></div> -->
 		        </div>
 		
 		        <div class="divisionAndLanguage">
@@ -151,11 +160,6 @@ $(function() {
 	        <div class="prob-content">
 	            <div class="prob-content-title">내용</div>
 	            <textarea class="ckeditor" id="prob-content-text" name="subProblemList[0].contents"></textarea>
-	            
-	            <textarea class="ckeditor" id="prob-content-text" name="subProblemList[0].contents"></textarea>
-<!-- 				<textarea id="editor1" name="editor1">&lt;p&gt;Initial value.&lt;/p&gt;</textarea> -->
-<!-- 				<script type="text/javascript"> -->
-<!-- 				</script> -->
 	        </div>
 	        <br />
 	
