@@ -27,10 +27,8 @@ $(function() {
 		$(".open" + no).toggle("slow");
 	});
 
-	
 	$("#problem-no").on('click',function(){
 		console.log('click!!!');
-		
 		
 		console.log("codetreeNo >>" + problemNo);
 		$.ajax({
@@ -52,14 +50,7 @@ $(function() {
 				console.error(status + ":" + e);
 			}
 		});
-		
 	});
-	
-	
-	
-	
-	
-	
 });
 </script>
 </head>
@@ -81,7 +72,7 @@ $(function() {
 					<div class="pro pro${status.index + 1}" id="${status.index + 1}">
 						<p class="division">문제 ${status.index + 1}</p>
 						<p id="click">${vo.title }</p>
-						<a href="${pageContext.servletContext.contextPath }/training/answerlist/${problemVo.no }"><button>맞은 사람</button></a>
+						<a href="${pageContext.servletContext.contextPath }/training/answerlist/${status.index + 1}/${vo.no}"><button>맞은 사람</button></a>
 						
 						<div class="open${status.index + 1}">
 							<div class="explain">

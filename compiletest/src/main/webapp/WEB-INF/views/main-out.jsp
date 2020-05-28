@@ -302,17 +302,6 @@ public class Test{
          </form>
     </div>
     
-    <!-- footer --> 
-    <footer> 
-	    <div class="jumbotron text-center mt-5 mb-0"> 
-	    	<h3 class="text-secondary">Code Forest</h3> 
-	    	<p>Code Forest - Online Compiler
-	    	<address> 연락처 : 
-	    		<a href="codeforest@gmail.com">codeforest@gmail.com</a> 
-	    	</address> 
-	    	<small>Copyright &copy; 2020 Code Forest</small> 
-	    </div>
-    </footer>
 
 </body>
 </html>

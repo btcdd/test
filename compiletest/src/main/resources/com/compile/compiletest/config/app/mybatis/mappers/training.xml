@@ -370,7 +370,22 @@
 		   where s.subproblem_no = sp.no
 		     and s.subproblem_no = #{subProblemNo }
 		group by answer
-  </select>
+  	</select>
+  	
+  	<select id="selectStatisticsOne" parameterType="long" resultType="statisticsvo">
+		  select lang as language, count(*) as count
+		    from submit s, sub_problem sp
+		   where s.subproblem_no = sp.no
+		     and s.subproblem_no = #{subProblemNo }
+		group by lang
+		   union
+		  select answer as language, count(*) as count
+		    from submit s, sub_problem sp
+		   where s.subproblem_no = sp.no
+		     and s.subproblem_no = #{subProblemNo }
+		group by answer
+  	</select>
+  	
 	<select id="userFindByProblemNo" parameterType="long" resultType="uservo">
 		<![CDATA[
 			  select u.no, u.name, u.nickname, u.email, u.birth, u.password
@@ -380,4 +395,13 @@
 		]]>
 	</select>
 	
+	<select id="selectAnswerUserList" parameterType="long" resultType="answeruserlistvo">
+		select s.code as code, u.nickname as nickname, s.lang as lang, s.try as tryCnt
+		from submit s, user u
+		where s.user_no = u.no
+		and s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+		order by solve_time desc
+		limit 0, 14;
+	</select>
 </mapper>

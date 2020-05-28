@@ -12,7 +12,6 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/answer-list.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 
 <!-- code mirror -->
@@ -91,6 +90,15 @@ $(function() {
 	   
 	   editor.setValue(face);
    });
+   
+   $(document).on('click', '#showCode', function(event) {
+	  var index = $(this).attr("class");
+	  var code = $("#hiddenCode" + index).text();
+	  console.log("code : " + code + "/index:" + index);
+	  editor.setValue(code);
+   });
+   
+   
 });
 
 </script>
@@ -103,49 +111,45 @@ $(function() {
            <table class="type09">
                <thead>
                <tr>
-                   <th colspan = "2" scope="cols" style="text-align: center;">문제 1</th>
+                   <th colspan = "2" scope="cols" style="text-align: center;">문제 ${index } </th>
                </tr>
                </thead>
                <tbody>
                <tr>
                    <th scope="row">정답</th>
-                   <td>4</td>
+                   <td>${subStatisticsVo.y }</td>
                </tr>
                <tr>
                    <th scope="row">오답</th>
-                   <td>2</td>
+                   <td>${subStatisticsVo.n }</td>
                </tr>
                <tr>
                    <th scope="row">C</th>
-                   <td>2</td>
+                   <td>${subStatisticsVo.c }</td>
                </tr>
                <tr>
                    <th scope="row">C++</th>
-                   <td>2</td>
+                   <td>${subStatisticsVo.cpp }</td>
                </tr>
                <tr>
                    <th scope="row">C#</th>
-                   <td>2</td>
+                   <td>${subStatisticsVo.cs }</td>
                </tr>
                <tr>
                    <th scope="row">JAVA</th>
-                   <td>2</td>
+                   <td>${subStatisticsVo.java }</td>
                </tr>
                <tr>
                    <th scope="row">Java Script</th>
-                   <td>2</td>
+                   <td>${subStatisticsVo.js }</td>
                </tr>
                <tr>
                    <th scope="row">Python</th>
-                   <td>2</td>
+                   <td>${subStatisticsVo.py }</td>
                </tr>
                <tr>
                    <th scope="row">정답율</th>
-                   <td>2</td>
-               </tr>
-               <tr>
-                   <th scope="row">합계</th>
-                   <td>2</td>
+                   <td>${subStatisticsVo.rate } %</td>
                </tr>
                </tbody>
            </table>
@@ -157,89 +161,19 @@ $(function() {
                    <th scope="cols" style="text-align: center;">닉네임</th>
                    <th scope="cols" style="text-align: center;">언어</th>
                    <th scope="cols" style="text-align: center;">시도 횟수</th>
+                   <th scope="cols" style="text-align: center;">코드 보기</th>
                </tr>
                </thead>
                <tbody>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>JAVA</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C++</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C#</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>Python</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>JavaScript</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>JavaScript</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>Python</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C#</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C#</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C#</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C#</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C#</td>
-                   <td>4</td>
-               </tr>
-               <tr>
-                   <td>에옹이</td>
-                   <td>C#</td>
-                   <td>4</td>
-               </tr>
+				<c:forEach items='${list }' var='vo' step='1' varStatus='status'>
+	                <tr>
+	                   <td>${vo.nickname }</td>
+	                   <td>${vo.lang }</td>
+	                   <td>${vo.tryCnt }</td>
+	                   <td class="${status.index }" id="showCode">코드 보기</td>
+	                   <td id="hiddenCode${status.index }" style="display:none">${vo.code }</td>
+	                </tr>
+				</c:forEach>
                </tbody>
            </table>
        </div>

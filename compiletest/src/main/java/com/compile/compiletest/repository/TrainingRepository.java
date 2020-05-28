@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.compile.compiletest.vo.AnswerUserListVo;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemVo;
@@ -109,15 +110,23 @@ public class TrainingRepository {
 		for(int i = 0; i < size; i++) {
 			map.put(checkValues[i], checkValues[i]);
 		}
-		
 		return sqlSession.selectOne("training.getOrganizationListCount", map);
 	}
 
 	public List<StatisticsVo> selectStatistics(Map<String, Object> map) {
 		return sqlSession.selectList("training.selectStatistics", map);
-  }
+	}
+	
+	public List<StatisticsVo> selectStatistics(Long subProblemNo) {
+		return sqlSession.selectList("training.selectStatisticsOne", subProblemNo);
+	}
   
 	public UserVo userFindByProblemNo(Long problemNo) {
 		return sqlSession.selectOne("training.userFindByProblemNo", problemNo);
 	}
+	
+	public List<AnswerUserListVo> selectAnswerUserList(Long subProblemNo) {
+		return sqlSession.selectList("training.selectAnswerUserList", subProblemNo);
+	}
+	
 }
