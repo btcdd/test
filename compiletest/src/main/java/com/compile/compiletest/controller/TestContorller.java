@@ -46,7 +46,7 @@ public class TestContorller {
 				token = fake_token[0].split("-");
 				d.set(Integer.parseInt(token[0]), Integer.parseInt(token[1]), Integer.parseInt(token[2]));
 				l_dday = d.getTimeInMillis() / (24*60*60*1000);
-				result = l_today - l_dday - 1;
+				result = l_today - l_dday;
 				map.put(vo.getNo(), result);
 			}
 		}
