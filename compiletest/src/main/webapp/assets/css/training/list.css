@@ -1,12 +1,17 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #181818;
+}
+
+.header {
+	background-image: url('../../images/main/winter.jpg');
+    background-position-y: 22%;
 }
 
 .content {
     width: 80vw;
     margin: auto;
+    margin-top: -3%
 }
 
 .menu-bar {
@@ -103,7 +108,7 @@ input[type=text] {
 
 .problem-box {
     float: left;
-    background-color: #E1E0E0;
+    background-color: #E7E7E7;
     width: 200px;
     height: 130px;
     border-radius: 10px;
@@ -122,10 +127,10 @@ input[type=text] {
     float: left;
     width: 22%;
     text-align: center;
-    border: 1px #336600;
+    border: 1px #7A8B9B;
     color: #FCFBF4;
     border-radius: 15px;
-    background-color: #336600; 
+    background-color: #7A8B9B; 
     padding: 2px 9px;
     margin-top: 7px;
 }
@@ -179,7 +184,7 @@ input[type=text] {
 }
 
 .make-problem {
-    background-color: #999966;
+    background-color: #7A8B9B;
     border: none;
     color: #fff;
     padding: 10px 10px;
@@ -190,7 +195,7 @@ input[type=text] {
     font-size: 16px;
     margin: 4px 2px 4px 740px;
     transition-duration: 0.4s;
-    border: 1.5px #999966 solid;
+    border: 1.5px #7A8B9B solid;
     cursor: pointer;
 }
 
