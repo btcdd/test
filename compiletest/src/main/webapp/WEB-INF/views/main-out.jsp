@@ -283,7 +283,16 @@ $(function() {
                </tr>
                <tr>
                   <td colspan="4">
-                      <textarea name="code" class="CodeMirror" id="code"></textarea>
+                      <textarea name="code" class="CodeMirror" id="code">
+/*
+* 기본 언어 : 'JAVA'
+* 기본 테마 : 'panda-syntax'
+*/
+public class Test{
+	public static void main(String[] args) {
+		System.out.println("Hello CodeForest!");
+	}
+}</textarea>
                   </td>
                   <td>
                      <textarea name="" id="result" readonly></textarea>
@@ -293,17 +302,6 @@ $(function() {
          </form>
     </div>
     
-    <!-- footer --> 
-    <footer> 
-	    <div class="jumbotron text-center mt-5 mb-0"> 
-	    	<h3 class="text-secondary">Code Forest</h3> 
-	    	<p>Code Forest - Online Compiler
-	    	<address> 연락처 : 
-	    		<a href="codeforest@gmail.com">codeforest@gmail.com</a> 
-	    	</address> 
-	    	<small>Copyright &copy; 2020 Code Forest</small> 
-	    </div>
-    </footer>
 
 </body>
 </html>
