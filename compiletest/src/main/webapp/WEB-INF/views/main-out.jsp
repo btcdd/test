@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>compiletest</title>
+<title>Code Forest</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/main/main-out.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -218,10 +218,10 @@ $(function() {
 		<div class="navigator">
 			<nav>
 				<ul>
+					<li class="menu"><a href="${pageContext.servletContext.contextPath }/info">Info</a></li>
 					<li class="menu"><a href="${pageContext.servletContext.contextPath }/codetree">Code Tree</a></li>
-					<li class="menu"><a href="${pageContext.servletContext.contextPath }/codingtest">Coding Test</a></li>
 					<li class="title"><a>Code Forest</a></li>
-					<li class="menu"><a href="${pageContext.servletContext.contextPath }/challenge">Challenge</a></li>
+					<li class="menu"><a href="${pageContext.servletContext.contextPath }/codingtest">Coding Test</a></li>
 					<li class="menu"><a href="${pageContext.servletContext.contextPath }/training">Training</a></li>
 				</ul>
 			</nav>

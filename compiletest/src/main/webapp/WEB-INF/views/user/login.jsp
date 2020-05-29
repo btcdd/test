@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<title>Code Forest</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="../../../assets/css/main.css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/user/login.css" rel="stylesheet" type="text/css">

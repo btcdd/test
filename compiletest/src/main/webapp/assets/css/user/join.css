@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Russo+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
 
 body{
-	height:100%; 
-    overflow:hidden;
-    font-family: 'Nanum Gothic Coding', monospace;
-    background-image: url('https://user-images.githubusercontent.com/59616862/81469572-984ccc00-9220-11ea-909c-f38341900047.jpg');
+	height: 100%;
+    overflow: hidden;
+    background-image: url('../../images/main/forest-main.jpg');
+    background-position: -5px -140px;
+    background-repeat : no-repeat;
+	background-size : cover;
 }
 
 #user{
@@ -19,7 +22,7 @@ body{
     width:420px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50px;
+    margin-top: 35px;
     border: 1px solid gray;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 70%);
@@ -129,7 +132,7 @@ label {
     margin-right: 19px;
     width:100px;
     height: 50px;
-    background-color: #006000;
+    background-color: #AD9885;
     border:none;
     color:#fff;
     text-align: center;
