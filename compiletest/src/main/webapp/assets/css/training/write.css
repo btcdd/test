@@ -1,145 +1,144 @@
-
 body {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 
 .regist {
-    margin-left: 500px;
-    margin-top: 10px;
+	margin-left: auto;
+	margin-top: 1%;
+	width: 80%;
 }
 
 .private {
-    float: left;
+	float: left;
 }
 
 .password {
-    margin-left: 100px;
+	margin-left: 100px;
 }
 
 .start-date {
-    float: left;    
+	float: left;
 }
 
 .end-date {
-    margin-left: 220px;
+	margin-left: 220px;
 }
 
 .division {
-    float: left;
+	float: left;
 }
 
 .language-select {
-    margin-left: 120px;
+	margin-left: 120px;
 }
 
 .language {
-    float: left;
-    margin: 0 20px;
+	float: left;
+	margin: 0 20px;
 }
 
 .title-text {
-    margin-top: 15px;
-    height: 18px;
-    width: 800px;
+	margin-top: 15px;
+	height: 18px;
+	width: 800px;
 }
 
 .prob-content {
-    margin-right: 50px;
+	margin-right: 50px;
 }
 
 .prob-content-title {
-    float: left;
-    vertical-align: middle;
+	vertical-align: middle;
 }
 
 .CodeMirror {
-    width: 900px;
-    height: 350px;
+	width: 900px;
+	height: 350px;
 }
 
 .ex-input {
-    float: left;
+	float: left;
 }
 
 .ex-input-title {
-    margin-left: 30px;
+	margin-left: 30px;
 }
 
 #ex-input-text {
-    margin-left: 30px;
-    width: 400px;
-    height: 220px;
+	margin-left: 30px;
+	width: 400px;
+	height: 220px;
 }
 
 #ex-output-text {
-    width: 400px;
-    height: 220px;
+	width: 400px;
+	height: 220px;
 }
 
 #answer-code-text {
-    margin-left: 30px;
-    width: 807px;
-    height: 300px;
+	margin-left: 30px;
+	width: 807px;
+	height: 300px;
 }
 
 .header {
-    background-color: white;
-    border-bottom: 1px solid lightgray;
+	background-color: white;
+	border-bottom: 1px solid lightgray;
 }
 
 .container {
-    width: 980px;
-    margin: auto;
-    padding: 20px 0;
+	width: 980px;
+	margin: auto;
+	padding: 20px 0;
 }
 
 .logo {
-    float: left;
-    margin-right: 10px;
+	float: left;
+	margin-right: 10px;
 }
 
 .logo img {
-    display: block;
+	display: block;
 }
 
 .menu {
-    float: left;
+	float: left;
 }
 
 .menu-item {
-    float: left;
-    margin-right: 10px;
-    padding: 8px 10px;
+	float: left;
+	margin-right: 10px;
+	padding: 8px 10px;
 }
 
 .codeTest {
-    background-color: lightgray;
-    margin: auto;
+	background-color: lightgray;
+	margin: auto;
 }
 
 .leftImg {
-    display: block;
+	display: block;
 }
 
 .tbl-ex {
-    margin: auto;
-    padding: 5px;
+	margin: auto;
+	padding: 5px;
 }
 
 td {
-    padding: 5px 5px;
+	padding: 5px 5px;
 }
 
 .clearfix::after {
-    content: "";
-    display: block;
-    clear: both;
+	content: "";
+	display: block;
+	clear: both;
 }
 
-
-
-* {box-sizing: border-box}
+* {
+	box-sizing: border-box
+}
 
 /* Style the tab */
 .tab {
@@ -164,10 +163,6 @@ td {
 	transition: 0.3s;
 }
 
-/* Change background color of buttons on hover */
-.tab button:hover {
-	background-color: #ddd;
-}
 
 /* Create an active/current "tab button" class */
 .tab button.active {
@@ -176,13 +171,12 @@ td {
 
 /* Style the tab content */
 .tabcontent {
-    float: left;
-    padding: 0px 12px;
-    border: 1px solid #ccc;
-    width: 70%;
-    border-left: none;
-    height: 700px;
-    
+	float: left;
+	padding: 0px 12px;
+	border: 1px solid #ccc;
+	width: 70%;
+	border-left: none;
+	height: 700px;
 }
 
 ul {
@@ -208,15 +202,47 @@ ul {
 }
 
 .title {
-    height: 30px;
-    width: 1000px;
+	float: left;
+	height: 30px;
+	width: 80%;
+}
+
+#title-text {
+	margin-left: 1%;
+	width: 60%;
+	height: 90%;
 }
 
 .write-container {
-	margin-top: -20px;
+	margin-top: 3%;
 	padding: 0;
 }
 
 .answer-code0 {
 	height: 2500px;
+}
+
+#btn-cancel {
+	background-color: #C8C8C8;
+	text-decoration: none;
+	font-size: 1em;
+	padding: 10px 20px 10px 20px;
+	display: inline-block;
+	border-radius: 10px;
+	transition: all 0.1s;
+	margin-bottom: 2%;
+	margin-left: 15%;
+}
+
+#btn-submit {
+	background-color: #7a8b9b;
+	text-decoration: none;
+	font-size: 1em;
+	padding: 10px 20px 10px 20px;
+	display: inline-block;
+	border: 0;
+	border-radius: 10px;
+	transition: all 0.1s;
+	margin-bottom: 2%;
+	margin-left: 0;
 }
