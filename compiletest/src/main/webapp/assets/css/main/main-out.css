@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Russo+One&display=swap');
 
 .head-image { 
-	background-image: url('../../images/main/main-back.png');
+	background-image: url('../../images/main/forest-main.jpg');
 	background-repeat : no-repeat;
+	background-position: 0% 50%;
 	background-size : cover;
 	height: 1000px
 }
@@ -32,7 +33,7 @@ li { display: inline-block; padding: 0 10px}
 		 
 .join-btn { border:1px solid white; border-radius: 10px; outline: 0; font-size:1.5em; text-decoration: none;
 			background-color: rgba(0,0,0,0); color: #fff; margin: 25px 0 0 250px; padding: 5px 15px 6px 15px}
-.join-btn:hover { color: #167426; background-color: #fff; text-decoration: none;}
+.join-btn:hover { border: none; color: #5B7A94; background-color: rgba(255,255,255,80%); text-decoration: none;}
 .join-btn:focus { outline: none; box-shadow: none; -webkit-box-shadow: none}
 
 .codeTest {
