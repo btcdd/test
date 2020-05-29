@@ -69,7 +69,7 @@ var problemAdd = function() {
 						'<option value="py">Python</option>' + 
 		             '</select>' + 
 	             '</div>' + 
-	            '<textarea id="answer-code-text" name="subProblemList[' + index + '].correctCode"></textarea>' + 
+	            '<textarea id="code' + index + '" name="subProblemList[' + index + '].correctCode"></textarea>' + 
 	        '</div></div>';
 	
 	buttonStr = '<li id="' + index + '" class="tablinks">문제 ' + (index + 1) + '</li>';
@@ -85,10 +85,20 @@ $(function() {
 		$(".prob" + (index-1)).after(str);
 		$('.prob' + (index-1)).hide();
 		
+		// 추가된 문제에 CKEditor 적용
 		CKEDITOR.replace('prob-content-text' + index);
 		
-		index++;
-	});
+		// 추가된 문제에 코드 미러 적용
+		var code = $('#code' + index)[0];
+	  	var editor = CodeMirror.fromTextArea(code, {
+	   		lineNumbers: true,
+	   		mode: 'text/x-java',
+	   		theme: 'panda-syntax',
+	   		matchBrackets: true
+	  	});
+	  	
+	  	index++;
+  	});
 	
 	$(document).on("click", ".tablinks", function() {
 		event.preventDefault();
@@ -122,7 +132,7 @@ $(function() {
 	});
 	
 	// 정답 코드 텍스트에 코드 미러 적용!
-	var code = $('#code')[0];
+	var code = $('#code0')[0];
   	var editor = CodeMirror.fromTextArea(code, {
    		lineNumbers: true,
    		mode: 'text/x-java',
@@ -208,7 +218,7 @@ $(function() {
 							<option value="py">Python</option>
 			             </select>
 		             </div>
-		            <textarea id="code" name="subProblemList[0].correctCode"></textarea>
+		            <textarea id="code0" name="subProblemList[0].correctCode"></textarea>
 		        </div>
 			</div>
 		</div>
