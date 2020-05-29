@@ -1,5 +1,6 @@
 package com.compile.compiletest.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.TrainingRepository;
+import com.compile.compiletest.vo.AnswerUserListVo;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemList;
 import com.compile.compiletest.vo.SubProblemVo;
+import com.compile.compiletest.vo.SubStatisticsVo;
 import com.compile.compiletest.vo.UserVo;
 
 @Service
@@ -146,7 +150,162 @@ public class TrainingService {
 		trainingRepository.deleteSubProblem(map);
 	}
 
+	public Map<String, Object> selectStatistics(List<SubProblemVo> subProblemList, List<Long> subProblemNoList) {
+		Map<String, Object> map = new HashMap<>();
+		
+		List<SubStatisticsVo> subStatisticsList = new ArrayList<>();
+		
+		for(int i = 0; i < subProblemNoList.size(); i++) {
+			map.put("subProblemNo", subProblemNoList.get(i));
+			
+			List<StatisticsVo> list = trainingRepository.selectStatistics(map);
+			
+			for(int j = 0; j < list.size(); j++) {
+				if(!(list.get(j).getCount() > 0)) {
+					list.get(j).setCount(0);
+				}
+			}
+			
+			SubStatisticsVo subStatisticsVo = new SubStatisticsVo();
+			
+			for(int j = 0; j < list.size(); j++) {
+				String language = list.get(j).getLanguage();
+				
+				if("c".equals(language)) {
+					subStatisticsVo.setC(list.get(j).getCount());
+				} else if("cpp".equals(language)) {
+					subStatisticsVo.setCpp(list.get(j).getCount());
+				} else if("cs".equals(language)) {
+					subStatisticsVo.setCs(list.get(j).getCount());
+				} else if("java".equals(language)) {
+					subStatisticsVo.setJava(list.get(j).getCount());
+				} else if("js".equals(language)) {
+					subStatisticsVo.setJs(list.get(j).getCount());
+				} else if("py".equals(language)) {
+					subStatisticsVo.setPy(list.get(j).getCount());
+				} else if("y".equals(language)) {
+					subStatisticsVo.setY(list.get(j).getCount());
+				} else if("n".equals(language)) {
+					subStatisticsVo.setN(list.get(j).getCount());
+				}
+			}
+			int y = subStatisticsVo.getY();
+			int n = subStatisticsVo.getN();
+			
+			double tmp = (double)y / (double)(y+n) * 100.0;
+			double rate = Math.round(tmp * 100) / 100.0;
+			
+			subStatisticsVo.setRate(rate);
+			
+			subStatisticsList.add(subStatisticsVo);
+		}
+		
+		map.put("size", subProblemList.size());
+		map.put("subProblemList", subProblemList);
+		map.put("subStatisticsList", subStatisticsList);
+		
+		return map;
+	}
+	
 	public UserVo userFindByProblemNo(Long problemNo) {
 		return trainingRepository.userFindByProblemNo(problemNo);
-	}	
+	}
+
+	public Map<String, Object> selectAnswerList(Long subProblemNo) {
+		Map<String, Object> map = new HashMap<>();
+		List<StatisticsVo> list = trainingRepository.selectStatistics(subProblemNo);
+		
+		for(int j = 0; j < list.size(); j++) {
+			if(!(list.get(j).getCount() > 0)) {
+				list.get(j).setCount(0);
+			}
+		}
+		
+		SubStatisticsVo subStatisticsVo = new SubStatisticsVo();
+		
+		for(int j = 0; j < list.size(); j++) {
+			String language = list.get(j).getLanguage();
+			
+			if("c".equals(language)) {
+				subStatisticsVo.setC(list.get(j).getCount());
+			} else if("cpp".equals(language)) {
+				subStatisticsVo.setCpp(list.get(j).getCount());
+			} else if("cs".equals(language)) {
+				subStatisticsVo.setCs(list.get(j).getCount());
+			} else if("java".equals(language)) {
+				subStatisticsVo.setJava(list.get(j).getCount());
+			} else if("js".equals(language)) {
+				subStatisticsVo.setJs(list.get(j).getCount());
+			} else if("py".equals(language)) {
+				subStatisticsVo.setPy(list.get(j).getCount());
+			} else if("y".equals(language)) {
+				subStatisticsVo.setY(list.get(j).getCount());
+			} else if("n".equals(language)) {
+				subStatisticsVo.setN(list.get(j).getCount());
+			}
+		}
+		int y = subStatisticsVo.getY();
+		int n = subStatisticsVo.getN();
+		
+		double tmp = (double)y / (double)(y+n) * 100.0;
+		double rate = Math.round(tmp * 100) / 100.0;
+		
+		subStatisticsVo.setRate(rate);
+		
+		map.put("subStatisticsVo", subStatisticsVo);
+		return map;
+	}
+
+//	public Map<String, Object> selectAnswerUserList(Long subProblemNo) {
+//		Map<String, Object> map = new HashMap<>();
+//		List<AnswerUserListVo> list = trainingRepository.selectAnswerUserList(subProblemNo);
+//		map.put("list",list);
+//		return map;
+//	}
+	
+	public Map<String, Object> selectAnswerUserList(int currentPage, Long subProblemNo, String language) {
+		int count;
+		//게시물 총 갯수
+		if("".equals(language)) {
+			count = trainingRepository.getAnswerUserListTotalCount(subProblemNo);
+		} else {
+			count = trainingRepository.getAnswerUserLangListTotalCount(subProblemNo, language);
+		}
+		
+		//하단 페이징 번호([게시물 총 갯수 / 한 페이지에 출력할 갯수]의 올림)
+		int pageNum = (int)Math.ceil((double)count/postNum);
+		//출력할 게시물
+		int displayPost = (currentPage -1) * postNum;
+		//표시되는 페이지 번호 중 마지막 번호
+		int endPageNum = (int)(Math.ceil((double)currentPage / (double)pageNum_cnt) * pageNum_cnt);
+		//표시되는 페이지 번호 중 첫번째 번호
+		int startPageNum = endPageNum - (pageNum_cnt - 1);
+		//마지막번호 재계산
+		int endPageNum_tmp = (int)(Math.ceil((double)count / (double)postNum));
+		if(endPageNum > endPageNum_tmp) {
+			endPageNum = endPageNum_tmp;
+		}
+		boolean next = endPageNum * pageNum_cnt >= count ? false : true;//마지막 페이지 번호가 총 게시물 갯수보다 작다면, 다음 구간이 있다는 의미이므로 출력
+		
+		List<AnswerUserListVo> list;
+		
+		if("".equals(language)) {
+			list = trainingRepository.selectAnswerUserList(displayPost,postNum,subProblemNo);
+		} else {
+			list = trainingRepository.selectAnswerUserLangList(displayPost,postNum,subProblemNo, language);
+		}
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		
+		map.put("list",list);		
+		map.put("pageNum",pageNum);
+		map.put("select",currentPage);
+		map.put("startPageNum",startPageNum);
+		map.put("endPageNum",endPageNum + 1);
+		map.put("next",next);
+		map.put("count", count);
+		
+		return map;
+	}
+	
 }

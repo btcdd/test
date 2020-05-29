@@ -24,10 +24,9 @@ $(function() {
 		
 		$(".open" + no).toggle("slow");
 	});
-	
+  
 	$("#problem-no").on('click',function(){
 		console.log('click!!!');
-		
 		
 		console.log("codetreeNo >>" + problemNo);
 		$.ajax({
@@ -38,8 +37,8 @@ $(function() {
 			data:'no='+ problemNo,
 			success:function(response){
 				console.log(response.data.problemNo);
-				
-				var url = "http://127.0.0.1:9999/"+response.data.problemNo;
+
+        var url = "http://127.0.0.1:9999/"+response.data.problemNo;
 				console.log("url>" + url);
 				window.open(url);
 				
@@ -48,14 +47,7 @@ $(function() {
 				console.error(status + ":" + e);
 			}
 		});
-		
 	});
-	
-	
-	
-	
-	
-	
 });
 </script>
 </head>
@@ -77,7 +69,7 @@ $(function() {
 					<div class="pro pro${status.index + 1}" id="${status.index + 1}">
 						<p class="division">문제 ${status.index + 1}</p>
 						<p id="click">${vo.title }</p>
-						<button>맞은 사람</button>
+						<a href="${pageContext.servletContext.contextPath }/training/answerlist/${status.index + 1}/${vo.no}"><button>맞은 사람</button></a>
 						
 						<div class="open${status.index + 1}">
 							<div class="explain">
