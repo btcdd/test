@@ -116,57 +116,11 @@ $(function() {
 	   editor.setOption("theme", theme);
    });
    
-   $('.lang').click(function() {
-	   var lang = $(".lang option:selected").val();
-	   var face = '';
-	   
-	   if(lang === 'c') {
-		   face = '#include <stdio.h>\n\n' + 
-			   'int main() {\n' + 
-			   	'\tprintf("Hello CodeForest!\\n");\n\n' + 
-			   	'\treturn 0;\n' + 
-			   '}';
-	   } else if(lang === 'cpp') {
-		   face = '#include <iostream>\n\n' + 
-			   		'using namespace std;\n\n' + 
-			   'int main()\n' + 
-			   '{\n' + 
-			       '\tcout << "Hello CodeForest!" << endl;\n\n' + 
-			       '\treturn 0;\n' + 
-			   '}';
-	   } else if(lang === 'cs') {
-		   face = 'using System;\n\n' + 
-			   		'class HelloWorld {\n\n' + 
-			     	'\tstatic void Main() {\n' +  
-			       '\t\tConsole.WriteLine("Hello CodeForest");\n' + 
-			     '\t}\n' + 
-			   '}';
-	   } else if(lang === 'java') {
-		   face = '/*\n' + 
-	   		"* 기본 언어 : 'JAVA'\n" + 
-		   "* 기본 테마 : 'panda-syntax'\n" + 
-		   '*/\n' + 
-		  'public class Test{\n' + 
-		  		'\tpublic static void main(String[] args) {\n' + 
-		      		'\t\tSystem.out.println("Hello CodeForest!");\n' + 
-		      '\t}\n' + 
-		  '}\n';
-	   } else if(lang === 'js') {
-		   face = 'var str = "Hello CodeForest";\n\n' + 
-		   			'console.log(str);';
-	   } else if(lang === 'py') {
-		   face = 'print("Hello World")';
-	   }
-	   
-	   editor.setValue(face);
-   });
-   
    $(document).on('click', '#showCode', function(event) {
 	  var index = $(this).attr("class");
 	  var code = $("#hiddenCode" + index).text();
 	  editor.setValue(code);
    });
-   
    
    // ---------------------------------------------------------------
 
