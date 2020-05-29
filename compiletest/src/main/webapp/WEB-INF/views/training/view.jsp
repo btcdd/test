@@ -13,6 +13,7 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/ckeditor/contents.css">
 <script>
 var problemNo = '${problemVo.no}';
 $(function() {
