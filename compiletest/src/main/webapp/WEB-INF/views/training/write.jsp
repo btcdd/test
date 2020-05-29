@@ -7,14 +7,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="${pageContext.servletContext.contextPath }/assets/css/training/problem-write.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.servletContext.contextPath }/assets/css/training/write.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/sample.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/ckeditor/ckeditor.js"></script>
+
+<!-- code mirror -->
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/css/codemirror.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/abcdef.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/blackboard.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/dracula.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/duotone-light.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/eclipse.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/moxer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/neat.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/panda-syntax.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/solarized.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/codemirror/theme/ttcn.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/js/codemirror.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/codemirror/mode/clike.js"></script>
 
 <title>Code Forest</title>
 <script>
@@ -33,7 +46,7 @@ var problemAdd = function() {
 			    '</div>' +
 			    '<div class="prob-content">' + 
 			        '<div class="prob-content-title">내용</div>' + 
-			        '<textarea class="ckeditor" id="prob-content-text" name="subProblemList[' + index + '].contents"></textarea>' + 
+			        '<textarea class="ckeditor" id="prob-content-text' + index + '" name="subProblemList[' + index + '].contents"></textarea>' + 
 			    '</div>' + 
 			'<div class="ex-input">' + 
 	            '<div class="ex-input-title">예제 입력</div>' + 
@@ -59,9 +72,7 @@ var problemAdd = function() {
 	            '<textarea id="answer-code-text" name="subProblemList[' + index + '].correctCode"></textarea>' + 
 	        '</div></div>';
 	
-	// var buttonStr = '<button class="tablinks" id="' + index + '" onclick="openCity(event, ' + "'prob" + index + "')" + '">문제 ' + index + '</button>';
-	buttonStr = '<li id="' + index + '" class="tablinks"><span class="a">문제 ' + (index + 1) + '</span></li>';
-	
+	buttonStr = '<li id="' + index + '" class="tablinks">문제 ' + (index + 1) + '</li>';
 }
 
 $(function() {
@@ -73,6 +84,8 @@ $(function() {
 		$("#" + (index-1)).after(buttonStr);
 		$(".prob" + (index-1)).after(str);
 		$('.prob' + (index-1)).hide();
+		
+		CKEDITOR.replace('prob-content-text' + index);
 		
 		index++;
 	});
@@ -107,6 +120,15 @@ $(function() {
 			$(".date .end-date").remove();
 		}
 	});
+	
+	// 정답 코드 텍스트에 코드 미러 적용!
+	var code = $('#code')[0];
+  	var editor = CodeMirror.fromTextArea(code, {
+   		lineNumbers: true,
+   		mode: 'text/x-java',
+   		theme: 'panda-syntax',
+   		matchBrackets: true
+  	});
 });
 
 
@@ -141,57 +163,56 @@ $(function() {
 		        	문제집 제목<input type="text" name="title" />
 		        </div>
 		        <br />
-		        
+	
+	<div class="write-container">        
 		<div class="tab">
 			<ul>
-				<li id="0" class="tablinks"><span class="a">문제 1</span></li>
-				<li><a id="addSubProblem"><span class="addProblem">+</span></a></li>
+				<li id="0" class="tablinks">문제 1</li>
+				<li id="addSubProblem">+</li>
 			</ul>
-<!-- 		<button class="tablinks" id="1" onclick="openCity(event, 'prob1')">문제 1</button> -->
-<!-- 		<a id="addSubProblem" class="tablinks" onclick=><button class="tablinks" onclick="problemAdd()">+</button></a> -->
-	</div>
-	
-	<div id="problem" class="tabcontent">
-		<div class="prob0">
-			<h3>문제 1</h3>
-	        <div class="sub-title">
-	        	문제 제목<input type="text" name="subProblemList[0].title"/>
-	        </div>
-	        <div class="prob-content">
-	            <div class="prob-content-title">내용</div>
-	            <textarea class="ckeditor" id="prob-content-text" name="subProblemList[0].contents"></textarea>
-	        </div>
-	        <br />
-	
-	        <div class="ex-input">
-	            <div class="ex-input-title">예제 입력</div>
-	            <textarea id="ex-input-text" name="subProblemList[0].examInput"></textarea>
-	        </div>
-	
-	        <div class="ex-output">
-	            <div class="ex-input-title">예제 출력</div>
-	            <textarea id="ex-output-text" name="subProblemList[0].examOutput"></textarea>
-	        </div>
-	
-			
-	        <div class="answer-code0">
-	            <div class="ex-input-title">정답 코드</div>
-				<div>
-					<select name="lang">
-						<option value="none" selected="selected">언어선택</option>
-						<option value="c">C</option>
-						<option value="cpp">C++</option>
-						<option value="cs">C#</option>
-						<option value="java">JAVA</option>
-						<option value="js">JavaScript</option>
-						<option value="py">Python</option>
-		             </select>
-	             </div>
-	            <textarea id="answer-code-text" name="subProblemList[0].correctCode"></textarea>
-	        </div>
+		</div>
+		
+		<div id="problem" class="tabcontent">
+			<div class="prob0">
+				<h3>문제 1</h3>
+		        <div class="sub-title">
+		        	문제 제목<input type="text" name="subProblemList[0].title"/>
+		        </div>
+		        <div class="prob-content">
+		            <div class="prob-content-title">내용</div>
+		            <textarea class="ckeditor" id="prob-content-text" name="subProblemList[0].contents"></textarea>
+		        </div>
+		        <br />
+		
+		        <div class="ex-input">
+		            <div class="ex-input-title">예제 입력</div>
+		            <textarea id="ex-input-text" name="subProblemList[0].examInput"></textarea>
+		        </div>
+		
+		        <div class="ex-output">
+		            <div class="ex-input-title">예제 출력</div>
+		            <textarea id="ex-output-text" name="subProblemList[0].examOutput"></textarea>
+		        </div>
+		
+				
+		        <div class="answer-code0">
+		            <div class="ex-input-title">정답 코드</div>
+					<div>
+						<select name="lang">
+							<option value="none" selected="selected">언어선택</option>
+							<option value="c">C</option>
+							<option value="cpp">C++</option>
+							<option value="cs">C#</option>
+							<option value="java">JAVA</option>
+							<option value="js">JavaScript</option>
+							<option value="py">Python</option>
+			             </select>
+		             </div>
+		            <textarea id="code" name="subProblemList[0].correctCode"></textarea>
+		        </div>
+			</div>
 		</div>
 	</div>
-		
 		        <a href="${pageContext.servletContext.contextPath }/training">취소</a>
 		        <input type="submit" value="등록">
 		        
