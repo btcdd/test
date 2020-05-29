@@ -4,14 +4,27 @@ body {
 }
 
 .content {
-    width: 980px;
+    width: auto;
     margin: auto;
     padding: 20px 0;
+    display: inline-block;
 }
 
+.proceeding-box, .expected-box, .deadline-box {
+	width: 33.3%;
+}
+.proceeding-box {
+	float: left;
+}
+.expected-box {
+	float: left;
+}
+.deadline-box {
+	float: left;
+}
 
 .test {
-    width: auto;
+    width: 300px;
     height: 100px;
     border-radius: 10px;
     margin: 15px 20px;
@@ -89,35 +102,3 @@ body {
 }
 
 
-
-div.pager {
-    width: 100%;
-    text-align: center;
-}
-div.pager ul {
-    height: 20px;
-    margin: 10px auto;
-}
-div.pager ul li {
-    color: rgb(8, 0, 0);
-    display: inline-block;
-    margin: 5px 0;
-    width: 20px;
-    font-weight: bold;
-}
-div.pager ul li.selected {
-    font-size: 16px;
-    text-decoration: underline;
-    color: #f40808
-}
-div.pager ul li a,
-div.pager ul li a:visited,
-div.pager ul li a:link,
-div.pager ul li a:active {
-    text-decoration: none;
-    color: #555
-}
-div.pager ul li a:hover {
-    text-decoration: none;
-    color: #f00
-}

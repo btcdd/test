@@ -18,6 +18,7 @@
                  and state = 'y'
                  and p.start_time is not null
                  and p.end_time is not null
+                 and p.password is not null
 			order by priority, case 
 									when priority = 1 
 									then p.start_time 
