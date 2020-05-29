@@ -313,10 +313,10 @@
 						u.nickname,
 						k.name as kind
 					  from problem p, user u, kind k
-					 where 
-					  	p.user_no = u.no and k.no = p.kind_no
-					   	and p.state = 'y'
-					   	limit #{displayPost}, #{postNum}
+					 where p.user_no = u.no 
+					   and k.no = p.kind_no
+					   and p.state = 'y'
+					 limit #{displayPost}, #{postNum}
 				]]>			
 			</when>
 			<otherwise>
