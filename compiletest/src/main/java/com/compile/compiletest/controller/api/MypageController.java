@@ -2,6 +2,8 @@ package com.compile.compiletest.controller.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,9 +28,11 @@ public class MypageController {
 
 	@Auth
 	@PostMapping(value="/account/nickname")
-	public JsonResult changeNickname(@ModelAttribute UserVo vo) {
+	public JsonResult changeNickname(@ModelAttribute UserVo vo, HttpSession session) {
 		int result = mypageService.changeNickname(vo);
-
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		authUser.setNickname(vo.getNickname());
+		session.setAttribute("authUser", authUser);
 		return JsonResult.success(result);
 	}
 
@@ -42,9 +46,10 @@ public class MypageController {
 
 	@Auth
 	@PostMapping(value="/account/delete")
-	public JsonResult deleteUser(@ModelAttribute UserVo vo) {
+	public JsonResult deleteUser(@ModelAttribute UserVo vo, HttpSession session) {
 		int result = mypageService.deleteUser(vo);
-
+		session.setAttribute("authUser", null);
+		
 		return JsonResult.success(result);
 	}
 

@@ -10,6 +10,7 @@
 				<a href="${pageContext.servletContext.contextPath }/main-in">Code Forest</a>
             </div>
             <div class="menu-user clearfix">
+            	<div class="menu-item">${authUser.nickname }님</div>
                 <div class="menu-item"><a href="${pageContext.servletContext.contextPath }/user/logout">로그아웃</a></div>
             </div>
         </div>

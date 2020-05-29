@@ -33,6 +33,9 @@ $(function() {
 					data: '',
 					success: function(response) {
 						dialogDelete.dialog('close');
+						// 삭제 추가해야하는 곳
+						$(".list-contents[data-no=" + no + "]").remove();
+						$(".sub-problem-contents" + no).remove();
 					},
 					error: function(xhr, status, e) {
 						console.error(status + ":" + e);
@@ -162,9 +165,9 @@ $(function() {
 				console.log(response.data);
 				var tr = "";				
 				for(var i in response.data) {
-					tr += "<tr id='sub-problem" + no + "'><td>(" + no + "-" + response.data[i].no +")</td>" + 
+					tr += "<tr id='sub-problem" + response.data[i].no + "'><td>(" + no + "-" + response.data[i].no +")</td>" + 
 						"<td>" + response.data[i].title + "</td>" + 
-						'<td><input data-no="' + response.data[i].no + '" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="sp-delete"></td>'
+						'<td><input data-no="' + response.data[i].no + '" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="sp-delete"></td></tr>'
 
 				}			
 				$("." + no + " .sub-problem-tbody").append(tr);
@@ -194,9 +197,9 @@ $(function() {
 					dataType: 'json',
 					data: '',
 					success: function(response) {		
-						console.log("tableClass="+tableClass);
-						
-						dialogSpDelete.dialog('close');
+						console.log("tableClass="+tableClass);						
+						dialogSpDelete.dialog('close');						
+						$('#sub-problem'+no).remove();
 					},
 					error: function(xhr, status, e) {
 						console.error(status + ":" + e);
@@ -218,7 +221,7 @@ $(function() {
 		
 		var spNo = $(this).data('no');
 		var tableClass = $("#sub-problem-table").attr('class');
-		console.log("sbno=" + spNo);
+		console.log("spno=" + spNo);
 		$('#hidden-sp-no').val(spNo);
 		$('#hidden-table-class').val(tableClass);
 		dialogSpDelete.dialog('open');
@@ -260,7 +263,7 @@ $(function() {
 	                      <td><input data-no="${problemvo.no }" data-title="${problemvo.title }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
 	                	</tr>
 	                	
-	                	<tr>
+	                	<tr class="sub-problem-contents${problemvo.no }">
 	                		<td></td>
 		                	<td>
 			                	<table id="sub-problem-table" class="${problemvo.no }" style="display: none;">

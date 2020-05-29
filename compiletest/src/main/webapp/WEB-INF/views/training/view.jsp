@@ -14,9 +14,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script>
-
 var problemNo = '${problemVo.no}';
-
 $(function() {
 	
 	var no;
@@ -26,7 +24,7 @@ $(function() {
 		
 		$(".open" + no).toggle("slow");
 	});
-
+  
 	$("#problem-no").on('click',function(){
 		console.log('click!!!');
 		
@@ -39,9 +37,8 @@ $(function() {
 			data:'no='+ problemNo,
 			success:function(response){
 				console.log(response.data.problemNo);
-				
-				
-				var url = "http://127.0.0.1:9999/"+response.data.problemNo;
+
+        var url = "http://127.0.0.1:9999/"+response.data.problemNo;
 				console.log("url>" + url);
 				window.open(url);
 				

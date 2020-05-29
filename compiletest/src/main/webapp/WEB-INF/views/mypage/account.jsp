@@ -14,24 +14,10 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
-    var logout = function() {
-		$.ajax({
-            url: '${pageContext.request.contextPath }/user/logout',
-            async: false,
-            type: 'get',
-            dataType: '',
-            data: '',
-            success: function(response){
-            	console.log("로그 아웃");
-            },
-            error: function(xhr, status, e) {
-               console.error(status + ":" + e);
-            }
-         });
-	};
     
     var no = '${authUser.no}';
-    var email = '${authUser.email}'
+    var email = '${authUser.email}';
+    var currentURL = '${pageContext.request.contextPath }/mypage/account'
     
     var pandan = false;
 
@@ -96,6 +82,7 @@
                } else {
             	   pandan = true;
             	   $("#delete-user").dialog("close");
+            	   window.location = "${pageContext.request.contextPath }";
                }
                if(response.result != "success") {
             	   pandan = false;
@@ -124,6 +111,7 @@
                 "완료": function() {
                 	changeNickname($('#nickname').val());
                 	$(this).dialog("close");
+                	window.location = "${pageContext.request.contextPath }/mypage/account";
                 },
                 Cancel: function() {
                     $(this).dialog("close");
@@ -138,7 +126,7 @@
 
         $("#delete-user").dialog({
             autoOpen: false,
-            resizable: false,4
+            resizable: false,
             height: "auto",
             width: 400,
             modal: true,
@@ -146,8 +134,7 @@
                 "회원 탈퇴": function() {
                 	if(deleteUser($('#delete').val())) {
                 		$('#delete').val('');
-                		logout();
-                		$(this).dialog("close");                	
+                		$(this).dialog("close");
                 		
                 	} else {
                 		if(passwordIncorrect) {
@@ -238,7 +225,7 @@
 	        <form>
 	            <fieldset>
 	                <label for="name">닉네임 입력 : </label>
-	                <input type="text" name="nickname" id="nickname" value="에옹이" class="text ui-widget-content ui-corner-all">
+	                <input type="text" name="nickname" id="nickname" value="${authUser.nickname }" class="text ui-widget-content ui-corner-all">
 	
 	                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 	            </fieldset>

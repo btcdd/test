@@ -71,5 +71,13 @@ public class MypageRepository {
 		return result;
 	}
 
+	public List<SubmitVo> findRrightSubmit(Long no) {
+		return sqlSession.selectList("mypage.findRrightSubmit", no);
+	}
+
+	public List<SubmitVo> findWrongSubmit(Long no) {
+		return sqlSession.selectList("mypage.findWrongSubmit", no);
+	}
+
 	
 }
