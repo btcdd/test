@@ -55,9 +55,8 @@ var checkEmail = function CheckEmail(str) {
 
 var auth_str = '<div id="auth">' +  
 					'<label for="auth-check"></label>' + 
-					'<input id="auth-check" type="text" name="Auth" placeholder="인증번호를 입력해주세요."/>' + 
-					'<input id="btn-auth"  type="button" value="인증번호보내기">' + 
-					'<input id="auth-check-button" type="button" value="인증번호확인">' + 
+					'<input id="auth-check" type="text" name="Auth" placeholder="인증번호 입력"/>' + 
+					'<input id="btn-auth"  type="button" value="인증번호보내기">' +
 					'<img id="img-checkauth" style="width:16px; display:none" src="${pageContext.request.contextPath }/assets/images/user/check.png" />' +  
                 '</div>';
 
@@ -232,7 +231,7 @@ $(function(){
 			$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
             $('#password-warning').css('color', 'red');
             
-            $('#join-form').css('height', '270px');
+            $('#join-form').css('height', '350px');
             
 			$('#auth').remove();
 			auth_pandan = false;			
@@ -244,7 +243,7 @@ $(function(){
 				$('.auth-before').after(auth_str);
 				auth_pandan = true;
 			}
-			$('#join-form').css('height', '350px');
+			$('#join-form').css('height', '405px');
 		}
 	});
 	
@@ -256,7 +255,7 @@ $(function(){
 					$('.auth-before').after(auth_str);
 					auth_pandan = true;
 				}
-				$('#join-form').css('height', '350px');
+				$('#join-form').css('height', '405px');
 			} else {
 				$('#auth').remove();
 				auth_pandan = false;
@@ -265,7 +264,7 @@ $(function(){
 				$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
 	            $('#password-warning').css('color', 'red');
 	            
-	            $('#join-form').css('height', '270px');
+	            $('#join-form').css('height', '350px');
 			}
 		}
 	});
