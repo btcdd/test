@@ -6,6 +6,7 @@ body {
 .regist {
 	margin-left: auto;
 	margin-top: 3%;
+	margin-bottom: 140vh;
 	width: 80%;
 }
 
@@ -59,7 +60,7 @@ body {
 
 .ex-input {
 	float: left;
-	width: 50%;
+    width: 45.5%;
 }
 
 #ex-input-text {
@@ -73,8 +74,9 @@ body {
 }
 
 .ex-output {
-	float: left;
-	width: 50%;
+	margin-left: 4%;
+    float: left;
+    width: 50.3%;
 }
 
 #ex-output-text {
@@ -225,10 +227,6 @@ ul {
 .write-container {
 	margin-top: 3%;
 	padding: 0;
-}
-
-.answer-code0 {
-	height: 2500px;
 }
 
 #btn-cancel {
