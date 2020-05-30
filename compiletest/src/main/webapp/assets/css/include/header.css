@@ -5,8 +5,9 @@ body { margin: 0; padding: 0; background-color: #FFF;}
 .header { 
     position: relative;
     background-repeat : no-repeat;
-    background-size : cover;
+    background-size : 100vw;
     height: 260px;
+    width: 100vw;
 }
 
 .head-navigation {
@@ -23,7 +24,7 @@ body { margin: 0; padding: 0; background-color: #FFF;}
 
 .menu { float: left; font-family: 'Teko', sans-serif; font-size: 1.3em;}
 
-.menu-user { float: right; font-size: 0.8em; margin-top:2px }
+.menu-user { float: right; font-size: 0.8em; margin-top:2px; margin-right: 20px}
 
 .menu-item { float: left; margin: 3px 10px 0 0; padding: 8px 10px }
 

@@ -16,6 +16,7 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/user/join.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script>
+
 var loadingWithMask = function LoadingWithMask(){
 		
  	var widthWindow = window.innerWidth;
@@ -42,7 +43,26 @@ var closeLoadingWithMask = function CloseLoadingWithMask(){
 	$('#mask,#loadingImg').hide();
 	$('#mask,#loadingImg').empty();
 } 
-	
+
+var checkEmail = function CheckEmail(str) {
+     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+     if(!reg_email.test(str)) {                            
+          return false;         
+     } else {                       
+         return true;         
+     }                            
+}   
+
+var auth_str = '<div id="auth">' +  
+					'<label for="auth-check"></label>' + 
+					'<input id="auth-check" type="text" name="Auth" placeholder="인증번호를 입력해주세요."/>' + 
+					'<input id="btn-auth"  type="button" value="인증번호보내기">' + 
+					'<input id="auth-check-button" type="button" value="인증번호확인">' + 
+					'<img id="img-checkauth" style="width:16px; display:none" src="${pageContext.request.contextPath }/assets/images/user/check.png" />' +  
+                '</div>';
+
+var auth_pandan = false;
+                
 $(function(){
 
 	var tempKey = null;
@@ -72,18 +92,18 @@ $(function(){
 	
 	$('#auth-check-button').on('click',function(){
 		
-		if( $('#auth-check').val() == tempKey  ){
+		if( $('#auth-check').val() == tempKey) {
 			$('#img-checkauth').show();
 			$('#btn-auth').hide();
 			$('#auth-check-button').hide();
-		}else{
+		} else {
 			$('#img-checkauth').hide();
 			$('#btn-auth').show();
 			$('#auth-check-button').show();	
 		}
 	});
 	
-	$("#login-form").submit(function(e){
+	$("#join-form").submit(function(e){
 			e.preventDefault();
 	
 			if($("#nickname").val() ==''){
@@ -99,7 +119,7 @@ $(function(){
 				alert('이메일이 비어있습니다.');
 				$("#email").focus();
 				return;
-			}
+			} 
 			if($("#img-checkemail").is(":hidden")){
 				alert('이메일 중복 체크를 하지 않았습니다.');
 				return;
@@ -123,14 +143,13 @@ $(function(){
 		});	
 	
 	$('#nickname').change(function(){
-		$('#btn-checknickname').show();
 		$('#img-checknickname').hide();
 	});
-
 	
-	$('#btn-checknickname').click(function() {
+	$('#nickname').on("propertychange change keyup paste input", function() {
 		var nickname = $("#nickname").val();
 		if(nickname == '') {
+			$('#img-checknickname').hide();
 			return;
 		}
 		$.ajax({
@@ -145,12 +164,9 @@ $(function(){
 					return;
 				}	
 				if(response.data == true){					
-					$("#nickname")
-						.val('')
-						.focus();
+					$('#img-checknickname').hide();
 					return;
 				}
-				$('#btn-checknickname').hide();
 				$('#img-checknickname').show();
 			},
 			error: function(XHR, status, e) {
@@ -160,89 +176,99 @@ $(function(){
 	});
 
 	$('#email').change(function(){
-		$('#btn-checkemail').show();
 		$('#img-checkemail').hide();
-		$('#auth').hide();
+		$('#auth').remove();
+		auth_pandan = false;
 	});	
 	
-	$('#btn-checkemail').click(function() {
+	$('#email').change(function() {
 		var email = $("#email").val();
-		if(email == '') {
+		if(!checkEmail(email)) {
+			alert('이메일 형식이 잘못되었습니다');		
+			$("#email").focus();
 			return;
+		} else {
+			$('#img-checkemail').hide();
+			$('#auth').remove();
+			auth_pandan = false;
+		
+			$.ajax({
+				url: "${pageContext.servletContext.contextPath }/api/user/checkemail?email=" + email,
+				async: true,
+				type: 'post',
+				data: '',
+				dataType: 'json',
+				success: function(response) {
+					if(response.result == "fail"){
+						console.error(response.message);
+						return;
+					}
+					if(response.data == true){
+						alert('존재하는 이메일입니다.');
+						$("#email")
+							.val('')
+							.focus();
+						return;
+					}
+					$('#btn-checkemail').hide();
+					$('#img-checkemail').show();
+				},
+				error: function(XHR, status, e) {
+					console.error(status + ":" + e);
+				}
+			});
 		}
-		$.ajax({
-			url: "${pageContext.servletContext.contextPath }/api/user/checkemail?email=" + email,
-			async: true,
-			type: 'post',
-			data: '',
-			dataType: 'json',
-			success: function(response) {
-				if(response.result == "fail"){
-					console.error(response.message);
-					return;
-				}
-				if(response.data == true){
-					alert('존재하는 닉네임입니다.');
-					$("#email")
-						.val('')
-						.focus();
-					return;
-				}
-				$('#btn-checkemail').hide();
-				$('#img-checkemail').show();
-				
-				// 관우 코드
-				
-				$('#login-form').css('height', '330px');
-				
-				
-				////////////
-				
-				$('#auth').show();
-			},
-			error: function(XHR, status, e) {
-				console.error(status + ":" + e);
+	});
+	
+	$('#email').on("propertychange change keyup paste input", function() {
+		$('#auth').remove();
+		auth_pandan = false;
+	});
+	
+	$('#passwordcheck').on("propertychange change keyup paste input", function(){
+		
+		if( $('#password').val() != $('#passwordcheck').val() ){
+			$('#password-warning').show();
+			$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
+            $('#password-warning').css('color', 'red');
+            
+            $('#join-form').css('height', '270px');
+            
+			$('#auth').remove();
+			auth_pandan = false;			
+            
+			console.log(" passwordcheck 다름");
+		} else {
+			$('#password-warning').hide();
+			if(auth_pandan == false) {
+				$('.auth-before').after(auth_str);
+				auth_pandan = true;
 			}
-		});
-	});
-	
-	$('#passwordcheck').blur(function(){
-		if( $('#password').val() != $('#passwordcheck').val() ){
-			$('#password-warning').show();
-			$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
-            $('#password-warning').css('color', 'red');
-            
-            // 관우 코드
-            $('#login-form').css('height', '400px');
-            /////////////////
-            
-			console.log("다름");
-		} else{
-			$('#password-warning').hide();
-			// 관우 코드
-			$('#login-form').css('height', '330px');
-			///////////////////
-			console.log("맞음");
+			$('#join-form').css('height', '350px');
 		}
 	});
 	
-	$('#password').change(function(){
-		if( $('#password').val() != $('#passwordcheck').val() ){
-			$('#password-warning').show();
-			$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
-            $('#password-warning').css('color', 'red');
-			console.log("다름");
-		} else{
-			
-			$('#password-warning').hide();
-			// 관우 코드
-			$('#login-form').css('height', '330px');
-			///////////////////
-			
-			console.log("맞음");
+	$('#password').on("propertychange change keyup paste input", function(){
+		if($('#passwordcheck').val() != '') {
+			if( $('#password').val() == $('#passwordcheck').val() ){
+				$('#password-warning').hide();
+				if(auth_pandan == false) {
+					$('.auth-before').after(auth_str);
+					auth_pandan = true;
+				}
+				$('#join-form').css('height', '350px');
+			} else {
+				$('#auth').remove();
+				auth_pandan = false;
+
+				$('#password-warning').show();
+				$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
+	            $('#password-warning').css('color', 'red');
+	            
+	            $('#join-form').css('height', '270px');
+			}
 		}
 	});
-	
 });
 </script>
 </head>
@@ -252,14 +278,13 @@ $(function(){
         <div id="content">
             <div id="user">
                 <form:form
-                	id="login-form" 
+                	id="join-form" 
                 	modelAttribute="userVo"
                 	method="post"
                 	action="${pageContext.servletContext.contextPath }/user/join">
                     <div>
                         <label for="nickname"></label>
-                        <form:input id="nickname" path="nickname" placeholder="닉네임을 입력해주세요"/>
-                        <input type="button" id="btn-checknickname" value="닉네임중복확인" /> 
+                        <form:input id="nickname" path="nickname" placeholder=" 닉네임"/>
                         <img id='img-checknickname' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
                         <p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
                         <form:errors path="nickname"/>
@@ -267,8 +292,7 @@ $(function(){
                     </div>
                     <div>
                         <label for="email"></label>
-                        <form:input id="email" path="email" placeholder="이메일을 입력해주세요"/>
-                        <input type="button" id="btn-checkemail" value="이메일중복확인" />
+                        <form:input id="email" path="email" placeholder=" 이메일"/>
                         <img id='img-checkemail' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
                         <form:errors path="email" />
@@ -276,26 +300,23 @@ $(function(){
                     </div>
                     <div>
                         <label for="password"></label>
-                        <form:input id="password" path="password" type="password" placeholder="비밀번호를 입력해주세요"/>
+                        <form:input id="password" path="password" type="password" placeholder=" 비밀번호"/>
                     </div>
-                    <div>
+                    <div class="auth-before">
                         <label for="passwordcheck"></label>
-                        <input id="passwordcheck" name="passwordcheck" type="password" placeholder="비밀번호를 다시 입력해주세요"/>
+                        <input id="passwordcheck" name="passwordcheck" type="password" placeholder=" 비밀번호 확인"/>
                         <div id="password-warning"></div>
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
                         <form:errors path="password"/>
                         </p>                        
                     </div>
-                    <div id="auth" style='display:none'>
-                        <label for="auth-check"></label>
-                        <input id="auth-check" type="text" name="Auth" placeholder="인증번호를 입력해주세요."/>
-                        <input id="btn-auth"  type="button" value="인증번호보내기">
-                        <input id="auth-check-button" type="button" value="인증번호확인">
-                        <img id='img-checkauth' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
-                    </div>                    
                     <div>
                     	<a href="${pageContext.servletContext.contextPath }/"><input class="cancel-button" value="취소"></input></a>
                         <input type="submit" class="join-button" value="가입" >                        
+                    </div>
+                    <hr />
+                    <div>
+                        <input class="login-button" type="submit" value="로그인">
                     </div>
                 </form:form>
             </div>
