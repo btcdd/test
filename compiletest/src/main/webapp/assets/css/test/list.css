@@ -9,14 +9,49 @@ body {
 }
 
 .content {
-    width: auto;
+    width: 80vw;
+    padding: 4% 0;
     margin: auto;
-    padding: 20px 0;
-    display: inline-block;
 }
 
+
+.search {
+  width: 300px;
+  position: relative;
+  display: flex;
+  margin: auto auto 40px auto;
+}
+.searchTerm {
+  width: 100%;
+  border: 3px solid #ff8040;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #000;
+}
+.searchTerm:focus{
+  color: #000;
+}
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #ff8040;
+  background: #ff8040;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+
+
 .proceeding-box, .expected-box, .deadline-box {
-	width: 33.3%;
+	width: 33.333%;
+	overflow-y: scroll;
+	height: 600px;
 }
 .proceeding-box {
 	float: left;
@@ -29,8 +64,8 @@ body {
 }
 
 .test {
-    width: 300px;
-    height: 100px;
+    width: 350px;
+    height: 130px;
     border-radius: 10px;
     margin: 15px 20px;
     padding: 8px 15px 15px 15px;
@@ -41,67 +76,85 @@ body {
 
 .test-top {
 	margin: 10px;
-	height: 25%;
+	height: 30%;
 }
 .test-no {
 	float: left;
 	width: 10%;
 }
-.title {
+.writer {
 	float: left;
-	width: 83%;
+	width: 75%;
 }
 .state {
 	float: right;
 	background-color: #D6E1CF;
 	border-radius: 10px;
-	width: 7%;
+	width: 10%;
     text-align: center;
     font-size: small;
+    padding: 3px 4px;
 }
 #priority1 .state {
 	color: red;
 }
 
 .test-mid {
-	height: 40%;	
+	height: 35%;
+}
+.title {
+	float: left;
+	width: 77%;
+    margin-left: 3%;
+    font-weight: bolder;
+	font-size: large;
 }
 .d-day {
 	float: right;
-	width: 7%;
-	color: #000080;
+	width: 20%;
+	color: #000000;
 	font-weight: bolder;
+	font-size: x-large;
+	margin-top: -2%;
 }
 
 .test-bottom {
 	height: 35%;
 }
-.writer {
-	float: left;
-}
 .date {
-	float: right;
+	font-size: medium;
+	float: left;
+	margin-left: 3%;
 }
 
 #priority1 {
 	background-color: #98B486;
+	position: relative;
+	margin: auto auto 30px auto;
 }
 #priority2 {
 	background-color: #FFE79D;
+	position: relative;
+	margin: auto auto 30px auto;
 }
 #priority3 {
 	background-color: #C8C8C8;
+	position: relative;
+	margin: auto auto 30px auto;
 }
 
 #priority1:hover {
+	z-index: 1;
 	background-color: #D8E3D2;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 #priority2:hover {
+	z-index: 1;
 	background-color: #FFEDB6;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 #priority3:hover {
+	z-index: 1;
 	background-color: #B6B6B6;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
