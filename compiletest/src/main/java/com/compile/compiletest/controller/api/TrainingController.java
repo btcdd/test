@@ -42,7 +42,24 @@ public class TrainingController {
 		return JsonResult.success(map);
 	}
   
-@PostMapping({"/mylist/{problemNo}","/mylist/{userEmail}/{problemNo}"})
+	
+	@PostMapping("/mylist")
+	   public JsonResult mylist(Long no) {
+	      
+	      ProblemVo problemVo = trainingService.selectProblemOne(no);
+	      List<SubProblemVo> list = trainingService.selectSubProblem(no);
+	      
+	      Map<String, Object> map = new HashMap<>();
+	      
+	      map.put("problemVo", problemVo);
+	      map.put("list", list);
+	      map.put("listSize", list.size());
+	      map.put("problemNo", no);
+	      
+	      return JsonResult.success(map);
+	   }
+	
+	@PostMapping({"/mylist/{problemNo}","/mylist/{userEmail}/{problemNo}"})
    public JsonResult mylist(
          @PathVariable("userEmail") Optional<String> userEmail,
          @PathVariable("problemNo") Long problemNo,
@@ -77,47 +94,42 @@ public class TrainingController {
 	
 	@PostMapping("/auth/{userEmail}/{problemNo}")
 	public JsonResult auth(
-			@PathVariable("userEmail") String userEmail,
-			@PathVariable("problemNo") Long problemNo,
-			@RequestBody Map<String,Object> user) {
-		
-		Map<String, Object> map = new HashMap<>();
-		
-		JSONParser parser = new JSONParser();
-		JSONObject obj = null;
-
-    map.put("problemVo", problemVo);
-		map.put("list", list);
-		map.put("listSize", list.size());
-		map.put("problemNo", no);
-		
-		try {
-			obj = (JSONObject)parser.parse((String) user.get("body"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}		
-		String userName = (String) obj.get("name");
-		String userBirth = (String) obj.get("birth");
-		if(userBirth.equals("") || userName.equals("")) {
-			map.put("result", "empty");
-			return JsonResult.success(map);
-		}
-		String tempKey = (String) obj.get("tempKey");		
-		
-		boolean exist = trainingService.existUser(userEmail); //유저가 있는지 체크
-		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
-
-		if( exist && problemVo.getPassword().equals(tempKey) && problemVo.getState().equals("n") ) {
-			map.put("result","delete");
-			return JsonResult.success(map);			
-		}else if( exist && problemVo.getPassword().equals(tempKey) ) {
-			trainingService.insertUserInfo(userName,userBirth,userEmail);
-			map.put("result", "ok");		
-			return JsonResult.success(map);			
-		}
-		map.put("result", "no");
-		return JsonResult.success(map);
-
+	      @PathVariable("userEmail") String userEmail,
+	      @PathVariable("problemNo") Long problemNo,
+	      @RequestBody Map<String,Object> user) {
+	   
+	   Map<String, Object> map = new HashMap<>();
+	   
+	   JSONParser parser = new JSONParser();
+	   JSONObject obj = null;
+	   
+	   try {
+	      obj = (JSONObject)parser.parse((String) user.get("body"));
+	   } catch (ParseException e) {
+	      e.printStackTrace();
+	   }      
+	   String userName = (String) obj.get("name");
+	   String userBirth = (String) obj.get("birth");
+	   if(userBirth.equals("") || userName.equals("")) {
+	      map.put("result", "empty");
+	      return JsonResult.success(map);
+	   }
+	   String tempKey = (String) obj.get("tempKey");      
+	   
+	   boolean exist = trainingService.existUser(userEmail); //유저가 있는지 체크
+	   ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
+	
+	   if( exist && problemVo.getPassword().equals(tempKey) && problemVo.getState().equals("n") ) {
+	      map.put("result","delete");
+	      return JsonResult.success(map);         
+	   }else if( exist && problemVo.getPassword().equals(tempKey) ) {
+	      trainingService.insertUserInfo(userName,userBirth,userEmail);
+	      map.put("result", "ok");      
+	      return JsonResult.success(map);         
+	   }
+	   map.put("result", "no");
+	   return JsonResult.success(map);
+	
 	}
 	
 	@PostMapping("/answerlist")
