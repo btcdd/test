@@ -316,7 +316,7 @@ $(function(){
                     </div>
                     <hr />
                     <div>
-                        <input class="login-button" type="submit" value="로그인">
+                        <a href="${pageContext.request.contextPath }/user/login"><input class="login-button" value="로그인"></a>
                     </div>
                 </form:form>
             </div>
