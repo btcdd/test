@@ -24,8 +24,9 @@
                     <h3>맞힌 문제</h3>
                 </div>
                 <div class="correct-answer">
-                    <span><a href="">1019</a></span>
-                    <span><a href="">669</a></span>
+                    <c:forEach items='${rightSubmit }' var='vo' varStatus='status'>
+                    	<span><a href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
+                    </c:forEach>
                 </div>
             </div>
             <br>
@@ -34,8 +35,9 @@
                     <h3>틀린 문제</h3>
                 </div>
                 <div class="wrong-answer">
-                    <span><a href="">10192</a></span>
-                    <span><a href="">66229</a></span>
+                    <c:forEach items='${wrongSubmit }' var='vo' varStatus='status'>
+                    	<span><a href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
+                    </c:forEach>
                 </div>
             </div>
         </div>

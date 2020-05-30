@@ -30,6 +30,8 @@ public class CompileControllerJava {
 		String[] res = new String[2];
 		res[0] = result;
 		res[1] = errorResult;
+
+		System.out.println("res[0]:" + res[0] + "\nres[1]" + res[1]);
 		
 		return JsonResult.success(res);
 	}

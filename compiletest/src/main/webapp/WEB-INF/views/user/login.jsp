@@ -6,50 +6,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
+<title>Code Forest</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="../../../assets/css/main.css">
-<link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/user/login.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="${pageContext.servletContext.contextPath }/assets/css/include/user-header.css" rel="stylesheet" type="text/css">
 
 <script>
  
 </script>
 </head>
 <body>
-	<div id="container">
-        <c:import url="/WEB-INF/views/include/user-header.jsp" />   
+   <div id="container">
+        <c:import url="/WEB-INF/views/include/user-header.jsp" />
         <div id="content">
             <div id="user">
                 <form id="login-form" name="" method="post" action="${pageContext.servletContext.contextPath }/user/auth" >
-                    <h1>로그인</h1>
-                    <div>
-                        <label for="email">이메일</label>
-                        <input id="email" name="email" type="text" value="${userVo.email }">
+                    <div class="email-area">
+                        <label for="email"></label>
+                        <input id="email" name="email" type="text" value="" placeholder="이메일을 입력하세요">
                     </div>
-                    <div>
-                        <label for="password">패스워드</label>
-                        <input id="password" name="password" type="password" value="">
+                    <div class="email-area">
+                        <label for="password"></label>
+                        <input id="password" name="password" type="password" value="" placeholder="패스워드를 입력하세요"">
                     </div>
                     <c:if test="${not empty userVo }">
-						<p>
-							로그인이 실패 했습니다.
-						</p>
-					</c:if>
+                        
+                    </c:if>
                     <div>
-                        <input class="button" type="submit" value="로그인">
-	                    <a href="${pageContext.servletContext.contextPath }/user/join"><input class="button" value="회원가입" /></a>
+                        <input class="login-button" type="submit" value="로그인">
                     </div>
                     <div>
+                        <a href="${pageContext.servletContext.contextPath }/user/join"><input class="join-button" value="회원가입" /></a>
+                    </div>
+                    <div class="findpassword">
                         <a href="${pageContext.servletContext.contextPath }/user/find">비밀번호찾기</a>
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="footer">
-            footer
-        </div>    
+        </div> 
     </div>
 </body>
 </html>

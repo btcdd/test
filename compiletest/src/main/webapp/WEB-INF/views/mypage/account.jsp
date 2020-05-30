@@ -14,6 +14,11 @@
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+    
+    var no = '${authUser.no}';
+    var email = '${authUser.email}';
+    var currentURL = '${pageContext.request.contextPath }/mypage/account'
+    
     var pandan = false;
 
     var changeNickname = function(nickname) {
@@ -22,7 +27,10 @@
             async: true,
             type: 'post',
             dataType: 'json',
-            data: "nickname=" + nickname,
+            data: {
+            	"nickname" : nickname,
+            	"no" : no
+            },
             success: function(response){
                if(response.result != "success") {
                   console.error(response.message);
@@ -41,7 +49,10 @@
             async: true,
             type: 'post',
             dataType: 'json',
-            data: "password=" + password,
+            data: {
+            	"password" : password,
+            	"no" : no
+            },
             success: function(response){
                if(response.result != "success") {
                   console.error(response.message);
@@ -60,13 +71,18 @@
             async: true,
             type: 'post',
             dataType: 'json',
-            data: "password=" + password,
+            data: {
+            	"password" : password,
+            	"email" : email,
+            	"no" : no
+            },
             success: function(response){
                if(response.data == 0) {
             	   pandan =  false;            	   
                } else {
             	   pandan = true;
             	   $("#delete-user").dialog("close");
+            	   window.location = "${pageContext.request.contextPath }";
                }
                if(response.result != "success") {
             	   pandan = false;
@@ -95,6 +111,7 @@
                 "완료": function() {
                 	changeNickname($('#nickname').val());
                 	$(this).dialog("close");
+                	window.location = "${pageContext.request.contextPath }/mypage/account";
                 },
                 Cancel: function() {
                     $(this).dialog("close");
@@ -118,6 +135,7 @@
                 	if(deleteUser($('#delete').val())) {
                 		$('#delete').val('');
                 		$(this).dialog("close");
+                		
                 	} else {
                 		if(passwordIncorrect) {
                 			$(this).append("<pre id=passwordIncorrect>비밀번호가 맞지 않습니다.</pre>");
@@ -207,7 +225,7 @@
 	        <form>
 	            <fieldset>
 	                <label for="name">닉네임 입력 : </label>
-	                <input type="text" name="nickname" id="nickname" value="에옹이" class="text ui-widget-content ui-corner-all">
+	                <input type="text" name="nickname" id="nickname" value="${authUser.nickname }" class="text ui-widget-content ui-corner-all">
 	
 	                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 	            </fieldset>

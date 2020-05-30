@@ -3,52 +3,107 @@ body {
     padding: 0;
 }
 
+.header {
+	background-image: url('../../images/main/autumn.jpg');
+	background-position-y: 40%;
+}
+
 .content {
-    width: 980px;
+    width: auto;
     margin: auto;
     padding: 20px 0;
-}
-
-.list {
-    width: 800px;
-    float: right;
-}
-.list tr {
-    margin: auto;
-}
-.list td {
-    text-align: center;
-    padding: 10px 40px;
-}
-
-div.pager {
-    width: 100%;
-    text-align: center;
-}
-div.pager ul {
-    height: 20px;
-    margin: 10px auto;
-}
-div.pager ul li {
-    color: rgb(8, 0, 0);
     display: inline-block;
-    margin: 5px 0;
-    width: 20px;
-    font-weight: bold;
 }
-div.pager ul li.selected {
-    font-size: 16px;
-    text-decoration: underline;
-    color: #f40808
+
+.proceeding-box, .expected-box, .deadline-box {
+	width: 33.3%;
 }
-div.pager ul li a,
-div.pager ul li a:visited,
-div.pager ul li a:link,
-div.pager ul li a:active {
-    text-decoration: none;
-    color: #555
+.proceeding-box {
+	float: left;
 }
-div.pager ul li a:hover {
-    text-decoration: none;
-    color: #f00
+.expected-box {
+	float: left;
 }
+.deadline-box {
+	float: left;
+}
+
+.test {
+    width: 300px;
+    height: 100px;
+    border-radius: 10px;
+    margin: 15px 20px;
+    padding: 8px 15px 15px 15px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+}
+
+.test-top {
+	margin: 10px;
+	height: 25%;
+}
+.test-no {
+	float: left;
+	width: 10%;
+}
+.title {
+	float: left;
+	width: 83%;
+}
+.state {
+	float: right;
+	background-color: #D6E1CF;
+	border-radius: 10px;
+	width: 7%;
+    text-align: center;
+    font-size: small;
+}
+#priority1 .state {
+	color: red;
+}
+
+.test-mid {
+	height: 40%;	
+}
+.d-day {
+	float: right;
+	width: 7%;
+	color: #000080;
+	font-weight: bolder;
+}
+
+.test-bottom {
+	height: 35%;
+}
+.writer {
+	float: left;
+}
+.date {
+	float: right;
+}
+
+#priority1 {
+	background-color: #98B486;
+}
+#priority2 {
+	background-color: #FFE79D;
+}
+#priority3 {
+	background-color: #C8C8C8;
+}
+
+#priority1:hover {
+	background-color: #D8E3D2;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+#priority2:hover {
+	background-color: #FFEDB6;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+#priority3:hover {
+	background-color: #B6B6B6;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+

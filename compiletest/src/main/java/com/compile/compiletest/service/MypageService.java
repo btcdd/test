@@ -11,6 +11,7 @@ import com.compile.compiletest.repository.MypageRepository;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.SubmitVo;
+import com.compile.compiletest.vo.UserVo;
 
 
 @Service
@@ -22,25 +23,27 @@ public class MypageService {
 	@Autowired
 	private MypageRepository mypageRepository;
 
-	public int changeNickname(String nickname) {
-		return mypageRepository.changeNickname(nickname);
+	public int changeNickname(UserVo vo) {
+		return mypageRepository.changeNickname(vo);
 	}
 
-	public int changePassword(String password) {
-		return mypageRepository.changePassword(password);
+	public int changePassword(UserVo vo) {
+		return mypageRepository.changePassword(vo);
 	}
 
-	public int deleteUser(String password) {
-		String email = "1sang@gmail.com";
+	public int deleteUser(UserVo vo) {
+		String email = vo.getEmail();
 		String result = mypageRepository.lookUpPassword(email);
 		
-		if(!result.equals(password)) {
+		if(!result.equals(vo.getPassword())) {
 			return 0;
 		}
 		
 		mypageRepository.foreignKeyChecks(0L);
-		int deleteUser = mypageRepository.deleteUser(email);
+		int deleteUser = mypageRepository.deleteUser(vo);
 		mypageRepository.foreignKeyChecks(1L);
+		
+		
 		
 		return deleteUser;
 	}
@@ -53,9 +56,9 @@ public class MypageService {
 		return mypageRepository.problemSolveList(no);
 	}
 
-	public Map<String, Object> getContentsList(int currentPage) {
+	public Map<String, Object> getContentsList(int currentPage, Long userNo) {
 		//게시물 총 갯수
-		int count = mypageRepository.getTotalCount();
+		int count = mypageRepository.getTotalCount(userNo);
 		
 		//하단 페이징 번호([게시물 총 갯수 / 한 페이지에 출력할 갯수]의 올림)
 		int pageNum = (int)Math.ceil((double)count/postNum);
@@ -80,7 +83,7 @@ public class MypageService {
 		
 		boolean next = endPageNum * pageNum_cnt >= count ? false : true;//마지막 페이지 번호가 총 게시물 갯수보다 작다면, 다음 구간이 있다는 의미이므로 출력		
 		
-		List<ProblemVo> list = mypageRepository.selectProblemList(displayPost,postNum);
+		List<ProblemVo> list = mypageRepository.selectProblemList(displayPost,postNum,userNo);
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		map.put("list",list);		
@@ -104,5 +107,13 @@ public class MypageService {
 
 	public int deleteSubProblem(Long no) {
 		return mypageRepository.deleteSubProblem(no);
+	}
+
+	public List<SubmitVo> findRrightSubmit(Long no) {
+		return mypageRepository.findRrightSubmit(no);
+	}
+
+	public List<SubmitVo> findWrongSubmit(Long no) {
+		return mypageRepository.findWrongSubmit(no);
 	}
 }

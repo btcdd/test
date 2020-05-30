@@ -13,10 +13,9 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/ckeditor/contents.css">
 <script>
-
 var problemNo = '${problemVo.no}';
-
 $(function() {
 	
 	var no;
@@ -26,30 +25,27 @@ $(function() {
 		
 		$(".open" + no).toggle("slow");
 	});
+  
+  $("#code-tree").on('click',function(){
 
-
-
-$("#code-tree").on('click',function(){
-
-		$.ajax({
-			url:'${pageContext.request.contextPath }/api/training/mylist/'+problemNo,
-			async:false,
-			type:'post',
-			dataType:'json',
-			data : '',
-			success:function(response){
-				console.log(response.data);
-  				console.log(response.data.authUser.email);
- 				var url = "http://localhost:9999/?userEmail="+response.data.authUser.email+"&problemNo="+response.data.problemVo.no;
- 				window.open(url);
- 				
-			},
-			error: function(xhr, status, e) {
-				console.error(status + ":" + e);
-			}
-		});		
-	}); 
-	
+      $.ajax({
+         url:'${pageContext.request.contextPath }/api/training/mylist/'+problemNo,
+         async:false,
+         type:'post',
+         dataType:'json',
+         data : '',
+         success:function(response){
+            console.log(response.data);
+              console.log(response.data.authUser.email);
+             var url = "http://localhost:9999/?userEmail="+response.data.authUser.email+"&problemNo="+response.data.problemVo.no;
+             window.open(url);
+             
+         },
+         error: function(xhr, status, e) {
+            console.error(status + ":" + e);
+         }
+      });      
+   }); 
 });
 </script>
 </head>
@@ -60,10 +56,10 @@ $("#code-tree").on('click',function(){
     <div class="container">
         <div class="top">
             <p class="division">${problemVo.no }</p>
+
             <p>${problemVo.title }</p>
              <button id='code-tree'>코드 트리로 가져오기</button>  
-			
-            <button><a href="">통계</a></button>
+            <a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }"><button>통계</button></a>
         </div>
         
         <div class="problem-list">
@@ -72,7 +68,7 @@ $("#code-tree").on('click',function(){
 					<div class="pro pro${status.index + 1}" id="${status.index + 1}">
 						<p class="division">문제 ${status.index + 1}</p>
 						<p id="click">${vo.title }</p>
-						<button>맞은 사람</button>
+						<a href="${pageContext.servletContext.contextPath }/training/answerlist/${status.index + 1}/${vo.no}"><button>맞은 사람</button></a>
 						
 						<div class="open${status.index + 1}">
 							<div class="explain">
@@ -98,7 +94,9 @@ $("#code-tree").on('click',function(){
 				</div>
 			</c:forEach>
         </div>
-        <a href="${pageContext.servletContext.contextPath }/training/modify/${problemVo.no }">수정하기</a>
+        <c:if test="${problemVo.userNo eq authUser.no }">
+        	<a href="${pageContext.servletContext.contextPath }/training/modify/${problemVo.no }">수정하기</a>
+        </c:if>
     </div>
 </body>
 

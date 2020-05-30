@@ -323,10 +323,10 @@
 						u.nickname,
 						k.name as kind
 					  from problem p, user u, kind k
-					 where 
-					  	p.user_no = u.no and k.no = p.kind_no
-					   	and p.state = 'y'
-					   	limit #{displayPost}, #{postNum}
+					 where p.user_no = u.no 
+					   and k.no = p.kind_no
+					   and p.state = 'y'
+					 limit #{displayPost}, #{postNum}
 				]]>			
 			</when>
 			<otherwise>
@@ -344,7 +344,7 @@
 					  	and (title like '%${keyword}%' or nickname like '%${keyword}%')
 					   	and p.state = 'y'
 					   	limit #{displayPost}, #{postNum}
-				]]>				
+				]]>
 			</otherwise>
 		</choose>
 
@@ -384,5 +384,80 @@
 			where email = #{userEmail}
 		]]>
 	</insert>		
+	
+	<select id="selectStatistics" parameterType="map" resultType="statisticsvo">
+		  select lang as language, count(*) as count
+		    from submit s, sub_problem sp
+		   where s.subproblem_no = sp.no
+		     and s.subproblem_no = #{subProblemNo }
+		group by lang
+		   union
+		  select answer as language, count(*) as count
+		    from submit s, sub_problem sp
+		   where s.subproblem_no = sp.no
+		     and s.subproblem_no = #{subProblemNo }
+		group by answer
+  	</select>
+  	
+  	<select id="selectStatisticsOne" parameterType="long" resultType="statisticsvo">
+		  select lang as language, count(*) as count
+		    from submit s, sub_problem sp
+		   where s.subproblem_no = sp.no
+		     and s.subproblem_no = #{subProblemNo }
+		group by lang
+		   union
+		  select answer as language, count(*) as count
+		    from submit s, sub_problem sp
+		   where s.subproblem_no = sp.no
+		     and s.subproblem_no = #{subProblemNo }
+		group by answer
+  	</select>
+  	
+	<select id="userFindByProblemNo" parameterType="long" resultType="uservo">
+		<![CDATA[
+			  select u.no, u.name, u.nickname, u.email, u.birth, u.password
+				from user u, problem p
+				where u.no = p.user_no and p.no = #{problemNo }
+				limit 1;
+		]]>
+	</select>
+	
+	<select id="getAnswerUserListTotalCount" parameterType="long" resultType="integer">
+		select count(*)
+		from submit s, user u
+		where s.user_no = u.no
+		and s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+	</select>
+	
+	<select id="getAnswerUserLangListTotalCount" parameterType="map" resultType="integer">
+		select count(*)
+		from submit s, user u
+		where s.user_no = u.no
+		and s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+		and lang = #{lang }
+	</select>
+	
+	<select id="selectAnswerUserList" parameterType="map" resultType="answeruserlistvo">
+		select s.code as code, u.nickname as nickname, s.lang as lang, s.try as tryCnt
+		from submit s, user u
+		where s.user_no = u.no
+		and s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+		order by solve_time desc
+		limit #{displayPost}, #{postNum}
+	</select>
+	
+	<select id="selectAnswerUserLangList" parameterType="map" resultType="answeruserlistvo">
+		select s.code as code, u.nickname as nickname, s.lang as lang, s.try as tryCnt
+		from submit s, user u
+		where s.user_no = u.no
+		and s.subproblem_no = #{subProblemNo }
+		and s.answer = 'y'
+		and lang = #{lang }
+		order by solve_time desc
+		limit #{displayPost}, #{postNum}
+	</select>
+	
 </mapper>
-

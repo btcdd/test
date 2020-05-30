@@ -9,7 +9,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.compile.compiletest.vo.AnswerUserListVo;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.UserVo;
 
@@ -109,10 +111,8 @@ public class TrainingRepository {
 		for(int i = 0; i < size; i++) {
 			map.put(checkValues[i], checkValues[i]);
 		}
-		
 		return sqlSession.selectOne("training.getOrganizationListCount", map);
 	}
-
 
 	public UserVo findByUserEmail(String email) {
 		return sqlSession.selectOne("training.findByUserEmail",email);
@@ -127,6 +127,44 @@ public class TrainingRepository {
 		
 	}
 
-
+	public List<StatisticsVo> selectStatistics(Map<String, Object> map) {
+		return sqlSession.selectList("training.selectStatistics", map);
+	}
+	
+	public List<StatisticsVo> selectStatistics(Long subProblemNo) {
+		return sqlSession.selectList("training.selectStatisticsOne", subProblemNo);
+	}
+  
+	public UserVo userFindByProblemNo(Long problemNo) {
+		return sqlSession.selectOne("training.userFindByProblemNo", problemNo);
+	}
+	
+	public int getAnswerUserListTotalCount(Long subProblemNo) {
+		return sqlSession.selectOne("training.getAnswerUserListTotalCount",subProblemNo);
+	}
+	
+	public int getAnswerUserLangListTotalCount(Long subProblemNo, String lang) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("subProblemNo", subProblemNo);
+		map.put("lang", lang);
+		return sqlSession.selectOne("training.getAnswerUserLangListTotalCount", map);
+	}
+	
+	public List<AnswerUserListVo> selectAnswerUserList(int displayPost, int postNum,Long subProblemNo) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("displayPost",displayPost);
+		map.put("postNum",postNum);
+		map.put("subProblemNo",subProblemNo);
+		return sqlSession.selectList("training.selectAnswerUserList", map);
+	}
+	
+	public List<AnswerUserListVo> selectAnswerUserLangList(int displayPost, int postNum,Long subProblemNo, String lang) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("displayPost",displayPost);
+		map.put("postNum",postNum);
+		map.put("subProblemNo", subProblemNo);
+		map.put("lang", lang);
+		return sqlSession.selectList("training.selectAnswerUserLangList", map);
+	}
 	
 }

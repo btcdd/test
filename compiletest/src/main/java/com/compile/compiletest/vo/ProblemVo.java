@@ -14,6 +14,7 @@ public class ProblemVo {
 	private Long levelNo;
 	private String nickname;
 	private String kind;
+	private String state;
 	private int priority;
 	private String state;
 	
@@ -95,6 +96,12 @@ public class ProblemVo {
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public int getPriority() {
 		return priority;
 	}
@@ -102,23 +109,11 @@ public class ProblemVo {
 		this.priority = priority;
 	}
 	
-	
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
 	@Override
 	public String toString() {
 		return "ProblemVo [no=" + no + ", title=" + title + ", password=" + password + ", hit=" + hit + ", recommend="
 				+ recommend + ", regDate=" + regDate + ", userNo=" + userNo + ", kindNo=" + kindNo + ", startTime="
 				+ startTime + ", endTime=" + endTime + ", levelNo=" + levelNo + ", nickname=" + nickname + ", kind="
-				+ kind + ", priority=" + priority + ", state=" + state + "]";
+				+ kind + ", state=" + state + ", priority=" + priority + "]";
 	}
-
-	
-	
-
-	
 }
