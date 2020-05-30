@@ -164,7 +164,7 @@
 			lineNumbers : true,
 			mode : 'text/x-java',
 			theme : 'panda-syntax',
-			matchBrackets : true	
+			matchBrackets : true
 		});
 	});
 </script>
