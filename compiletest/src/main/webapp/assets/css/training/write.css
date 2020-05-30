@@ -5,7 +5,7 @@ body {
 
 .regist {
 	margin-left: auto;
-	margin-top: 1%;
+	margin-top: 3%;
 	width: 80%;
 }
 
@@ -53,27 +53,37 @@ body {
 }
 
 .CodeMirror {
-	width: 900px;
+	width: 95.5%;
 	height: 350px;
 }
 
 .ex-input {
 	float: left;
-}
-
-.ex-input-title {
-	margin-left: 30px;
+	width: 50%;
 }
 
 #ex-input-text {
-	margin-left: 30px;
-	width: 400px;
+	margin-left: 0;
+	width: 100%;
 	height: 220px;
+	background-color: #292A2B;
+	font-size: 1em;
+	color: #19F9D8;
+	padding: 15px;
+}
+
+.ex-output {
+	float: left;
+	width: 50%;
 }
 
 #ex-output-text {
-	width: 400px;
+	width: 91%;
 	height: 220px;
+	background-color: #292A2B;
+	font-size: 1em;
+	color: #19F9D8;
+	padding: 15px;
 }
 
 #answer-code-text {
@@ -146,7 +156,7 @@ td {
 	border: 1px solid #ccc;
 	background-color: #f1f1f1;
 	width: 10%;
-	height: 1050px;
+	height: 100%;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -172,11 +182,10 @@ td {
 /* Style the tab content */
 .tabcontent {
 	float: left;
-	padding: 0px 12px;
+	padding: 0 0 0 1.3%;
 	border: 1px solid #ccc;
 	width: 70%;
-	border-left: none;
-	height: 700px;
+	height: 1100px;
 }
 
 ul {
@@ -230,7 +239,6 @@ ul {
 	display: inline-block;
 	border-radius: 10px;
 	transition: all 0.1s;
-	margin-bottom: 2%;
 	margin-left: 15%;
 }
 
@@ -243,6 +251,5 @@ ul {
 	border: 0;
 	border-radius: 10px;
 	transition: all 0.1s;
-	margin-bottom: 2%;
-	margin-left: 0;
+	margin-left: 2%;
 }
