@@ -218,11 +218,11 @@ $(function() {
 		<div class="navigator">
 			<nav>
 				<ul>
-					<li class="menu"><a href="${pageContext.servletContext.contextPath }/info">Info</a></li>
-					<li class="menu"><a href="${pageContext.servletContext.contextPath }/codetree">Code Tree</a></li>
+					<li class="menu"><a href="#">Info</a></li>
+					<li class="menu"><a href="#">Code Tree</a></li>
 					<li class="title"><a>Code Forest</a></li>
-					<li class="menu"><a href="${pageContext.servletContext.contextPath }/codingtest">Coding Test</a></li>
-					<li class="menu"><a href="${pageContext.servletContext.contextPath }/training">Training</a></li>
+					<li class="menu"><a href="#">Coding Test</a></li>
+					<li class="menu"><a href="#">Training</a></li>
 				</ul>
 			</nav>
 		</div>
