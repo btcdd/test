@@ -16,6 +16,7 @@ public class ProblemVo {
 	private String kind;
 	private String state;
 	private int priority;
+	private String state;
 	
 	public Long getNo() {
 		return no;

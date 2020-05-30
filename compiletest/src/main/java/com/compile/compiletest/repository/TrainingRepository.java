@@ -1,5 +1,6 @@
 package com.compile.compiletest.repository;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,6 +112,19 @@ public class TrainingRepository {
 			map.put(checkValues[i], checkValues[i]);
 		}
 		return sqlSession.selectOne("training.getOrganizationListCount", map);
+	}
+
+	public UserVo findByUserEmail(String email) {
+		return sqlSession.selectOne("training.findByUserEmail",email);
+	}
+
+	public int insertInputValueByUserEmail(String userName, String userBirth, String userEmail) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("userName",userName);
+		map.put("userBirth",userBirth);
+		map.put("userEmail",userEmail);
+		return sqlSession.update("training.insertInputValueByUserEmail", map);
+		
 	}
 
 	public List<StatisticsVo> selectStatistics(Map<String, Object> map) {
