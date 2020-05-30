@@ -25,6 +25,11 @@
 <script>
 $(function(){
 	//$(".d-day[data-no=12]").dDay();	
+	
+	$('.searchTerm').on("propertychange change keyup paste input", function(){
+		
+	});
+	
 });
 </script>
 <title>Code Forest</title>
