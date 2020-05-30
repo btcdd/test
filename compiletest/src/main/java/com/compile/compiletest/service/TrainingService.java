@@ -1,5 +1,6 @@
 package com.compile.compiletest.service;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,5 +152,17 @@ public class TrainingService {
 		map.put("deleteNoList", array);
 		
 		trainingRepository.deleteSubProblem(map);
-	}	
+	}
+
+	public boolean existUser(String email) {
+		return trainingRepository.findByUserEmail(email) != null;
+	}
+
+	public void insertUserInfo(String userName, String userBirth, String userEmail) {
+		trainingRepository.insertInputValueByUserEmail(userName,userBirth,userEmail);
+		
+	}
+
+	
+	
 }

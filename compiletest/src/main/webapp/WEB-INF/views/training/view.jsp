@@ -27,50 +27,42 @@ $(function() {
 		$(".open" + no).toggle("slow");
 	});
 
-	
-	$("#problem-no").on('click',function(){
-		console.log('click!!!');
-		
-		
-		console.log("codetreeNo >>" + problemNo);
+
+
+$("#code-tree").on('click',function(){
+
 		$.ajax({
 			url:'${pageContext.request.contextPath }/api/training/mylist/'+problemNo,
 			async:false,
 			type:'post',
 			dataType:'json',
-			data:'',
+			data : '',
 			success:function(response){
-				console.log(response.data.problemNo);
-
-				
-				var url = "http://127.0.0.1:9999/"+response.data.problemNo;
-				console.log("url>" + url);
-				window.open(url);
-				
+				console.log(response.data);
+  				console.log(response.data.authUser.email);
+ 				var url = "http://localhost:9999/?userEmail="+response.data.authUser.email+"&problemNo="+response.data.problemVo.no;
+ 				window.open(url);
+ 				
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
 			}
-		});
-		
-	});
-	
-	
-	
-	
-	
+		});		
+	}); 
 	
 });
 </script>
 </head>
 
 <body>
+	
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
     <div class="container">
         <div class="top">
             <p class="division">${problemVo.no }</p>
             <p>${problemVo.title }</p>
-            <button id='problem-no'>코드 트리로 가져오기</button>
+             <button id='code-tree'>코드 트리로 가져오기</button>  
+			
             <button><a href="">통계</a></button>
         </div>
         

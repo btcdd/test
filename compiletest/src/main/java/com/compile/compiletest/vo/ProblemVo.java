@@ -1,23 +1,21 @@
 package com.compile.compiletest.vo;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class ProblemVo {
 	private Long no;
 	private String title;
 	private String password;
 	private Long hit;
 	private Long recommend;
-	private Date regDate;
+	private String regDate;
 	private Long userNo;
 	private Long kindNo;
-	private Timestamp startTime;
-	private Timestamp endTime;
+	private String startTime;
+	private String endTime;
 	private Long levelNo;
 	private String nickname;
 	private String kind;
 	private int priority;
+	private String state;
 	
 	public Long getNo() {
 		return no;
@@ -49,10 +47,10 @@ public class ProblemVo {
 	public void setRecommend(Long recommend) {
 		this.recommend = recommend;
 	}
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 	public Long getUserNo() {
@@ -67,16 +65,16 @@ public class ProblemVo {
 	public void setKindNo(Long kindNo) {
 		this.kindNo = kindNo;
 	}
-	public Timestamp getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-	public Timestamp getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	public Long getLevelNo() {
@@ -96,19 +94,31 @@ public class ProblemVo {
 	}
 	public void setKind(String kind) {
 		this.kind = kind;
-	}	
+	}
 	public int getPriority() {
 		return priority;
 	}
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
+	
+	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	@Override
 	public String toString() {
 		return "ProblemVo [no=" + no + ", title=" + title + ", password=" + password + ", hit=" + hit + ", recommend="
 				+ recommend + ", regDate=" + regDate + ", userNo=" + userNo + ", kindNo=" + kindNo + ", startTime="
 				+ startTime + ", endTime=" + endTime + ", levelNo=" + levelNo + ", nickname=" + nickname + ", kind="
-				+ kind + ", priority=" + priority + "]";
+				+ kind + ", priority=" + priority + ", state=" + state + "]";
 	}
+
+	
+	
+
 	
 }

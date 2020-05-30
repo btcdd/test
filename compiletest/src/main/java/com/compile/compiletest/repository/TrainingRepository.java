@@ -1,5 +1,6 @@
 package com.compile.compiletest.repository;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SubProblemVo;
+import com.compile.compiletest.vo.UserVo;
 
 @Repository
 public class TrainingRepository {
@@ -110,4 +112,21 @@ public class TrainingRepository {
 		
 		return sqlSession.selectOne("training.getOrganizationListCount", map);
 	}
+
+
+	public UserVo findByUserEmail(String email) {
+		return sqlSession.selectOne("training.findByUserEmail",email);
+	}
+
+	public int insertInputValueByUserEmail(String userName, String userBirth, String userEmail) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("userName",userName);
+		map.put("userBirth",userBirth);
+		map.put("userEmail",userEmail);
+		return sqlSession.update("training.insertInputValueByUserEmail", map);
+		
+	}
+
+
+	
 }
