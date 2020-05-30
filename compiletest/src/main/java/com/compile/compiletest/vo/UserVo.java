@@ -27,6 +27,8 @@ public class UserVo {
 	@Length(min=4,max=16)
 	private String password;
 
+
+	
 	public Long getNo() {
 		return no;
 	}
@@ -80,8 +82,7 @@ public class UserVo {
 		return "UserVo [no=" + no + ", name=" + name + ", nickname=" + nickname + ", email=" + email + ", birth="
 				+ birth + ", password=" + password + "]";
 	}
-	
-	
+
 	
 	
 	

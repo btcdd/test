@@ -176,7 +176,17 @@
 	
 	<select id="selectProblemOne" parameterType="long" resultType="problemvo">
 		<![CDATA[
-			  select no, title, recommend , start_time as startTime, end_time as endTime , user_no as userNo , kind_no as kindNo
+			  select
+			  	no,
+			   	title, 
+			   	recommend,
+			   	date_format(start_time,'%Y-%m-%d %H:%i:%s') as startTime,
+			   	date_format(end_time,'%Y-%m-%d %H:%i:%s') as endTime,
+			   	user_no as userNo , 
+			   	kind_no as kindNo ,
+			   	date_format(reg_date,'%Y-%m-%d %H:%i:%s') as regDate,
+			   	password,
+			   	state 
 			    from problem
 			   where no = #{no }
 		]]>
@@ -357,6 +367,23 @@
 			)
 		]]>
 	</delete>
+
+	<select id="findByUserEmail" parameterType="string" resultType="uservo">
+		<![CDATA[
+			select 
+				no
+			from user 
+			where email = #{email}
+			 
+		]]>
+	</select>
+	<insert id="insertInputValueByUserEmail" parameterType="map">
+		<![CDATA[
+			update user
+				set name = #{userName}, birth = #{userBirth}
+			where email = #{userEmail}
+		]]>
+	</insert>		
 	
 	<select id="selectStatistics" parameterType="map" resultType="statisticsvo">
 		  select lang as language, count(*) as count

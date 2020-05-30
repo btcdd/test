@@ -26,41 +26,39 @@ $(function() {
 		$(".open" + no).toggle("slow");
 	});
   
-	$("#problem-no").on('click',function(){
-		console.log('click!!!');
-		
-		console.log("codetreeNo >>" + problemNo);
-		$.ajax({
-			url:'${pageContext.request.contextPath }/api/training/mylist',
-			async:true,
-			type:'post',
-			dataType:'json',
-			data:'no='+ problemNo,
-			success:function(response){
-				console.log(response.data.problemNo);
+  $("#code-tree").on('click',function(){
 
-        var url = "http://127.0.0.1:9999/"+response.data.problemNo;
-				console.log("url>" + url);
-				window.open(url);
-				
-			},
-			error: function(xhr, status, e) {
-				console.error(status + ":" + e);
-			}
-		});
-	});
+      $.ajax({
+         url:'${pageContext.request.contextPath }/api/training/mylist/'+problemNo,
+         async:false,
+         type:'post',
+         dataType:'json',
+         data : '',
+         success:function(response){
+            console.log(response.data);
+              console.log(response.data.authUser.email);
+             var url = "http://localhost:9999/?userEmail="+response.data.authUser.email+"&problemNo="+response.data.problemVo.no;
+             window.open(url);
+             
+         },
+         error: function(xhr, status, e) {
+            console.error(status + ":" + e);
+         }
+      });      
+   }); 
 });
 </script>
 </head>
 
 <body>
+	
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
     <div class="container">
         <div class="top">
             <p class="division">${problemVo.no }</p>
 
             <p>${problemVo.title }</p>
-            <a href=""><button>코드 트리로 가져오기</button></a>
+             <button id='code-tree'>코드 트리로 가져오기</button>  
             <a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }"><button>통계</button></a>
         </div>
         
