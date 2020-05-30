@@ -25,6 +25,11 @@
 <script>
 $(function(){
 	//$(".d-day[data-no=12]").dDay();	
+	
+	$('.searchTerm').on("propertychange change keyup paste input", function(){
+		
+	});
+	
 });
 </script>
 <title>Code Forest</title>
@@ -32,123 +37,85 @@ $(function(){
 <body>
 	<c:import url="/WEB-INF/views/include/main-header.jsp" />
 	<div class="content">
+		<div class="search">
+			<input type="text" class="searchTerm"
+				placeholder="Search!">
+			<button type="submit" class="searchButton">
+				<i class="search-icon"></i>
+			</button>
+		</div>
+
 		<div class="proceeding-box">
 			<c:forEach items='${list }' var='vo' step='1' varStatus='status'>
-				<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
-					<div class="test-top">
-						<div class="test-no">${fn:length(list) - status.index }</div>
-						<div class="title">${vo.title }</div>
-						<div class="state">
-							<c:choose>
-								<c:when test="${vo.priority == 1 }">
-									진행중
-								</c:when>
-								<c:when test="${vo.priority == 2 }">
-									예정
-								</c:when>
-								<c:when test="${vo.priority == 3 }">
-									마감
-								</c:when>
-							</c:choose>
+				<c:choose>
+					<c:when test="${vo.priority == 1 }">
+						<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
+							<div class="test-top">
+							<div class="test-no">${fn:length(list) - status.index }</div>						
+							<div class="writer">${vo.nickname }</div>
+							<div class="state">진행</div>
 						</div>
-					</div>
 					<div class="test-mid">
-						<c:if test="${vo.priority == 2 }">
-							<c:choose>
-								<c:when test="${dday[vo.no] eq 0 }">
-									<div class="d-day" data-no="${vo.no }">D-DAY</div>
-								</c:when>
-								<c:otherwise>
-									<div class="d-day" data-no="${vo.no }">D${dday[vo.no] }</div>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
+						<div class="title">${vo.title }</div>
 					</div>
 					<div class="test-bottom">
-						<div class="writer">${vo.nickname }</div>
-						<div class="date">${vo.startTime } ~ ${vo.endTime }</div>
+						<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
 					</div>
 				</div>
+					</c:when>
+				</c:choose>
 			</c:forEach>
 		</div>
 		
 		<div class="expected-box">
 			<c:forEach items='${list }' var='vo' step='1' varStatus='status'>
-				<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
-					<div class="test-top">
-						<div class="test-no">${fn:length(list) - status.index }</div>
-						<div class="title">${vo.title }</div>
-						<div class="state">
-							<c:choose>
-								<c:when test="${vo.priority == 1 }">
-									진행중
-								</c:when>
-								<c:when test="${vo.priority == 2 }">
-									예정
-								</c:when>
-								<c:when test="${vo.priority == 3 }">
-									마감
-								</c:when>
-							</c:choose>
+				<c:choose>
+					<c:when test="${vo.priority == 2 }">
+						<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
+							<div class="test-top">
+								<div class="test-no">${fn:length(list) - status.index }</div>						
+								<div class="writer">${vo.nickname }</div>
+								<div class="state">예정</div>
+							</div>
+							<div class="test-mid">
+								<div class="title">${vo.title }</div>
+								<c:choose>
+									<c:when test="${dday[vo.no] eq 0 }">
+										<div class="d-day" data-no="${vo.no }">D-DAY</div>
+									</c:when>
+									<c:otherwise>
+										<div class="d-day" data-no="${vo.no }">D${dday[vo.no] }</div>
+									</c:otherwise>
+								</c:choose>
+							</div>
+							<div class="test-bottom">
+								<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
+							</div>
 						</div>
-					</div>
-					<div class="test-mid">
-						<c:if test="${vo.priority == 2 }">
-							<c:choose>
-								<c:when test="${dday[vo.no] eq 0 }">
-									<div class="d-day" data-no="${vo.no }">D-DAY</div>
-								</c:when>
-								<c:otherwise>
-									<div class="d-day" data-no="${vo.no }">D${dday[vo.no] }</div>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
-					</div>
-					<div class="test-bottom">
-						<div class="writer">${vo.nickname }</div>
-						<div class="date">${vo.startTime } ~ ${vo.endTime }</div>
-					</div>
-				</div>
+					</c:when>
+				</c:choose>
 			</c:forEach>
 		</div>
 		
 		<div class="deadline-box">
 			<c:forEach items='${list }' var='vo' step='1' varStatus='status'>
-				<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
-					<div class="test-top">
-						<div class="test-no">${fn:length(list) - status.index }</div>
-						<div class="title">${vo.title }</div>
-						<div class="state">
-							<c:choose>
-								<c:when test="${vo.priority == 1 }">
-									진행중
-								</c:when>
-								<c:when test="${vo.priority == 2 }">
-									예정
-								</c:when>
-								<c:when test="${vo.priority == 3 }">
-									마감
-								</c:when>
-							</c:choose>
+				<c:choose>
+					<c:when test="${vo.priority == 3 }">
+						<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
+							<div class="test-top">
+							<div class="test-no">${fn:length(list) - status.index }</div>						
+							<div class="writer">${vo.nickname }</div>
+							<div class="state">마감</div>
 						</div>
-					</div>
 					<div class="test-mid">
-						<c:if test="${vo.priority == 2 }">
-							<c:choose>
-								<c:when test="${dday[vo.no] eq 0 }">
-									<div class="d-day" data-no="${vo.no }">D-DAY</div>
-								</c:when>
-								<c:otherwise>
-									<div class="d-day" data-no="${vo.no }">D${dday[vo.no] }</div>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
+						<div class="title">${vo.title }</div>	
 					</div>
 					<div class="test-bottom">
-						<div class="writer">${vo.nickname }</div>
-						<div class="date">${vo.startTime } ~ ${vo.endTime }</div>
+						<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
 					</div>
 				</div>
+					</c:when>
+				</c:choose>
 			</c:forEach>
 		</div>
 		
