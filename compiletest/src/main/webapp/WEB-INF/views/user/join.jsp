@@ -44,31 +44,33 @@ var closeLoadingWithMask = function CloseLoadingWithMask(){
 	$('#mask,#loadingImg').empty();
 } 
 
-var checkEmail = function CheckEmail(str) {
-     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-     if(!reg_email.test(str)) {                            
-          return false;         
-     } else {                       
-         return true;         
-     }                            
-}   
-
 var auth_str = '<div id="auth">' +  
 					'<label for="auth-check"></label>' + 
 					'<input id="auth-check" type="text" name="Auth" placeholder="인증번호 입력"/>' + 
-					'<input id="btn-auth"  type="button" value="인증번호보내기">' +
+					'<input id="btn-auth"  type="button" value="인증번호 보내기">' +
 					'<img id="img-checkauth" style="width:16px; display:none" src="${pageContext.request.contextPath }/assets/images/user/check.png" />' +  
                 '</div>';
 
 var auth_pandan = false;
-                
+             
+var checkEmail = function CheckEmail(str) {
+    var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    if(!reg_email.test(str)) {                            
+    	return false;         
+    } else {               
+        return true;         
+    }                            
+} 
+
 $(function(){
 
 	var tempKey = null;
-
-	$('#btn-auth').on('click',function(){
-		
+	
+	$(document).on("click", "#btn-auth", function() {
 		var email = $('#email').val();
+		console.log("id : " + $(this).attr('id'));
+		$(this).attr('id','btn-auth-check');
+		$(this).val('인증번호 확인');
 		loadingWithMask();
 		
 		$.ajax({
@@ -79,6 +81,7 @@ $(function(){
 			data:'email='+ email,
 			success:function(response){	
 				alert('인증번호가 발송되었습니다.');
+				
 				console.log(response.data);//인증키
 				tempKey = response.data;
 				closeLoadingWithMask();
@@ -89,16 +92,11 @@ $(function(){
 		});
 	});
 	
-	$('#auth-check-button').on('click',function(){
-		
+	$(document).on("click", "#btn-auth-check", function() {
 		if( $('#auth-check').val() == tempKey) {
-			$('#img-checkauth').show();
-			$('#btn-auth').hide();
-			$('#auth-check-button').hide();
+			$("#auth-check").attr("disabled", true);
 		} else {
-			$('#img-checkauth').hide();
-			$('#btn-auth').show();
-			$('#auth-check-button').show();	
+			$("#auth-check").attr("disabled", false);
 		}
 	});
 	
@@ -148,7 +146,7 @@ $(function(){
 	$('#nickname').on("propertychange change keyup paste input", function() {
 		var nickname = $("#nickname").val();
 		if(nickname == '') {
-			$('#img-checknickname').hide();
+			$('#nickname').css('background-image', 'none');
 			return;
 		}
 		$.ajax({
@@ -163,60 +161,62 @@ $(function(){
 					return;
 				}	
 				if(response.data == true){					
-					$('#img-checknickname').hide();
+					$('#nickname').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
 					return;
 				}
-				$('#img-checknickname').show();
+				$('#nickname').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
+				$('#nickname').css('background-position', '275px');
+				$('#nickname').css('background-repeat', 'no-repeat');
 			},
 			error: function(XHR, status, e) {
 				console.error(status + ":" + e);
 			}
 		});
 	});
-
-	$('#email').change(function(){
-		$('#img-checkemail').hide();
-		$('#auth').remove();
-		auth_pandan = false;
-	});	
 	
-	$('#email').change(function() {
+	$('#email').on("propertychange change keyup paste input", function() {
 		var email = $("#email").val();
-		if(!checkEmail(email)) {
-			alert('이메일 형식이 잘못되었습니다');		
+		
+		if(!checkEmail($("#email").val())){
+			$('#email').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+			$('#email').css('background-position', '275px');
+			$('#email').css('background-repeat', 'no-repeat');
 			$("#email").focus();
 			return;
-		} else {
-			$('#img-checkemail').hide();
-			$('#auth').remove();
-			auth_pandan = false;
-		
-			$.ajax({
-				url: "${pageContext.servletContext.contextPath }/api/user/checkemail?email=" + email,
-				async: true,
-				type: 'post',
-				data: '',
-				dataType: 'json',
-				success: function(response) {
-					if(response.result == "fail"){
-						console.error(response.message);
-						return;
-					}
-					if(response.data == true){
-						alert('존재하는 이메일입니다.');
-						$("#email")
-							.val('')
-							.focus();
-						return;
-					}
-					$('#btn-checkemail').hide();
-					$('#img-checkemail').show();
-				},
-				error: function(XHR, status, e) {
-					console.error(status + ":" + e);
-				}
-			});
 		}
+		if(email == '') {
+			$('#email').css('background-image', 'none');
+			return;
+		}
+		$.ajax({
+			url: "${pageContext.servletContext.contextPath }/api/user/checkemail?email=" + email,
+			async: true,
+			type: 'post',
+			data: '',
+			dataType: 'json',
+			success: function(response) {
+				if(response.result == "fail"){
+					console.error(response.message);
+					return;
+				}
+				if(checkEmail($("#email").val())){
+					if(response.data == true){
+						$('#email').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+						$('#email').css('background-position', '275px');
+						$('#email').css('background-repeat', 'no-repeat');
+						$("#email").focus();
+					}  else {
+						$('#email').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
+						$('#email').css('background-position', '275px');
+						$('#email').css('background-repeat', 'no-repeat');
+					}
+				}
+			},
+			error: function(XHR, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
+		
 	});
 	
 	$('#email').on("propertychange change keyup paste input", function() {
@@ -231,19 +231,18 @@ $(function(){
 			$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
             $('#password-warning').css('color', 'red');
             
-            $('#join-form').css('height', '350px');
+            $('#join-form').css('height', '335px');
             
 			$('#auth').remove();
-			auth_pandan = false;			
-            
-			console.log(" passwordcheck 다름");
+			auth_pandan = false;
 		} else {
 			$('#password-warning').hide();
 			if(auth_pandan == false) {
 				$('.auth-before').after(auth_str);
+				console.log($('#btn-auth') + "dddd");
 				auth_pandan = true;
 			}
-			$('#join-form').css('height', '405px');
+			$('#join-form').css('height', '385px');
 		}
 	});
 	
@@ -253,9 +252,10 @@ $(function(){
 				$('#password-warning').hide();
 				if(auth_pandan == false) {
 					$('.auth-before').after(auth_str);
+					console.log($('#btn-auth') + "dddd");
 					auth_pandan = true;
 				}
-				$('#join-form').css('height', '405px');
+				$('#join-form').css('height', '385px');
 			} else {
 				$('#auth').remove();
 				auth_pandan = false;
@@ -264,7 +264,7 @@ $(function(){
 				$('#password-warning').text('입력하신 비밀번호와 같지 않습니다.');
 	            $('#password-warning').css('color', 'red');
 	            
-	            $('#join-form').css('height', '350px');
+	            $('#join-form').css('height', '335px');
 			}
 		}
 	});
@@ -283,27 +283,25 @@ $(function(){
                 	action="${pageContext.servletContext.contextPath }/user/join">
                     <div>
                         <label for="nickname"></label>
-                        <form:input id="nickname" path="nickname" placeholder=" 닉네임"/>
-                        <img id='img-checknickname' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
+                        <form:input id="nickname" path="nickname" placeholder="닉네임"/>
                         <p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
                         <form:errors path="nickname"/>
                         </p>
                     </div>
                     <div>
                         <label for="email"></label>
-                        <form:input id="email" path="email" placeholder=" 이메일"/>
-                        <img id='img-checkemail' style='width:16px; display:none' src='${pageContext.request.contextPath }/assets/images/user/check.png' />
+                        <form:input id="email" path="email" placeholder="이메일" />
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
                         <form:errors path="email" />
                         </p>
                     </div>
                     <div>
                         <label for="password"></label>
-                        <form:input id="password" path="password" type="password" placeholder=" 비밀번호"/>
+                        <form:input id="password" path="password" type="password" placeholder="비밀번호"/>
                     </div>
                     <div class="auth-before">
                         <label for="passwordcheck"></label>
-                        <input id="passwordcheck" name="passwordcheck" type="password" placeholder=" 비밀번호 확인"/>
+                        <input id="passwordcheck" name="passwordcheck" type="password" placeholder="비밀번호 확인"/>
                         <div id="password-warning"></div>
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
                         <form:errors path="password"/>
@@ -315,7 +313,7 @@ $(function(){
                     </div>
                     <hr />
                     <div>
-                        <a href="${pageContext.request.contextPath }/user/login"><input class="login-button" value="로그인"></a>
+                        <a href="${pageContext.request.contextPath }/user/login"><input class="login-button" value="로그인" readonly></a>
                     </div>
                 </form:form>
             </div>

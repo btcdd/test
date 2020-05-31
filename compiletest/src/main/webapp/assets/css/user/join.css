@@ -17,7 +17,7 @@ body{
 }
 
 #join-form{
-    height: 350px;
+    height: 335px;
     width:350px;
     margin-left: auto;
     margin-right: auto;
@@ -34,7 +34,7 @@ label {
 #nickname {
     margin-left: 23px;
     margin-top: 30px;
-    width: 300px;
+    width: 295px;
     height: 18px;
     font-size: 1em;
     border: none;
@@ -44,7 +44,7 @@ label {
 
 #email {
     margin-left: 23px;
-    width: 300px;
+    width: 295px;
     height: 18px;
     font-size: 1em;
     border: none;
@@ -54,7 +54,7 @@ label {
 
 #password {
     margin-left: 23px;
-    width: 300px;
+    width: 295px;
     height: 18px;
     font-size: 1em;
     border: none;
@@ -65,7 +65,7 @@ label {
 #passwordcheck {
     margin-left: 23px;
     margin-top: 20px;
-    width: 300px;
+    width: 295px;
     height: 18px;
     font-size: 1em;
     border: none;
@@ -151,30 +151,18 @@ label {
 }
 
 hr {
-	width:270px;
+	width:300px;
 	display: inline-block;
 	border-bottom : 1px dashed #bbb;
 	border-top: none;
 	border-left: none;
 	border-right: none;
-	margin: 0 0 0 55px
-}
-
-hr:before {
-	content: '\002702';
-	display: inline-block;
-	position: relative;
-	top: 12px;
-	left: -10px;
-	padding: 0 3px;
-	background: #E0DFDF;
-	color: #bbb;
-	font-size: 18px;
+	margin: 0 0 0 25px
 }
 
 .login-button{
     margin-left: 23px;
-    margin-top: 20px;
+    margin-top: 13px;
     width:300px;
     height: 40px;
     background-color: #7A8B9B;
@@ -187,3 +175,8 @@ hr:before {
     display: block;
     font-size: 16px;
 }
+
+a {
+	text-decoration: none
+}
+
