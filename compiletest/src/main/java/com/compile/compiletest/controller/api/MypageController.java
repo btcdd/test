@@ -85,4 +85,7 @@ public class MypageController {
 
 		return JsonResult.success(result);
 	}
+
+	
+	
 }

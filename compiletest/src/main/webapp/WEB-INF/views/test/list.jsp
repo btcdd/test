@@ -72,7 +72,7 @@ $(function(){
 
 		<div class="proceeding-box">
 			<c:forEach items='${list1 }' var='vo' step='1' varStatus='status'>
-				<div class="test" data-no="${vo.no }" id="priority${vo.priority }" onclick="window.open('http://localhost:9999/?userEmail=${vo.email}&problemNo=${vo.no}','_blank'); ">
+				<div class="test" data-no="${vo.no }" id="priority${vo.priority }" onclick="window.open('http://localhost:9999/codingtest?userEmail=${vo.email}&problemNo=${vo.no}','_blank'); ">
 					<div class="test-top">
 						<div class="test-no">${fn:length(list1) - status.index }</div>						
 						<div class="writer">${vo.nickname }</div>
