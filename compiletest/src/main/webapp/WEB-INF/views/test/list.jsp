@@ -49,19 +49,20 @@ $(function(){
 			<c:forEach items='${list }' var='vo' step='1' varStatus='status'>
 				<c:choose>
 					<c:when test="${vo.priority == 1 }">
-						<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
+						<div class="test" data-no="${vo.no }" id="priority${vo.priority }" 
+						onclick="window.open('http://localhost:9999/?userEmail=${vo.email}&problemNo=${vo.no}','_blank'); ">
 							<div class="test-top">
-							<div class="test-no">${fn:length(list) - status.index }</div>						
-							<div class="writer">${vo.nickname }</div>
-							<div class="state">진행</div>
+								<div class="test-no">${fn:length(list) - status.index }</div>						
+								<div class="writer">${vo.nickname }</div>
+								<div class="state">진행</div>
+							</div>
+							<div class="test-mid">
+								<div class="title">${vo.title }</div>
+							</div>
+							<div class="test-bottom">
+								<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
+							</div>
 						</div>
-					<div class="test-mid">
-						<div class="title">${vo.title }</div>
-					</div>
-					<div class="test-bottom">
-						<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
-					</div>
-				</div>
 					</c:when>
 				</c:choose>
 			</c:forEach>
