@@ -58,7 +58,6 @@ var index = ${listSize };
 
 var array = new Array();
 var top = 0;
-var list = ${list };
 
 var str;
 
@@ -107,11 +106,68 @@ var problemAdd = function() {
 	buttonStr = '<li id="' + index + '" class="tablinks">문제 ' + (index + 1) + '<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>';
 }
 
+var fetchList = function() {
+	var titleList = new Array();
+	var contentsList = new Array();
+	var examInputList = new Array();
+	var examOutputList = new Array();
+	var answerCodeList = new Array();
+
+	<c:forEach items="${list }" var="item" varStatus="i">
+	
+		fetchStr = '<div class="prob${i.index }">'
+					+ '<h3>문제 '
+					+ (i + 1)
+					+ '</h3>'
+					+ '<div class="sub-title">'
+					+ '문제 제목<input type="text" name="subProblemList[${i.index }].title" value="${item.title}" required/>'
+					+ '</div>'
+					+ '<div class="prob-content">'
+					+ '<div class="prob-content-title">내용</div>'
+					+ '<textarea class="ckeditor" id="prob-content-text${i.index }" name="subProblemList[${i.index }].contents" value="${item.contents}" required></textarea>'
+					+ '</div>'
+					+ '<div class="ex-input">'
+					+ '<div class="ex-input-title">예제 입력</div>'
+					+ '<textarea id="ex-input-text" name="subProblemList[${i.index }].examInput">${item.examInput}</textarea>'
+					+ '</div>'
+					+ '<div class="ex-output">'
+					+ '<div class="ex-output-title">예제 출력</div>'
+					+ '<textarea id="ex-output-text" name="subProblemList[${i.index }].examOutput" required>${item.examOutput}</textarea>'
+					+ '</div>'
+					+ '<div class="answer-code${i.index }">'
+					+ '<div class="ex-input-title">정답 코드</div>'
+					+ '<div>'
+					+ '<select name="lang">'
+					+ '<option value="none" selected="selected">언어선택</option>'
+					+ '<option value="c">C</option>'
+					+ '<option value="cpp">C++</option>'
+					+ '<option value="cs">C#</option>'
+					+ '<option value="java">JAVA</option>'
+					+ '<option value="js">JavaScript</option>'
+					+ '<option value="py">Python</option>'
+					+ '</select>'
+					+ '</div>'
+					+ '<textarea id="code${i.index }" name="subProblemList[${i.index }].correctCode">${item.correctCode}</textarea>'
+					+ '</div></div>';
+	
+		fetchButtonStr = '<li id="${i.index }" class="tablinks">문제 ${i.index + 1 }<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>';
+		
+		$(".prob" + (i - 1)).after(fetchStr);
+		// $(".prob" + (i - 1)).hide();
+		$("#" + (i - 1)).after(buttonStr);
+
+	
+// 		list[${i.index}].push("${item.title}");
+// 		list[${i.index}].push("${item.contents}");
+// 		list[${i.index}].push("${item.examInput}");
+// 		list[${i.index}].push("${item.examOutput}");
+// 		list[${i.index}].push("${item.correctCode}");
+	</c:forEach>
+}
+
 $(function() {
 	
-	console.log('list: ' + list);
-	
-	// fetchList();
+	fetchList();
 	
 	$('#addSubProblem').click(function() {
 		event.preventDefault();
