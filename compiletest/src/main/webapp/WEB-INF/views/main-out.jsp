@@ -29,22 +29,14 @@
 
 <script>
 $(function() {
+	
    var save = false;
    $(".codeTest").submit(function(event) {
       event.preventDefault();
       var lang = $("select option:selected").val();
       
       var code = editor.getValue();
-      console.log("실행:" + code);
-      if(code == ""){
-         alert("코드가 비었당");
-         document.getElementById("code").focus();
-         return;
-      }
-      if(save == false) {
-         alert("저장을 안 했당");
-         return;
-      }
+
       $.ajax({
          url: '${pageContext.request.contextPath }/compile/' + lang,
          async: true,
@@ -71,72 +63,6 @@ $(function() {
       });
    });
    
-   $(document).on('click', '#save', function(event) {
-      event.preventDefault();
-      
-      var lang = $("select option:selected").val();
-      var code = editor.getValue();
-      console.log("save:" + code);
-      if(lang == 'none'){
-         alert("언어선택!!!!!!!!!!!!");
-      }
-      if(code == ""){
-         alert("코드가 비었당");
-         document.getElementById("code").focus();
-         return;
-      }
-      $.ajax({
-         url: '${pageContext.request.contextPath }/compile/' + lang + '/save',
-         async: true,
-         type: 'post',
-         dataType: 'json',
-         data: {code:code},
-         success: function(response){
-            if(response.result != "success") {
-               console.error(response.message);
-               return;
-            }
-            save = true;
-         },
-         error: function(xhr, status, e) {
-            console.error(status + ":" + e);
-         }
-      });
-   });
-   
-   $(document).on('click', '#compile', function(event) {
-      event.preventDefault();
-      
-      var lang = $("select option:selected").val();
-      var code = editor.getValue();
-      console.log("compile:" + code);
-      if(lang == 'none'){
-         alert("언어선택!!!!!!!!!!!!");
-      }
-      if(code == ""){
-         alert("코드가 비었당");
-         document.getElementById("code").focus();
-         return;
-      }
-      $.ajax({
-         url: '${pageContext.request.contextPath }/compile/' + lang + '/compile',
-         async: true,
-         type: 'post',
-         dataType: 'json',
-         data: {code:code},
-         success: function(response){
-            if(response.result != "success") {
-               console.error(response.message);
-               return;
-            }
-            console.log(response.data);
-         },
-         error: function(xhr, status, e) {
-            console.error(status + ":" + e);
-         }
-      });
-   });
-   
    var code = $('.CodeMirror')[0];
    var editor = CodeMirror.fromTextArea(code, {
    		lineNumbers: true,
@@ -151,7 +77,7 @@ $(function() {
 	   editor.setOption("theme", theme);
    });
    
-   $('.lang').click(function() {
+   $('.lang').change(function() {
 	   var lang = $(".lang option:selected").val();
 	   var face = '';
 	   
@@ -195,6 +121,8 @@ $(function() {
 	   
 	   editor.setValue(face);
    });
+   
+ 	$('.CodeMirror').addClass('code');
 });
 
 </script>
@@ -244,7 +172,7 @@ $(function() {
 	                      <option value="cs">C#</option>
 	                      <option value="java" selected="selected">JAVA</option>
 	                      <option value="js">JavaScript</option>
-	                      <option value="py">Python</option>
+	                      <option value="py">Python</option>	
 	                  </select>
                   </td>
                   <td>
@@ -266,16 +194,6 @@ $(function() {
 	                  </select>
                   </td>
                   <td>
-                    <span style="float: right;">
-                        <button id='save' type="button" class="btn-save">저장</button>
-                    </span>
-	              </td>
-	              <td>
-	                <span style="float: left;">
-	                   <button id='compile' type="button" class="btn-compile">컴파일</button>
-	                </span>
-	              </td>
-	              <td>
 	                <span style="float: left;">
 	                  <input type="submit" class="btn-run" value="실행">
 	                </span>
@@ -283,7 +201,7 @@ $(function() {
                </tr>
                <tr>
                   <td colspan="4">
-                      <textarea name="code" class="CodeMirror" id="code">
+                      <textarea name="code" class="CodeMirror code" id="code">
 /*
 * 기본 언어 : 'JAVA'
 * 기본 테마 : 'panda-syntax'

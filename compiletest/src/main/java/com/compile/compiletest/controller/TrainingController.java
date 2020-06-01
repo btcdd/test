@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.compile.compiletest.service.TrainingService;
-import com.compile.compiletest.service.UserService;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SubProblemList;
 import com.compile.compiletest.vo.SubProblemVo;
@@ -105,7 +104,7 @@ public class TrainingController {
 	@RequestMapping(value="/modify/{problemNo}", method=RequestMethod.POST)
 	public String problemModifySubmit(@ModelAttribute SubProblemList subProblemList,
 			ProblemVo problemVo,
-			@PathVariable("problemNo") Long problemNo, Model model,
+			@PathVariable("problemNo") Long problemNo,
 			@RequestParam(value = "array", required = true, defaultValue = "") Long[] array) {
 
 		List<SubProblemVo> list = subProblemList.getSubProblemList();
@@ -115,6 +114,8 @@ public class TrainingController {
 				list.remove(i);
 			}
 		}
+		
+		System.out.println("array: " + array);
 		if(array.length > 0) {
 			trainingService.deleteSubProblem(subProblemList, array);
 		}

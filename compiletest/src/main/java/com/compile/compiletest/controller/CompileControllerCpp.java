@@ -20,8 +20,17 @@ public class CompileControllerCpp {
 	@ResponseBody
 	@PostMapping("/cpp")
 	public JsonResult compileCpp(@RequestParam String code) {
+		String[] token = code.split("\n");
+		
+		for(int i = 0; i < token.length; i++) {
+			buffer.append(token[i] + "\n");
+		}
+		rtt.createFileAsSource(code);
+		
+		
 		RunCpp rtt = new RunCpp();
 
+		rtt.execCompile();
 		String result = rtt.execCommand();
 		String errorResult = rtt.execCompile();
 		
@@ -30,32 +39,5 @@ public class CompileControllerCpp {
 		res[1] = errorResult;
 		
 		return JsonResult.success(res);
-	}
-	
-	@ResponseBody
-	@PostMapping("/cpp/save")
-	public JsonResult compileSaveCpp(@RequestParam String code) {
-		
-		String[] token = code.split("\n");
-		
-		for(int i = 0; i < token.length; i++) {
-			buffer.append(token[i] + "\n");
-		}
-		rtt.createFileAsSource(code);
-		
-		String test = "success";
-		
-		return JsonResult.success(test);
-	}
-	
-	@ResponseBody
-	@PostMapping("/cpp/compile")
-	public JsonResult cppCompileexam() {
-
-		RunCpp rtt = new RunCpp();
-
-		String result = rtt.execCompile();
-
-		return JsonResult.success(result);
 	}
 }

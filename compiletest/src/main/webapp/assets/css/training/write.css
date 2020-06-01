@@ -157,7 +157,7 @@ td {
 /* Style the tab */
 .tab {
 	float: left;
-    width: 5.9%;
+    width: 9%;
     height: 100%;
 }
 
@@ -201,6 +201,7 @@ ul {
 	border-radius: 15px 0 0 15px;
 	background-color: #E7E7E7;
 	border: 1px solid #bbb;
+	cursor: pointer;
 }
 
 .tablinks:hover {
@@ -210,6 +211,9 @@ ul {
 #addSubProblem {
 	padding: 20px;
 	border-radius: 15px 0 0 15px;
+	cursor: pointer;
+	text-align: center;
+	font-size: 1.5em;
 }
 
 #addSubProblem:hover {
@@ -254,4 +258,21 @@ ul {
 	border-radius: 10px;
 	transition: all 0.1s;
 	margin-left: 2%;
+}
+
+li[name=selected] {
+	background-color: #c4b5af;
+}
+
+.delete {
+	margin-left: 20px;
+}
+
+img {
+	width: 24%;
+	height: 15%;
+}
+
+img:hover {
+	background: #f00;
 }

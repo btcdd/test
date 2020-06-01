@@ -20,8 +20,17 @@ public class CompileControllerCs {
 	@ResponseBody
 	@PostMapping("/cs")
 	public JsonResult compileCpp(@RequestParam String code) {
+		
+		String[] token = code.split("\n");
+		
+		for(int i = 0; i < token.length; i++) {
+			buffer.append(token[i] + "\n");
+		}
+		rtt.createFileAsSource(code);
+		
 		RunCs rtt = new RunCs();
-
+		
+		rtt.execCompile();
 		String result = rtt.execCommand();
 		String errorResult = rtt.execCompile();
 		
