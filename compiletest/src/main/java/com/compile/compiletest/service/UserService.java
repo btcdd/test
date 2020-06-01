@@ -39,9 +39,9 @@ public class UserService {
 		
 		// 리눅스 유저 파일 생성 코드
 		buffer = new StringBuffer();
-		buffer.append("mkdir userDirectory/user" + no);
-		buffer.append("cd userDirectory/user" + no);
-		buffer.append("mkdir c cpp cs java js py");
+		buffer.append("mkdir userDirectory/user" + no + "\n");
+		buffer.append("cd userDirectory/user" + no + "\n");
+		buffer.append("mkdir c cpp cs java js py\n");
 		
 		try {
 			process = Runtime.getRuntime().exec(buffer.toString());
