@@ -1,6 +1,5 @@
 package com.compile.compiletest.service;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +39,14 @@ public class TrainingService {
 		map.put("problemNo", problemNo);
 		
 		List<SubProblemVo> list = subProblemList.getSubProblemList();
+		
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getTitle() == null) {
+				list.remove(i);
+			}
+		}
+		System.out.println(list);
+		
 		for(int i = 0; i < list.size(); i++) {
 			if(list.get(i).getExamInput() == "") {
 				list.get(i).setExamInput("null");
