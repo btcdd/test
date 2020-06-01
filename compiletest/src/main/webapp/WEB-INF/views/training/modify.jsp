@@ -113,11 +113,9 @@ var fetchList = function() {
 	var examOutputList = new Array();
 	var answerCodeList = new Array();
 
-	<c:forEach items="${list }" var="item" varStatus="i">
-	
-		fetchStr = '<div class="prob${i.index }">'
-					+ '<h3>문제 '
-					+ (i + 1)
+	<c:forEach items="${list }" var="item" varStatus="i" begin="1">
+		fetchStr = '<div class="prob${i.index}">'
+					+ '<h3>문제 ${i.index + 1}'
 					+ '</h3>'
 					+ '<div class="sub-title">'
 					+ '문제 제목<input type="text" name="subProblemList[${i.index }].title" value="${item.title}" required/>'
@@ -152,9 +150,9 @@ var fetchList = function() {
 	
 		fetchButtonStr = '<li id="${i.index }" class="tablinks">문제 ${i.index + 1 }<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>';
 		
-		$(".prob" + (i - 1)).after(fetchStr);
+		$(".prob" + (${i.index - 1})).after(fetchStr);
 		// $(".prob" + (i - 1)).hide();
-		$("#" + (i - 1)).after(buttonStr);
+		$("#" + ${i.index - 1}).after(buttonStr);
 
 	
 // 		list[${i.index}].push("${item.title}");
