@@ -151,7 +151,7 @@ $(function() {
 	   editor.setOption("theme", theme);
    });
    
-   $('.lang').click(function() {
+   $('.lang').change(function() {
 	   var lang = $(".lang option:selected").val();
 	   var face = '';
 	   
