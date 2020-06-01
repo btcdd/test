@@ -13,6 +13,7 @@ public class ProblemVo {
 	private String endTime;
 	private Long levelNo;
 	private String nickname;
+	private String email;
 	private String kind;
 	private String state;
 	private int priority;
@@ -88,6 +89,12 @@ public class ProblemVo {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getKind() {
 		return kind;
 	}
@@ -110,9 +117,11 @@ public class ProblemVo {
 	public String toString() {
 		return "ProblemVo [no=" + no + ", title=" + title + ", password=" + password + ", hit=" + hit + ", recommend="
 				+ recommend + ", regDate=" + regDate + ", userNo=" + userNo + ", kindNo=" + kindNo + ", startTime="
-				+ startTime + ", endTime=" + endTime + ", levelNo=" + levelNo + ", nickname=" + nickname + ", kind="
-				+ kind + ", state=" + state + ", priority=" + priority + "]";
+				+ startTime + ", endTime=" + endTime + ", levelNo=" + levelNo + ", nickname=" + nickname + ", email="
+				+ email + ", kind=" + kind + ", state=" + state + ", priority=" + priority + "]";
 	}
+
+	
 	
 	
 }

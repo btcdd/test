@@ -38,7 +38,7 @@ $(function() {
             console.log(response.data);
               console.log(response.data.authUser.email);
              var url = "http://localhost:9999/?userEmail="+response.data.authUser.email+"&problemNo="+response.data.problemVo.no;
-             window.open(url);
+             window.open(url,'_blank');
              
          },
          error: function(xhr, status, e) {
