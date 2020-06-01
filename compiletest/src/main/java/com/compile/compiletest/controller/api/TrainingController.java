@@ -74,6 +74,7 @@ public class TrainingController {
       if(userEmail.isPresent()) {
          problemVo = trainingService.selectProblemOne(problemNo);
          list = trainingService.selectSubProblem(problemNo);
+         System.out.println("email을 가져온 경로  problemVo>>"+problemVo);
          map.put("problemVo", problemVo);
          map.put("list", list);
          map.put("authUser", authUser);
@@ -82,6 +83,7 @@ public class TrainingController {
          authUser = (UserVo)session.getAttribute("authUser");
          problemVo = trainingService.selectProblemOne(problemNo);
          list = trainingService.selectSubProblem(problemNo);
+         System.out.println("problemNo을 가져온 경로  problemVo>>"+problemVo);
          map.put("problemVo", problemVo);
          map.put("list", list);
          map.put("authUser", authUser);
@@ -108,6 +110,7 @@ public class TrainingController {
 	   } catch (ParseException e) {
 	      e.printStackTrace();
 	   }      
+	   System.out.println("obj>>>"+obj);
 	   String userName = (String) obj.get("name");
 	   String userBirth = (String) obj.get("birth");
 	   if(userBirth.equals("") || userName.equals("")) {
@@ -118,7 +121,13 @@ public class TrainingController {
 	   
 	   boolean exist = trainingService.existUser(userEmail); //유저가 있는지 체크
 	   ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
-	
+	   
+	   if(problemVo == null) {
+		   System.out.println("http://localhost:9999/?userEmail=2sang@gmail.com&problemNo=123123134 처럼 직접 경로타고 번호 아무렇게나 쓰고 올경우" );
+		   map.put("result", "no");
+		   return JsonResult.success(map);
+	   }
+	   
 	   if( exist && problemVo.getPassword().equals(tempKey) && problemVo.getState().equals("n") ) {
 	      map.put("result","delete");
 	      return JsonResult.success(map);         
