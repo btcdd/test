@@ -1,5 +1,11 @@
 package com.compile.compiletest.service;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -18,17 +24,69 @@ public class UserService {
 	@Autowired
 	private JavaMailSender mailSender;
 
+	private StringBuffer buffer;
+	private Process process;
+	private BufferedReader bufferedReader;
 	
 	@Autowired
 	private UserRepository userRepository;
 	
-	public boolean join(UserVo vo) {
-		return userRepository.insert(vo) == 1;
+	public boolean join(UserVo vo) throws IOException, InterruptedException {
+		userRepository.insert(vo);
+		
+		Long no = userRepository.findByEmail(vo.getEmail());
+		
+		/*
+		// 리눅스 유저 파일 생성 코드
+		buffer = new StringBuffer();
+		buffer.append("mkdir userDirectory/user" + no);
+		
+		try {
+			process = Runtime.getRuntime().exec(buffer.toString());
+			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		*/
+		
+		
+		
+		///////////
+		
+		String path = "/userDirectory";
+
+		List runCmd = new ArrayList();
+		runCmd.add("mkdir user" + no);
+
+		ProcessBuilder runBuilder = null;
+		Process prun = null;
+		String str1 = null;
+		String str2 = null;
+
+		try {
+		runBuilder = new ProcessBuilder(runCmd);
+		runBuilder.directory(new File(path));
+		prun = runBuilder.start();
+		BufferedReader stdOut = new BufferedReader(new InputStreamReader(prun.getInputStream()));
+
+		while((str1 = stdOut.readLine()) != null) {
+		System.out.println(str1);
+		}
+
+		} catch (IOException e) {
+		e.printStackTrace();
+		}
+		
+		
+		/////////
+		
+		
+		
+		return true;
 	}
 
 	public String sendMail(String email,int tempKey) {
 
-		
 		try {
 			
 			MimeMessage message = mailSender.createMimeMessage();
@@ -61,7 +119,7 @@ public class UserService {
 	}
 
 	public boolean existUser(String email) {
-		return userRepository.find(email) != null;
+		return userRepository.findByEmail(email) != null;
 	}
 
 	public boolean existNickname(String nickname) {
