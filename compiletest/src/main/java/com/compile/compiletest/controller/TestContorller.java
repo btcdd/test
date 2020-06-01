@@ -1,5 +1,6 @@
 package com.compile.compiletest.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,24 @@ public class TestContorller {
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String training(Model model) {
 		List<ProblemVo> list = testService.selectTestList();
-		model.addAttribute("list", list);
+		
+		List<ProblemVo> list1 = new ArrayList<ProblemVo>();
+		List<ProblemVo> list2 = new ArrayList<ProblemVo>();
+		List<ProblemVo> list3 = new ArrayList<ProblemVo>();
+		for(ProblemVo vo : list) {
+			if(vo.getPriority() == 1) {
+				list1.add(vo);
+			}
+			if(vo.getPriority() == 2) {
+				list2.add(vo);
+			}
+			if(vo.getPriority() == 3) {
+				list3.add(vo);
+			}
+		}
+		model.addAttribute("list1", list1);
+		model.addAttribute("list2", list2);
+		model.addAttribute("list3", list3);
 
 		HashMap<Long, Long> map = new HashMap<Long, Long>();
 
