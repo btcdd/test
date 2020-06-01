@@ -208,7 +208,7 @@ $(function() {
                </tr>
                <tr>
                   <td colspan="4">
-                      <textarea name="code" class="CodeMirror" id="code">
+                      <textarea name="code" class="CodeMirror code" id="code">
 /*
 * 기본 언어 : 'JAVA'
 * 기본 테마 : 'panda-syntax'

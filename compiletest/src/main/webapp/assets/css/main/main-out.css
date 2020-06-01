@@ -84,6 +84,10 @@ select {
     text-align: center;
 }
 
+.code {
+	height: 500px;
+}
+
 #code {
     width: 800px; 
     height: 500px;
@@ -153,3 +157,5 @@ select {
     color:#fff;
     background-color: #167426;
 }
+
+
