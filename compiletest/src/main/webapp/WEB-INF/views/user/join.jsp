@@ -312,7 +312,7 @@ $(function(){
                     </div>
                     <div>
                     	<a href="${pageContext.servletContext.contextPath }/"><input class="cancel-button" value="취소"></input></a>
-                        <input type="submit" class="join-button" value="가입" >                        
+                        <input type="submit" class="join-button" value="가입" >
                     </div>
                     <hr />
                     <div>
