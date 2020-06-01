@@ -29,6 +29,9 @@
 
 <script>
 $(function() {
+	
+   $('.CodeMirror cm-s-panda-syntax').addClass('code');
+	
    var save = false;
    $(".codeTest").submit(function(event) {
       event.preventDefault();
