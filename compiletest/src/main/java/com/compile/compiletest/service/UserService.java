@@ -36,7 +36,7 @@ public class UserService {
 		
 		Long no = userRepository.findByEmail(vo.getEmail());
 		
-		/*
+		
 		// 리눅스 유저 파일 생성 코드
 		buffer = new StringBuffer();
 		buffer.append("mkdir userDirectory/user" + no);
@@ -47,12 +47,13 @@ public class UserService {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		*/
+		
 		
 		
 		
 		///////////
 		
+		/*
 		String path = "/userDirectory";
 
 		List runCmd = new ArrayList();
@@ -76,7 +77,7 @@ public class UserService {
 		} catch (IOException e) {
 		e.printStackTrace();
 		}
-		
+		*/
 		
 		/////////
 		
