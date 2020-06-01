@@ -24,24 +24,15 @@ public class UserService {
 	@Autowired
 	private JavaMailSender mailSender;
 
-	private StringBuffer buffer;
 	private Process process;
-	private BufferedReader bufferedReader;
 	
 	@Autowired
 	private UserRepository userRepository;
 	
-	public boolean join(UserVo vo) throws IOException, InterruptedException {
+	public void join(UserVo vo) throws IOException, InterruptedException {
 		userRepository.insert(vo);
 		
 		Long no = userRepository.findByEmail(vo.getEmail());
-		
-		
-		// 리눅스 유저 파일 생성 코드
-		buffer = new StringBuffer();
-		buffer.append("mkdir userDirectory/user" + no + "\n");
-		buffer.append("cd userDirectory/user" + no + "\n");
-		buffer.append("mkdir c cpp cs java js py\n");
 		
 		try {
 			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "\n");
@@ -51,12 +42,9 @@ public class UserService {
 			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/java\n");
 			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/js\n");
 			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/py\n");
-			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		return true;
 	}
 
 	public String sendMail(String email,int tempKey) {
