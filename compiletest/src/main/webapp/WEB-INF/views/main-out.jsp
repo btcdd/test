@@ -172,7 +172,7 @@ $(function() {
 	                      <option value="cs">C#</option>
 	                      <option value="java" selected="selected">JAVA</option>
 	                      <option value="js">JavaScript</option>
-	                      <option value="py">Python</option>
+	                      <option value="py">Python</option>	
 	                  </select>
                   </td>
                   <td>
