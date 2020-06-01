@@ -30,8 +30,6 @@
 <script>
 $(function() {
 	
-   $('.CodeMirror cm-s-panda-syntax').addClass('code');
-	
    var save = false;
    $(".codeTest").submit(function(event) {
       event.preventDefault();
@@ -123,6 +121,8 @@ $(function() {
 	   
 	   editor.setValue(face);
    });
+   
+ 	$('.CodeMirror').addClass('code');
 });
 
 </script>
@@ -194,16 +194,6 @@ $(function() {
 	                  </select>
                   </td>
                   <td>
-                    <span style="float: right;">
-                        <button id='save' type="button" class="btn-save">저장</button>
-                    </span>
-	              </td>
-	              <td>
-	                <span style="float: left;">
-	                   <button id='compile' type="button" class="btn-compile">컴파일</button>
-	                </span>
-	              </td>
-	              <td>
 	                <span style="float: left;">
 	                  <input type="submit" class="btn-run" value="실행">
 	                </span>
