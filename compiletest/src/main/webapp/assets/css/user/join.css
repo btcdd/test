@@ -42,6 +42,32 @@ label {
     border-bottom: 2px solid #c4c5c4;
 }
 
+.error-email-pattern {
+	position: fixed;
+	width: 210px;
+	top: 360px;
+	left: 805px;
+	background: #18609C;
+	border-radius: .4em;
+	padding: 5px 10px;
+	color: #fff;
+}
+
+.error-email-pattern:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 10%;
+	width: 0;
+	height: 0;
+	border: 11px solid transparent;
+	border-top-color: #18609C;
+	border-bottom: 0;
+	border-left: 0;
+	margin-left: -5.5px;
+	margin-bottom: -11px;
+}
+
 #email {
     margin-left: 23px;
     width: 295px;
@@ -52,6 +78,31 @@ label {
     border-bottom: 2px solid #c4c5c4;
 }
 
+.error-password-pattern {
+	position: fixed;
+	width: 230px;
+	top: 385px;
+	left: 805px;
+	background: #18609C;
+	border-radius: .4em;
+	padding: 5px 10px;
+	color: #fff;
+}
+
+.error-password-pattern:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 10%;
+	width: 0;
+	height: 0;
+	border: 11px solid transparent;
+	border-top-color: #18609C;
+	border-bottom: 0;
+	border-left: 0;
+	margin-left: -5.5px;
+	margin-bottom: -11px;
+}
 #password {
     margin-left: 23px;
     width: 295px;
