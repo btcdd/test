@@ -45,8 +45,12 @@ public class UserService {
 		
 		try {
 			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "\n");
-			process = Runtime.getRuntime().exec("cd userDirectory/user" + no + "\n");
-			process = Runtime.getRuntime().exec("mkdir c cpp cs java js py\n");
+			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/c\n");
+			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/cpp\n");
+			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/cs\n");
+			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/java\n");
+			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/js\n");
+			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/py\n");
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		} catch(Exception e) {
 			e.printStackTrace();
