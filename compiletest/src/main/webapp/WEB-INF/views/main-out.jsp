@@ -35,16 +35,7 @@ $(function() {
       var lang = $("select option:selected").val();
       
       var code = editor.getValue();
-      console.log("실행:" + code);
-//       if(code == ""){
-//          alert("코드가 비었당");
-//          document.getElementById("code").focus();
-//          return;
-//       }
-//       if(save == false) {
-//          alert("저장을 안 했당");
-//          return;
-//       }
+
       $.ajax({
          url: '${pageContext.request.contextPath }/compile/' + lang,
          async: true,
@@ -64,71 +55,6 @@ $(function() {
                $('#result').val(response.data[0]);
             }
          
-         },
-         error: function(xhr, status, e) {
-            console.error(status + ":" + e);
-         }
-      });
-   });
-   
-   $(document).on('click', '#save', function(event) {
-      event.preventDefault();
-      
-      var lang = $("select option:selected").val();
-      var code = editor.getValue();
-      if(lang == 'none'){
-         alert("언어선택!!!!!!!!!!!!");
-      }
-      if(code == ""){
-         alert("코드가 비었당");
-         document.getElementById("code").focus();
-         return;
-      }
-      $.ajax({
-         url: '${pageContext.request.contextPath }/compile/' + lang + '/save',
-         async: true,
-         type: 'post',
-         dataType: 'json',
-         data: {code:code},
-         success: function(response){
-            if(response.result != "success") {
-               console.error(response.message);
-               return;
-            }
-            save = true;
-         },
-         error: function(xhr, status, e) {
-            console.error(status + ":" + e);
-         }
-      });
-   });
-   
-   $(document).on('click', '#compile', function(event) {
-      event.preventDefault();
-      
-      var lang = $("select option:selected").val();
-      var code = editor.getValue();
-      console.log("compile:" + code);
-      if(lang == 'none'){
-         alert("언어선택!!!!!!!!!!!!");
-      }
-      if(code == ""){
-         alert("코드가 비었당");
-         document.getElementById("code").focus();
-         return;
-      }
-      $.ajax({
-         url: '${pageContext.request.contextPath }/compile/' + lang + '/compile',
-         async: true,
-         type: 'post',
-         dataType: 'json',
-         data: {code:code},
-         success: function(response){
-            if(response.result != "success") {
-               console.error(response.message);
-               return;
-            }
-            console.log(response.data);
          },
          error: function(xhr, status, e) {
             console.error(status + ":" + e);

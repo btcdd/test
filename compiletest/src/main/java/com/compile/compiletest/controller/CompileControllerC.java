@@ -20,8 +20,17 @@ public class CompileControllerC {
 	@ResponseBody
 	@PostMapping("/c")
 	public JsonResult compileC(@RequestParam String code) {
+		
+		String[] token = code.split("\n");
+		
+		for(int i = 0; i < token.length; i++) {
+			buffer.append(token[i] + "\n");
+		}
+		rtt.createFileAsSource(code);
+		
 		RunC rtt = new RunC();
 
+		rtt.execCompile();
 		String result = rtt.execCommand();
 		
 		String errorResult = rtt.execCompile();
@@ -55,7 +64,6 @@ public class CompileControllerC {
 
 		RunC rtt = new RunC();
 
-//		String result = rtt.inputSource();
 		String result = rtt.execCompile();
 
 		return JsonResult.success(result);
