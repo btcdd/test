@@ -40,6 +40,8 @@ public class UserService {
 		// 리눅스 유저 파일 생성 코드
 		buffer = new StringBuffer();
 		buffer.append("mkdir userDirectory/user" + no);
+		buffer.append("cd userDirectory/user" + no);
+		buffer.append("mkdir c cpp cs java js py");
 		
 		try {
 			process = Runtime.getRuntime().exec(buffer.toString());
@@ -47,41 +49,6 @@ public class UserService {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		///////////
-		
-		/*
-		String path = "/userDirectory";
-
-		List runCmd = new ArrayList();
-		runCmd.add("mkdir user" + no);
-
-		ProcessBuilder runBuilder = null;
-		Process prun = null;
-		String str1 = null;
-		String str2 = null;
-
-		try {
-		runBuilder = new ProcessBuilder(runCmd);
-		runBuilder.directory(new File(path));
-		prun = runBuilder.start();
-		BufferedReader stdOut = new BufferedReader(new InputStreamReader(prun.getInputStream()));
-
-		while((str1 = stdOut.readLine()) != null) {
-		System.out.println(str1);
-		}
-
-		} catch (IOException e) {
-		e.printStackTrace();
-		}
-		*/
-		
-		/////////
-		
-		
 		
 		return true;
 	}
