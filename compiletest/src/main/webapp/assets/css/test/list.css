@@ -15,36 +15,32 @@ body {
 }
 
 
+
+
+
+
+
 .search {
-  width: 300px;
-  position: relative;
-  display: flex;
-  margin: auto auto 40px auto;
+    margin: auto auto 50px auto;
+    text-align: center;
 }
-.searchTerm {
-  width: 100%;
-  border: 3px solid #ff8040;
-  border-right: none;
-  padding: 5px;
-  height: 20px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #000;
+#search {
+	background-size: 40px;
+    background-position: 5px 1px;
+    background-repeat: no-repeat;
+	background-image: url(../../images/search.png);
+	color: #999999;
+	margin: auto;
+	height: 50px;
+	font-size: large;
+	width: 400px;
+	padding: 0 20px 0 55px;
 }
-.searchTerm:focus{
-  color: #000;
-}
-.searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #ff8040;
-  background: #ff8040;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-}
+
+
+
+
+
 
 
 
