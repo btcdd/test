@@ -69,8 +69,9 @@ body {
 	height: 220px;
 	background-color: #292A2B;
 	font-size: 1em;
-	color: #19F9D8;
+	color: #fff;
 	padding: 15px;
+	font-weight: bold;
 }
 
 .ex-output {
@@ -84,8 +85,9 @@ body {
 	height: 220px;
 	background-color: #292A2B;
 	font-size: 1em;
-	color: #19F9D8;
+	color: #fff;
 	padding: 15px;
+	font-weight: bold;
 }
 
 #answer-code-text {
@@ -155,10 +157,8 @@ td {
 /* Style the tab */
 .tab {
 	float: left;
-	border: 1px solid #ccc;
-	background-color: #f1f1f1;
-	width: 10%;
-	height: 100%;
+    width: 5.9%;
+    height: 100%;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -198,18 +198,22 @@ ul {
 
 .tablinks {
 	padding: 20px;
+	border-radius: 15px 0 0 15px;
+	background-color: #E7E7E7;
+	border: 1px solid #bbb;
 }
 
 .tablinks:hover {
-	background-color: #999966;
+	background-color: #c4b5af;
 }
 
 #addSubProblem {
 	padding: 20px;
+	border-radius: 15px 0 0 15px;
 }
 
 #addSubProblem:hover {
-	background-color: #999966;
+	background-color: #c4b5af;
 }
 
 .title {
@@ -237,7 +241,7 @@ ul {
 	display: inline-block;
 	border-radius: 10px;
 	transition: all 0.1s;
-	margin-left: 15%;
+	margin-left: 12%;
 }
 
 #btn-submit {
