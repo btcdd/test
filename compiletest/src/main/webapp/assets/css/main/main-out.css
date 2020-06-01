@@ -84,6 +84,11 @@ select {
     text-align: center;
 }
 
+.code {
+	height: 500px;
+	width: 800px;
+}
+
 #code {
     width: 800px; 
     height: 500px;
@@ -98,7 +103,7 @@ select {
     width: 600px;
     height: 500px;
     background-color: #292A2B;
-    color: #000;
+    color: #fff;
     font-family: Consolas, sans-serif;
     line-height: 2em;
     font-stretch: ultra-expanded;
@@ -153,3 +158,5 @@ select {
     color:#fff;
     background-color: #167426;
 }
+
+

@@ -1,5 +1,7 @@
 package com.compile.compiletest.controller;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute @Valid UserVo vo,BindingResult result,Model model) {
+	public String join(@ModelAttribute @Valid UserVo vo,BindingResult result,Model model) throws IOException, InterruptedException {
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
 			return "/user/join";

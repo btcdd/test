@@ -20,7 +20,7 @@
 			]]>
 	</select>
 	
-	<select id="findByEmail" parameterType="string" resultType="uservo">
+	<select id="findByEmail" parameterType="string" resultType="long">
 		<![CDATA[
 			select no
 			from user
