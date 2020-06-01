@@ -36,15 +36,15 @@ $(function() {
       
       var code = editor.getValue();
       console.log("실행:" + code);
-      if(code == ""){
-         alert("코드가 비었당");
-         document.getElementById("code").focus();
-         return;
-      }
-      if(save == false) {
-         alert("저장을 안 했당");
-         return;
-      }
+//       if(code == ""){
+//          alert("코드가 비었당");
+//          document.getElementById("code").focus();
+//          return;
+//       }
+//       if(save == false) {
+//          alert("저장을 안 했당");
+//          return;
+//       }
       $.ajax({
          url: '${pageContext.request.contextPath }/compile/' + lang,
          async: true,
@@ -76,7 +76,6 @@ $(function() {
       
       var lang = $("select option:selected").val();
       var code = editor.getValue();
-      console.log("save:" + code);
       if(lang == 'none'){
          alert("언어선택!!!!!!!!!!!!");
       }

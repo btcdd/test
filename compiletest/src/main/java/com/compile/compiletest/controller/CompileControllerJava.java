@@ -18,25 +18,6 @@ public class CompileControllerJava {
 	RunJava rtt = new RunJava();
 	
 	@ResponseBody
-	@PostMapping("/java")
-	public JsonResult javaCompile() {
-		
-		RunJava rtt = new RunJava();
-		
-		String result = rtt.execCommand();
-//		String errorResult = rtt.errorResult();
-		String errorResult = rtt.execCompile();
-		
-		String[] res = new String[2];
-		res[0] = result;
-		res[1] = errorResult;
-
-		System.out.println("res[0]:" + res[0] + "\nres[1]" + res[1]);
-		
-		return JsonResult.success(res);
-	}
-	
-	@ResponseBody
 	@PostMapping("/java/save")
 	public JsonResult javaCompileSave(@RequestParam String code) {
 		
@@ -45,8 +26,6 @@ public class CompileControllerJava {
 		for(int i = 0; i < token.length; i++) {
 			buffer.append(token[i]);
 		}
-//		String command = rtt.inputSource(buffer.toString());
-//		String result = rtt.execSave(command);
 		rtt.createFileAsSource(code);
 		
 		String test = "success";
@@ -59,10 +38,45 @@ public class CompileControllerJava {
 
 		RunJava rtt = new RunJava();
 
-//		String result = rtt.inputSource();
 		String result = rtt.execCompile();
 
 		return JsonResult.success(result);
+	}
+
+	
+	
+	@ResponseBody
+	@PostMapping("/java")
+	public JsonResult javaCompile(@RequestParam String code) {
+		String[] token = code.split("\n");
+		
+		for(int i = 0; i < token.length; i++) {
+			buffer.append(token[i]);
+		}
+		rtt.createFileAsSource(code);
+		
+		String test = "success";
+		///////////
+		
+		RunJava rtt = new RunJava();
+
+		String result = rtt.execCompile();
+		
+		
+		/////////
+		
+//		RunJava rtt = new RunJava();
+		
+		String result2 = rtt.execCommand();
+		String errorResult = rtt.execCompile();
+		
+		String[] res = new String[2];
+		res[0] = result2;
+		res[1] = errorResult;
+
+		System.out.println("res[0]:" + res[0] + "\nres[1]" + res[1]);
+		
+		return JsonResult.success(res);
 	}
 
 }
