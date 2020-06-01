@@ -118,7 +118,7 @@
 		<![CDATA[
 			insert 
   			  into problem
-			values (null, #{title }, null, 0, 0, now(), 1, #{kindNo }, null,null, 6, 'y')
+			values (null, #{title }, '1234', 0, 0, now(), 1, #{kindNo }, '2020-06-01 10:45:00','2020-06-01 10:47:00', 6, 'y')
 		]]>
 	</insert>
 	

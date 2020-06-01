@@ -26,8 +26,9 @@ $(function() {
 		$(".open" + no).toggle("slow");
 	});
   
-  $("#code-tree").on('click',function(){
-
+	$(document).on("click","#code-tree", function() {
+		console.log("click!!");
+		
       $.ajax({
          url:'${pageContext.request.contextPath }/api/training/mylist/'+problemNo,
          async:false,
@@ -37,7 +38,7 @@ $(function() {
          success:function(response){
             console.log(response.data);
               console.log(response.data.authUser.email);
-             var url = "http://localhost:9999/?userEmail="+response.data.authUser.email+"&problemNo="+response.data.problemVo.no;
+             var url = "http://localhost:9999/codingtest?userEmail="+response.data.authUser.email+"&problemNo="+response.data.problemVo.no;
              window.open(url,'_blank');
              
          },
