@@ -44,7 +44,9 @@ public class UserService {
 		buffer.append("mkdir c cpp cs java js py\n");
 		
 		try {
-			process = Runtime.getRuntime().exec(buffer.toString());
+			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "\n");
+			process = Runtime.getRuntime().exec("cd userDirectory/user" + no + "\n");
+			process = Runtime.getRuntime().exec("mkdir c cpp cs java js py\n");
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 		} catch(Exception e) {
 			e.printStackTrace();
