@@ -318,6 +318,7 @@ $(function(){
 			
 			$('#password-warning').show();
 			$('#password-warning').text('비밀번호가 일치하지 않습니다.');
+			$('#password-warning').css('color', '#bf0000');
 			$('#password-warning').css('margin', '5px 0 0 22px');
 			$('#join-form').css('height', '365px');
             
