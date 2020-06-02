@@ -59,7 +59,6 @@ public class TrainingController {
 	@RequestMapping(value="/view/{problemNo}", method=RequestMethod.GET)
 	public String problemView(@PathVariable("problemNo") Long problemNo, Model model) {
 
-
 		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
 		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
 		Map<String, Object> map = new HashMap<>();
@@ -113,6 +112,10 @@ public class TrainingController {
 			if(list.get(i).getTitle() == null) {
 				list.remove(i);
 			}
+		}
+		
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).getNo());
 		}
 		
 		if(array.length > 0) {
