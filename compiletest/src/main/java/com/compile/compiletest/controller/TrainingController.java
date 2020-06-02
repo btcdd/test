@@ -92,6 +92,8 @@ public class TrainingController {
 		map.put("problemVo", problemVo);
 		map.put("list", list);
 
+		System.out.println(list);
+		
 		map.put("listSize", list.size());
 
 		model.addAllAttributes(map);
