@@ -25,31 +25,10 @@ public class TestController {
 
 	@PostMapping("/search")
 	public JsonResult search(@RequestParam("keyword") String keyword) {
-		List<ProblemVo> list = testService.selectTestList();
-
-		List<ProblemVo> list1 = new ArrayList<ProblemVo>();
-		List<ProblemVo> list2 = new ArrayList<ProblemVo>();
-		List<ProblemVo> list3 = new ArrayList<ProblemVo>();
-		for(ProblemVo vo : list) {
-			if(vo.getTitle().contains(keyword) || vo.getNickname().contains(keyword) || vo.getStartTime().contains(keyword) || vo.getEndTime().contains(keyword)) {
-				if(vo.getPriority() == 1) {
-					list1.add(vo);
-				}
-				if(vo.getPriority() == 2) {
-					list2.add(vo);
-				}
-				if(vo.getPriority() == 3) {
-					list3.add(vo);
-				}
-			}
-		}
-
 		Map<String, Object> map = new HashMap<>(); 
 		
-		map.put("list1", list1);
-		map.put("list2", list2);
-		map.put("list3", list3);
-
+		List<ProblemVo> list = testService.selectTestList();
+		
 		HashMap<Long, Long> dday = new HashMap<Long, Long>();
 		
 		Calendar today = Calendar.getInstance();
@@ -63,16 +42,49 @@ public class TestController {
 		long l_dday = 0;
 		long result = 0;
 		
-		for(ProblemVo vo : list2) {
-			fake_token = (vo.getStartTime()+"").split(" ");
-			token = fake_token[0].split("-");
-			d.set(Integer.parseInt(token[0]), Integer.parseInt(token[1]), Integer.parseInt(token[2]));
-			l_dday = d.getTimeInMillis() / (24*60*60*1000);
-			result = l_today - l_dday;
-			dday.put(vo.getNo(), result);
+		for(ProblemVo vo : list) {
+			if(vo.getPriority() == 2) {
+				fake_token = (vo.getStartTime()+"").split(" ");
+				token = fake_token[0].split("-");
+				d.set(Integer.parseInt(token[0]), Integer.parseInt(token[1]), Integer.parseInt(token[2]));
+				l_dday = d.getTimeInMillis() / (24*60*60*1000);
+				result = l_today - l_dday;
+				dday.put(vo.getNo(), result);
+			}
 		}
 
 		map.put("dday", dday);
+
+		List<ProblemVo> list1 = new ArrayList<ProblemVo>();
+		List<ProblemVo> list2 = new ArrayList<ProblemVo>();
+		List<ProblemVo> list3 = new ArrayList<ProblemVo>();
+
+		for(ProblemVo vo : list) {
+			if(!keyword.equals("") && vo.getTitle().contains(keyword) || vo.getNickname().contains(keyword) || vo.getStartTime().contains(keyword) || vo.getEndTime().contains(keyword)) {
+				vo.setTitle(vo.getTitle().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
+				vo.setNickname(vo.getNickname().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
+				vo.setStartTime((vo.getStartTime()+"").replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
+				vo.setEndTime(vo.getEndTime().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
+
+				if(vo.getPriority() == 1) {
+					list1.add(vo);
+				}
+				if(vo.getPriority() == 2) {
+					list2.add(vo);
+				}
+				if(vo.getPriority() == 3) {
+					list3.add(vo);
+				}
+			}
+		}
+		
+		
+		
+		map.put("list1", list1);
+		map.put("list2", list2);
+		map.put("list3", list3);
+
+
 		
 		return JsonResult.success(map);
 	}
