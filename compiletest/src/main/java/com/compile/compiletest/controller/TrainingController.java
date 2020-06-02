@@ -115,7 +115,6 @@ public class TrainingController {
 			}
 		}
 		
-		System.out.println("array: " + array);
 		if(array.length > 0) {
 			trainingService.deleteSubProblem(subProblemList, array);
 		}

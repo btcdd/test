@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.UserVo;
+import com.compile.security.Auth;
 
 @RestController("CodeTreeController")
 @RequestMapping("/api/codetree")
@@ -31,7 +32,7 @@ public class CodeTreeController {
 		return JsonResult.success(map);
 	}	
 	
-	
+	@Auth
 	@PostMapping("/{userEmail}")
 	public JsonResult codetree2(@PathVariable("userEmail") String userEmail) {
 		Map<String, Object> map = new HashMap<>();
@@ -51,8 +52,6 @@ public class CodeTreeController {
 		System.out.println("!!!!");
 		map.put("result", "ok");
 		System.out.println("userEmail>>"+userEmail);
-		  
-		
 		
 		return JsonResult.success(map);
 	}

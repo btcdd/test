@@ -107,11 +107,6 @@ var problemAdd = function() {
 }
 
 var fetchList = function() {
-	var titleList = new Array();
-	var contentsList = new Array();
-	var examInputList = new Array();
-	var examOutputList = new Array();
-	var answerCodeList = new Array();
 
 	<c:forEach items="${list }" var="item" varStatus="i" begin="1">
 		fetchStr = '<div class="prob${i.index}">'
@@ -122,7 +117,7 @@ var fetchList = function() {
 					+ '</div>'
 					+ '<div class="prob-content">'
 					+ '<div class="prob-content-title">내용</div>'
-					+ '<textarea class="ckeditor" id="prob-content-text${i.index }" name="subProblemList[${i.index }].contents" value="${item.contents}" required></textarea>'
+					+ '<textarea class="ckeditor" id="prob-content-text${i.index }" name="subProblemList[${i.index }].contents" required>${item.contents}</textarea>'
 					+ '</div>'
 					+ '<div class="ex-input">'
 					+ '<div class="ex-input-title">예제 입력</div>'
@@ -148,18 +143,14 @@ var fetchList = function() {
 					+ '<textarea id="code${i.index }" name="subProblemList[${i.index }].correctCode">${item.correctCode}</textarea>'
 					+ '</div></div>';
 	
-		fetchButtonStr = '<li id="${i.index }" class="tablinks">문제 ${i.index + 1 }<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>';
+		fetchButtonStr = '<li id="${i.index }" class="tablinks" value="${item.no }">문제 ${i.index + 1 }<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>';
 		
-		$(".prob" + (${i.index - 1})).after(fetchStr);
+		$(".prob" + ${i.index - 1}).after(fetchStr);
 		// $(".prob" + (i - 1)).hide();
-		$("#" + ${i.index - 1}).after(buttonStr);
-
-	
-// 		list[${i.index}].push("${item.title}");
-// 		list[${i.index}].push("${item.contents}");
-// 		list[${i.index}].push("${item.examInput}");
-// 		list[${i.index}].push("${item.examOutput}");
-// 		list[${i.index}].push("${item.correctCode}");
+		$("#" + ${i.index - 1}).after(fetchButtonStr);
+		
+		// 추가된 문제에 CKEditor 적용
+		CKEDITOR.replace('prob-content-text' + ${i.index });
 	</c:forEach>
 }
 
@@ -239,13 +230,18 @@ $(function() {
 		matchBrackets : true
 	});
 	
-	$(document).on("click", "img", function() {
+	$(document).on("click", ".delete", function() {
 		if(index == 1) {
 			alert('최소 1문제는 등록하셔야 합니다.');
 			return;
 		}
 		
-		var ind = $(this).parent().parent().attr('id');
+		var ind = $(this).parent().attr('id');
+		
+		//array.push(ind);
+		
+		console.log($(this).parent().attr("value"));
+		
 		$("#" + ind).remove();
 		$('.prob' + ind).remove();
 		
@@ -270,16 +266,6 @@ $(function() {
 	array = new Array();
 	
 	var no;
-	
-	$('.delete').click(function() {
-		no = $(this).parent().parent().attr("id");
-		index--;
-		
-		var deleteNo = $(this).parent().parent().attr("value");
-		array.push(deleteNo);
-		
-		$(".subproblem" + no).remove();
-	});
 	
 	$('.submit').click(function() {
 		$('.privateAndPassword').append('<input type="hidden" name="array" value="' + array + '">');
@@ -324,7 +310,7 @@ $(function() {
 			<div class="write-container">
 				<div class="tab">
 					<ul>
-						<li id="0" class="tablinks" name="selected">문제 ${status.index + 1} <span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>
+						<li id="0" class="tablinks" name="selected" value="${list[0].no }">문제 ${status.index + 1} <span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>
 						<li id="addSubProblem">+</li>
 					</ul>
 					
