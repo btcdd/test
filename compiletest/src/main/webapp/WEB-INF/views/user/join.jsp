@@ -307,31 +307,31 @@ $(function(){
 			$('#passwordcheck').css('background-image', 'none');
 			$("#passwordcheck").focus();
 			passwordcheck_pandan = false;
-		}
-		
-		if( $('#password').val() != $('#passwordcheck').val() ){
-			$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
-			$('#passwordcheck').css('background-position', '275px');
-			$('#passwordcheck').css('background-repeat', 'no-repeat');
-			$('#auth').remove();
-			$("#passwordcheck").focus();
-			
-			$('#password-warning').show();
-			$('#password-warning').text('비밀번호가 일치하지 않습니다.');
-			$('#password-warning').css('color', '#bf0000');
-			$('#password-warning').css('margin', '5px 0 0 22px');
-			$('#join-form').css('height', '365px');
-            
-			$('#auth').remove();
-			
-			passwordcheck_pandan = false;
 		} else {
-			$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
-			$('#passwordcheck').css('background-position', '275px');
-			$('#passwordcheck').css('background-repeat', 'no-repeat');
-			$('#password-warning').hide();
-			passwordcheck_pandan = true;
-			$('#join-form').css('height', '385px');
+			if( $('#password').val() != $('#passwordcheck').val() ){
+				$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+				$('#passwordcheck').css('background-position', '275px');
+				$('#passwordcheck').css('background-repeat', 'no-repeat');
+				$('#auth').remove();
+				$("#passwordcheck").focus();
+				
+				$('#password-warning').show();
+				$('#password-warning').text('비밀번호가 일치하지 않습니다.');
+				$('#password-warning').css('color', '#bf0000');
+				$('#password-warning').css('margin', '5px 0 0 22px');
+				$('#join-form').css('height', '365px');
+	            
+				$('#auth').remove();
+				
+				passwordcheck_pandan = false;
+			} else {
+				$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
+				$('#passwordcheck').css('background-position', '275px');
+				$('#passwordcheck').css('background-repeat', 'no-repeat');
+				$('#password-warning').hide();
+				passwordcheck_pandan = true;
+				$('#join-form').css('height', '385px');
+			}
 		}
 		
 		if(authCheck() == true) {
