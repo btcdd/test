@@ -302,7 +302,7 @@ $(function(){
 	});
 	
 	$('#passwordcheck').on("propertychange change keyup paste input", function(){
-		if($('#passwordcheck').val() == '') {
+		if($('#passwordcheck').length == 0) {
 			$('#password-warning').hide();
 			$('#passwordcheck').css('background-image', 'none');
 			$("#passwordcheck").focus();
