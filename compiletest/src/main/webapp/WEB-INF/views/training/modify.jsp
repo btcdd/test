@@ -54,7 +54,7 @@
 
 <title>Code Forest</title>
 <script>
-var index = ${listSize };
+var index = 1;
 
 var array = new Array();
 var top = 0;
@@ -109,9 +109,11 @@ var problemAdd = function() {
 var fetchList = function() {
 
 	<c:forEach items="${list }" var="item" varStatus="i" begin="1">
+		console.log('ㅎㅇㅎㅇ' + ${i.index});
 		fetchStr = '<div class="prob${i.index}">'
 					+ '<h3>문제 ${i.index + 1}'
 					+ '</h3>'
+					+ '<input type="hidden" name="subProblemList[${i.index}].no" value="${item.no }" />'
 					+ '<div class="sub-title">'
 					+ '문제 제목<input type="text" name="subProblemList[${i.index }].title" value="${item.title}" required/>'
 					+ '</div>'
@@ -151,6 +153,8 @@ var fetchList = function() {
 		
 		// 추가된 문제에 CKEditor 적용
 		CKEDITOR.replace('prob-content-text' + ${i.index });
+		
+		index++;
 	</c:forEach>
 }
 
@@ -203,23 +207,21 @@ $(function() {
 	// CKEDITOR.replace('contents');
 
 	// 코딩테스트 체크박스를 체크하면, 비밀번호와 시작 일자, 마감 일자를 설정할 수 있는 칸이 나타난다.
-	$('.codingtest')
-			.click(
-					function() {
-						if ($(this).prop("checked")) {
-							var passwordStr = '<div class="password">비밀번호 <input type="password"></div>';
-							var startDateStr = '<div class="start-date">시작일자 <input type="datetime-local"></div>';
-							var endDateStr = '<div class="end-date">마감일자 <input type="datetime-local"></div>';
-
-							$(".privateAndPassword").append(passwordStr);
-							$(".date").append(startDateStr);
-							$(".date").append(endDateStr);
-						} else {
-							$(".privateAndPassword .password").remove();
-							$(".date .start-date").remove();
-							$(".date .end-date").remove();
-						}
-					});
+	$('.codingtest').click(function() {
+		if ($(this).prop("checked")) {
+			var passwordStr = '<div class="password">비밀번호 <input type="password"></div>';
+			var startDateStr = '<div class="start-date">시작일자 <input type="datetime-local"></div>';
+			var endDateStr = '<div class="end-date">마감일자 <input type="datetime-local"></div>';
+	
+			$(".privateAndPassword").append(passwordStr);
+			$(".date").append(startDateStr);
+			$(".date").append(endDateStr);
+		} else {
+			$(".privateAndPassword .password").remove();
+			$(".date .start-date").remove();
+			$(".date .end-date").remove();
+		}
+	});
 
 	// 정답 코드 텍스트에 코드 미러 적용!
 	var code = $('#code0')[0];
@@ -319,6 +321,7 @@ $(function() {
 				<div id="problem" class="tabcontent">
 					<div class="prob0">
 						<h3>문제 1</h3>
+						<input type="hidden" name="subProblemList[0].no" value="${list[0].no }" />
 						<div class="sub-title">
 							문제 제목<input type="text" name="subProblemList[0].title" value="${list[0].title }"required />
 						</div>
