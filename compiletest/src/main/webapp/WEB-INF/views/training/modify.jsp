@@ -109,7 +109,6 @@ var problemAdd = function() {
 var fetchList = function() {
 
 	<c:forEach items="${list }" var="item" varStatus="i" begin="1">
-		console.log('ㅎㅇㅎㅇ' + ${i.index});
 		fetchStr = '<div class="prob${i.index}">'
 					+ '<h3>문제 ${i.index + 1}'
 					+ '</h3>'
@@ -119,7 +118,7 @@ var fetchList = function() {
 					+ '</div>'
 					+ '<div class="prob-content">'
 					+ '<div class="prob-content-title">내용</div>'
-					+ '<textarea class="ckeditor" id="prob-content-text${i.index }" name="subProblemList[${i.index }].contents" required>${item.contents}</textarea>'
+					+ '<textarea class="ckeditor" id="prob-content-text${i.index }" name="subProblemList[${i.index }].contents" required></textarea>'
 					+ '</div>'
 					+ '<div class="ex-input">'
 					+ '<div class="ex-input-title">예제 입력</div>'
@@ -143,16 +142,18 @@ var fetchList = function() {
 					+ '</select>'
 					+ '</div>'
 					+ '<textarea id="code${i.index }" name="subProblemList[${i.index }].correctCode">${item.correctCode}</textarea>'
-					+ '</div></div>';
+					+ '</div>'
+					+ '</div>';
 	
 		fetchButtonStr = '<li id="${i.index }" class="tablinks" value="${item.no }">문제 ${i.index + 1 }<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>';
 		
 		$(".prob" + ${i.index - 1}).after(fetchStr);
-		// $(".prob" + (i - 1)).hide();
+// 		// $(".prob" + (i - 1)).hide();
 		$("#" + ${i.index - 1}).after(fetchButtonStr);
 		
 		// 추가된 문제에 CKEditor 적용
 		CKEDITOR.replace('prob-content-text' + ${i.index });
+		CKEDITOR.instances["prob-content-text${i.index}"].setData('${item.contents }');
 		
 		index++;
 	</c:forEach>
