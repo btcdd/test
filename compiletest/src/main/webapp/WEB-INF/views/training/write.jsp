@@ -173,13 +173,13 @@ $(function() {
 		matchBrackets : true
 	});
 	
-	$(document).on("click", "img", function() {
+	$(document).on("click", ".delete", function() {
 		if(index == 1) {
 			alert('최소 1문제는 등록하셔야 합니다.');
 			return;
 		}
 		
-		var ind = $(this).parent().parent().attr('id');
+		var ind = $(this).parent().attr('id');
 		$("#" + ind).remove();
 		$('.prob' + ind).remove();
 		
