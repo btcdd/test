@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
@@ -31,14 +32,16 @@ public class CodeTreeController {
 		return JsonResult.success(map);
 	}	
 	
-	
+
 	@PostMapping("/{userEmail}")
 	public JsonResult codetree2(@PathVariable("userEmail") String userEmail) {
+		
 		Map<String, Object> map = new HashMap<>();
 		
 		boolean exist = trainingService.existUser(userEmail); //유저가 있는지 체크
 		if(!exist || userEmail=="undifiend") {
 			System.out.println("유저가 존재하지 않는다!!!");
+			
 			map.put("result", "wrongAccess");
 			return JsonResult.success(map); //redirect 홈으로(리액트에서)
 		}
@@ -50,6 +53,7 @@ public class CodeTreeController {
 		
 		System.out.println("!!!!");
 		map.put("result", "ok");
+
 		System.out.println("userEmail>>"+userEmail);
 		  
 		
