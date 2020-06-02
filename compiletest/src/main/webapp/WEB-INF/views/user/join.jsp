@@ -302,7 +302,7 @@ $(function(){
 	});
 	
 	$('#passwordcheck').on("propertychange change keyup paste input", function(){
-		if($('#passwordcheck').length == 0) {
+		if($('#passwordcheck').val().length == 0) {
 			$('#password-warning').hide();
 			$('#passwordcheck').css('background-image', 'none');
 			$("#passwordcheck").focus();
@@ -310,7 +310,7 @@ $(function(){
 		}
 		
 		if( $('#password').val() != $('#passwordcheck').val() ){
-			if($('#passwordcheck').length == 0) {
+			if($('#passwordcheck').val().length == 0) {
 				$('#password-warning').hide();
 				$('#passwordcheck').css('background-image', 'none');
 				$("#passwordcheck").focus();
