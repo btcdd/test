@@ -4,11 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <div class="header">
-	<div class="head">
-		<div class="container-left clearfix">
-			<div class="logo">
-				<a href="${pageContext.servletContext.contextPath }">Code Forest</a>
-			</div>
-		</div>
+	<div class="logo">
+		<a href="${pageContext.servletContext.contextPath }">Code Forest</a>
 	</div>
 </div>
