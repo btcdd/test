@@ -17,9 +17,11 @@ $(function() {
 	          data : '',
 	          success:function(response){
 	             console.log(response.data);
-	               console.log(response.data.authUser.email);
+	             console.log(response.data.authUser.email);
 	              var url = "http://localhost:9999/?userEmail="+response.data.authUser.email;
 	              window.open(url,'_blank');
+	              
+
 	              
 	          },
 	          error: function(xhr, status, e) {
@@ -39,7 +41,7 @@ $(function() {
         </div>
         <div class="menu clearfix">
             <div class="menu-item"><a href="${pageContext.servletContext.contextPath }/info">Info</a></div>
-            <div id="code-tree" class="menu-item">Code Tree</div>
+            <div id="code-tree" class="menu-item"><a>Code Tree</a></div>
             <div class="menu-item"><a href="${pageContext.servletContext.contextPath }/codingtest">Coding Test</a></div>
             <div class="menu-item"><a href="${pageContext.servletContext.contextPath }/training">Coding Training</a></div>
         </div>			
