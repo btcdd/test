@@ -71,7 +71,7 @@ var problemAdd = function() {
 			+ '</div>'
 			+ '<div class="prob-content">'
 			+ '<div class="prob-content-title">내용</div>'
-			+ '<textarea class="ckeditor" id="prob-content-text' + index + '" name="subProblemList[' + index + '].contents" required></textarea>'
+			+ '<textarea class="content" id="prob-content-text' + index + '" name="subProblemList[' + index + '].contents" required></textarea>'
 			+ '</div>'
 			+ '<div class="ex-input">'
 			+ '<div class="ex-input-title">예제 입력</div>'
@@ -115,7 +115,7 @@ $(function() {
 		$('#' + index).attr('name', 'selected');
 
 		// 추가된 문제에 CKEditor 적용
-		CKEDITOR.replace('prob-content-text' + index);
+// 		CKEDITOR.replace('prob-content-text' + index);
 
 		// 추가된 문제에 코드 미러 적용
 		var code = $('#code' + index)[0];
@@ -201,6 +201,16 @@ $(function() {
 		index--;
 	});
 	
+	$('#fake-submit').click(function() {
+		event.preventDefault();
+		
+		var str = $('.content').val();
+		str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+		$('.content').val(str);
+		
+		$("#true-submit").trigger("click");
+	});
+	
 });
 </script>
 </head>
@@ -236,7 +246,8 @@ $(function() {
 				문제집 제목<input id="title-text" type="text" name="title" required />
 				<a id="btn-cancel"
 					href="${pageContext.servletContext.contextPath }/training">취소</a> 
-				<input id="btn-submit" type="submit" value="등록">
+				<input id="fake-submit" type="submit" value="등록">
+				<input id="true-submit" type="submit" value="등록" style="display:none">
 			</div>
 			<br />
 
@@ -257,8 +268,7 @@ $(function() {
 						</div>
 						<div class="prob-content">
 							<div class="prob-content-title">내용</div>
-							<textarea class="ckeditor" id="prob-content-text0"
-								name="subProblemList[0].contents" required></textarea>
+							<textarea class="content" id="prob-content-text0" name="subProblemList[0].contents" required></textarea>
 						</div>
 						<br />
 

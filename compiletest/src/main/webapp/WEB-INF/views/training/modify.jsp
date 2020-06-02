@@ -3,6 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	pageContext.setAttribute("newLine", "\n");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +80,7 @@ var problemAdd = function() {
 			+ '</div>'
 			+ '<div class="prob-content">'
 			+ '<div class="prob-content-title">내용</div>'
-			+ '<textarea class="ckeditor" id="prob-content-text' + index + '" name="subProblemList[' + index + '].contents" required></textarea>'
+			+ '<textarea class="content" id="prob-content-text' + index + '" name="subProblemList[' + index + '].contents" required></textarea>'
 			+ '</div>'
 			+ '<div class="ex-input">'
 			+ '<div class="ex-input-title">예제 입력</div>'
@@ -109,6 +112,7 @@ var problemAdd = function() {
 var fetchList = function() {
 
 	<c:forEach items="${list }" var="item" varStatus="i" begin="1">
+	
 		fetchStr = '<div class="prob${i.index}">'
 					+ '<h3>문제 ${i.index + 1}'
 					+ '</h3>'
@@ -118,7 +122,7 @@ var fetchList = function() {
 					+ '</div>'
 					+ '<div class="prob-content">'
 					+ '<div class="prob-content-title">내용</div>'
-					+ '<textarea class="ckeditor" id="prob-content-text${i.index }" name="subProblemList[${i.index }].contents" required></textarea>'
+					+ '<textarea class="content" id="prob-content-text${i.index }" name="subProblemList[${i.index }].contents" required>' + ${fn:replace(item.contents, "<br />", newLine)} + '</textarea>'
 					+ '</div>'
 					+ '<div class="ex-input">'
 					+ '<div class="ex-input-title">예제 입력</div>'
@@ -148,12 +152,8 @@ var fetchList = function() {
 		fetchButtonStr = '<li id="${i.index }" class="tablinks" value="${item.no }">문제 ${i.index + 1 }<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>';
 		
 		$(".prob" + ${i.index - 1}).after(fetchStr);
-// 		// $(".prob" + (i - 1)).hide();
+		$(".prob" + ${i.index - 1}).hide();
 		$("#" + ${i.index - 1}).after(fetchButtonStr);
-		
-		// 추가된 문제에 CKEditor 적용
-		CKEDITOR.replace('prob-content-text' + ${i.index });
-		CKEDITOR.instances["prob-content-text${i.index}"].setData('${item.contents }');
 		
 		index++;
 	</c:forEach>
@@ -177,7 +177,7 @@ $(function() {
 		$('#' + index).attr('name', 'selected');
 
 		// 추가된 문제에 CKEditor 적용
-		CKEDITOR.replace('prob-content-text' + index);
+// 		CKEDITOR.replace('prob-content-text' + index);
 
 		// 추가된 문제에 코드 미러 적용
 		var code = $('#code' + index)[0];
@@ -269,6 +269,10 @@ $(function() {
 	$('#fake-submit').click(function() {
 		event.preventDefault();
 		
+		var str = $('.content').val();
+		str = str.replace(/(?:\r\n|\r|\n)/g, '<br />');
+		$('.content').val(str);
+		
 		$('.privateAndPassword').append('<input type="hidden" name="array" value="' + array + '">');
 		$("#true-submit").trigger("click");
 	});
@@ -328,8 +332,8 @@ $(function() {
 						</div>
 						<div class="prob-content">
 							<div class="prob-content-title">내용</div>
-							<textarea class="ckeditor" id="prob-content-text0"
-								name="subProblemList[0].contents" required>${list[0].contents }</textarea>
+							<textarea class="content" id="prob-content-text0"
+								name="subProblemList[0].contents" required>${fn:replace(list[0].contents, "<br />", newLine)}</textarea>
 						</div>
 						<br />
 

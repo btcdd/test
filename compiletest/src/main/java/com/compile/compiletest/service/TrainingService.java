@@ -324,5 +324,23 @@ public class TrainingService {
 		
 		return map;
 	}
+
+	public void insertSaveProblemNo(Long no, Long problemNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", no);
+		map.put("problemNo", problemNo);
+		
+		trainingRepository.insertSaveProblemNo(map);
+	}
+
+	public Long findSaveNo(Long problemNo) {
+		return trainingRepository.findSaveNo(problemNo);
+	}
+
+	public void insertSavePath(Long[] array, Long saveNo, Long authUserNo, Long problemNo) {
+		
+		
+		trainingRepository.insertSavePath(array, saveNo, authUserNo, problemNo);
+	}
 	
 }

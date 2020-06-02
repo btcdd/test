@@ -460,4 +460,27 @@
 		limit #{displayPost}, #{postNum}
 	</select>
 	
+	
+	<insert id="insertSaveProblemNo" parameterType="map">
+		insert 
+ 			  into save
+		values (null, #{userNo }, #{problemNo })
+	</insert>
+	
+	<select id="findSaveNo" parameterType="long" resultType="long">
+		<![CDATA[
+			  select no
+			    from save 
+			   where problem_no = #{problemNo }
+		]]>
+	</select>
+	
+	<insert id="insertSavePath" parameterType="hashmap">
+		insert into save_path
+		      values 
+		 <foreach collection="array" item="item" separator=",">
+			(null, ${item}, ${saveNo}, concat('/userDirectory/user', ${authUserNo }, '/prob', ${problemNo }, '/subprob', ${item }))
+		</foreach> 
+	</insert>
+	
 </mapper>

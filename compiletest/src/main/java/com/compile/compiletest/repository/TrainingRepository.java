@@ -165,5 +165,30 @@ public class TrainingRepository {
 		map.put("lang", lang);
 		return sqlSession.selectList("training.selectAnswerUserLangList", map);
 	}
+
+	public void insertSaveProblemNo(Map<String, Object> map) {
+		sqlSession.insert("training.insertSaveProblemNo", map);
+	}
+
+	public Long findSaveNo(Long problemNo) {
+		return sqlSession.selectOne("training.findSaveNo", problemNo);
+	}
+
+	public void insertSavePath(Long[] array, Long saveNo, Long authUserNo, Long problemNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("array", array);
+		map.put("saveNo", saveNo);
+		map.put("authUserNo", authUserNo);
+		map.put("problemNo", problemNo);
+		
+		String[] packagePathArray = new String[array.length];
+		for(int i = 0; i < array.length; i++) {
+			packagePathArray[i] = "/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subprob" + array[i];
+		}
+		
+		map.put("packagePathArray", packagePathArray);
+		
+		sqlSession.insert("training.insertSavePath", map);
+	}
 	
 }

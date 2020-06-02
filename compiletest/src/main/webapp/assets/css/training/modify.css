@@ -49,6 +49,11 @@ body {
 	margin-right: 50px;
 }
 
+.content {
+	width: 800px;
+    height: 250px;
+}
+
 .prob-content-title {
 	vertical-align: middle;
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
+import com.compile.compiletest.linux.TrainingLinux;
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SubProblemVo;
@@ -72,24 +73,31 @@ public class TrainingController {
       if(userEmail.isPresent()) {
          problemVo = trainingService.selectProblemOne(problemNo);
          list = trainingService.selectSubProblem(problemNo);
+         
          System.out.println("email을 가져온 경로  problemVo>>"+problemVo);
+         
          map.put("problemVo", problemVo);
          map.put("list", list);
          map.put("authUser", authUser);
-         System.out.println("email을 가져온 경로");         
-      }else {
+         
+         System.out.println("email을 가져온 경로");
+         
+      } else {
          authUser = (UserVo)session.getAttribute("authUser");
          problemVo = trainingService.selectProblemOne(problemNo);
          list = trainingService.selectSubProblem(problemNo);
+         
          System.out.println("problemNo을 가져온 경로  problemVo>>"+problemVo);
+         
          map.put("problemVo", problemVo);
          map.put("list", list);
          map.put("authUser", authUser);
+         
          System.out.println("problemNo만 있을 때");
-         return JsonResult.success(map);         
+         
+         return JsonResult.success(map);
       }
       return JsonResult.success(map);
-
    }      	
 	
 	@PostMapping("/auth/{userEmail}/{problemNo}")
@@ -146,6 +154,23 @@ public class TrainingController {
 		Map<String, Object> map = trainingService.selectAnswerUserList(p, Long.parseLong(subProblemNo), language);
 		
 		return JsonResult.success(map);
+	}
+	
+	@PostMapping("/save/problem")
+	public JsonResult saveProblem(Long problemNo, HttpSession session,
+								Long[] array) {
+		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
+		trainingService.insertSaveProblemNo(authUser.getNo(), problemNo);
+		Long saveNo = trainingService.findSaveNo(problemNo);
+		
+		trainingService.insertSavePath(array, saveNo, authUser.getNo(), problemNo);
+		
+		TrainingLinux trainingLinux = new TrainingLinux();
+		trainingLinux.saveProblemAndSubProblem(authUser.getNo(), problemNo, array);
+		
+		return JsonResult.success(null);
 	}
 }
 
