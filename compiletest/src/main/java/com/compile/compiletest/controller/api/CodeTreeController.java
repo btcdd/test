@@ -32,7 +32,6 @@ public class CodeTreeController {
 		return JsonResult.success(map);
 	}	
 	
-	@Auth
 	@PostMapping("/{userEmail}")
 	public JsonResult codetree2(@PathVariable("userEmail") String userEmail) {
 		Map<String, Object> map = new HashMap<>();

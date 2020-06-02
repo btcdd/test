@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
-	href="${pageContext.servletContext.contextPath }/assets/css/training/write.css"
+	href="${pageContext.servletContext.contextPath }/assets/css/training/modify.css"
 	rel="stylesheet" type="text/css">
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/training/header.css"
@@ -237,10 +237,8 @@ $(function() {
 		}
 		
 		var ind = $(this).parent().attr('id');
-		
-		//array.push(ind);
-		
-		console.log($(this).parent().attr("value"));
+		var deleteNo = $(this).parent().attr("value");
+		array.push(deleteNo);
 		
 		$("#" + ind).remove();
 		$('.prob' + ind).remove();
@@ -263,12 +261,13 @@ $(function() {
 		index--;
 	});
 	
-	array = new Array();
-	
 	var no;
 	
-	$('.submit').click(function() {
+	$('#fake-submit').click(function() {
+		event.preventDefault();
+		
 		$('.privateAndPassword').append('<input type="hidden" name="array" value="' + array + '">');
+		$("#true-submit").trigger("click");
 	});
 });
 </script>
@@ -304,7 +303,8 @@ $(function() {
 				문제집 제목<input id="title-text" type="text" name="title" value="${problemVo.title }" required />
 				<a id="btn-cancel"
 					href="${pageContext.servletContext.contextPath }/training">취소</a> 
-				<input id="btn-submit" type="submit" value="등록">
+				<input id="fake-submit" type="submit" value="등록">
+				<input id="true-submit" type="submit" value="등록" style="display:none">
 			</div>
 			<br />
 			<div class="write-container">
