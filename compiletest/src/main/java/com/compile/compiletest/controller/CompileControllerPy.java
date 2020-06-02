@@ -20,22 +20,7 @@ public class CompileControllerPy {
 	@ResponseBody
 	@PostMapping("/py")
 	public JsonResult javaCompile(@RequestParam String code) {
-		RunPy rtt = new RunPy();
 		
-		String result = rtt.execCommand();
-		String errorResult = rtt.execCompile();
-		
-		String[] res = new String[2];
-		res[0] = result;
-		res[1] = errorResult;
-		
-		return JsonResult.success(res);
-	}
-	
-	@ResponseBody
-	@PostMapping("/py/save")
-	public JsonResult javaCompileSave(@RequestParam String code) {
-
 		String[] token = code.split("\n");
 		
 		buffer.append("# -*- coding: utf-8 -*-\n");
@@ -45,19 +30,16 @@ public class CompileControllerPy {
 		}
 		rtt.createFileAsSource(buffer.toString());
 		
-		String test = "success";
-		
-		return JsonResult.success(test);
-	}
-	
-	@ResponseBody
-	@PostMapping("/py/compile")
-	public JsonResult cppCompileexam() {
-
 		RunPy rtt = new RunPy();
-
-		String result = rtt.execCompile();
-
-		return JsonResult.success(result);
+		
+		rtt.execCompile();
+		String result = rtt.execCommand();
+		String errorResult = rtt.execCompile();
+		
+		String[] res = new String[2];
+		res[0] = result;
+		res[1] = errorResult;
+		
+		return JsonResult.success(res);
 	}
 }

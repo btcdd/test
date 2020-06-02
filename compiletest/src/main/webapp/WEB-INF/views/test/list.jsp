@@ -29,10 +29,10 @@ var list3 = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/list3.ejs"
 });
 
+
 $(function(){
 	$('#search').on("propertychange change keyup paste", function(){		
 		var keyword = $(this).val();
-		console.log("keyword:"+keyword)
 		$.ajax({
 			url: '${pageContext.servletContext.contextPath }/api/codingtest/search',
 			async: true,
@@ -41,22 +41,22 @@ $(function(){
 			data: 'keyword='+keyword,
 			success: function(response) {
 				$(".test").remove();
-				map = response.data;
 				
 				var html1 = list1.render(response);
-				$(".proceeding-box").append(html1);
-				
 				var html2 = list2.render(response);
-				$(".expected-box").append(html2);
-				
 				var html3 = list3.render(response);
+
+				$(".proceeding-box").append(html1);				
+				$(".expected-box").append(html2);				
 				$(".deadline-box").append(html3);
 				
+			
 			},
 			error: function(xhr, status, e) {
 				console.error(status + ":" + e);
 			}
 		});
+		
 	});
 	
 });

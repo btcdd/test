@@ -26,7 +26,7 @@ public class UserRepository {
 	}
 
 
-	public Object find(String email) {
+	public Long findByEmail(String email) {
 		return sqlSession.selectOne("user.findByEmail", email);
 	}
 

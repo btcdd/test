@@ -37,7 +37,7 @@
                         <input class="login-button" type="submit" value="로그인">
                     </div>
                     <div>
-                        <a href="${pageContext.servletContext.contextPath }/user/join"><input class="join-button" value="회원가입" /></a>
+                        <a href="${pageContext.servletContext.contextPath }/user/join"><input class="join-button" value="회원가입" readonly/></a>
                     </div>
                     <div class="findpassword">
                         <a href="${pageContext.servletContext.contextPath }/user/find">비밀번호찾기</a>

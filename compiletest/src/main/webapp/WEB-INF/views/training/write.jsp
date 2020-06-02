@@ -54,119 +54,154 @@
 
 <title>Code Forest</title>
 <script>
-	var index = 1;
+var index = 1;
 
-	var str;
+var str;
 
-	var buttonStr;
+var buttonStr;
 
-	var problemAdd = function() {
+var problemAdd = function() {
 
-		str = '<div class="prob' + index + '" class="tabcontent"><div class="sub-title">'
-				+ '<h3>문제 '
-				+ (index + 1)
-				+ '</h3>'
-				+ '문제 제목<input type="text" name="subProblemList[' + index + '].title"/>'
-				+ '</div>'
-				+ '<div class="prob-content">'
-				+ '<div class="prob-content-title">내용</div>'
-				+ '<textarea class="ckeditor" id="prob-content-text' + index + '" name="subProblemList[' + index + '].contents"></textarea>'
-				+ '</div>'
-				+ '<div class="ex-input">'
-				+ '<div class="ex-input-title">예제 입력</div>'
-				+ '<textarea id="ex-input-text" name="subProblemList[' + index + '].examInput"></textarea>'
-				+ '</div>'
-				+ '<div class="ex-output">'
-				+ '<div class="ex-input-title">예제 출력</div>'
-				+ '<textarea id="ex-output-text" name="subProblemList[' + index + '].examOutput"></textarea>'
-				+ '</div>'
-				+ '<div class="answer-code' + index + '">'
-				+ '<div class="ex-input-title">정답 코드</div>'
-				+ '<div>'
-				+ '<select name="lang">'
-				+ '<option value="none" selected="selected">언어선택</option>'
-				+ '<option value="c">C</option>'
-				+ '<option value="cpp">C++</option>'
-				+ '<option value="cs">C#</option>'
-				+ '<option value="java">JAVA</option>'
-				+ '<option value="js">JavaScript</option>'
-				+ '<option value="py">Python</option>'
-				+ '</select>'
-				+ '</div>'
-				+ '<textarea id="code' + index + '" name="subProblemList[' + index + '].correctCode"></textarea>'
-				+ '</div></div>';
+	str = '<div class="prob' + index + '">'
+			+ '<h3>문제 '
+			+ (index + 1)
+			+ '</h3>'
+			+ '<div class="sub-title">'
+			+ '문제 제목<input type="text" name="subProblemList[' + index + '].title" required/>'
+			+ '</div>'
+			+ '<div class="prob-content">'
+			+ '<div class="prob-content-title">내용</div>'
+			+ '<textarea class="ckeditor" id="prob-content-text' + index + '" name="subProblemList[' + index + '].contents" required></textarea>'
+			+ '</div>'
+			+ '<div class="ex-input">'
+			+ '<div class="ex-input-title">예제 입력</div>'
+			+ '<textarea id="ex-input-text" name="subProblemList[' + index + '].examInput"></textarea>'
+			+ '</div>'
+			+ '<div class="ex-output">'
+			+ '<div class="ex-output-title">예제 출력</div>'
+			+ '<textarea id="ex-output-text" name="subProblemList[' + index + '].examOutput" required></textarea>'
+			+ '</div>'
+			+ '<div class="answer-code' + index + '">'
+			+ '<div class="ex-input-title">정답 코드</div>'
+			+ '<div>'
+			+ '<select name="lang">'
+			+ '<option value="none" selected="selected">언어선택</option>'
+			+ '<option value="c">C</option>'
+			+ '<option value="cpp">C++</option>'
+			+ '<option value="cs">C#</option>'
+			+ '<option value="java">JAVA</option>'
+			+ '<option value="js">JavaScript</option>'
+			+ '<option value="py">Python</option>'
+			+ '</select>'
+			+ '</div>'
+			+ '<textarea id="code' + index + '" name="subProblemList[' + index + '].correctCode"></textarea>'
+			+ '</div></div>';
 
-		buttonStr = '<li id="' + index + '" class="tablinks">문제 ' + (index + 1)
-				+ '</li>';
-	}
+	buttonStr = '<li id="' + index + '" class="tablinks">문제 ' + (index + 1) + '<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>';
+}
 
-	$(function() {
-		$('#addSubProblem').click(function() {
-			event.preventDefault();
+$(function() {
+	
+	$('#addSubProblem').click(function() {
+		event.preventDefault();
 
-			problemAdd();
+		problemAdd();
 
-			$("#" + (index - 1)).after(buttonStr);
-			$(".prob" + (index - 1)).after(str);
-			$('.prob' + (index - 1)).hide();
+		$("#" + (index - 1)).after(buttonStr);
+		$(".prob" + (index - 1)).after(str);
+		$('.prob' + (index - 1)).hide();
+		
+		$('li[name=selected]').removeAttr('name');
+		$('#' + index).attr('name', 'selected');
 
-			// 추가된 문제에 CKEditor 적용
-			CKEDITOR.replace('prob-content-text' + index);
+		// 추가된 문제에 CKEditor 적용
+		CKEDITOR.replace('prob-content-text' + index);
 
-			// 추가된 문제에 코드 미러 적용
-			var code = $('#code' + index)[0];
-			var editor = CodeMirror.fromTextArea(code, {
-				lineNumbers : true,
-				mode : 'text/x-java',
-				theme : 'panda-syntax',
-				matchBrackets : true
-			});
-
-			index++;
-		});
-
-		$(document).on("click", ".tablinks", function() {
-			event.preventDefault();
-
-			$('.tabcontent').children().hide();
-
-			problemAdd();
-
-			var ind = $(this).attr('id');
-
-			$('.prob' + (ind)).show();
-		});
-
-		// CKEDITOR.replace('contents');
-
-		// 코딩테스트 체크박스를 체크하면, 비밀번호와 시작 일자, 마감 일자를 설정할 수 있는 칸이 나타난다.
-		$('.codingtest')
-				.click(
-						function() {
-							if ($(this).prop("checked")) {
-								var passwordStr = '<div class="password">비밀번호 <input type="password"></div>';
-								var startDateStr = '<div class="start-date">시작일자 <input type="datetime-local"></div>';
-								var endDateStr = '<div class="end-date">마감일자 <input type="datetime-local"></div>';
-
-								$(".privateAndPassword").append(passwordStr);
-								$(".date").append(startDateStr);
-								$(".date").append(endDateStr);
-							} else {
-								$(".privateAndPassword .password").remove();
-								$(".date .start-date").remove();
-								$(".date .end-date").remove();
-							}
-						});
-
-		// 정답 코드 텍스트에 코드 미러 적용!
-		var code = $('#code0')[0];
+		// 추가된 문제에 코드 미러 적용
+		var code = $('#code' + index)[0];
 		var editor = CodeMirror.fromTextArea(code, {
 			lineNumbers : true,
 			mode : 'text/x-java',
 			theme : 'panda-syntax',
 			matchBrackets : true
 		});
+
+		index++;
 	});
+
+	$(document).on("click", ".tablinks", function() {
+		event.preventDefault();
+
+		$('.tabcontent').children().hide();
+
+		problemAdd();
+		
+		var ind = $(this).attr('id');
+		$('li[name=selected]').removeAttr('name');
+		$('#' + ind).attr('name', 'selected');
+		
+		$('.prob' + (ind)).show();
+	});
+
+	// CKEDITOR.replace('contents');
+
+	// 코딩테스트 체크박스를 체크하면, 비밀번호와 시작 일자, 마감 일자를 설정할 수 있는 칸이 나타난다.
+	$('.codingtest')
+			.click(
+					function() {
+						if ($(this).prop("checked")) {
+							var passwordStr = '<div class="password">비밀번호 <input type="password"></div>';
+							var startDateStr = '<div class="start-date">시작일자 <input type="datetime-local"></div>';
+							var endDateStr = '<div class="end-date">마감일자 <input type="datetime-local"></div>';
+
+							$(".privateAndPassword").append(passwordStr);
+							$(".date").append(startDateStr);
+							$(".date").append(endDateStr);
+						} else {
+							$(".privateAndPassword .password").remove();
+							$(".date .start-date").remove();
+							$(".date .end-date").remove();
+						}
+					});
+
+	// 정답 코드 텍스트에 코드 미러 적용!
+	var code = $('#code0')[0];
+	var editor = CodeMirror.fromTextArea(code, {
+		lineNumbers : true,
+		mode : 'text/x-java',
+		theme : 'panda-syntax',
+		matchBrackets : true
+	});
+	
+	$(document).on("click", ".delete", function() {
+		if(index == 1) {
+			alert('최소 1문제는 등록하셔야 합니다.');
+			return;
+		}
+		
+		var ind = $(this).parent().attr('id');
+		$("#" + ind).remove();
+		$('.prob' + ind).remove();
+		
+		for(var i = 0; i < index; i++) {
+			if(!($('#' + i).attr('id'))) {
+				for(var j = i + 1; j < index; j++) {
+					$('#' + j).text('문제 ' + j.toString() + ' ');
+					$('#' + j).append('<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span>');
+					$('.prob' + j + ' h3').text('문제 ' + j.toString());
+					
+					// li id 설정
+					$('#' + j).attr('id', (j-1).toString());
+					// prob class 설정
+					$('.prob' + j).attr('class', 'prob' + (j-1).toString());
+				}
+			}
+		}
+		
+		index--;
+	});
+	
+});
 </script>
 </head>
 <body>
@@ -198,31 +233,32 @@
 			</div>
 			<br />
 			<div class="title">
-				문제집 제목<input id="title-text" type="text" name="title" />
+				문제집 제목<input id="title-text" type="text" name="title" required />
 				<a id="btn-cancel"
-					href="${pageContext.servletContext.contextPath }/training">취소</a> <input
-					id="btn-submit" type="submit" value="등록">
+					href="${pageContext.servletContext.contextPath }/training">취소</a> 
+				<input id="btn-submit" type="submit" value="등록">
 			</div>
 			<br />
 
 			<div class="write-container">
 				<div class="tab">
 					<ul>
-						<li id="0" class="tablinks">문제 1</li>
+						<li id="0" class="tablinks" name="selected">문제 1 <span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>
 						<li id="addSubProblem">+</li>
 					</ul>
+					
 				</div>
 
 				<div id="problem" class="tabcontent">
 					<div class="prob0">
 						<h3>문제 1</h3>
 						<div class="sub-title">
-							문제 제목<input type="text" name="subProblemList[0].title" />
+							문제 제목<input type="text" name="subProblemList[0].title" required />
 						</div>
 						<div class="prob-content">
 							<div class="prob-content-title">내용</div>
-							<textarea class="ckeditor" id="prob-content-text"
-								name="subProblemList[0].contents"></textarea>
+							<textarea class="ckeditor" id="prob-content-text0"
+								name="subProblemList[0].contents" required></textarea>
 						</div>
 						<br />
 
@@ -232,8 +268,8 @@
 						</div>
 
 						<div class="ex-output">
-							<div class="ex-input-title">예제 출력</div>
-							<textarea id="ex-output-text" name="subProblemList[0].examOutput"></textarea>
+							<div class="ex-output-title">예제 출력</div>
+							<textarea id="ex-output-text" name="subProblemList[0].examOutput" required></textarea>
 						</div>
 
 
