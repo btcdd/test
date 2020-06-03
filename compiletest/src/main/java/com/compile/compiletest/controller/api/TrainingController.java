@@ -47,22 +47,20 @@ public class TrainingController {
   
 	
 	@PostMapping("/mylist")
-	   public JsonResult mylist(Long no) {
-	      
-	      ProblemVo problemVo = trainingService.selectProblemOne(no);
-	      List<SubProblemVo> list = trainingService.selectSubProblem(no);
-	      
-	      Map<String, Object> map = new HashMap<>();
-	      
-	      map.put("problemVo", problemVo);
-	      map.put("list", list);
-	      map.put("listSize", list.size());
-	      map.put("problemNo", no);
-	      
-	      
-	      
-	      return JsonResult.success(map);
-	   }
+	public JsonResult mylist(Long no) {
+      
+      ProblemVo problemVo = trainingService.selectProblemOne(no);
+      List<SubProblemVo> list = trainingService.selectSubProblem(no);
+      
+      Map<String, Object> map = new HashMap<>();
+      
+      map.put("problemVo", problemVo);
+      map.put("list", list);
+      map.put("listSize", list.size());
+      map.put("problemNo", no);
+      
+      return JsonResult.success(map);
+   }
 	
 	@PostMapping({"/mylist/{problemNo}","/mylist/{userEmail}/{problemNo}"})
    public JsonResult mylist(
