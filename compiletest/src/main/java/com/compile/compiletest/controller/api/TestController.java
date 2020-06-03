@@ -61,11 +61,12 @@ public class TestController {
 
 		for(ProblemVo vo : list) {
 			if(!keyword.equals("") && vo.getTitle().contains(keyword) || vo.getNickname().contains(keyword) || vo.getStartTime().contains(keyword) || vo.getEndTime().contains(keyword)) {
-				vo.setTitle(vo.getTitle().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
-				vo.setNickname(vo.getNickname().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
+
 				vo.setStartTime((vo.getStartTime()+"").replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
 				vo.setEndTime(vo.getEndTime().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
-
+				vo.setTitle(vo.getTitle().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
+				vo.setNickname(vo.getNickname().replace(keyword, "<span style='background:yellow; color:black'>"+keyword+"</span>"));
+				
 				if(vo.getPriority() == 1) {
 					list1.add(vo);
 				}
