@@ -207,7 +207,7 @@
 		<choose>
 			<when test="_parameter == null or _parameter == ''">
 				<![CDATA[
-					select count(*) from problem p where p.state = 'y'
+					select count(*) from problem p where p.state = 'y' and p.password is null
 				]]>
 			</when>
 			<otherwise>
