@@ -84,7 +84,6 @@ public class TrainingController {
          
          map.put("problemVo", problemVo);
          map.put("list", list);
-         map.put("authUser", authUser);
          
          System.out.println("email을 가져온 경로"); 
          
@@ -105,12 +104,10 @@ public class TrainingController {
          authUser = (UserVo)session.getAttribute("authUser");
          authUserNo = authUser.getNo();
          problemVo = trainingService.selectProblemOne(problemNo);
-         list = trainingService.selectSubProblem(problemNo);
          
          System.out.println("problemNo을 가져온 경로  problemVo>>"+problemVo);
          
          map.put("problemVo", problemVo);
-         map.put("list", list);
          map.put("authUser", authUser);
          
          System.out.println("problemNo만 있을 때");
