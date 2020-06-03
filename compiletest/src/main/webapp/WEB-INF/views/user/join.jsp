@@ -59,8 +59,13 @@ var passwordcheck_pandan = false;
 var authCheck = function AuthCheck() {
 	if (nickname_pandan && email_pandan && password_pandan && passwordcheck_pandan) {
 		console.log('authCheck true 들어오나');
+		if ($('#auth').length == 0) {
+			$('.auth-before').after(auth_str);
+			$('#join-form').css('height', '385px');
+		}
 		return true;
 	} else {
+		$('#auth').remove();
 		console.log('authCheck false [nickname:' + nickname_pandan + ' / email:' + email_pandan + ' / password : ' + password_pandan + ' / passwordcheck : ' + passwordcheck_pandan);
 		return false;
 	}
@@ -276,6 +281,7 @@ $(function(){
 				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
 				$('#password').css('background-position', '275px');
 				$('#password').css('background-repeat', 'no-repeat');
+				$('#join-form').css('height', '335px');
 				password_pandan = false;
 			}
 			
@@ -312,7 +318,6 @@ $(function(){
 					$("#passwordcheck").focus();
 					passwordcheck_pandan = false;
 				}
-				
 				$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
 				$('#passwordcheck').css('background-position', '275px');
 				$('#passwordcheck').css('background-repeat', 'no-repeat');
