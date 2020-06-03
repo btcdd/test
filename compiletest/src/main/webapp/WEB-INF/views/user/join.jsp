@@ -299,6 +299,7 @@ $(function(){
 		if($('#passwordcheck').val().length == 0) {
 			$('#password-warning').hide();
 			$('#passwordcheck').css('background-image', 'none');
+			$('#join-form').css('height', '335px');
 			$("#passwordcheck").focus();
 			passwordcheck_pandan = false;
 		} else {
