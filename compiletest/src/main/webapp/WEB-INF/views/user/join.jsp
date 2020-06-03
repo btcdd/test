@@ -59,8 +59,13 @@ var passwordcheck_pandan = false;
 var authCheck = function AuthCheck() {
 	if (nickname_pandan && email_pandan && password_pandan && passwordcheck_pandan) {
 		console.log('authCheck true 들어오나');
+		if ($('#auth').length == 0) {
+			$('.auth-before').after(auth_str);
+			$('#join-form').css('height', '385px');
+		}
 		return true;
 	} else {
+		$('#auth').remove();
 		console.log('authCheck false [nickname:' + nickname_pandan + ' / email:' + email_pandan + ' / password : ' + password_pandan + ' / passwordcheck : ' + passwordcheck_pandan);
 		return false;
 	}
@@ -276,6 +281,7 @@ $(function(){
 				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
 				$('#password').css('background-position', '275px');
 				$('#password').css('background-repeat', 'no-repeat');
+				$('#join-form').css('height', '335px');
 				password_pandan = false;
 			}
 			
@@ -312,7 +318,6 @@ $(function(){
 					$("#passwordcheck").focus();
 					passwordcheck_pandan = false;
 				}
-				
 				$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
 				$('#passwordcheck').css('background-position', '275px');
 				$('#passwordcheck').css('background-repeat', 'no-repeat');
@@ -322,7 +327,7 @@ $(function(){
 				$('#password-warning').text('비밀번호가 일치하지 않습니다.');
 				$('#password-warning').css('color', '#bf0000');
 				$('#password-warning').css('margin', '5px 0 0 22px');
-				$('#join-form').css('height', '365px');
+				$('#join-form').css('height', '365px');	
 				
 				passwordcheck_pandan = false;
 			} else {
@@ -330,7 +335,14 @@ $(function(){
 				$('#passwordcheck').css('background-position', '275px');
 				$('#passwordcheck').css('background-repeat', 'no-repeat');
 				$('#password-warning').hide();
-				$('#join-form').css('height', '385px');
+				// 관우가 주석 달았음 ^^*
+				// $('#join-form').css('height', '385px');
+				// 관우가 작성한 코드 ^^*
+				if($('#nickname').val().length == 0 || $('#email').val().length == 0) {
+					console.log('여기 옴?');
+					$('#join-form').css('height', '335px');
+				}
+				//////////////////
 				passwordcheck_pandan = true;
 			}
 		}
@@ -371,6 +383,12 @@ $(function(){
 	$(document).on("click", "#btn-auth-check", function() {
 		if( $('#auth-check').val() == tempKey) {
 			alert("인증번호가 확인되었습니다");
+			// 관우가 작성한 코드 ^^*
+			$('#nickname').attr("readonly", true);
+			$('#email').attr("readonly", true);
+			$('#password').attr("readonly", true);
+			$('#passwordcheck').attr("readonly", true);
+			//////////////////////
 		} else {
 			alert("인증번호가 맞지 않습니다");
 			$("#auth-check").attr("disabled", false);
@@ -392,7 +410,7 @@ $(function(){
                    action="${pageContext.servletContext.contextPath }/user/join">
                     <div class="nickname">
                         <label for="nickname"></label>
-                        <form:input id="nickname" path="nickname" placeholder="닉네임" autocomplete="off"/>
+                        <form:input id="nickname" path="nickname" placeholder="닉네임" autocomplete="off" />
                         <p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
                         <form:errors path="nickname"/>
                         </p>
