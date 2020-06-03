@@ -302,7 +302,7 @@ $(function(){
 	});
 	
 	$('#passwordcheck').on("propertychange change keyup paste input", function(){
-		if($('#passwordcheck').val() == '') {
+		if($('#passwordcheck').val().length == 0) {
 			$('#password-warning').hide();
 			$('#passwordcheck').css('background-image', 'none');
 			$("#passwordcheck").focus();
@@ -310,6 +310,12 @@ $(function(){
 		}
 		
 		if( $('#password').val() != $('#passwordcheck').val() ){
+			if($('#passwordcheck').val().length == 0) {
+				$('#password-warning').hide();
+				$('#passwordcheck').css('background-image', 'none');
+				$("#passwordcheck").focus();
+				passwordcheck_pandan = false;
+			}	
 			$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
 			$('#passwordcheck').css('background-position', '275px');
 			$('#passwordcheck').css('background-repeat', 'no-repeat');
