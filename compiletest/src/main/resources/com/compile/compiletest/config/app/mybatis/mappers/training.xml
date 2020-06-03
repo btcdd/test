@@ -501,10 +501,12 @@
 	
 	<select id="selectCode" parameterType="map" resultType="codevo">
 		<foreach collection="savePathNoArray" item="item" separator="union">
+			<![CDATA[
 			select c.no as no, c.save_path_no as savePathNo, c.language as language, c.code as code, c.file_name as fileName, (select sub_problem_no from save_path where no = ${item }) as subProblemNo
 			  from code c, save_path sp
 			 where c.save_path_no = ${item }
 			   and c.save_path_no = sp.no
+			]]>	   
 		</foreach>
 	</select>
 	
