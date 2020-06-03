@@ -57,7 +57,7 @@
 
 <title>Code Forest</title>
 <script>
-var index = 1;
+var index = ${listSize };
 
 var array = new Array();
 var top = 0;
@@ -110,58 +110,33 @@ var problemAdd = function() {
 }
 
 var fetchList = function() {
-
-	<c:forEach items="${list }" var="item" varStatus="i" begin="1">
-	
-		fetchStr = '<div class="prob${i.index}">'
-					+ '<h3>문제 ${i.index + 1}'
-					+ '</h3>'
-					+ '<input type="hidden" name="subProblemList[${i.index}].no" value="${item.no }" />'
-					+ '<div class="sub-title">'
-					+ '문제 제목<input type="text" name="subProblemList[${i.index }].title" value="${item.title}" required/>'
-					+ '</div>'
-					+ '<div class="prob-content">'
-					+ '<div class="prob-content-title">내용</div>'
-					+ '<textarea class="content" id="prob-content-text${i.index }" name="subProblemList[${i.index }].contents" required>' + ${fn:replace(item.contents, "<br />", newLine)} + '</textarea>'
-					+ '</div>'
-					+ '<div class="ex-input">'
-					+ '<div class="ex-input-title">예제 입력</div>'
-					+ '<textarea id="ex-input-text" name="subProblemList[${i.index }].examInput">${item.examInput}</textarea>'
-					+ '</div>'
-					+ '<div class="ex-output">'
-					+ '<div class="ex-output-title">예제 출력</div>'
-					+ '<textarea id="ex-output-text" name="subProblemList[${i.index }].examOutput" required>${item.examOutput}</textarea>'
-					+ '</div>'
-					+ '<div class="answer-code${i.index }">'
-					+ '<div class="ex-input-title">정답 코드</div>'
-					+ '<div>'
-					+ '<select name="lang">'
-					+ '<option value="none" selected="selected">언어선택</option>'
-					+ '<option value="c">C</option>'
-					+ '<option value="cpp">C++</option>'
-					+ '<option value="cs">C#</option>'
-					+ '<option value="java">JAVA</option>'
-					+ '<option value="js">JavaScript</option>'
-					+ '<option value="py">Python</option>'
-					+ '</select>'
-					+ '</div>'
-					+ '<textarea id="code${i.index }" name="subProblemList[${i.index }].correctCode">${item.correctCode}</textarea>'
-					+ '</div>'
-					+ '</div>';
-	
-		fetchButtonStr = '<li id="${i.index }" class="tablinks" value="${item.no }">문제 ${i.index + 1 }<span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>';
-		
-		$(".prob" + ${i.index - 1}).after(fetchStr);
-		$(".prob" + ${i.index - 1}).hide();
-		$("#" + ${i.index - 1}).after(fetchButtonStr);
-		
-		index++;
-	</c:forEach>
+	for(var i = 0; i < index; i++) {
+		// 정답 코드 텍스트에 코드 미러 적용!
+		var code = $('#code' + i)[0];
+		var editor = CodeMirror.fromTextArea(code, {
+			lineNumbers : true,
+			mode : 'text/x-java',
+			theme : 'panda-syntax',
+			matchBrackets : true
+		});
+		$(".prob" + i).hide();
+	}
+	$('.prob0').show();
+	$('#0').attr('name', 'selected');
 }
 
 $(function() {
 	
 	fetchList();
+	
+	// 추가된 문제에 코드 미러 적용
+	var code = $('#code0')[0];
+	var editor = CodeMirror.fromTextArea(code, {
+		lineNumbers : true,
+		mode : 'text/x-java',
+		theme : 'panda-syntax',
+		matchBrackets : true
+	});
 	
 	$('#addSubProblem').click(function() {
 		event.preventDefault();
@@ -196,8 +171,6 @@ $(function() {
 
 		$('.tabcontent').children().hide();
 
-		problemAdd();
-		
 		var ind = $(this).attr('id');
 		$('li[name=selected]').removeAttr('name');
 		$('#' + ind).attr('name', 'selected');
@@ -223,21 +196,14 @@ $(function() {
 			$(".date .end-date").remove();
 		}
 	});
-
-	// 정답 코드 텍스트에 코드 미러 적용!
-	var code = $('#code0')[0];
-	var editor = CodeMirror.fromTextArea(code, {
-		lineNumbers : true,
-		mode : 'text/x-java',
-		theme : 'panda-syntax',
-		matchBrackets : true
-	});
 	
 	$(document).on("click", ".delete", function() {
 		if(index == 1) {
 			alert('최소 1문제는 등록하셔야 합니다.');
 			return;
 		}
+		
+		console.log('asdfasdf');
 		
 		var ind = $(this).parent().attr('id');
 		var deleteNo = $(this).parent().attr("value");
@@ -317,53 +283,58 @@ $(function() {
 			<div class="write-container">
 				<div class="tab">
 					<ul>
-						<li id="0" class="tablinks" name="selected" value="${list[0].no }">문제 ${status.index + 1} <span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>
+						<c:forEach items="${list }" var="item" varStatus="status" begin="0">
+							<li id="${status.index }" class="tablinks" value="${item.no }">문제 ${status.index + 1} <span class="delete"><img src="${pageContext.request.contextPath}/assets/images/training/delete.png"></span></li>
+						</c:forEach>
 						<li id="addSubProblem">+</li>
 					</ul>
 					
 				</div>
 
 				<div id="problem" class="tabcontent">
-					<div class="prob0">
-						<h3>문제 1</h3>
-						<input type="hidden" name="subProblemList[0].no" value="${list[0].no }" />
-						<div class="sub-title">
-							문제 제목<input type="text" name="subProblemList[0].title" value="${list[0].title }"required />
-						</div>
-						<div class="prob-content">
-							<div class="prob-content-title">내용</div>
-							<textarea class="content" id="prob-content-text0"
-								name="subProblemList[0].contents" required>${fn:replace(list[0].contents, "<br />", newLine)}</textarea>
-						</div>
-						<br />
-
-						<div class="ex-input">
-							<div class="ex-input-title">예제 입력</div>
-							<textarea id="ex-input-text" name="subProblemList[0].examInput">${list[0].examInput }</textarea>
-						</div>
-
-						<div class="ex-output">
-							<div class="ex-output-title">예제 출력</div>
-							<textarea id="ex-output-text" name="subProblemList[0].examOutput" required>${list[0].examOutput }</textarea>
-						</div>
-
-
-						<div class="answer-code0">
-							<div class="ex-input-title">정답 코드</div>
-							<div>
-								<select name="lang">
-									<option value="none" selected="selected">언어선택</option>
-									<option value="c">C</option>
-									<option value="cpp">C++</option>
-									<option value="cs">C#</option>
-									<option value="java">JAVA</option>
-									<option value="js">JavaScript</option>
-									<option value="py">Python</option>
-								</select>
+					<c:forEach items="${list }" var="item" varStatus="status" begin="0">
+						<c:set var="index" value="${status.index }" />
+						<div class="prob${index }">
+							<h3>문제 ${index + 1 }</h3>
+							<input type="hidden" name="subProblemList[${index }].no" value="${item.no }" />
+							<div class="sub-title">
+								문제 제목<input type="text" name="subProblemList[${index }].title" value="${item.title }"required />
 							</div>
-							<textarea id="code0" name="subProblemList[0].correctCode">${list[0].correctCode }</textarea>
-						</div>
-					</div>
+							<div class="prob-content">
+								<div class="prob-content-title">내용</div>
+								<textarea class="content" id="prob-content-text${index }"
+									name="subProblemList[${index }].contents" required>${fn:replace(item.contents, "<br />", newLine)}</textarea>
+							</div>
+							<br />
+	
+							<div class="ex-input">
+								<div class="ex-input-title">예제 입력</div>
+								<textarea id="ex-input-text" name="subProblemList[${index }].examInput">${item.examInput }</textarea>
+							</div>
+	
+							<div class="ex-output">
+								<div class="ex-output-title">예제 출력</div>
+								<textarea id="ex-output-text" name="subProblemList[${index }].examOutput" required>${item.examOutput }</textarea>
+							</div>
+	
+	
+							<div class="answer-code${index }">
+								<div class="ex-input-title">정답 코드</div>
+								<div>
+									<select name="lang">
+										<option value="none" selected="selected">언어선택</option>
+										<option value="c">C</option>
+										<option value="cpp">C++</option>
+										<option value="cs">C#</option>
+										<option value="java">JAVA</option>
+										<option value="js">JavaScript</option>
+										<option value="py">Python</option>
+									</select>
+								</div>
+								<textarea id="code${index }" name="subProblemList[${index }].correctCode">${item.correctCode }</textarea>
+							</div>
+						</div> <!--  prob0 -->
+					</c:forEach>
 				</div>
 			</div>
 		</div>
