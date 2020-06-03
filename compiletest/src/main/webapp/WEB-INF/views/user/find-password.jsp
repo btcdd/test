@@ -19,11 +19,11 @@ var loadingWithMask = function LoadingWithMask(){
 	var widthWindow = window.innerWidth;
 	var heightWindow = window.innerHeight;
 		
-	var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none;opacity: 0.7;background-color: #fff;z-index: 99;text-align: center; '></div>";
+	var mask = "<div id='mask' style='width: 100%;height: 100%;top: 0px;left: 0px;position: fixed;display: none; opacity: 0.9; background-color: #fff; z-index: 99;text-align: center;'></div>";
 	var loadingImg = '';
-			
+		
 	loadingImg += "<div id='loadingImg'>";
-	loadingImg += "<img src='${pageContext.request.contextPath}/assets/images/user/packman.gif' style='position: absolute; top: 50%; left: 50%;z-index: 100;'/>";
+	loadingImg += "<img src='${pageContext.request.contextPath}/assets/images/user/spin.svg' style='position: absolute; top: 43%; left: 45%;z-index: 100;'/>";
 	loadingImg += "</div>";
 					
 	$('body').append(mask).append(loadingImg);
@@ -60,7 +60,7 @@ $(function(){
 		$.ajax({
 			url:'${pageContext.request.contextPath}/api/user/emailAuth',
 			async:true,
-			type:'get',
+			type:'post',
 			dataType:'json',
 			data:'email='+ email,
 			success:function(response){	
@@ -75,10 +75,10 @@ $(function(){
 		});
 	});
 	
-	$('#auth-check-button').on('click',function(){
+	$('#btn-auth-check').on('click',function(){
 		if( ($('#auth-check').val() == tempKey) && ($('#auth-check').val() != "") ){			
 			console.log("인증번호 맞았음");
-			$('#login-form').submit();
+			$('#find-form').submit();
 		} else{
 			alert('인증번호 다시 확인해주세요.');
 		}
@@ -92,17 +92,18 @@ $(function(){
         <c:import url="/WEB-INF/views/include/user-header.jsp" />
         <div id="content">
             <div id="user">
-                <form id="login-form" method="post" action="${pageContext.servletContext.contextPath }/user/reset">
-                    <div>
+                <form id="find-form" method="post" action="${pageContext.servletContext.contextPath }/user/reset">
+                	<div class="find-password">비밀번호 찾기</div>
+                    <div class="email">
                         <label for="email"></label>
                         <input id="email" name="email" type="email" placeholder="가입하신 이메일을 입력해주세요."/>
-                        <input id="btn-auth" type="button" value="인증번호 전송" />
                     </div>
                     <div id="auth" >
                     	<label for="auth-check"></label>
-                    	<input id="auth-check" type="text" name="Auth"/ placeholder="인증번호를 입력해주세요.">
-                        <input id="auth-check-button" type="button" value="계속">
+                    	<input id="auth-check" type="text" name="Auth" placeholder="인증번호 입력">
+                        <input id="btn-auth" type="button" value="인증번호 전송" />
                     </div>
+                    <input id="btn-auth-check" type="button" value="계속">
                 </form>
             </div>
         </div>

@@ -31,7 +31,7 @@
 									when priority = 3 
 									then p.start_time 
                                 end desc, 
-                                p.end_time
+                                p.end_time, p.title
 		]]>
 	</select>	
 	

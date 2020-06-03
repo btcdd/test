@@ -76,6 +76,7 @@ public class TrainingController {
       ProblemVo problemVo = null;
       List<SubProblemVo> list = null;
       
+      //인증번호가 통과하고 나서 들어가지는 경로(순서 : 3)
       if(userEmail.isPresent()) {
          problemVo = trainingService.selectProblemOne(problemNo);
          list = trainingService.selectSubProblem(problemNo);
@@ -84,7 +85,6 @@ public class TrainingController {
          
          map.put("problemVo", problemVo);
          map.put("list", list);
-         
          System.out.println("email을 가져온 경로"); 
          
          /////////////////////////////////////////
@@ -100,13 +100,11 @@ public class TrainingController {
          List<CodeVo> codeVoList = trainingService.selectCode(savePathNoArray);
          ///////////////////////////////
          
-      }else {
+      }else { //리액트 첫 창 열때 경로 (순서 : 1)
          authUser = (UserVo)session.getAttribute("authUser");
          authUserNo = authUser.getNo();
          problemVo = trainingService.selectProblemOne(problemNo);
-         
-         System.out.println("problemNo을 가져온 경로  problemVo>>"+problemVo);
-         
+        
          map.put("problemVo", problemVo);
          map.put("authUser", authUser);
          
@@ -117,6 +115,7 @@ public class TrainingController {
       return JsonResult.success(map);
    }
 	
+	//창 열리고 나서 이름,생일,인증번호 작성한 정보 넘어오는 경로(순서 : 2)
 	@PostMapping("/auth/{userEmail}/{problemNo}")
 	public JsonResult auth(
 	      @PathVariable("userEmail") String userEmail,

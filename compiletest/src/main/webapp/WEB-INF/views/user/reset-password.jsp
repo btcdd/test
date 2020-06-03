@@ -16,6 +16,26 @@
 <link href="${pageContext.servletContext.contextPath }/assets/css/user/reset-password.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
 <script>
+var checkPasswordPattern = function CheckPasswordPattern(str) {
+	var pw = str;
+	var num = pw.search(/[0-9]/g);
+	var eng = pw.search(/[a-z]/ig);
+	var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+		 
+	if(pw.length < 8 || pw.length > 20){
+		return false;
+	}
+	 
+	if(pw.search(/₩s/) != -1){
+		return false;
+	}
+	 
+	if(num < 0 || eng < 0 || spe < 0 ){
+		return false;
+	}
+	return true;
+}
+
 $(function(){
 	
 	$("#login-form").submit(function(e){
@@ -32,6 +52,65 @@ $(function(){
 		this.submit();
 	});
 		
+	$('#password').on("propertychange change keyup paste input", function(){
+		var password = $('#password').val();
+		
+		if($('#password').val().length == 0) {
+			$('.error-password-pattern').hide();
+			$('#password').css('background-image', 'none');
+			$('#password-warning').hide();
+			password_pandan = false;			
+			console.log('1');
+		} else {
+			if(checkPasswordPattern(password) == false) {
+				$('.error-password-pattern').show();
+				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+				$('#password').css('background-position', '275px');
+				$('#password').css('background-repeat', 'no-repeat');
+				password_pandan = false;
+				console.log('2');
+			}
+			
+			if(checkPasswordPattern(password) == true) {
+				$('.error-password-pattern').hide();
+				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
+				$('#password').css('background-position', '275px');
+				$('#password').css('background-repeat', 'no-repeat');
+				password_pandan = true;
+			}
+		}
+	});
+	
+	$('#passwordcheck').on("propertychange change keyup paste input", function(){
+		if($('#passwordcheck').val() == '') {
+			$('#password-warning').hide();
+			$('#passwordcheck').css('background-image', 'none');
+			$("#passwordcheck").focus();
+			passwordcheck_pandan = false;
+		}
+		
+		if( $('#password').val() != $('#passwordcheck').val() ){
+			$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+			$('#passwordcheck').css('background-position', '275px');
+			$('#passwordcheck').css('background-repeat', 'no-repeat');
+			$("#passwordcheck").focus();
+			
+			$('#password-warning').show();
+			$('#password-warning').text('비밀번호가 일치하지 않습니다.');
+			$('#password-warning').css('color', '#bf0000');
+			$('#password-warning').css('margin', '5px 0 0 22px');
+            
+			$('#auth').remove();
+			
+			passwordcheck_pandan = false;
+		} else {
+			$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
+			$('#passwordcheck').css('background-position', '275px');
+			$('#passwordcheck').css('background-repeat', 'no-repeat');
+			$('#password-warning').hide();
+			passwordcheck_pandan = true;
+		}
+	});
 	
 });
 
@@ -49,6 +128,9 @@ $(function(){
                         <label for="password"></label>
                         <input id="password" name="password" type="password" placeholder="새로운 비밀번호를 입력해주세요.">
                     </div>
+                    <div class="error-password-pattern" style="display:none">
+                   		8~20자 영문 대 소문자, 숫자, 특수문자를 사용하세요.
+                   	</div>
                     <div>
                         <label for="passwordcheck"></label>
                         <input id="passwordcheck" name="passwordcheck" type="password" placeholder="새로운 비밀번호를 다시 입력해주세요.">

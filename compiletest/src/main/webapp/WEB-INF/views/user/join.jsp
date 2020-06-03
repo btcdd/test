@@ -26,7 +26,7 @@ var loadingWithMask = function LoadingWithMask(){
 	var loadingImg = '';
 		
 	loadingImg += "<div id='loadingImg'>";
-	loadingImg += "<img src='${pageContext.request.contextPath}/assets/images/user/spin.svg' style='position: absolute; top: 43%; left: 45%;z-index: 100;'/>";
+	loadingImg += "<img src='${pageContext.request.contextPath}/assets/images/user/spin.svg' style='position: absolute; top: 43%; left: 43%;z-index: 100;'/>";
 	loadingImg += "</div>";
 		
 	$('body').append(mask).append(loadingImg);
@@ -51,7 +51,20 @@ var auth_str = '<div id="auth">' +
 					'<img id="img-checkauth" style="width:16px; display:none" src="${pageContext.request.contextPath }/assets/images/user/check.png" />' +  
                 '</div>';
 
-var auth_pandan = false;
+var nickname_pandan = false;
+var email_pandan = false;
+var password_pandan = false;
+var passwordcheck_pandan = false;
+
+var authCheck = function AuthCheck() {
+	if (nickname_pandan && email_pandan && password_pandan && passwordcheck_pandan) {
+		console.log('authCheck true 들어오나');
+		return true;
+	} else {
+		console.log('authCheck false [nickname:' + nickname_pandan + ' / email:' + email_pandan + ' / password : ' + password_pandan + ' / passwordcheck : ' + passwordcheck_pandan);
+		return false;
+	}
+}
              
 var checkEmail = function CheckEmail(str) {
     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
@@ -69,23 +82,16 @@ var checkPasswordPattern = function CheckPasswordPattern(str) {
 	var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 		 
 	if(pw.length < 8 || pw.length > 20){
-		console.log("8자리 ~ 20자리 이내로 입력해주세요.");
-// 		alert("8자리 ~ 20자리 이내로 입력해주세요.");
 		return false;
 	}
 	 
 	if(pw.search(/₩s/) != -1){
-		console.log("비밀번호는 공백업이 입력해주세요.");
-// 		alert("비밀번호는 공백업이 입력해주세요.");
 		return false;
 	}
 	 
 	if(num < 0 || eng < 0 || spe < 0 ){
-		console.log("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
-// 		alert("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
 		return false;
 	}
-	console.log('true:' + str);
 	return true;
 }
 
@@ -96,10 +102,247 @@ $(function(){
 	$('#email').focusout(function() {
 		$('.error-email-pattern').hide();
 	});
+	$('#password').focusout(function() {
+		$('.error-password-pattern').hide();
+	});
 	
+	$("#join-form").submit(function(e){
+		e.preventDefault();
+
+		if($("#nickname").val() ==''){
+			alert('닉네임이 비어있습니다.');
+			$("#nickname").focus();
+			return;
+		}	
+		if($("#email").val() ==''){
+			alert('이메일이 비어있습니다.');
+			$("#email").focus();
+			return;
+		}	
+		if($("#password").val() ==''){
+			alert('비밀번호가 비어있습니다.');
+			$("#password").focus();
+			return;
+		}	
+		if($("#passwordcheck").val() ==''){
+			alert('비밀번호 확인이 비어있습니다.');
+			$("#passwordcheck").focus();
+			return;
+		}	
+
+		if( ($("#auth-check").val() =='') || (tempKey != $("#auth-check").val())) {
+			alert('인증번호가 일치하지 않습니다.');
+			$("#auth-check").focus();
+			return;
+		}
+		
+		if(authCheck != true) {
+			return;
+		}
+		
+		this.submit();
+	});	
+	
+	$('#nickname').change(function(){
+		$('#img-checknickname').hide();
+	});
+	
+	$('#nickname').on("propertychange change keyup paste input", function() {
+		var nickname = $("#nickname").val();
+		if(nickname == '') {
+			$('#nickname').css('background-image', 'none');
+			$('#auth').remove();
+			$('#join-form').css('height', '335px');
+			nickname_pandan = false;
+			return;
+		}
+		$.ajax({
+			url: "${pageContext.servletContext.contextPath }/api/user/nickname?nickname=" + nickname,
+			async: true,
+			type: 'post',
+			data: '',
+			dataType: 'json',
+			success: function(response) {
+				if(response.result == "fail") {
+					console.error(response.message);
+					return;
+				}	
+				if(response.data == true){					
+					$('#join-form').css('height', '335px');
+					$('#nickname').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+					$('#nickname').css('background-position', '275px');
+					$('#nickname').css('background-repeat', 'no-repeat');
+					$('#auth').remove();
+					nickname_pandan = false;
+				} else {
+					$('#nickname').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
+					$('#nickname').css('background-position', '275px');
+					$('#nickname').css('background-repeat', 'no-repeat');
+					nickname_pandan = true;
+				}
+			},
+			error: function(XHR, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
+		
+		if(authCheck() == true) {
+			if ($('#auth').length == 0) {
+				$('.auth-before').after(auth_str);
+				$('#join-form').css('height', '385px');
+			}
+		}
+	});
+	
+	$('#email').on("propertychange change keyup paste input", function() {
+		var email = $("#email").val();
+		
+		if(!checkEmail($("#email").val())){
+			$('.error-email-pattern').show();
+			$('#email').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+			$('#email').css('background-position', '275px');
+			$('#email').css('background-repeat', 'no-repeat');
+			$('#auth').remove();
+			$('#join-form').css('height', '335px');
+			$("#email").focus();
+			email_pandan = false;
+		} else {
+			$('.error-email-pattern').hide();
+		}
+		if(email == '') {
+			$('.error-email-pattern').hide();
+			$('#auth').remove();
+			$('#join-form').css('height', '335px');
+			$('#email').css('background-image', 'none');
+			$("#email").focus();
+			email_pandan = false;
+		}
+		$.ajax({
+			url: "${pageContext.servletContext.contextPath }/api/user/checkemail?email=" + email,
+			async: true,
+			type: 'post',
+			data: '',
+			dataType: 'json',
+			success: function(response) {
+				if(response.result == "fail"){
+					console.error(response.message);
+					return;
+				}
+				if(checkEmail($("#email").val())){
+					if(response.data == true){
+						$('#email').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+						$('#email').css('background-position', '275px');
+						$('#email').css('background-repeat', 'no-repeat');
+						$('#auth').remove();
+						$('#join-form').css('height', '335px');
+						$("#email").focus();
+						email_pandan = false;
+					}  else {
+						$('#email').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
+						$('#email').css('background-position', '275px');
+						$('#email').css('background-repeat', 'no-repeat');
+						$('.error-email-pattern').hide();
+						email_pandan = true;
+					}
+				}
+			},
+			error: function(XHR, status, e) {
+				console.error(status + ":" + e);
+			}
+		});
+		
+		if(authCheck() == true) {
+			if ($('#auth').length == 0) {
+				$('.auth-before').after(auth_str);
+				$('#join-form').css('height', '385px');
+			}
+		}
+		
+	});
+	
+	$('#password').on("propertychange change keyup paste input", function(){
+		var password = $('#password').val();
+		
+		if($('#password').val().length == 0) {
+			$('.error-password-pattern').hide();
+			$('#password').css('background-image', 'none');
+			$('#password-warning').hide();
+			password_pandan = false;			
+		} else {
+			if(checkPasswordPattern(password) == false) {
+				$('.error-password-pattern').show();
+				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+				$('#password').css('background-position', '275px');
+				$('#password').css('background-repeat', 'no-repeat');
+				password_pandan = false;
+			}
+			
+			if(checkPasswordPattern(password) == true) {
+				$('.error-password-pattern').hide();
+				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
+				$('#password').css('background-position', '275px');
+				$('#password').css('background-repeat', 'no-repeat');
+				password_pandan = true;
+			}
+		}
+		if(authCheck() == true) {
+			if ($('#auth').length == 0) {
+				$('.auth-before').after(auth_str);
+				$('#join-form').css('height', '385px');
+			} else {
+				$('#join-form').css('height', '385px');
+			}
+		}
+	});
+	
+	$('#passwordcheck').on("propertychange change keyup paste input", function(){
+		if($('#passwordcheck').val().length == 0) {
+			$('#password-warning').hide();
+			$('#passwordcheck').css('background-image', 'none');
+			$('#join-form').css('height', '335px');
+			$("#passwordcheck").focus();
+			passwordcheck_pandan = false;
+		} else {
+			if( $('#password').val() != $('#passwordcheck').val() ){
+				if($('#passwordcheck').val().length == 0) {
+					$('#password-warning').hide();
+					$('#passwordcheck').css('background-image', 'none');
+					$("#passwordcheck").focus();
+					passwordcheck_pandan = false;
+				}
+				
+				$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+				$('#passwordcheck').css('background-position', '275px');
+				$('#passwordcheck').css('background-repeat', 'no-repeat');
+				$("#passwordcheck").focus();
+				
+				$('#password-warning').show();
+				$('#password-warning').text('비밀번호가 일치하지 않습니다.');
+				$('#password-warning').css('color', '#bf0000');
+				$('#password-warning').css('margin', '5px 0 0 22px');
+				$('#join-form').css('height', '365px');
+				
+				passwordcheck_pandan = false;
+			} else {
+				$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
+				$('#passwordcheck').css('background-position', '275px');
+				$('#passwordcheck').css('background-repeat', 'no-repeat');
+				$('#password-warning').hide();
+				$('#join-form').css('height', '385px');
+				passwordcheck_pandan = true;
+			}
+		}
+		
+		if(authCheck() == true) {
+			if ($('#auth').length == 0) {
+				$('.auth-before').after(auth_str);
+				$('#join-form').css('height', '385px');
+			}
+		}
+	});
+
 	$(document).on("click", "#btn-auth", function() {
 		var email = $('#email').val();
-		console.log("id : " + $(this).attr('id'));
 		$(this).attr('id','btn-auth-check');
 		$(this).val('인증번호 확인');
 		loadingWithMask();
@@ -124,194 +367,19 @@ $(function(){
 	});
 	
 	$(document).on("click", "#btn-auth-check", function() {
+		$('#nickname').attr("disabled", true);
+		$('#email').attr("disabled", true);
+		$('#password').attr("disabled", true);
+		$('#passwordcheck').attr("disabled", true);
+		
 		if( $('#auth-check').val() == tempKey) {
 			$("#auth-check").attr("disabled", true);
 		} else {
+			alert("인증번호가 맞지 않습니다");
 			$("#auth-check").attr("disabled", false);
 		}
 	});
 	
-	$("#join-form").submit(function(e){
-			e.preventDefault();
-
-			if($("#passwordcheck").val() ==''){
-				alert('비밀번호확인이 비어있습니다.');
-				$("#passwordcheck").focus();
-				return;
-			}	
-
-			if( ($("#auth-check").val() =='') || (tempKey != $("#auth-check").val())) {
-				alert('인증번호가 일치하지 않습니다.');
-				$("#auth-check").focus();
-				return;
-			}
-			this.submit();
-		});	
-	
-	$('#nickname').change(function(){
-		$('#img-checknickname').hide();
-	});
-	
-	$('#nickname').on("propertychange change keyup paste input", function() {
-		var nickname = $("#nickname").val();
-		if(nickname == '') {
-			$('#nickname').css('background-image', 'none');
-			return;
-		}
-		$.ajax({
-			url: "${pageContext.servletContext.contextPath }/api/user/nickname?nickname=" + nickname,
-			async: true,
-			type: 'post',
-			data: '',
-			dataType: 'json',
-			success: function(response) {
-				if(response.result == "fail") {
-					console.error(response.message);
-					return;
-				}	
-				if(response.data == true){					
-					$('#nickname').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
-					$('#nickname').css('background-position', '275px');
-					$('#nickname').css('background-repeat', 'no-repeat');
-				} else {
-					$('#nickname').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
-					$('#nickname').css('background-position', '275px');
-					$('#nickname').css('background-repeat', 'no-repeat');
-				}
-			},
-			error: function(XHR, status, e) {
-				console.error(status + ":" + e);
-			}
-		});
-	});
-	
-	$('#email').on("propertychange change keyup paste input", function() {
-		var email = $("#email").val();
-		$('#auth').remove();
-		auth_pandan = false;
-		
-		if(!checkEmail($("#email").val())){
-			$('.error-email-pattern').show();
-			$('#email').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
-			$('#email').css('background-position', '275px');
-			$('#email').css('background-repeat', 'no-repeat');
-			$("#email").focus();
-		} else {
-			$('.error-email-pattern').hide();
-		}
-		if(email == '') {
-			$('.error-email-pattern').hide();
-			$('#email').css('background-image', 'none');
-			$("#email").focus();
-		}
-		$.ajax({
-			url: "${pageContext.servletContext.contextPath }/api/user/checkemail?email=" + email,
-			async: true,
-			type: 'post',
-			data: '',
-			dataType: 'json',
-			success: function(response) {
-				if(response.result == "fail"){
-					console.error(response.message);
-					return;
-				}
-				if(checkEmail($("#email").val())){
-					if(response.data == true){
-						$('#email').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
-						$('#email').css('background-position', '275px');
-						$('#email').css('background-repeat', 'no-repeat');
-						$("#email").focus();
-					}  else {
-						$('#email').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
-						$('#email').css('background-position', '275px');
-						$('#email').css('background-repeat', 'no-repeat');
-					}
-				}
-			},
-			error: function(XHR, status, e) {
-				console.error(status + ":" + e);
-			}
-		});
-		
-	});
-	
-	$('#password').on("propertychange change keyup paste input", function(){
-		var password = $('#password').val();
-		
-		if($('#password').val().length == 0) {
-			console.log('들어오낭');
-			$('.error-password-pattern').hide();
-			$('#password').css('background-image', 'none');
-			$('#password-warning').hide();
-		} else {
-			if(checkPasswordPattern(password) == false) {
-				$('.error-password-pattern').show();
-				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
-				$('#password').css('background-position', '275px');
-				$('#password').css('background-repeat', 'no-repeat');
-			}
-			
-			if(checkPasswordPattern(password) == true) {
-				$('.error-password-pattern').hide();
-				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
-				$('#password').css('background-position', '275px');
-				$('#password').css('background-repeat', 'no-repeat');
-			}
-			if( $('#password').val() == $('#passwordcheck').val() ){
-				$('#password-warning').hide();
-				if(auth_pandan == false) {
-					$('.auth-before').after(auth_str);
-					console.log($('#btn-auth') + "dddd");
-					auth_pandan = true;
-				}
-				$('#join-form').css('height', '385px');
-			} else {
-				$('#auth').remove();
-				auth_pandan = false;
-
-				$('#password-warning').show();
-				$('#password-warning').text('비밀번호가 일치하지 않습니다.');
-	            $('#password-warning').css('color', '#BF0000');
-	            
-	            $('#join-form').css('height', '335px');
-			}
-		}
-	});
-	
-	$('#passwordcheck').on("propertychange change keyup paste input", function(){
-		if($('#passwordcheck').val() == '') {
-			$('#password-warning').hide();
-			$('#passwordcheck').css('background-image', 'none');
-			$("#passwordcheck").focus();
-		}
-		
-		if( $('#password').val() != $('#passwordcheck').val() ){
-			$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
-			$('#passwordcheck').css('background-position', '275px');
-			$('#passwordcheck').css('background-repeat', 'no-repeat');
-			$("#passwordcheck").focus();
-			
-			$('#password-warning').show();
-			$('#password-warning').text('비밀번호가 일치하지 않습니다.');
-            $('#password-warning').css('color', '#BF0000');
-            
-            $('#join-form').css('height', '335px');
-            
-			$('#auth').remove();
-			auth_pandan = false;
-		} else {
-			$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
-			$('#passwordcheck').css('background-position', '275px');
-			$('#passwordcheck').css('background-repeat', 'no-repeat');
-			$('#password-warning').hide();
-			if(auth_pandan == false) {
-				$('.auth-before').after(auth_str);
-				console.log($('#btn-auth') + "dddd");
-				auth_pandan = true;
-			}
-			$('#join-form').css('height', '385px');
-		}
-	});
 });
 </script>
 </head>
@@ -327,9 +395,8 @@ $(function(){
                 	action="${pageContext.servletContext.contextPath }/user/join">
                     <div class="nickname">
                         <label for="nickname"></label>
-                        <form:input id="nickname" path="nickname" placeholder="닉네임"/>
+                        <form:input id="nickname" path="nickname" placeholder="닉네임" autocomplete="off"/>
                         <p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
-                        <form:errors path="nickname"/>
                         </p>
                     </div>
                    	<div class="error-email-pattern" style="display:none">
@@ -337,9 +404,8 @@ $(function(){
                    	</div>
                     <div class="email">
                         <label for="email"></label>
-                        <form:input id="email" path="email" placeholder="이메일" />
+                        <form:input id="email" path="email" placeholder="이메일" autocomplete="off"/>
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
-                        <form:errors path="email" />
                         </p>
                     </div>
                     <div class="error-password-pattern" style="display:none">
@@ -347,18 +413,17 @@ $(function(){
                    	</div>
                     <div>
                         <label for="password"></label>
-                        <form:input id="password" path="password" type="password" placeholder="비밀번호"/>
+                        <form:input id="password" path="password" type="password" placeholder="비밀번호" autocomplete="off"/>
                     </div>
                     <div class="auth-before">
                         <label for="passwordcheck"></label>
-                        <input id="passwordcheck" name="passwordcheck" type="password" placeholder="비밀번호 확인"/>
+                        <input id="passwordcheck" name="passwordcheck" type="password" placeholder="비밀번호 확인" autocomplete="off"/>
                         <div id="password-warning"></div>
 						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
-                        <form:errors path="password"/>
                         </p>                        
                     </div>
                     <div>
-                    	<a href="${pageContext.servletContext.contextPath }/"><input class="cancel-button" value="취소"></input></a>
+                    	<a href="${pageContext.servletContext.contextPath }/"><input class="cancel-button" value="취소" readonly></input></a>
                         <input type="submit" class="join-button" value="가입" >
                     </div>
                     <hr />
