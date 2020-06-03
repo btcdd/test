@@ -9,6 +9,7 @@
 			   where p.user_no = u.no
 				 and p.kind_no = k.no
 				 and (title like '%${keyword}%' or nickname like '%${keyword}%')
+				 and p.password is null
 			order by p.reg_date desc
 			limit #{displayPost}, #{postNum}
 		]]>
@@ -23,6 +24,7 @@
 				and p.kind_no = k.no
 				and (title like '%${keyword}%' or nickname like '%${keyword}%')
                 and p.kind_no = 6
+                and p.password is null
 		]]>
 		
 		<if test="size != 0">
@@ -73,6 +75,7 @@
 			   and p.kind_no = k.no
 			   and (title like '%${keyword}%' or nickname like '%${keyword}%')
 			   and p.level_no = 6
+			   and p.password is null
 		]]>
 		
 		<if test="size != 0">
@@ -118,7 +121,7 @@
 		<![CDATA[
 			insert 
   			  into problem
-			values (null, #{title }, null, 0, 0, now(), 1, #{kindNo }, null, null, 6, 'y')
+			values (null, #{title }, #{password }, 0, 0, now(), 1, #{kindNo }, #{startTime }, #{endTime }, 6, 'y')
 		]]>
 	</insert>
 	
@@ -211,8 +214,9 @@
 			 <![CDATA[
 				 select count(*) from problem p,user u
 				 where
-				 	p.user_no = u.no and p.state = 'y' and
-				 	(title like '%${_parameter}%' or nickname like '%${_parameter}%')
+				 	p.user_no = u.no and p.state = 'y' 
+				 	and (title like '%${_parameter}%' or nickname like '%${_parameter}%')
+				 	and p.password is null
 			 ]]>
 			</otherwise>			
 		</choose>
@@ -227,6 +231,7 @@
 				and p.kind_no = k.no
 				and (title like '%${keyword}%' or nickname like '%${keyword}%')
                 and p.kind_no = 6
+                and p.password is null
 		]]>
 		
 		<if test="size != 0">
@@ -273,6 +278,7 @@
 			   and p.kind_no = k.no
 			   and (title like '%${keyword}%' or nickname like '%${keyword}%')
 			   and p.level_no = 6
+			   and p.password is null
 		]]>
 		
 		<if test="size != 0">
@@ -326,6 +332,7 @@
 					 where p.user_no = u.no 
 					   and k.no = p.kind_no
 					   and p.state = 'y'
+					   and p.password is null
 					 limit #{displayPost}, #{postNum}
 				]]>			
 			</when>
@@ -343,6 +350,7 @@
 					  	p.user_no = u.no and k.no = p.kind_no
 					  	and (title like '%${keyword}%' or nickname like '%${keyword}%')
 					   	and p.state = 'y'
+					   	and p.password is null
 					   	limit #{displayPost}, #{postNum}
 				]]>
 			</otherwise>
