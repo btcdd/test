@@ -89,6 +89,7 @@ public class TrainingController {
          System.out.println("email을 가져온 경로"); 
          
          /////////////////////////////////////////
+         // 관우 유진 코드~~~
          // 유저의 회원번호, 저장한 문제모음번호 가져오기
          Long saveNo = trainingService.selectSaveNo(authUserNo, problemVo.getNo());
          
