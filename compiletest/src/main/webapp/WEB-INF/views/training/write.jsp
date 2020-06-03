@@ -133,8 +133,6 @@ $(function() {
 		event.preventDefault();
 
 		$('.tabcontent').children().hide();
-
-		problemAdd();
 		
 		var ind = $(this).attr('id');
 		$('li[name=selected]').removeAttr('name');
