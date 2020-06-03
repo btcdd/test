@@ -31,7 +31,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute @Valid UserVo vo,BindingResult result,Model model) throws IOException, InterruptedException {
+	public String join(@ModelAttribute UserVo vo,BindingResult result,Model model) throws IOException, InterruptedException {
 		if(result.hasErrors()) {
 			model.addAllAttributes(result.getModel());
 			return "/user/join";
