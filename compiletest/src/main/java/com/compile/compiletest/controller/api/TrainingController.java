@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.linux.TrainingLinux;
 import com.compile.compiletest.service.TrainingService;
+import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SavePathVo;
 import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.UserVo;
 
@@ -31,6 +33,8 @@ public class TrainingController {
 	
 	@Autowired
 	private TrainingService trainingService;
+	
+	private Long authUserNo = null;
 	
 	@PostMapping(value="/list")
 	public JsonResult originProblemList(String page, String kwd, String category, String[] checkValues) {
@@ -54,6 +58,8 @@ public class TrainingController {
 	      map.put("list", list);
 	      map.put("listSize", list.size());
 	      map.put("problemNo", no);
+	      
+	      
 	      
 	      return JsonResult.success(map);
 	   }
@@ -80,10 +86,23 @@ public class TrainingController {
          map.put("list", list);
          map.put("authUser", authUser);
          
-         System.out.println("email을 가져온 경로");
+         System.out.println("email을 가져온 경로"); 
          
-      } else {
+         /////////////////////////////////////////
+         // 유저의 회원번호, 저장한 문제모음번호 가져오기
+         Long saveNo = trainingService.selectSaveNo(authUserNo, problemVo.getNo());
+         
+         List<SavePathVo> savePathVoList = trainingService.selectSavePath(saveNo);
+         Long[] savePathNoArray = new Long[savePathVoList.size()];
+         for(int i = 0; i < savePathVoList.size(); i++) {
+        	 savePathNoArray[i] = savePathVoList.get(i).getNo();
+         }
+         List<CodeVo> codeVoList = trainingService.selectCode(savePathNoArray);
+         ///////////////////////////////
+         
+      }else {
          authUser = (UserVo)session.getAttribute("authUser");
+         authUserNo = authUser.getNo();
          problemVo = trainingService.selectProblemOne(problemNo);
          list = trainingService.selectSubProblem(problemNo);
          
@@ -95,10 +114,10 @@ public class TrainingController {
          
          System.out.println("problemNo만 있을 때");
          
-         return JsonResult.success(map);
+         return JsonResult.success(map);         
       }
       return JsonResult.success(map);
-   }      	
+   }
 	
 	@PostMapping("/auth/{userEmail}/{problemNo}")
 	public JsonResult auth(

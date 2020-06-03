@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.compile.compiletest.vo.AnswerUserListVo;
+import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SavePathVo;
 import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.UserVo;
@@ -189,6 +191,21 @@ public class TrainingRepository {
 		map.put("packagePathArray", packagePathArray);
 		
 		sqlSession.insert("training.insertSavePath", map);
+	}
+
+	public Long selectSaveNo(Map<String, Object> map) {
+		return sqlSession.selectOne("training.selectSaveNo", map);
+	}
+
+	public List<SavePathVo> selectSavePath(Long saveNo) {
+		return sqlSession.selectList("training.selectSavepath", saveNo);
+	}
+
+	public List<CodeVo> selectCode(Long[] savePathNoArray) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("savePathNoArray", savePathNoArray);
+		
+		return sqlSession.selectList("training.selectCode", map);
 	}
 	
 }
