@@ -268,17 +268,13 @@ $(function(){
 			$('#password').css('background-image', 'none');
 			$('#password-warning').hide();
 			password_pandan = false;			
-			console.log('1');
 		} else {
 			if(checkPasswordPattern(password) == false) {
 				$('.error-password-pattern').show();
 				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
 				$('#password').css('background-position', '275px');
 				$('#password').css('background-repeat', 'no-repeat');
-				$('#auth').remove();
-				$('#join-form').css('height', '335px');
 				password_pandan = false;
-				console.log('2');
 			}
 			
 			if(checkPasswordPattern(password) == true) {
@@ -293,10 +289,8 @@ $(function(){
 			if ($('#auth').length == 0) {
 				$('.auth-before').after(auth_str);
 				$('#join-form').css('height', '385px');
-				console.log('6');
 			} else {
 				$('#join-form').css('height', '385px');
-				console.log('7');
 			}
 		}
 	});
@@ -307,37 +301,35 @@ $(function(){
 			$('#passwordcheck').css('background-image', 'none');
 			$("#passwordcheck").focus();
 			passwordcheck_pandan = false;
-		}
-		
-		if( $('#password').val() != $('#passwordcheck').val() ){
-			if($('#passwordcheck').val().length == 0) {
-				$('#password-warning').hide();
-				$('#passwordcheck').css('background-image', 'none');
-				$("#passwordcheck").focus();
-				passwordcheck_pandan = false;
-			}	
-			$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
-			$('#passwordcheck').css('background-position', '275px');
-			$('#passwordcheck').css('background-repeat', 'no-repeat');
-			$('#auth').remove();
-			$("#passwordcheck").focus();
-			
-			$('#password-warning').show();
-			$('#password-warning').text('비밀번호가 일치하지 않습니다.');
-			$('#password-warning').css('color', '#bf0000');
-			$('#password-warning').css('margin', '5px 0 0 22px');
-			$('#join-form').css('height', '365px');
-            
-			$('#auth').remove();
-			
-			passwordcheck_pandan = false;
 		} else {
-			$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
-			$('#passwordcheck').css('background-position', '275px');
-			$('#passwordcheck').css('background-repeat', 'no-repeat');
-			$('#password-warning').hide();
-			passwordcheck_pandan = true;
-			$('#join-form').css('height', '385px');
+			if( $('#password').val() != $('#passwordcheck').val() ){
+				if($('#passwordcheck').val().length == 0) {
+					$('#password-warning').hide();
+					$('#passwordcheck').css('background-image', 'none');
+					$("#passwordcheck").focus();
+					passwordcheck_pandan = false;
+				}
+				
+				$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
+				$('#passwordcheck').css('background-position', '275px');
+				$('#passwordcheck').css('background-repeat', 'no-repeat');
+				$("#passwordcheck").focus();
+				
+				$('#password-warning').show();
+				$('#password-warning').text('비밀번호가 일치하지 않습니다.');
+				$('#password-warning').css('color', '#bf0000');
+				$('#password-warning').css('margin', '5px 0 0 22px');
+				$('#join-form').css('height', '365px');
+				
+				passwordcheck_pandan = false;
+			} else {
+				$('#passwordcheck').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
+				$('#passwordcheck').css('background-position', '275px');
+				$('#passwordcheck').css('background-repeat', 'no-repeat');
+				$('#password-warning').hide();
+				$('#join-form').css('height', '385px');
+				passwordcheck_pandan = true;
+			}
 		}
 		
 		if(authCheck() == true) {
