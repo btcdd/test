@@ -136,11 +136,13 @@ $(function(){
 			return;
 		}
 		
-		if(authCheck != true) {
+		if(!authCheck) {
 			return;
 		}
-		
+		console.log("nickname: " + $('#nickname').val() + "/email:" + $('#email').val() + "/password:" + $('#password').val());
 		this.submit();
+		console.log("submit 클릭 확인");
+		
 	});	
 	
 	$('#nickname').change(function(){
@@ -367,13 +369,8 @@ $(function(){
 	});
 	
 	$(document).on("click", "#btn-auth-check", function() {
-		$('#nickname').attr("disabled", true);
-		$('#email').attr("disabled", true);
-		$('#password').attr("disabled", true);
-		$('#passwordcheck').attr("disabled", true);
-		
 		if( $('#auth-check').val() == tempKey) {
-			$("#auth-check").attr("disabled", true);
+			alert("인증번호가 확인되었습니다");
 		} else {
 			alert("인증번호가 맞지 않습니다");
 			$("#auth-check").attr("disabled", false);
@@ -389,28 +386,30 @@ $(function(){
         <div id="content">
             <div id="user">
                 <form:form
-                	id="join-form" 
-                	modelAttribute="userVo"
-                	method="post"
-                	action="${pageContext.servletContext.contextPath }/user/join">
+                   id="join-form" 
+                   modelAttribute="userVo"
+                   method="post"
+                   action="${pageContext.servletContext.contextPath }/user/join">
                     <div class="nickname">
                         <label for="nickname"></label>
                         <form:input id="nickname" path="nickname" placeholder="닉네임" autocomplete="off"/>
                         <p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
+                        <form:errors path="nickname"/>
                         </p>
                     </div>
-                   	<div class="error-email-pattern" style="display:none">
-                   		이메일 형식에 맞지 않습니다
-                   	</div>
+                      <div class="error-email-pattern" style="display:none">
+                         이메일 형식에 맞지 않습니다
+                      </div>
                     <div class="email">
                         <label for="email"></label>
                         <form:input id="email" path="email" placeholder="이메일" autocomplete="off"/>
-						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
+                  <p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
+                        <form:errors path="email" />
                         </p>
                     </div>
                     <div class="error-password-pattern" style="display:none">
-                   		8~20자 영문 대 소문자, 숫자, 특수문자를 사용하세요.
-                   	</div>
+                         8~20자 영문 대 소문자, 숫자, 특수문자를 사용하세요.
+                      </div>
                     <div>
                         <label for="password"></label>
                         <form:input id="password" path="password" type="password" placeholder="비밀번호" autocomplete="off"/>
@@ -419,11 +418,12 @@ $(function(){
                         <label for="passwordcheck"></label>
                         <input id="passwordcheck" name="passwordcheck" type="password" placeholder="비밀번호 확인" autocomplete="off"/>
                         <div id="password-warning"></div>
-						<p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
+                  <p style="font-weight:bold; color:#f00;  text-align:left; padding-left:0">
+                        <form:errors path="password"/>
                         </p>                        
                     </div>
                     <div>
-                    	<a href="${pageContext.servletContext.contextPath }/"><input class="cancel-button" value="취소" readonly></input></a>
+                       <a href="${pageContext.servletContext.contextPath }/"><input class="cancel-button" value="취소"></input></a>
                         <input type="submit" class="join-button" value="가입" >
                     </div>
                     <hr />
@@ -431,6 +431,7 @@ $(function(){
                         <a href="${pageContext.request.contextPath }/user/login"><input class="login-button" value="로그인" readonly></a>
                     </div>
                 </form:form>
+
             </div>
         </div>
     </div>
