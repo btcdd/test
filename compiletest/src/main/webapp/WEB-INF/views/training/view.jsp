@@ -16,6 +16,32 @@
 <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/ckeditor/contents.css">
 <script>
 var problemNo = '${problemVo.no}';
+var array = new Array();
+
+var saveProblem = function() {
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath }/api/training/save/problem',
+		async: false,
+		type: 'post',
+		dataType: 'json',
+		traditional: true,
+		data: {
+			'problemNo': problemNo,
+			'array': array
+		},
+		success: function(response){
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
+	});
+}
+
 $(function() {
 	
 	var no;
@@ -38,15 +64,25 @@ $(function() {
          success:function(response){
             console.log(response.data);
               console.log(response.data.authUser.email);
-             var url = "http://localhost:9999/codingtest?userEmail="+response.data.authUser.email+"&problemNo="+response.data.problemVo.no;
+             var url = "http://localhost:9999/codingtest?userEmail=" + response.data.authUser.email+ "&problemNo=" + response.data.problemVo.no;
              window.open(url,'_blank');
              
          },
          error: function(xhr, status, e) {
             console.error(status + ":" + e);
          }
-      });      
-   }); 
+      });
+   });
+	
+	
+	$('#save').click(function() {
+		saveProblem();
+	});
+	
+	for(var i = 0; i < ${listSize }; i++) {
+		var subProblemNo = $('.sub' + i).attr("value");
+		array.push(subProblemNo);
+	}
 });
 </script>
 </head>
@@ -59,7 +95,8 @@ $(function() {
             <p class="division">${problemVo.no }</p>
 
             <p>${problemVo.title }</p>
-             <button id='code-tree'>코드 트리로 가져오기</button>  
+            <button id="save">저장</button>  
+             <button id="code-tree">코드 트리로 가져오기</button>  
             <a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }"><button>통계</button></a>
         </div>
         
@@ -68,6 +105,7 @@ $(function() {
 				<div class="problem">
 					<div class="pro pro${status.index + 1}" id="${status.index + 1}">
 						<p class="division">문제 ${status.index + 1}</p>
+						<input class="sub${status.index }" type="hidden" value="${vo.no }" />
 						<p id="click">${vo.title }</p>
 						<a href="${pageContext.servletContext.contextPath }/training/answerlist/${status.index + 1}/${vo.no}"><button>맞은 사람</button></a>
 						

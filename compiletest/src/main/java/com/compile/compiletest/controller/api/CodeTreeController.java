@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.UserVo;
-import com.compile.security.Auth;
 
 @RestController("CodeTreeController")
 @RequestMapping("/api/codetree")

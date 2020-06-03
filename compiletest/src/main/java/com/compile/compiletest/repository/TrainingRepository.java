@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.compile.compiletest.vo.AnswerUserListVo;
+import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SavePathVo;
 import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.UserVo;
@@ -164,6 +166,46 @@ public class TrainingRepository {
 		map.put("subProblemNo", subProblemNo);
 		map.put("lang", lang);
 		return sqlSession.selectList("training.selectAnswerUserLangList", map);
+	}
+
+	public void insertSaveProblemNo(Map<String, Object> map) {
+		sqlSession.insert("training.insertSaveProblemNo", map);
+	}
+
+	public Long findSaveNo(Long problemNo) {
+		return sqlSession.selectOne("training.findSaveNo", problemNo);
+	}
+
+	public void insertSavePath(Long[] array, Long saveNo, Long authUserNo, Long problemNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("array", array);
+		map.put("saveNo", saveNo);
+		map.put("authUserNo", authUserNo);
+		map.put("problemNo", problemNo);
+		
+		String[] packagePathArray = new String[array.length];
+		for(int i = 0; i < array.length; i++) {
+			packagePathArray[i] = "/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subprob" + array[i];
+		}
+		
+		map.put("packagePathArray", packagePathArray);
+		
+		sqlSession.insert("training.insertSavePath", map);
+	}
+
+	public Long selectSaveNo(Map<String, Object> map) {
+		return sqlSession.selectOne("training.selectSaveNo", map);
+	}
+
+	public List<SavePathVo> selectSavePath(Long saveNo) {
+		return sqlSession.selectList("training.selectSavepath", saveNo);
+	}
+
+	public List<CodeVo> selectCode(Long[] savePathNoArray) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("savePathNoArray", savePathNoArray);
+		
+		return sqlSession.selectList("training.selectCode", map);
 	}
 	
 }

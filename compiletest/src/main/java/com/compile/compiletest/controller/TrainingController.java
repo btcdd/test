@@ -88,11 +88,14 @@ public class TrainingController {
 		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
 		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
 		Map<String, Object> map = new HashMap<>();
+		
+		for(int i = 0; i < list.size(); i++) {
+			list.get(i).getContents().replace("<br />", "\n");
+			System.out.println(list.get(i).getContents());
+		}
 
 		map.put("problemVo", problemVo);
 		map.put("list", list);
-
-		System.out.println(list);
 		
 		map.put("listSize", list.size());
 

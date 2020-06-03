@@ -12,6 +12,13 @@ public class CodeTreeController {
 	public String mypage() {
 		return "redirect://localhost:9999";
 	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.GET)
+	public String saveCode() {
+		
+		
+		return "redirect://localhost:9999";
+	}
 }
 /*
  * @RequestMapping(value="", method=RequestMethod.GET) public String mypage() {

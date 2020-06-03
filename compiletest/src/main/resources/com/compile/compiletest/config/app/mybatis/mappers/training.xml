@@ -460,4 +460,52 @@
 		limit #{displayPost}, #{postNum}
 	</select>
 	
+	
+	<insert id="insertSaveProblemNo" parameterType="map">
+		insert 
+ 			  into save
+		values (null, #{userNo }, #{problemNo })
+	</insert>
+	
+	<select id="findSaveNo" parameterType="long" resultType="long">
+		<![CDATA[
+			  select no
+			    from save 
+			   where problem_no = #{problemNo }
+		]]>
+	</select>
+	
+	<insert id="insertSavePath" parameterType="hashmap">
+		insert into save_path
+		      values 
+		 <foreach collection="array" item="item" separator=",">
+			(null, ${item}, ${saveNo}, concat('/userDirectory/user', ${authUserNo }, '/prob', ${problemNo }, '/subprob', ${item }))
+		</foreach> 
+	</insert>
+	
+	<select id="selectSaveNo" parameterType="map" resultType="long">
+		<![CDATA[
+			  select no 
+			    from save 
+			   where user_no = #{authUserNo } and problem_no = #{problemNo }
+		]]>
+	</select>
+	
+	<select id="selectSavepath" parameterType="long" resultType="savepathvo">
+		<![CDATA[
+			  select no, sub_problem_no as subProblemNo, save_no as saveNo , package_path as packagePath
+			    from save_path
+			   where save_no = #{saveNo }
+		]]>
+	</select>
+	
+	<select id="selectCode" parameterType="map" resultType="codevo">
+		<foreach collection="savePathNoArray" item="item" separator="union">
+			select c.no as no, c.save_path_no as savePathNo, c.language as language, c.code as code, c.file_name as fileName, (select sub_problem_no from save_path where no = ${item }) as subProblemNo
+			  from code c, save_path sp
+			 where c.save_path_no = ${item }
+			   and c.save_path_no = sp.no
+		</foreach>
+	</select>
+	
 </mapper>

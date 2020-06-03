@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.TrainingRepository;
 import com.compile.compiletest.vo.AnswerUserListVo;
+import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SavePathVo;
 import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemList;
 import com.compile.compiletest.vo.SubProblemVo;
@@ -324,5 +326,38 @@ public class TrainingService {
 		
 		return map;
 	}
+
+	public void insertSaveProblemNo(Long no, Long problemNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userNo", no);
+		map.put("problemNo", problemNo);
+		
+		trainingRepository.insertSaveProblemNo(map);
+	}
+
+	public Long findSaveNo(Long problemNo) {
+		return trainingRepository.findSaveNo(problemNo);
+	}
+
+	public void insertSavePath(Long[] array, Long saveNo, Long authUserNo, Long problemNo) {
+		
+		trainingRepository.insertSavePath(array, saveNo, authUserNo, problemNo);
+	}
 	
+	// 회원이 이전에 저장했던 문제 모음을 가져올 때
+	public Long selectSaveNo(Long authUserNo, Long problemNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("authUserNo", authUserNo);
+		map.put("problemNo", problemNo);
+		
+		return trainingRepository.selectSaveNo(map);
+	}
+
+	public List<SavePathVo> selectSavePath(Long saveNo) {
+		return trainingRepository.selectSavePath(saveNo);
+	}
+
+	public List<CodeVo> selectCode(Long[] savePathNoArray) {
+		return trainingRepository.selectCode(savePathNoArray);
+	}
 }
