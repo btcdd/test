@@ -117,11 +117,11 @@
  		]]> 
 	</select>
 	
-	<insert id="insertProblem" parameterType="problemvo">
+	<insert id="insertProblem" parameterType="map">
 		<![CDATA[
 			insert 
   			  into problem
-			values (null, #{title }, #{password }, 0, 0, now(), 1, #{kindNo }, #{startTime }, #{endTime }, 6, 'y')
+			values (null, #{problemVo.title }, #{problemVo.password }, 0, 0, now(), #{authUserNo }, #{problemVo.kindNo }, #{problemVo.startTime }, #{problemVo.endTime }, 6, 'y')
 		]]>
 	</insert>
 	
@@ -567,6 +567,20 @@
 			update problem
 			   set recommend = recommend - 1
 			 where no = #{problemNo }
+		]]>	
+	</update>
+	
+	<update id="updateTestProblem" parameterType="problemvo">
+		<![CDATA[
+			update problem 
+			   set password = #{password }, start_time = #{startTime}, end_time = #{endTime} where no = #{no}
+		]]>	
+	</update>
+	
+	<update id="updateTrainingProblem" parameterType="problemvo">
+		<![CDATA[
+			update problem 
+			   set password = null, start_time = null, end_time = null where no = #{no}
 		]]>	
 	</update>
 	

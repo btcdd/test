@@ -55,8 +55,8 @@ public class TrainingRepository {
 		return sqlSession.selectList("training.selectOrganizationList", map);
 	}
 
-	public int insertProblem(ProblemVo problemVo) {
-		return sqlSession.insert("training.insertProblem", problemVo);
+	public int insertProblem(Map<String, Object> map) {
+		return sqlSession.insert("training.insertProblem", map);
 	}
 
 	public Long selectProblemNo() {
@@ -235,6 +235,15 @@ public class TrainingRepository {
 
 	public void updateMinusRecommend(Long problemNo) {
 		sqlSession.update("training.updateMinusRecommend", problemNo);
+	}
+
+	public void updateTestProblem(ProblemVo problemVo) {
+		System.out.println(problemVo);
+		sqlSession.update("training.updateTestProblem", problemVo);
+	}
+
+	public void updateTrainingProblem(ProblemVo problemVo) {
+		sqlSession.update("training.updateTrainingProblem", problemVo);
 	}
 	
 }
