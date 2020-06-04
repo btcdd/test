@@ -60,6 +60,7 @@ public class TrainingController {
 	public String problemView(@PathVariable("problemNo") Long problemNo, Model model) {
 
 		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
+		
 		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
 		Map<String, Object> map = new HashMap<>();
 

@@ -67,8 +67,8 @@ public class TrainingRepository {
 		return sqlSession.insert("training.insertSubProblem", map);
 	}
 
-	public ProblemVo selectProblemOne(Long no) {
-		return sqlSession.selectOne("training.selectProblemOne", no);
+	public ProblemVo selectProblemOne(Long problemNo) {
+		return sqlSession.selectOne("training.selectProblemOne", problemNo);
 	}
 
 	public List<SubProblemVo> selectSubProblem(Long no) {
@@ -211,6 +211,10 @@ public class TrainingRepository {
 
 	public List<SaveVo> selectSaveNoList(Long authUserNo) {
 		return sqlSession.selectList("training.selectSaveNoList", authUserNo);
+	}
+
+	public void updateHit(Long problemNo) {
+		sqlSession.update("training.updateHit");
 	}
 	
 }

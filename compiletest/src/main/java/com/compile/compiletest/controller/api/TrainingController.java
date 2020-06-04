@@ -95,7 +95,7 @@ public class TrainingController {
          
          System.out.println("problemNo만 있을 때");
          
-         return JsonResult.success(map);         
+         return JsonResult.success(map);
       }
       return JsonResult.success(map);
    }

@@ -181,7 +181,8 @@
 		<![CDATA[
 			  select
 			  	no,
-			   	title, 
+			   	title,
+			   	hit,
 			   	recommend,
 			   	date_format(start_time,'%Y-%m-%d %H:%i:%s') as startTime,
 			   	date_format(end_time,'%Y-%m-%d %H:%i:%s') as endTime,
@@ -191,7 +192,7 @@
 			   	password,
 			   	state 
 			    from problem
-			   where no = #{no }
+			   where no = #{problemNo }
 		]]>
 	</select>
 	
@@ -523,5 +524,13 @@
 			   where user_no = #{authUserNo }
 		]]>
 	</select>
+	
+	<update id="updateHit" parameterType="long">
+		<![CDATA[
+			update user
+			   set hit = hit + 1
+			 where no = #{problemNo }
+		]]>	
+	</update>
 	
 </mapper>
