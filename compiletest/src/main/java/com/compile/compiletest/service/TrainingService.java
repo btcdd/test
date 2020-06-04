@@ -368,4 +368,21 @@ public class TrainingService {
 	public List<SaveVo> selectSaveNoList(Long authUserNo) {
 		return trainingRepository.selectSaveNoList(authUserNo);
 	}
+
+	public Map<String, Object> updateRecommend(Long authUserNo, Long problemNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("authUserNo", authUserNo);
+		map.put("problemNo", problemNo);
+		
+		Long check = trainingRepository.checkUserRecommend(map);
+		if(check > 0) {
+			map.put("pandanRecommend", true);
+		} else {
+			trainingRepository.updateRecommend(problemNo);
+			trainingRepository.insertRecommendValue(map);
+			map.put("pandanRecommend", false);
+		}
+		
+		return map;
+	}
 }

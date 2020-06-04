@@ -42,6 +42,60 @@ var saveProblem = function() {
 	});
 }
 
+var recommendCheck = function() {
+	$.ajax({
+		url: '${pageContext.servletContext.contextPath }/api/training/recommend',
+		async: false,
+		type: 'post',
+		dataType: 'json',
+		traditional: true,
+		data: {
+			'problemNo': problemNo,
+		},
+		success: function(response){
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}
+			map = response.data;
+			
+			if(map.pandanRecommend) {
+				recommendDelete();
+			}
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
+	});
+};
+
+var recommendDelete = function() {
+	$.ajax({
+		url: '${pageContext.servletContext.contextPath }/api/training/recommend',
+		async: false,
+		type: 'post',
+		dataType: 'json',
+		traditional: true,
+		data: {
+			'problemNo': problemNo,
+		},
+		success: function(response){
+			if(response.result != "success"){
+				console.error(response.message);
+				return;
+			}
+			map = response.data;
+			
+			if(map.pandanRecommend) {
+				recommendDelete();
+			}
+		},
+		error: function(xhr, status, e){
+			console.error(status + ":" + e);
+		}
+	});
+};
+
 $(function() {
 	
 	var no;
@@ -83,6 +137,10 @@ $(function() {
 		var subProblemNo = $('.sub' + i).attr("value");
 		array.push(subProblemNo);
 	}
+	
+	$('#recommend').click(function() {
+		recommendCheck();
+	});
 });
 </script>
 </head>
@@ -99,7 +157,7 @@ $(function() {
             <button id="save">저장</button>  
              <button id="code-tree">코드 트리로 가져오기</button>  
             <a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }"><button>통계</button></a>
-            <a href="${pageContext.servletContext.contextPath }/training/api/training/recommend/${problemVo.no }"><button>추천 <p>${problemVo.recommend }</p></button></a>
+            <button id="recommend">추천 <p>${problemVo.recommend }</p></button>
         </div>
         
         <div class="problem-list">

@@ -536,4 +536,25 @@
 		]]>	
 	</update>
 	
+	<select id="checkUserRecommend" parameterType="map" resultType="long">
+		<![CDATA[
+			  select count(*)
+			    from recommend
+			   where user_no = #{authUserNo}
+			     and problem_no = #{problemNo}
+		]]>
+	</select>
+	
+	<update id="updateRecommend" parameterType="long">
+		<![CDATA[
+			update problem
+			   set recommend = recommend + 1
+			 where no = #{problemNo }
+		]]>	
+	</update>
+	
+	<insert id="insertRecommendValue" parameterType="hashmap">
+		insert into recommend values(#{authUserNo},#{problemNo})
+	</insert>
+	
 </mapper>

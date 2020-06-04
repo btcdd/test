@@ -216,5 +216,17 @@ public class TrainingRepository {
 	public void updateHit(Long problemNo) {
 		sqlSession.update("training.updateHit", problemNo);
 	}
+
+	public Long checkUserRecommend(Map<String, Object> map) {
+		return sqlSession.selectOne("training.checkUserRecommend", map);
+	}
+
+	public void updateRecommend(Long problemNo) {
+		sqlSession.update("training.updateRecommend", problemNo);
+	}
+
+	public void insertRecommendValue(Map<String, Object> map) {
+		sqlSession.insert("training.insertRecommendValue", map);
+	}
 	
 }
