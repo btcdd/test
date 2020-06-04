@@ -96,8 +96,12 @@ public class TrainingController {
         	 savePathNoArray[i] = savePathVoList.get(i).getNo();
          }
          List<CodeVo> codeVoList = trainingService.selectCode(savePathNoArray);
-         ///////////////////////////////
+         map.put("savePathVoList",savePathVoList);
+         map.put("codeVoList",codeVoList);
          
+         ///////////////////////////////
+         System.out.println("savePathVoList>>>" + savePathVoList);
+         System.out.println("codeVoList>>>" + codeVoList);
       }else { //리액트 첫 창 열때 경로 (순서 : 1)
          authUser = (UserVo)session.getAttribute("authUser");
          authUserNo = authUser.getNo();
