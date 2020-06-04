@@ -95,7 +95,7 @@ $(function() {
             <p class="division">${problemVo.no }</p>
 
             <p>${problemVo.title }</p>
-			<p>조회수</p><p>${problemVo.hit }</p>            
+			<p>조회수</p><p>${problemVo.hit + 1}</p>
             <button id="save">저장</button>  
              <button id="code-tree">코드 트리로 가져오기</button>  
             <a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }"><button>통계</button></a>

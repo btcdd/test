@@ -530,7 +530,7 @@
 	
 	<update id="updateHit" parameterType="long">
 		<![CDATA[
-			update user
+			update problem
 			   set hit = hit + 1
 			 where no = #{problemNo }
 		]]>	
