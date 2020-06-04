@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.service.TrainingService;
-import com.compile.compiletest.vo.CodeVo;
-import com.compile.compiletest.vo.SavePathVo;
 import com.compile.compiletest.vo.SaveVo;
 import com.compile.compiletest.vo.UserVo;
 
@@ -29,7 +27,7 @@ public class CodeTreeController {
 	UserVo _authUser = null;
 	
 	@GetMapping("")
-	public JsonResult codetree(HttpSession session) {
+	public JsonResult codeTree(HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		_authUser = authUser;
@@ -38,7 +36,7 @@ public class CodeTreeController {
 	}	
 	
 	@PostMapping("/{userEmail}")
-	public JsonResult codetree2(@PathVariable("userEmail") String userEmail) {
+	public JsonResult codeTreeAccess(@PathVariable("userEmail") String userEmail) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -54,8 +52,15 @@ public class CodeTreeController {
 			map.put("result", "wrongAccess");
 			return JsonResult.success(map);
 		}
+		System.out.println("정상 경로 !!!");
+		map.put("result", "ok");
 		
-		
+		return JsonResult.success(map);
+	}
+	
+	@PostMapping("/list/{userEmail}")
+	public JsonResult codeTreeList(@PathVariable("userEmail") String userEmail) {
+		Map<String, Object> map = new HashMap<>();
 		/////////////////////////////////////////
 		// 관우 유진 코드~~~
 		// 유저의 회원번호, 저장한 문제모음번호 가져오기
@@ -70,13 +75,10 @@ public class CodeTreeController {
 //		map.put("savePathVoList",savePathVoList);
 //		map.put("codeVoList",codeVoList);
 		
-		///////////////////////////////
-		
-		System.out.println("!!!!");
-		map.put("result", "ok");
-
-		System.out.println("userEmail>>"+userEmail);
-		
+		///////////////////////////////		
+		map.put("saveVoList", saveVoList);
 		return JsonResult.success(map);
 	}
+
+	
 }
