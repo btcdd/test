@@ -161,7 +161,6 @@ public class TrainingController {
 		model.addAttribute("subProblemNo", subProblemNo);
 		model.addAttribute("index", index);
 		model.addAllAttributes(trainingService.selectAnswerList(subProblemNo));
-//		model.addAllAttributes(trainingService.selectAnswerUserList(subProblemNo));
 		return "training/answer-list";
 	}
 }

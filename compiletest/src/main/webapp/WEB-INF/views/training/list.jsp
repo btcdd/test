@@ -121,12 +121,28 @@ var disabled = function(add, remove) {
 	category = '';
 }
 
+var nextRemove = function() {
+	var endPage = map.endPageNum - 1;
+	var nextPandan = true;
+	
+	if(page == endPage) {
+		$('.next').remove();
+		nextPandan = false;
+	} else if(nextPandan == false){
+		$('.pager').append('<span class="next">▶</span>');
+		nextPandan = true;
+	}
+}
+
 $(function() {
 	originList('1', '', '');
 	
 	$(document).on("click", ".page", function() {
 		page = $(this).attr('id');
+		
 		levelChecked(page, kwd);
+		
+		nextRemove();
 	});
 	
 	$(document).on("click", ".prev", function() {
@@ -137,6 +153,8 @@ $(function() {
 		console.log(typeof(page) + " page: " + page + " / " + typeof(prevNo) + ":" + prevNo);
 		
 		levelChecked(page, kwd);
+		
+		nextRemove();
 	});
 	
 	$(document).on("click", ".next", function() {
@@ -145,6 +163,8 @@ $(function() {
 		page = String(prevNo);
 		console.log(typeof(page) + " page: " + page + " / " + typeof(prevNo) + ":" + prevNo);
 		levelChecked(page, kwd);
+		
+		nextRemove();
 	});
 
 	$('input[name=level]').change(function() {
@@ -159,6 +179,7 @@ $(function() {
 		levelChecked(page, kwd);
 		
 		disabled('level','organization');
+		nextRemove();
 	});
 	
 	$('input[name=organization]').change(function() {
@@ -166,11 +187,15 @@ $(function() {
 		levelChecked(page, kwd);
 		
 		disabled('organization','level');
+		
+		nextRemove();
 	});
 	
 	$('#search').on('click', function() {
+		page = '1';
 		kwd = $('#kwd').val();
 		levelChecked(page, kwd);
+		nextRemove();
 	});
 });
 

@@ -63,7 +63,11 @@ public class CodeTreeController {
 		/////////////////////////////////////////
 		// 관우 유진 코드~~~
 		// 유저의 회원번호, 저장한 문제모음번호 가져오기
-		List<SaveVo> saveVoList = trainingService.selectSaveNoList(_authUser.getNo());
+		
+		// 아직 쓸모없음
+//		 Long saveNo = trainingService.selectSaveNo(authUserNo, problemVo.getNo());
+		
+		 List<SaveVo> saveVoList = trainingService.selectSaveNoList(_authUser.getNo());
 		
 //		List<SavePathVo> savePathVoList = trainingService.selectSavePath(saveNo);
 //		Long[] savePathNoArray = new Long[savePathVoList.size()];
