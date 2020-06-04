@@ -214,7 +214,7 @@ public class TrainingRepository {
 	}
 
 	public void updateHit(Long problemNo) {
-		sqlSession.update("training.updateHit");
+		sqlSession.update("training.updateHit", problemNo);
 	}
 	
 }
