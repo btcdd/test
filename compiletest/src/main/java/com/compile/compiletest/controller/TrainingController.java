@@ -60,6 +60,7 @@ public class TrainingController {
 	public String problemView(@PathVariable("problemNo") Long problemNo, Model model) {
 
 		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
+		
 		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
 		Map<String, Object> map = new HashMap<>();
 
@@ -161,7 +162,6 @@ public class TrainingController {
 		model.addAttribute("subProblemNo", subProblemNo);
 		model.addAttribute("index", index);
 		model.addAllAttributes(trainingService.selectAnswerList(subProblemNo));
-//		model.addAllAttributes(trainingService.selectAnswerUserList(subProblemNo));
 		return "training/answer-list";
 	}
 }

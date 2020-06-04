@@ -84,24 +84,7 @@ public class TrainingController {
          map.put("problemVo", problemVo);
          map.put("list", list);
          System.out.println("email을 가져온 경로"); 
-         
-         /////////////////////////////////////////
-         // 관우 유진 코드~~~
-         // 유저의 회원번호, 저장한 문제모음번호 가져오기
-         Long saveNo = trainingService.selectSaveNo(authUserNo, problemVo.getNo());
-         
-         List<SavePathVo> savePathVoList = trainingService.selectSavePath(saveNo);
-         Long[] savePathNoArray = new Long[savePathVoList.size()];
-         for(int i = 0; i < savePathVoList.size(); i++) {
-        	 savePathNoArray[i] = savePathVoList.get(i).getNo();
-         }
-         List<CodeVo> codeVoList = trainingService.selectCode(savePathNoArray);
-         map.put("savePathVoList",savePathVoList);
-         map.put("codeVoList",codeVoList);
-         
-         ///////////////////////////////
-         System.out.println("savePathVoList>>>" + savePathVoList);
-         System.out.println("codeVoList>>>" + codeVoList);
+        
       }else { //리액트 첫 창 열때 경로 (순서 : 1)
          authUser = (UserVo)session.getAttribute("authUser");
          authUserNo = authUser.getNo();
@@ -112,7 +95,7 @@ public class TrainingController {
          
          System.out.println("problemNo만 있을 때");
          
-         return JsonResult.success(map);         
+         return JsonResult.success(map);
       }
       return JsonResult.success(map);
    }
