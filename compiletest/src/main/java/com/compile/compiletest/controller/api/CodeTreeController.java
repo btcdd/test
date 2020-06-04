@@ -23,11 +23,13 @@ public class CodeTreeController {
 	@Autowired
 	private TrainingService trainingService;
 
+	UserVo _authUser = null;
 	
 	@GetMapping("")
 	public JsonResult codetree(HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		_authUser = authUser;
 		map.put("authUser", authUser);
 		return JsonResult.success(map);
 	}	
@@ -41,6 +43,12 @@ public class CodeTreeController {
 		if(!exist || userEmail=="undifiend") {
 			System.out.println("유저가 존재하지 않는다!!!");
 			
+			map.put("result", "emptyUser");
+			return JsonResult.success(map); //redirect 홈으로(리액트에서)
+		}
+		System.out.println("_authUser>>>>"+_authUser);
+		if(_authUser == null) {
+			System.out.println("잘못된 접근 경로 !!!");
 			map.put("result", "wrongAccess");
 			return JsonResult.success(map); //redirect 홈으로(리액트에서)
 		}
