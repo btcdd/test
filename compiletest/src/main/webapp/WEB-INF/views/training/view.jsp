@@ -95,9 +95,11 @@ $(function() {
             <p class="division">${problemVo.no }</p>
 
             <p>${problemVo.title }</p>
+			<p>조회수</p><p>${problemVo.hit }</p>            
             <button id="save">저장</button>  
              <button id="code-tree">코드 트리로 가져오기</button>  
             <a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }"><button>통계</button></a>
+            <a href="${pageContext.servletContext.contextPath }/training/api/training/recommend/${problemVo.no }"><button>추천 <p>${problemVo.recommend }</p></button></a>
         </div>
         
         <div class="problem-list">
