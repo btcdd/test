@@ -516,4 +516,12 @@
 		</foreach>
 	</select>
 	
+	<select id="selectSaveNoList" parameterType="long" resultType="savevo">
+		<![CDATA[
+			  select no, user_no as userNo, problem_no as problemNo
+			    from save 
+			   where user_no = #{authUserNo }
+		]]>
+	</select>
+	
 </mapper>

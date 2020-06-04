@@ -13,6 +13,7 @@ import com.compile.compiletest.vo.AnswerUserListVo;
 import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SavePathVo;
+import com.compile.compiletest.vo.SaveVo;
 import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemList;
 import com.compile.compiletest.vo.SubProblemVo;
@@ -361,5 +362,9 @@ public class TrainingService {
 
 	public List<CodeVo> selectCode(Long[] savePathNoArray) {
 		return trainingRepository.selectCode(savePathNoArray);
+	}
+
+	public List<SaveVo> selectSaveNoList(Long authUserNo) {
+		return trainingRepository.selectSaveNoList(authUserNo);
 	}
 }

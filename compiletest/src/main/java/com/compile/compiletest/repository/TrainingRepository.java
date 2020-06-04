@@ -12,6 +12,7 @@ import com.compile.compiletest.vo.AnswerUserListVo;
 import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SavePathVo;
+import com.compile.compiletest.vo.SaveVo;
 import com.compile.compiletest.vo.StatisticsVo;
 import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.UserVo;
@@ -206,6 +207,10 @@ public class TrainingRepository {
 		map.put("savePathNoArray", savePathNoArray);
 		
 		return sqlSession.selectList("training.selectCode", map);
+	}
+
+	public List<SaveVo> selectSaveNoList(Long authUserNo) {
+		return sqlSession.selectList("training.selectSaveNoList", authUserNo);
 	}
 	
 }

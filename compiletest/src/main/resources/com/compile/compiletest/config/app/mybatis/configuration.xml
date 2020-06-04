@@ -12,6 +12,7 @@
 		<typeAlias alias="answeruserlistvo" type="com.compile.compiletest.vo.AnswerUserListVo"/>
 		<typeAlias alias="savepathvo" type="com.compile.compiletest.vo.SavePathVo"/>
 		<typeAlias alias="codevo" type="com.compile.compiletest.vo.CodeVo"/>
+		<typeAlias alias="savevo" type="com.compile.compiletest.vo.SaveVo"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/compile/compiletest/config/app/mybatis/mappers/user.xml" />
