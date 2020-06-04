@@ -276,12 +276,20 @@ $(function(){
 			$('#password-warning').hide();
 			password_pandan = false;			
 		} else {
+			$('#passwordcheck').attr("disabled", true);
+			if($('#password').val() != $('#passwordcheck').val()) {
+				$('#passwordcheck').css('background-image', 'none');
+				$('#passwordcheck').val('');
+				$('#join-form').css('height', '335px');
+			}
 			if(checkPasswordPattern(password) == false) {
+				console.log("들어가닝?");
 				$('.error-password-pattern').show();
 				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/cross.png")');
 				$('#password').css('background-position', '275px');
 				$('#password').css('background-repeat', 'no-repeat');
 				$('#join-form').css('height', '335px');
+				
 				password_pandan = false;
 			}
 			
@@ -290,7 +298,17 @@ $(function(){
 				$('#password').css('background-image', 'url("${pageContext.request.contextPath }/assets/images/user/check.png")');
 				$('#password').css('background-position', '275px');
 				$('#password').css('background-repeat', 'no-repeat');
+				$('#passwordcheck').attr("disabled", false);
+				if($('#password').val() != $('#passwordcheck').val()){
+					passwordcheck_pandan = false;
+					$('#passwordcheck').css('background-image', 'none');
+				}
 				password_pandan = true;
+			}
+			
+			if((checkPasswordPattern(password) == false) && ($('#password').val() != $('#passwordcheck').val()) && ($('#passwordcheck').val() != '')) {
+				console.log("passwordcheck" + $('#passwordcheck').val());
+				$('#join-form').css('height', '365px');	
 			}
 		}
 		if(authCheck() == true) {
@@ -308,7 +326,7 @@ $(function(){
 			$('#password-warning').hide();
 			$('#passwordcheck').css('background-image', 'none');
 			$('#join-form').css('height', '335px');
-			$("#passwordcheck").focus();
+			$("#passwordcheck").focus();	
 			passwordcheck_pandan = false;
 		} else {
 			if( $('#password').val() != $('#passwordcheck').val() ){
@@ -391,7 +409,7 @@ $(function(){
 			//////////////////////
 		} else {
 			alert("인증번호가 맞지 않습니다");
-			$("#auth-check").attr("disabled", false);
+			$("#auth-check").attr("readonly", false);
 		}
 	});
 	
