@@ -23,6 +23,7 @@ import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SavePathVo;
+import com.compile.compiletest.vo.SaveVo;
 import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.UserVo;
 
@@ -83,7 +84,23 @@ public class TrainingController {
          
          map.put("problemVo", problemVo);
          map.put("list", list);
-         System.out.println("email을 가져온 경로"); 
+         System.out.println("email을 가져온 경로");
+         
+         //////////////////////////////////
+         // 관우 유진 코드
+         // 아직 쓸모없음
+		Long saveNo = trainingService.selectSaveNo(authUserNo, problemVo.getNo());
+		
+		List<SavePathVo> savePathVoList = trainingService.selectSavePath(saveNo);
+		Long[] savePathNoArray = new Long[savePathVoList.size()];
+		for(int i = 0; i < savePathVoList.size(); i++) {
+		savePathNoArray[i] = savePathVoList.get(i).getNo();
+		}
+		List<CodeVo> codeVoList = trainingService.selectCode(savePathNoArray);
+		map.put("savePathVoList",savePathVoList);
+		map.put("codeVoList",codeVoList);
+		
+		///////////////////////////////
         
       }else { //리액트 첫 창 열때 경로 (순서 : 1)
          authUser = (UserVo)session.getAttribute("authUser");
@@ -172,6 +189,16 @@ public class TrainingController {
 		trainingLinux.saveProblemAndSubProblem(authUser.getNo(), problemNo, array);
 		
 		return JsonResult.success(null);
+	}
+	
+	@PostMapping("/recommend")
+	public JsonResult recommend(Long problemNo, HttpSession session) {
+		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
+		Map<String, Object> map = trainingService.updateRecommend(authUser.getNo(), problemNo);
+		
+		return JsonResult.success(map);
 	}
 }
 
