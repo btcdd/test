@@ -100,13 +100,13 @@ public class TrainingController {
       return JsonResult.success(map);
    }
 	
-	//창 열리고 나서 이름,생일,인증번호 작성한 정보 넘어오는 경로(순서 : 2)
+	//창 열리고 나서 이름,생일,인증번호 작성한 정보 넘어오는 경로(순서 : 2) - startTime endTime이 있어야 하는 곳
 	@PostMapping("/auth/{userEmail}/{problemNo}")
 	public JsonResult auth(
 	      @PathVariable("userEmail") String userEmail,
 	      @PathVariable("problemNo") Long problemNo,
 	      @RequestBody Map<String,Object> user) {
-	   
+
 	   Map<String, Object> map = new HashMap<>();
 	   
 	   JSONParser parser = new JSONParser();
@@ -124,25 +124,23 @@ public class TrainingController {
 	      map.put("result", "empty");
 	      return JsonResult.success(map);
 	   }
+
 	   String tempKey = (String) obj.get("tempKey");      
-	   
 	   boolean exist = trainingService.existUser(userEmail); //유저가 있는지 체크
 	   ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
-	   
-	   if(problemVo == null) {
+
+	   if(problemVo == null || problemVo.getState().equals("n") ) {
 		   System.out.println("http://localhost:9999/?userEmail=2sang@gmail.com&problemNo=123123134 처럼 직접 경로타고 번호 아무렇게나 쓰고 올경우" );
-		   map.put("result", "no");
+		   map.put("result", "delete");
 		   return JsonResult.success(map);
 	   }
-	   
-	   if( exist && problemVo.getPassword().equals(tempKey) && problemVo.getState().equals("n") ) {
-	      map.put("result","delete");
-	      return JsonResult.success(map);         
-	   }else if( exist && problemVo.getPassword().equals(tempKey) ) {
+	   //유저가 존재하는데 상태가 n이면 삭제 상태
+	   if( exist && problemVo.getPassword().equals(tempKey) ) { //인증키가 맞고 유저가 존재한다면
 	      trainingService.insertUserInfo(userName,userBirth,userEmail);
 	      map.put("result", "ok");      
 	      return JsonResult.success(map);         
 	   }
+	   
 	   map.put("result", "no");
 	   return JsonResult.success(map);
 	
