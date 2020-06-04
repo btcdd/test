@@ -47,7 +47,7 @@ li { display: inline-block; padding: 0 15px}
 .codeTest {
     background-color: #000;
     margin: auto;
-    padding: 50px 0;
+    padding: 50px 0 170px 0;
 /* 	background-color: #F7F7F7; */
 }
 
@@ -99,6 +99,7 @@ select {
     font-stretch: ultra-expanded;
     padding: 0 10px;
 }
+
 #result {
     width: 600px;
     height: 500px;
@@ -108,6 +109,7 @@ select {
     line-height: 2em;
     font-stretch: ultra-expanded;
     padding: 0 10px;
+    border: none;
 }
 
 .bottom {
@@ -121,42 +123,15 @@ select {
     clear: both;
 }
 
-.btn-save {
-	border:1px solid #7B7B7B;
-    border-radius: 5px;
-	outline: 0;
-    background-color: rgba(0,0,0,0);
-    color:#7B7B7B; 
-    margin-left: 370px;
-}
-.btn-save:hover{
-    color:#fff;
-    background-color: #7B7B7B;
-}
-
-.btn-compile {
-    border:1px solid #2352d3;
-    border-radius: 5px;
-	outline: 0;
-    background-color: rgba(0,0,0,0);
-    color:#2352d3; 
-    margin-left: 10px;
-}
-.btn-compile:hover{
-    color:#fff;
-    background-color: #2352d3;
-}
-
 .btn-run {
-    border:1px solid #167426;
+    border:1px solid #fff;
     border-radius: 5px;
 	outline: 0;
     background-color: rgba(0,0,0,0);
-    color:#167426; 
+    color:#fff; 
 }
+
 .btn-run:hover{
-    color:#fff;
-    background-color: #167426;
+    color:#000;
+    background-color: #fff;
 }
-
-

@@ -10,10 +10,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Code Forest</title>
 <link href="${pageContext.servletContext.contextPath }/assets/css/training/view.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.servletContext.contextPath }/assets/css/training/header.css" rel="stylesheet" type="text/css">
+ <link href="${pageContext.servletContext.contextPath }/assets/css/include/header-in.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/ckeditor/contents.css">
+<%-- <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/ckeditor/contents.css"> --%>
 <script>
 var problemNo = '${problemVo.no}';
 var array = new Array();
@@ -146,12 +146,10 @@ $(function() {
 </head>
 
 <body>
-	
     <c:import url="/WEB-INF/views/include/main-header.jsp" />
     <div class="container">
         <div class="top">
             <p class="division">${problemVo.no }</p>
-
             <p>${problemVo.title }</p>
 			<p>조회수</p><p>${problemVo.hit + 1}</p>
             <button id="save">저장</button>  
