@@ -60,34 +60,11 @@ var recommendCheck = function() {
 			map = response.data;
 			
 			if(map.pandanRecommend) {
-				recommendDelete();
+				$('#recommend').text('추천 ' + '${problemVo.recommend}');
 			}
-		},
-		error: function(xhr, status, e){
-			console.error(status + ":" + e);
-		}
-	});
-};
-
-var recommendDelete = function() {
-	$.ajax({
-		url: '${pageContext.servletContext.contextPath }/api/training/recommend',
-		async: false,
-		type: 'post',
-		dataType: 'json',
-		traditional: true,
-		data: {
-			'problemNo': problemNo,
-		},
-		success: function(response){
-			if(response.result != "success"){
-				console.error(response.message);
-				return;
-			}
-			map = response.data;
-			
-			if(map.pandanRecommend) {
-				recommendDelete();
+			// 추가될 때
+			else {
+				$('#recommend').text('추천 ' + '${problemVo.recommend + 1}');
 			}
 		},
 		error: function(xhr, status, e){
@@ -157,7 +134,7 @@ $(function() {
             <button id="save">저장</button>  
              <button id="code-tree">코드 트리로 가져오기</button>  
             <a href="${pageContext.servletContext.contextPath }/training/statistics/${problemVo.no }"><button>통계</button></a>
-            <button id="recommend">추천 <p>${problemVo.recommend }</p></button>
+            <button id="recommend">추천 ${problemVo.recommend }</button>
         </div>
         
         <div class="problem-list">

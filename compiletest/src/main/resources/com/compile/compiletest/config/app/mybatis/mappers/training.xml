@@ -542,7 +542,7 @@
 		]]>
 	</select>
 	
-	<update id="updateRecommend" parameterType="long">
+	<update id="updatePlusRecommend" parameterType="long">
 		<![CDATA[
 			update problem
 			   set recommend = recommend + 1
@@ -553,5 +553,21 @@
 	<insert id="insertRecommendValue" parameterType="hashmap">
 		insert into recommend values(#{authUserNo},#{problemNo})
 	</insert>
+	
+	<delete id="deleteRecommendValue" parameterType="hashmap">
+		<![CDATA[
+			  delete from recommend 
+			   where user_no = #{authUserNo } 
+			     and problem_no = #{problemNo }
+		]]>
+	</delete>
+	
+	<update id="updateMinusRecommend" parameterType="long">
+		<![CDATA[
+			update problem
+			   set recommend = recommend - 1
+			 where no = #{problemNo }
+		]]>	
+	</update>
 	
 </mapper>
