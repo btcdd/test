@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
-	href="${pageContext.servletContext.contextPath }/assets/css/training/write.css"
+	href="${pageContext.servletContext.contextPath }/assets/css/test/write.css"
 	rel="stylesheet" type="text/css">
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/training/header.css"
@@ -141,27 +141,6 @@ $(function() {
 		$('.prob' + (ind)).show();
 	});
 
-	// CKEDITOR.replace('contents');
-
-	// 코딩테스트 체크박스를 체크하면, 비밀번호와 시작 일자, 마감 일자를 설정할 수 있는 칸이 나타난다.
-	$('.codingtest').click(function() {
-		if ($(this).prop("checked")) {
-			var passwordStr = '<div class="password">비밀번호 <input type="password" name="password" required></div>';
-			var privacyStr = '<div class="privacy-check"><p>코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요</p> 공개여부 <input type="checkbox" name="privacy"></div>';
-			var startDateStr = '<div class="start-date">시작일자 <input type="datetime-local" name="startTime" required></div>';
-			var endDateStr = '<div class="end-date">마감일자 <input type="datetime-local" name="endTime" required></div>';
-
-			$(".privateAndPassword").append(passwordStr);
-			$(".privacy").append(privacyStr);
-			$(".date").append(startDateStr);
-			$(".date").append(endDateStr);
-		} else {
-			$(".privateAndPassword .password").remove();
-			$(".privacy-check").remove();
-			$(".date .start-date").remove();
-			$(".date .end-date").remove();
-		}
-	});
 
 	// 정답 코드 텍스트에 코드 미러 적용!
 	var code = $('#code0')[0];
@@ -209,7 +188,6 @@ $(function() {
 		
 		$("#true-submit").trigger("click");
 	});
-	
 });
 </script>
 </head>
@@ -220,16 +198,16 @@ $(function() {
 		<div class="regist">
 			<div class="privateAndPassword">
 				<div class="private">
-					코딩테스트 <input class="codingtest" type="checkbox">
+					코딩테스트 <input class="codingtest" type="checkbox" checked="checked" disabled="disabled">
 				</div>
-				<!-- <div class="password">비밀번호 <input type="password"></div> -->
+				<div class="password">비밀번호 <input type="password"></div>
 			</div>
-			<div class="privacy">
-				<!-- 코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요<div class="privacy">공개여부 <input type="checkbox" name="privacy" required></div> -->
+			<div class="privacy-check">
+				<p>코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요</p> 공개여부 <input type="checkbox" name="privacy">
 			</div>
 			<div class="date">
-				<!-- <div class="start-date">시작일자 <input type="datetime-local"></div> -->
-				<!-- <div class="end-date">마감일자 <input type="datetime-local"></div> -->
+				<div class="start-date">시작일자 <input type="datetime-local"></div>
+				<div class="end-date">마감일자 <input type="datetime-local"></div>
 			</div>
 
 			<div class="divisionAndLanguage">

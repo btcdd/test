@@ -34,8 +34,19 @@ public class TrainingService {
 		return trainingRepository.selectProblemListOrigin();
 	}
 
-	public void insert(SubProblemList subProblemList, ProblemVo problemVo) {
-		trainingRepository.insertProblem(problemVo);
+	public void insert(SubProblemList subProblemList, ProblemVo problemVo, Long authUserNo) {
+		
+		if("on".equals(problemVo.getPrivacy())) {
+			problemVo.setPrivacy("y");
+		} else {
+			problemVo.setPrivacy("n");
+		}
+		
+		Map<String, Object> insertProblemMap = new HashMap<>();
+		insertProblemMap.put("problemVo", problemVo);
+		insertProblemMap.put("authUserNo", authUserNo);
+		
+		trainingRepository.insertProblem(insertProblemMap);
 		Long problemNo = trainingRepository.selectProblemNo();
 		
 		Map<String, Object> map = new HashMap<>();
@@ -376,13 +387,32 @@ public class TrainingService {
 		
 		Long check = trainingRepository.checkUserRecommend(map);
 		if(check > 0) {
-			map.put("pandanRecommend", true);
+			
+			trainingRepository.deleteRecommendValue(map);
+			trainingRepository.updateMinusRecommend(problemNo);
 		} else {
-			trainingRepository.updateRecommend(problemNo);
+			
+			trainingRepository.updatePlusRecommend(problemNo);
 			trainingRepository.insertRecommendValue(map);
-			map.put("pandanRecommend", false);
 		}
+		Long recommend = trainingRepository.selectRecommend(problemNo);
+		
+		map.put("recommend", recommend);
 		
 		return map;
+	}
+
+	public void modifyProblem(ProblemVo problemVo) {
+		if("on".equals(problemVo.getPrivacy())) {
+			problemVo.setPrivacy("y");
+		} else {
+			problemVo.setPrivacy("n");
+		}
+		
+		if(problemVo.getPassword() != null) {
+			trainingRepository.updateTestProblem(problemVo);
+		} else {
+			trainingRepository.updateTrainingProblem(problemVo);
+		}
 	}
 }

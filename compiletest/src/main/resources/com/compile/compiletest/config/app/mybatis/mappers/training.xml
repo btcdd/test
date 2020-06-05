@@ -9,7 +9,7 @@
 			   where p.user_no = u.no
 				 and p.kind_no = k.no
 				 and (title like '%${keyword}%' or nickname like '%${keyword}%')
-				 and p.password is null
+				 and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 			order by p.reg_date desc
 			limit #{displayPost}, #{postNum}
 		]]>
@@ -24,7 +24,7 @@
 				and p.kind_no = k.no
 				and (title like '%${keyword}%' or nickname like '%${keyword}%')
                 and p.kind_no = 6
-                and p.password is null
+                and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 		]]>
 		
 		<if test="size != 0">
@@ -75,7 +75,7 @@
 			   and p.kind_no = k.no
 			   and (title like '%${keyword}%' or nickname like '%${keyword}%')
 			   and p.level_no = 6
-			   and p.password is null
+			   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 		]]>
 		
 		<if test="size != 0">
@@ -117,11 +117,11 @@
  		]]> 
 	</select>
 	
-	<insert id="insertProblem" parameterType="problemvo">
+	<insert id="insertProblem" parameterType="map">
 		<![CDATA[
 			insert 
   			  into problem
-			values (null, #{title }, #{password }, 0, 0, now(), 1, #{kindNo }, #{startTime }, #{endTime }, 6, 'y')
+			values (null, #{problemVo.title }, #{problemVo.password }, 0, 0, now(), #{authUserNo }, #{problemVo.kindNo }, #{problemVo.startTime }, #{problemVo.endTime }, 6, 'y', #{problemVo.privacy })
 		]]>
 	</insert>
 	
@@ -190,7 +190,8 @@
 			   	kind_no as kindNo ,
 			   	date_format(reg_date,'%Y-%m-%d %H:%i:%s') as regDate,
 			   	password,
-			   	state 
+			   	state,
+			   	privacy
 			    from problem
 			   where no = #{problemNo }
 		]]>
@@ -208,7 +209,7 @@
 		<choose>
 			<when test="_parameter == null or _parameter == ''">
 				<![CDATA[
-					select count(*) from problem p where p.state = 'y' and p.password is null
+					select count(*) from problem p where p.state = 'y' and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 				]]>
 			</when>
 			<otherwise>
@@ -217,7 +218,7 @@
 				 where
 				 	p.user_no = u.no and p.state = 'y' 
 				 	and (title like '%${_parameter}%' or nickname like '%${_parameter}%')
-				 	and p.password is null
+				 	and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 			 ]]>
 			</otherwise>			
 		</choose>
@@ -232,7 +233,7 @@
 				and p.kind_no = k.no
 				and (title like '%${keyword}%' or nickname like '%${keyword}%')
                 and p.kind_no = 6
-                and p.password is null
+                and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 		]]>
 		
 		<if test="size != 0">
@@ -279,7 +280,7 @@
 			   and p.kind_no = k.no
 			   and (title like '%${keyword}%' or nickname like '%${keyword}%')
 			   and p.level_no = 6
-			   and p.password is null
+			   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 		]]>
 		
 		<if test="size != 0">
@@ -333,7 +334,7 @@
 					 where p.user_no = u.no 
 					   and k.no = p.kind_no
 					   and p.state = 'y'
-					   and p.password is null
+					   and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 					 limit #{displayPost}, #{postNum}
 				]]>			
 			</when>
@@ -351,7 +352,7 @@
 					  	p.user_no = u.no and k.no = p.kind_no
 					  	and (title like '%${keyword}%' or nickname like '%${keyword}%')
 					   	and p.state = 'y'
-					   	and p.password is null
+					   	and ((p.end_time < now() and p.privacy='y') or (p.end_time is null and p.privacy is null))
 					   	limit #{displayPost}, #{postNum}
 				]]>
 			</otherwise>
@@ -545,7 +546,7 @@
 		]]>
 	</select>
 	
-	<update id="updateRecommend" parameterType="long">
+	<update id="updatePlusRecommend" parameterType="long">
 		<![CDATA[
 			update problem
 			   set recommend = recommend + 1
@@ -556,5 +557,43 @@
 	<insert id="insertRecommendValue" parameterType="hashmap">
 		insert into recommend values(#{authUserNo},#{problemNo})
 	</insert>
+	
+	<delete id="deleteRecommendValue" parameterType="hashmap">
+		<![CDATA[
+			  delete from recommend 
+			   where user_no = #{authUserNo } 
+			     and problem_no = #{problemNo }
+		]]>
+	</delete>
+	
+	<update id="updateMinusRecommend" parameterType="long">
+		<![CDATA[
+			update problem
+			   set recommend = recommend - 1
+			 where no = #{problemNo }
+		]]>	
+	</update>
+	
+	<update id="updateTestProblem" parameterType="problemvo">
+		<![CDATA[
+			update problem 
+			   set password = #{password }, privacy = #{privacy }, start_time = #{startTime}, end_time = #{endTime} where no = #{no}
+		]]>	
+	</update>
+	
+	<update id="updateTrainingProblem" parameterType="problemvo">
+		<![CDATA[
+			update problem 
+			   set password = null, privacy = #{privacy }, start_time = null, end_time = null where no = #{no}
+		]]>	
+	</update>
+	
+	<select id="selectRecommend" parameterType="long" resultType="long">
+		<![CDATA[
+			  select recommend
+			    from problem
+			   where no = #{problemNo }
+		]]>
+	</select>
 	
 </mapper>

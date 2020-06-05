@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.compile.compiletest.repository.TrainingRepository;
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.ProblemVo;
 import com.compile.compiletest.vo.SubProblemList;
@@ -48,9 +49,11 @@ public class TrainingController {
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String problemWriteSuccess(
 			@ModelAttribute SubProblemList subProblemList,
-			ProblemVo problemVo) {
+			ProblemVo problemVo, HttpSession session) {
+		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
 
-		trainingService.insert(subProblemList, problemVo);
+		trainingService.insert(subProblemList, problemVo, authUser.getNo());
 
 		return "redirect:/training";
 	}
@@ -64,8 +67,6 @@ public class TrainingController {
 		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
 		Map<String, Object> map = new HashMap<>();
 		
-		System.out.println(problemVo);
-
 		map.put("problemVo", problemVo);
 		map.put("list", list);
 		map.put("listSize", list.size());
@@ -89,12 +90,12 @@ public class TrainingController {
 		}
 
 		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
+		
 		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
 		Map<String, Object> map = new HashMap<>();
 		
 		for(int i = 0; i < list.size(); i++) {
 			list.get(i).getContents().replace("<br />", "\n");
-			System.out.println(list.get(i).getContents());
 		}
 
 		map.put("problemVo", problemVo);
@@ -114,16 +115,15 @@ public class TrainingController {
 			@PathVariable("problemNo") Long problemNo,
 			@RequestParam(value = "array", required = true, defaultValue = "") Long[] array) {
 
+		problemVo.setNo(problemNo);
+		trainingService.modifyProblem(problemVo);
+		
 		List<SubProblemVo> list = subProblemList.getSubProblemList();
 
 		for(int i = 0; i < list.size(); i++) {
 			if(list.get(i).getTitle() == null) {
 				list.remove(i);
 			}
-		}
-		
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i).getNo());
 		}
 		
 		if(array.length > 0) {
