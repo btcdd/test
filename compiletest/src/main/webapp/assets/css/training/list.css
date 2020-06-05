@@ -204,3 +204,20 @@ input[type=text] {
     color: #fff;
     border: 1.5px #BFB5A0 solid;
 }
+
+#footer {
+	float: left;
+	width: 100%;
+	margin-top : 170px;
+}
+
+.footer {
+	padding: 60px 0;
+	margin: 0;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: #454545;
+	color: #fff;
+	text-align: center;
+}
