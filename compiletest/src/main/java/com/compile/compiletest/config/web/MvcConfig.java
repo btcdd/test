@@ -90,7 +90,4 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 //		registry.addMapping("/**").allowedOrigins("http://localhost:9999");
 		registry.addMapping("/**").allowedOrigins("http://localhost:1111");
 	}
-	
-	
-	
 }
