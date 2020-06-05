@@ -105,7 +105,7 @@ $(function() {
 			data: '',
 			success: function(response) {
 				console.log(response.data);
-				var table = "";				
+				var table = "";
 				for(var i in response.data) {
 					table += "<tbody id='tbody'>" +
 							"<tr><td id='name'>" + response.data[i].name + "</td>" +
@@ -113,8 +113,8 @@ $(function() {
 							"<td id='nickname'>" + response.data[i].nickname + "</td>" +
 							"<td id='try-count'>" + response.data[i].tryCount + "</td>" + 
 							"<td id='lang'>" + response.data[i].lang + "</td>" +
-							"<td id='solve-time'>" + response.data[i].solveTime + "</td></tr></tbody>";							
-				}			
+							"<td id='solve-time'>" + response.data[i].solveTime + "</td></tr></tbody>";
+				}
 				$(".problem-list-table").append(table);
 				dialogList.dialog('open');
 			},
@@ -243,22 +243,23 @@ $(function() {
             <table class="quiz-table">
             	<thead>
 	                <tr>
-	                    <th width="10%">번호</th>
-	                    <th width="53%">제목</th>
-	                    <th width="11%">조회수</th>
-	                    <th width="11%">추천수</th>
-	                    <th width="11%">삭제</th>
-	                    <th width="11%">목록</th>
+	                    <th width="9%">번호</th>
+	                    <th width="47%">제목</th>
+	                    <th width="10%">조회수</th>
+	                    <th width="10%">추천수</th>
+	                    <th width="10%">수정</th>
+	                    <th width="10%">삭제</th>
+	                    <th width="10%">목록</th>
 	                </tr>
                 </thead>
                 <tbody id="problem-tbody">
-                	
 	              	<c:forEach items='${map.list }' var='problemvo' varStatus='status'>
 	                	<tr class="list-contents" data-no="${problemvo.no }">
 	                		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td>
 		                    <td class="problem-title" data-no="${problemvo.no }">${problemvo.title }</td>
 		                    <td>${problemvo.hit }</td>
 		                    <td>${problemvo.recommend }</td>
+		                    <td><a href="${pageContext.servletContext.contextPath }/modify/"><button>수정하기</button></a></td>
 		                    <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
 	                      <td><input data-no="${problemvo.no }" data-title="${problemvo.title }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
 	                	</tr>
@@ -273,9 +274,6 @@ $(function() {
 			                	</table>
 		                	</td>
 		               	</tr>	
-		                      	
-	             		
-	                	
 	                </c:forEach>
                 </tbody>
                 

@@ -51,13 +51,6 @@ public class MypageController {
 			Model model,
 			HttpSession session) {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-	////////////////////////////////////////////////////////////////	
-		
-//		List<ProblemVo> list = mypageService.selectProblemList();
-//		model.addAttribute("list", list);
-		
-//		System.out.println(list);
-	//////////////////////////////////////////////////////////////////
 		
 		Map<String,Object> map = mypageService.getContentsList(currentPage, authUser.getNo());
 		model.addAttribute("map",map);		
