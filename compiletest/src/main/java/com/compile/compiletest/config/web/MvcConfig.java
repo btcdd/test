@@ -87,8 +87,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-//		registry.addMapping("/**").allowedOrigins("http://localhost:9999");
-		registry.addMapping("/**").allowedOrigins("http://localhost:1111");
+		registry.addMapping("/**").allowedOrigins("http://localhost:9999");
+		
 	}
 	
 	
