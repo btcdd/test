@@ -34,8 +34,13 @@ public class TrainingService {
 		return trainingRepository.selectProblemListOrigin();
 	}
 
-	public void insert(SubProblemList subProblemList, ProblemVo problemVo) {
-		trainingRepository.insertProblem(problemVo);
+	public void insert(SubProblemList subProblemList, ProblemVo problemVo, Long authUserNo) {
+		
+		Map<String, Object> insertProblemMap = new HashMap<>();
+		insertProblemMap.put("problemVo", problemVo);
+		insertProblemMap.put("authUserNo", authUserNo);
+		
+		trainingRepository.insertProblem(insertProblemMap);
 		Long problemNo = trainingRepository.selectProblemNo();
 		
 		Map<String, Object> map = new HashMap<>();
@@ -377,12 +382,25 @@ public class TrainingService {
 		Long check = trainingRepository.checkUserRecommend(map);
 		if(check > 0) {
 			map.put("pandanRecommend", true);
+			
+			trainingRepository.deleteRecommendValue(map);
+			trainingRepository.updateMinusRecommend(problemNo);
 		} else {
-			trainingRepository.updateRecommend(problemNo);
-			trainingRepository.insertRecommendValue(map);
 			map.put("pandanRecommend", false);
+			
+			trainingRepository.updatePlusRecommend(problemNo);
+			trainingRepository.insertRecommendValue(map);
 		}
 		
 		return map;
+	}
+
+	public void modifyProblem(ProblemVo problemVo) {
+		if(problemVo.getPassword() != null) {
+			System.out.println("problem~~~~~:" + problemVo);
+			trainingRepository.updateTestProblem(problemVo);
+		} else {
+			trainingRepository.updateTrainingProblem(problemVo);
+		}
 	}
 }

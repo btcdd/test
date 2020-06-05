@@ -117,11 +117,11 @@
  		]]> 
 	</select>
 	
-	<insert id="insertProblem" parameterType="problemvo">
+	<insert id="insertProblem" parameterType="map">
 		<![CDATA[
 			insert 
   			  into problem
-			values (null, #{title }, #{password }, 0, 0, now(), 1, #{kindNo }, #{startTime }, #{endTime }, 6, 'y')
+			values (null, #{problemVo.title }, #{problemVo.password }, 0, 0, now(), #{authUserNo }, #{problemVo.kindNo }, #{problemVo.startTime }, #{problemVo.endTime }, 6, 'y')
 		]]>
 	</insert>
 	
@@ -545,7 +545,7 @@
 		]]>
 	</select>
 	
-	<update id="updateRecommend" parameterType="long">
+	<update id="updatePlusRecommend" parameterType="long">
 		<![CDATA[
 			update problem
 			   set recommend = recommend + 1
@@ -556,5 +556,35 @@
 	<insert id="insertRecommendValue" parameterType="hashmap">
 		insert into recommend values(#{authUserNo},#{problemNo})
 	</insert>
+	
+	<delete id="deleteRecommendValue" parameterType="hashmap">
+		<![CDATA[
+			  delete from recommend 
+			   where user_no = #{authUserNo } 
+			     and problem_no = #{problemNo }
+		]]>
+	</delete>
+	
+	<update id="updateMinusRecommend" parameterType="long">
+		<![CDATA[
+			update problem
+			   set recommend = recommend - 1
+			 where no = #{problemNo }
+		]]>	
+	</update>
+	
+	<update id="updateTestProblem" parameterType="problemvo">
+		<![CDATA[
+			update problem 
+			   set password = #{password }, start_time = #{startTime}, end_time = #{endTime} where no = #{no}
+		]]>	
+	</update>
+	
+	<update id="updateTrainingProblem" parameterType="problemvo">
+		<![CDATA[
+			update problem 
+			   set password = null, start_time = null, end_time = null where no = #{no}
+		]]>	
+	</update>
 	
 </mapper>
