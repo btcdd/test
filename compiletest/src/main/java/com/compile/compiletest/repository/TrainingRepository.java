@@ -245,5 +245,9 @@ public class TrainingRepository {
 	public void updateTrainingProblem(ProblemVo problemVo) {
 		sqlSession.update("training.updateTrainingProblem", problemVo);
 	}
+
+	public Long selectRecommend(Long problemNo) {
+		return sqlSession.selectOne("training.selectRecommend", problemNo);
+	}
 	
 }

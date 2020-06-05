@@ -59,13 +59,7 @@ var recommendCheck = function() {
 			}
 			map = response.data;
 			
-			if(map.pandanRecommend) {
-				$('#recommend').text('추천 ' + '${problemVo.recommend}');
-			}
-			// 추가될 때
-			else {
-				$('#recommend').text('추천 ' + '${problemVo.recommend + 1}');
-			}
+			$('#recommend').text('추천 ' + map.recommend);
 		},
 		error: function(xhr, status, e){
 			console.error(status + ":" + e);
