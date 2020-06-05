@@ -36,10 +36,12 @@ public class TrainingService {
 
 	public void insert(SubProblemList subProblemList, ProblemVo problemVo, Long authUserNo) {
 		
-		if("on".equals(problemVo.getPrivacy())) {
-			problemVo.setPrivacy("y");
-		} else {
-			problemVo.setPrivacy("n");
+		if(problemVo.getPassword() != null) {
+			if("on".equals(problemVo.getPrivacy())) {
+				problemVo.setPrivacy("y");
+			} else {
+				problemVo.setPrivacy("n");
+			}
 		}
 		
 		Map<String, Object> insertProblemMap = new HashMap<>();
@@ -403,13 +405,15 @@ public class TrainingService {
 	}
 
 	public void modifyProblem(ProblemVo problemVo) {
-		if("on".equals(problemVo.getPrivacy())) {
-			problemVo.setPrivacy("y");
-		} else {
-			problemVo.setPrivacy("n");
-		}
+		
 		
 		if(problemVo.getPassword() != null) {
+			if("on".equals(problemVo.getPrivacy())) {
+				problemVo.setPrivacy("y");
+			} else {
+				problemVo.setPrivacy("n");
+			}
+			
 			trainingRepository.updateTestProblem(problemVo);
 		} else {
 			trainingRepository.updateTrainingProblem(problemVo);
