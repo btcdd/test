@@ -125,11 +125,25 @@ var fetchList = function() {
 		endDate = endDate + 'T';
 		endDate = endDate + sd.substring(11, 16);
 		
+		if('${problemVo.password}' != '') {
+			var privateStr = '<div class="private">코딩테스트 <input class="codingtest" type="checkbox" checked></div>';
+		} else {
+			var privateStr = '<div class="private">코딩테스트 <input class="codingtest" type="checkbox"></div>';
+		}
+		
+		if('${problemVo.privacy}' == 'y') {
+			var privacyStr = '<div class="privacy-check"><p>코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요</p> 공개여부 <input type="checkbox" name="privacy" checked></div>';
+		} else {
+			var privacyStr = '<div class="privacy-check"><p>코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요</p> 공개여부 <input type="checkbox" name="privacy" ></div>';
+		}
+		
 		var passwordStr = '<div class="password">비밀번호 <input type="password" name="password" value="${problemVo.password}" required></div>';
 		var startDateStr = '<div class="start-date">시작일자 <input type="datetime-local" name="startTime" value="' + startDate + '" required></div>';
 		var endDateStr = '<div class="end-date">마감일자 <input type="datetime-local" name="endTime" value="' + endDate + '" required></div>';
 		
+		$(".privateAndPassword").append(privateStr);
 		$(".privateAndPassword").append(passwordStr);
+		$(".privacy").append(privacyStr);
 		$(".date").append(startDateStr);
 		$(".date").append(endDateStr);
 	}
@@ -209,14 +223,17 @@ $(function() {
 	$('.codingtest').click(function() {
 		if ($(this).prop("checked")) {
 			var passwordStr = '<div class="password">비밀번호 <input type="password" name="password" required></div>';
+			var privacyStr = '<div class="privacy-check"><p>코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요</p> 공개여부 <input type="checkbox" name="privacy"></div>';
 			var startDateStr = '<div class="start-date">시작일자 <input type="datetime-local" name="startTime" required></div>';
 			var endDateStr = '<div class="end-date">마감일자 <input type="datetime-local" name="endTime" required></div>';
 	
 			$(".privateAndPassword").append(passwordStr);
+			$(".privacy").append(privacyStr);
 			$(".date").append(startDateStr);
 			$(".date").append(endDateStr);
 		} else {
 			$(".privateAndPassword .password").remove();
+			$(".privacy-check").remove();
 			$(".date .start-date").remove();
 			$(".date .end-date").remove();
 		}
@@ -275,10 +292,13 @@ $(function() {
 	<form method="post" action="${pageContext.servletContext.contextPath }/training/modify/${problemVo.no }">
 		<div class="regist">
 			<div class="privateAndPassword">
-				<div class="private">
-					코딩테스트 <input class="codingtest" type="checkbox">
-				</div>
+<!-- 				<div class="private"> -->
+<!-- 					코딩테스트 <input class="codingtest" type="checkbox"> -->
+<!-- 				</div> -->
 				<!-- <div class="password">비밀번호 <input type="password"></div> -->
+			</div>
+			<div class="privacy">
+				<!-- 코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요<div class="privacy">공개여부 <input type="checkbox" name="privacy" required></div> -->
 			</div>
 			<div class="date">
 				<!-- <div class="start-date">시작일자 <input type="datetime-local"></div> -->

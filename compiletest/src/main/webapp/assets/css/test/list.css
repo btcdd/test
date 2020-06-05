@@ -14,12 +14,6 @@ body {
     margin: auto;
 }
 
-
-
-
-
-
-
 .search {
     margin: auto auto 50px auto;
     text-align: center;
@@ -37,12 +31,21 @@ body {
 	padding: 0 20px 0 55px;
 }
 
-
-
-
-
-
-
+.make-problem {
+    background-color: #7A8B9B;
+    border: none;
+    color: #fff;
+    padding: 10px 10px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px 4px 740px;
+    transition-duration: 0.4s;
+    border: 1.5px #7A8B9B solid;
+    cursor: pointer;
+}
 
 .proceeding-box, .expected-box, .deadline-box {
 	width: 33.333%;
