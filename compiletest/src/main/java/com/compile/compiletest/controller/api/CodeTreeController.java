@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.service.TrainingService;
+import com.compile.compiletest.vo.CodeVo;
+import com.compile.compiletest.vo.SavePathVo;
 import com.compile.compiletest.vo.SaveVo;
 import com.compile.compiletest.vo.UserVo;
 
@@ -61,28 +63,35 @@ public class CodeTreeController {
 	@PostMapping("/list/{userEmail}")
 	public JsonResult codeTreeList(@PathVariable("userEmail") String userEmail) {
 		Map<String, Object> map = new HashMap<>();
-		/////////////////////////////////////////
-		// 관우 유진 코드~~~
-		// 유저의 회원번호, 저장한 문제모음번호 가져오기
 		
-		// 아직 쓸모없음
-//		 Long saveNo = trainingService.selectSaveNo(authUserNo, problemVo.getNo());
-		
-		 List<SaveVo> saveVoList = trainingService.selectSaveNoList(_authUser.getNo());
-		
-//		List<SavePathVo> savePathVoList = trainingService.selectSavePath(saveNo);
-//		Long[] savePathNoArray = new Long[savePathVoList.size()];
-//		for(int i = 0; i < savePathVoList.size(); i++) {
-//		savePathNoArray[i] = savePathVoList.get(i).getNo();
-//		}
-//		List<CodeVo> codeVoList = trainingService.selectCode(savePathNoArray);
-//		map.put("savePathVoList",savePathVoList);
-//		map.put("codeVoList",codeVoList);
-		
-		///////////////////////////////		
+		List<SaveVo> saveVoList = trainingService.selectSaveNoList(_authUser.getNo());
+
+
+
 		map.put("saveVoList", saveVoList);
 		return JsonResult.success(map);
 	}
 
+	@PostMapping("/list/{userEmail}/{saveNo}")
+	public JsonResult codeFile(
+			@PathVariable("userEmail") String userEmail
+			,@PathVariable("saveNo") Long saveNo) {
+		System.out.println("userEmail>>"+userEmail);
+		System.out.println("saveNo>>"+saveNo);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		List<SavePathVo> savePathVoList = trainingService.selectSavePath(saveNo);
+		Long[] savePathNoArray = new Long[savePathVoList.size()];
+		for(int i = 0; i < savePathVoList.size(); i++) {
+		savePathNoArray[i] = savePathVoList.get(i).getNo();
+		}
+		List<CodeVo> codeVoList = trainingService.selectCode(savePathNoArray);
+		map.put("savePathVoList",savePathVoList);
+		map.put("codeVoList",codeVoList);		
+		
+		return JsonResult.success(map);
+	}
+	
 	
 }
