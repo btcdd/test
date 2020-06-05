@@ -235,11 +235,11 @@ $(function() {
 			<div class="divisionAndLanguage">
 				<div class="division">
 					분류 <select name="kindNo">
-							<option value="1" selected="selected">기타</option>
-							<option value="2">기업</option>
-							<option value="3">개인</option>
-							<option value="4">학원</option>
-							<option value="5">학교</option>
+							<option value="5" selected="selected">기타</option>
+							<option value="1">기업</option>
+							<option value="2">개인</option>
+							<option value="3">학원</option>
+							<option value="4">학교</option>
 					</select>
 				</div>
 			</div>
