@@ -36,6 +36,12 @@ public class TrainingService {
 
 	public void insert(SubProblemList subProblemList, ProblemVo problemVo, Long authUserNo) {
 		
+		if("on".equals(problemVo.getPrivacy())) {
+			problemVo.setPrivacy("y");
+		} else {
+			problemVo.setPrivacy("n");
+		}
+		
 		Map<String, Object> insertProblemMap = new HashMap<>();
 		insertProblemMap.put("problemVo", problemVo);
 		insertProblemMap.put("authUserNo", authUserNo);
@@ -397,8 +403,13 @@ public class TrainingService {
 	}
 
 	public void modifyProblem(ProblemVo problemVo) {
+		if("on".equals(problemVo.getPrivacy())) {
+			problemVo.setPrivacy("y");
+		} else {
+			problemVo.setPrivacy("n");
+		}
+		
 		if(problemVo.getPassword() != null) {
-			System.out.println("problem~~~~~:" + problemVo);
 			trainingRepository.updateTestProblem(problemVo);
 		} else {
 			trainingRepository.updateTrainingProblem(problemVo);

@@ -281,3 +281,14 @@ img {
 img:hover {
 	background: #f00;
 }
+
+.privacy {
+	margin: 10px 10;
+}
+
+.privacy-check {
+	margin: 10px 0;
+	border: 1px #bbb dashed;
+	width: 500px;
+	padding-bottom: 10px;
+}

@@ -68,6 +68,7 @@ $(function(){
 	<div class="content">
 		<div class="search">
            <input type="text" id="search" placeholder="Search..">
+        <button class="make-problem" onclick="location.href='${pageContext.servletContext.contextPath }/codingtest/write'">문제 작성</button>
         </div>
 
 		<div class="proceeding-box">

@@ -71,6 +71,20 @@ public class TestContorller {
 		
 		model.addAttribute("dday", map);
 
-		return "test/list";
+		return "codingtest/list";
+	}
+	
+	@Auth
+	@RequestMapping(value="/write", method=RequestMethod.GET)
+	public String testWrite() {
+
+		return "codingtest/write";
+	}
+	
+	@Auth
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	public String testWritePost() {
+
+		return "codingtest/write";
 	}
 }
