@@ -587,4 +587,12 @@
 		]]>	
 	</update>
 	
+	<select id="selectRecommend" parameterType="long" resultType="long">
+		<![CDATA[
+			  select recommend
+			    from problem
+			   where no = #{problemNo }
+		]]>
+	</select>
+	
 </mapper>

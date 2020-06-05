@@ -381,16 +381,17 @@ public class TrainingService {
 		
 		Long check = trainingRepository.checkUserRecommend(map);
 		if(check > 0) {
-			map.put("pandanRecommend", true);
 			
 			trainingRepository.deleteRecommendValue(map);
 			trainingRepository.updateMinusRecommend(problemNo);
 		} else {
-			map.put("pandanRecommend", false);
 			
 			trainingRepository.updatePlusRecommend(problemNo);
 			trainingRepository.insertRecommendValue(map);
 		}
+		Long recommend = trainingRepository.selectRecommend(problemNo);
+		
+		map.put("recommend", recommend);
 		
 		return map;
 	}
