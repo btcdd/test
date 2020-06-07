@@ -17,7 +17,7 @@ body {
 }
 
 .header {
-	background-color: rgb(22, 116, 38);
+	background-color: #283d39;
 	color: white
 }
 
@@ -158,4 +158,34 @@ a:visited {
 
 .radio input:checked+.ico {
 	background-position: 0 -40px;
+}
+
+#nickname-btn, #password-btn {
+	background-color: #7A8B9B;
+    border: none;
+    color: #fff;
+    padding: 2px 15px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    transition-duration: 0.4s;
+    border: 1.5px #7A8B9B solid;
+    cursor: pointer;
+}
+
+#delete-btn {
+	background-color: #aa7b69;
+    border: none;
+    color: #fff;
+    padding: 2px 15px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    transition-duration: 0.4s;
+    border: 1.5px #aa7b69 solid;
+    cursor: pointer;
 }
