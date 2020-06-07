@@ -259,7 +259,7 @@ $(function() {
 		                    <td class="problem-title" data-no="${problemvo.no }">${problemvo.title }</td>
 		                    <td>${problemvo.hit }</td>
 		                    <td>${problemvo.recommend }</td>
-		                    <td><a href="${pageContext.servletContext.contextPath }/modify/"><button>수정하기</button></a></td>
+		                    <td><a href="${pageContext.servletContext.contextPath }/training/modify/${problemvo.no }"><button>수정하기</button></a></td>
 		                    <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
 	                      <td><input data-no="${problemvo.no }" data-title="${problemvo.title }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
 	                	</tr>

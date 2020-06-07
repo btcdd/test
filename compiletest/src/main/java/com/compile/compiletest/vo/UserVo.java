@@ -8,20 +8,21 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserVo {
 	private Long no;
-	
+
 	private String name;
-	
+
 	@NotEmpty
 	private String nickname;
-	
+
 	@NotEmpty
 	private String email;
-	
+
 	private Date birth;
-	
+
 	@NotEmpty
 	private String password;
-	
+	private String privacy;
+
 	public Long getNo() {
 		return no;
 	}
@@ -70,13 +71,17 @@ public class UserVo {
 		this.password = password;
 	}
 
+	public String getPrivacy() {
+		return privacy;
+	}
+
+	public void setPrivacy(String privacy) {
+		this.privacy = privacy;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", nickname=" + nickname + ", email=" + email + ", birth="
-				+ birth + ", password=" + password + "]";
+				+ birth + ", password=" + password + ", privacy=" + privacy + "]";
 	}
-
-	
-	
-	
 }

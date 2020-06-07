@@ -79,5 +79,9 @@ public class MypageRepository {
 		return sqlSession.selectList("mypage.findWrongSubmit", no);
 	}
 
+	public void privacyChange(Map<String, Object> map) {
+		sqlSession.update("mypage.privacyChange", map);
+	}
+
 	
 }
