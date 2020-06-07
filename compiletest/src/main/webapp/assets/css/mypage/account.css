@@ -165,6 +165,10 @@ a:visited {
 	clear: both;
 }
 
+.privacy-div {
+	margin-top: 20px;
+}
+
 .privacy {
 	overflow: hidden;
 	display: inline-block;
@@ -186,19 +190,24 @@ a:visited {
 	opacity: 0;
 }
 
-.privacy .ico {
-	position: absolute;
-	left: 3px;
-	top: 3px;
-	width: 20px;
-	height: 20px;
-	background: url("../../images/mypage/private.png") no-repeat 0 0;
-}
-
 .privacy .txt {
 	background: url("../../images/mypage/private") no-repeat 0 0;
 }
 
 .privacy input:checked+.ico {
-	background-position: 0 -40px;
+	position: absolute;
+	left: 3px;
+	width: 30px;
+	height: 30px;
+	background: url("../../images/mypage/public.png") no-repeat 0 0;
+	background-size: 23px;	
+}
+
+.privacy input:checked+.ico-privacy {
+	position: absolute;
+	left: 3px;
+	width: 30px;
+	height: 30px;
+	background: url("../../images/mypage/private.png") no-repeat 0 0;
+	background-size: 23px;	
 }
