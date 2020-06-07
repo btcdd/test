@@ -57,6 +57,19 @@ public class TrainingController {
 
 		return "redirect:/training";
 	}
+	
+	@Auth
+	@RequestMapping(value="/test/write", method=RequestMethod.POST)
+	public String testWriteSuccess(
+			@ModelAttribute SubProblemList subProblemList,
+			ProblemVo problemVo, HttpSession session) {
+		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+
+		trainingService.insert(subProblemList, problemVo, authUser.getNo());
+
+		return "redirect:/codingtest";
+	}
 
 	@Auth
 	@RequestMapping(value="/view/{problemNo}", method=RequestMethod.GET)

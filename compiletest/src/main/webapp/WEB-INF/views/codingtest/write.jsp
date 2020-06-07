@@ -194,20 +194,20 @@ $(function() {
 <body>
 	<c:import url="/WEB-INF/views/include/main-header.jsp" />
 	<form method="post"
-		action="${pageContext.servletContext.contextPath }/training/write">
+		action="${pageContext.servletContext.contextPath }/training/test/write">
 		<div class="regist">
 			<div class="privateAndPassword">
 				<div class="private">
-					코딩테스트 <input class="codingtest" type="checkbox" checked="checked" disabled="disabled">
+					코딩테스트 <input class="codingtest" type="checkbox" checked="checked" disabled>
 				</div>
-				<div class="password">비밀번호 <input type="password"></div>
+				<div class="password">비밀번호 <input type="password" name="password" required></div>
 			</div>
 			<div class="privacy-check">
-				<p>코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요</p> 공개여부 <input type="checkbox" name="privacy">
+				<div class="privacy-check"><p>코딩테스트가 끝난 뒤 문제를 공개하시려면 선택하세요</p> 공개여부 <input type="checkbox" name="privacy"></div>
 			</div>
 			<div class="date">
-				<div class="start-date">시작일자 <input type="datetime-local"></div>
-				<div class="end-date">마감일자 <input type="datetime-local"></div>
+				<div class="start-date">시작일자 <input type="datetime-local" name="startTime" required></div>
+				<div class="end-date">마감일자 <input type="datetime-local" name="endTime" required></div>
 			</div>
 
 			<div class="divisionAndLanguage">
