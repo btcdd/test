@@ -24,7 +24,7 @@ public class CodeTrainingController {
 	private TrainingService trainingService;
 	UserVo _authUser = null;
 	
-	@GetMapping("/mylist/{problemNo}")
+	@GetMapping("/mylist/{problemNo}") //view.jsp에서 get방식으로 열때 경로
 	public JsonResult codeTree(@PathVariable("problemNo") Long problemNo,HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		
@@ -40,7 +40,7 @@ public class CodeTrainingController {
 		return JsonResult.success(map);
 	}	
 	
-	//////////////code training   react에서 CodeTrainingErrorPage와 통신하는 위치
+	// 리액트에서 CodeTrainingErrorPage와 통신하는 위치
 	@PostMapping("/training/{userEmail}/{problemNo}")
 	public JsonResult codingTrainingAccess(@PathVariable("userEmail") String userEmail,
 			@PathVariable("problemNo") Long problemNo) {

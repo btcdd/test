@@ -33,6 +33,14 @@
                                 end desc, 
                                 p.end_time, p.title
 		]]>
+	</select>
+	
+	<select id="findUserByEmail" parameterType="string" resultType="uservo">
+		<![CDATA[
+			select *
+			  from user
+			 where email = #{email }
+		]]>
 	</select>	
 	
 </mapper>
