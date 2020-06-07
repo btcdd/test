@@ -155,7 +155,7 @@ $(function() {
         	<c:forEach items='${list }' var='vo' step='1' varStatus='status'>
 				<div class="problem">
 					<div class="pro pro${status.index + 1}" id="${status.index + 1}">
-						<p class="division">문제 ${status.index + 1}</p>
+						<p class="division">문제 ${status.index + 1} - 고유번호 ${vo.no }</p>
 						<input class="sub${status.index }" type="hidden" value="${vo.no }" />
 						<p id="click">${vo.title }</p>
 						<a href="${pageContext.servletContext.contextPath }/training/answerlist/${status.index + 1}/${vo.no}"><button>맞은 사람</button></a>
