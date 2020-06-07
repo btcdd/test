@@ -96,17 +96,21 @@
 
 	<select id="findRrightSubmit" parameterType="long"  resultType="submitvo">
 		<![CDATA[
-			select s.code, s.answer, s.subproblem_no as subproblemNo, s.user_no as userNo, s.solve_time as solveTime, s.lang, s.try as tryCount, sp.problem_no as problemNo
-			from submit s, sub_problem sp
-			where user_no = #{no } and answer = 'y' and s.subproblem_no = sp.no
+			select distinct subproblem_no as subproblemNo, sp.problem_no as problemNo
+			  from submit s, sub_problem sp
+			 where s.subproblem_no = sp.no
+			   and s.user_no = #{no }
+			   and answer = 'y'
 		]]>
 	</select>
 	
 	<select id="findWrongSubmit" parameterType="long"  resultType="submitvo">
 		<![CDATA[
-			select s.code, s.answer, s.subproblem_no as subproblemNo, s.user_no as userNo, s.solve_time as solveTime, s.lang, s.try as tryCount, sp.problem_no as problemNo
-			from submit s, sub_problem sp
-			where user_no = #{no } and answer = 'n' and s.subproblem_no = sp.no
+			select distinct subproblem_no as subproblemNo, sp.problem_no as problemNo
+			  from submit s, sub_problem sp
+			 where s.subproblem_no = sp.no
+			   and s.user_no = #{no }
+			   and answer = 'n'
 		]]>
 	</select>
 </mapper>
