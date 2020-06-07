@@ -17,7 +17,7 @@ body {
 }
 
 .header {
-	background-color: rgb(22, 116, 38);
+	background-color: #283d39;
 	color: white
 }
 
@@ -169,40 +169,35 @@ a:visited {
 	margin-top: 20px;
 }
 
-.privacy {
-	overflow: hidden;
-	display: inline-block;
-	position: relative;
-	height: 26px;
-	box-sizing: border-box;
-	cursor: pointer;
+#nickname-btn, #password-btn {
+	background-color: #7A8B9B;
+    border: none;
+    color: #fff;
+    padding: 2px 15px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    transition-duration: 0.4s;
+    border: 1.5px #7A8B9B solid;
+    cursor: pointer;
 }
 
-.privacy input {
-	overflow: hidden;
-	display: none;
-	width: 0px;
-	height: 0px;
-	border: 0 none;
-	font-size: 0;
-	line-height: 0;
-	clip: rect(0, 0, 0, 0);
-	opacity: 0;
+#delete-btn {
+	background-color: #aa7b69;
+    border: none;
+    color: #fff;
+    padding: 2px 15px;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    transition-duration: 0.4s;
+    border: 1.5px #aa7b69 solid;
+    cursor: pointer;
 }
-
-.privacy .txt {
-	background: url("../../images/mypage/private") no-repeat 0 0;
-}
-
-.privacy input:checked+.ico {
-	position: absolute;
-	left: 3px;
-	width: 30px;
-	height: 30px;
-	background: url("../../images/mypage/public.png") no-repeat 0 0;
-	background-size: 23px;	
-}
-
 .privacy input:checked+.ico-privacy {
 	position: absolute;
 	left: 3px;

@@ -250,10 +250,7 @@ $(function() {
 		            <span class="ico"></span>
 				    <span class="txt">공개</span>        
 	            </label>
-	            <label class="privacy">
-		            <input type="radio" name="chk_info" value="private">
-		            <span class="ico-privacy"></span>
-				    <span class="txt">비공개</span>        
+
 	            </label>
 			</div>
         </div>
@@ -265,7 +262,7 @@ $(function() {
             <p>
                 회원 탈퇴를 하시면 문제를 푼 기록이 다 사라집니다.
             </p>
-            <button id="delete-btn" style="color: red;">회원 탈퇴</button>
+            <button id="delete-btn">회원 탈퇴</button>
         </div>
     </div>
     
