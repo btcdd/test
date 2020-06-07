@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
     <script>
     
     var no = '${authUser.no}';
@@ -21,6 +22,11 @@
     
     var pandan = false;
 
+    var check = $("input[type='checkbox']");
+    check.click(function(){
+    	$("p").toggle();
+    });
+    
     var changeNickname = function(nickname) {
     	$.ajax({
             url: '${pageContext.request.contextPath }/api/mypage/account/nickname',
@@ -203,10 +209,12 @@
             </div>
             <h4>계정 비공개를 설정하시겠습니까?</h4>
             계정 공개를 설정하시면 문제를 푼 기록, 팔로우와 관련된 모든 기록을 다른 사람이 열람 할 수 있습니다.
-
-            </p>
-            <input type="radio" name="chk_info" value="Oepn" checked="checked">공개
-            <input type="radio" name="chk_info" value="Private">비공개
+            <label class="switch">
+			  <input type="checkbox">
+			  <span class="slider round"></span>
+			</label>
+			<p>공개</p>
+			<p style="display:none;">비공개</p>
         </div>
         <div class="delete">
             <div class="line">
