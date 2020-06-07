@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -21,6 +23,7 @@ import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.service.TestService;
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.UserVo;
 
 @RestController("TestController")
 @RequestMapping("/api/codingtest")
@@ -103,7 +106,15 @@ public class TestController {
 	// 창 열리고 나서 이름,생일,인증번호 작성한 정보 넘어오는 경로 - startTime endTime이 있어야 하는 곳
 	@PostMapping("/auth/{userEmail}/{problemNo}")
 	public JsonResult auth(@PathVariable("userEmail") String userEmail, @PathVariable("problemNo") Long problemNo,
-			@RequestBody Map<String, Object> user) {
+			@RequestBody Map<String, Object> user, HttpSession session) {
+		
+		// 관우 코드
+		////////////////////////////
+				
+		UserVo authUser = testService.findUserByEmail(userEmail);
+		System.out.println(authUser);
+				
+		///////////////
 		
 		Map<String, Object> map = new HashMap<>();
 
@@ -150,15 +161,6 @@ public class TestController {
 	@PostMapping("/mylist/{userEmail}/{problemNo}")
 	public JsonResult mylist(@PathVariable("userEmail") String userEmail,
 			@PathVariable("problemNo") Long problemNo) {
-		
-		// 관우 코드
-		////////////////////////////
-		
-		Long authUserNo = testService.findUserByEmail(userEmail);
-		System.out.println(authUserNo);
-		
-		
-		///////////////
 		
 //			Map<String, Object> map = new HashMap<>();
 //			

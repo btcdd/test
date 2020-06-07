@@ -35,9 +35,9 @@
 		]]>
 	</select>
 	
-	<select id="findUserByEmail" parameterType="string" resultType="long">
+	<select id="findUserByEmail" parameterType="string" resultType="uservo">
 		<![CDATA[
-			select no
+			select *
 			  from user
 			 where email = #{email }
 		]]>

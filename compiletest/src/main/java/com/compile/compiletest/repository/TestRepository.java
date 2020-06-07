@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.UserVo;
 
 @Repository
 public class TestRepository {
@@ -18,7 +19,7 @@ public class TestRepository {
 		return sqlSession.selectList("test.selectTestList");
 	}
 
-	public Long findUserByEmail(String userEmail) {
+	public UserVo findUserByEmail(String userEmail) {
 		return sqlSession.selectOne("test.findUserByEmail", userEmail);
 	}
 
