@@ -32,7 +32,7 @@ public class CodeTreeController {
 
 	UserVo _authUser = null;
 	
-	@GetMapping("")
+	@GetMapping("")// main-header에서 처음 열때
 	public JsonResult codeTree(HttpSession session) {
 		Map<String, Object> map = new HashMap<>();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
@@ -41,7 +41,7 @@ public class CodeTreeController {
 		return JsonResult.success(map);
 	}	
 	
-	@PostMapping("/{userEmail}")
+	@PostMapping("/auth/{userEmail}") //리액트에서 CodeTreeErrorPage와 통신하는 위치
 	public JsonResult codeTreeAccess(@PathVariable("userEmail") String userEmail) {
 		
 		Map<String, Object> map = new HashMap<>();
@@ -64,7 +64,7 @@ public class CodeTreeController {
 		return JsonResult.success(map);
 	}
 	
-	@PostMapping("/list/{userEmail}")
+	@PostMapping("/list/{userEmail}") //code tree Home화면 띄울때 경로(리스트출력위해 필요)
 	public JsonResult codeTreeList(@PathVariable("userEmail") String userEmail) {
 		Map<String, Object> map = new HashMap<>();
 		
@@ -76,7 +76,7 @@ public class CodeTreeController {
 		return JsonResult.success(map);
 	}
 
-	@PostMapping("/list/{userEmail}/{saveNo}")
+	@PostMapping("/list/{userEmail}/{saveNo}") //패키지안의 파일을 클릭했을때 오는 경로
 	public JsonResult codeFile(
 			@PathVariable("userEmail") String userEmail
 			,@PathVariable("saveNo") Long saveNo) {
@@ -97,7 +97,7 @@ public class CodeTreeController {
 		return JsonResult.success(map);
 	}
 	
-	@PostMapping("/list/save/{userEmail}/{problemNo}")
+	@PostMapping("/list/save/{userEmail}/{problemNo}")//저장 버튼 누를때 오는 경로
 	public JsonResult codeSave(
 			@PathVariable("userEmail") String userEmail,
 			@PathVariable("problemNo") Long problemNo,
@@ -121,7 +121,7 @@ public class CodeTreeController {
 		System.out.println("language>>>"+language);
 		System.out.println("savePathVoList>>>"+savePathVoList);
 		System.out.println("codeVoList>>>"+codeVoList);
-		return JsonResult.success(null);
+		return JsonResult.success(null); 
 	}
 
 	

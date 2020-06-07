@@ -18,7 +18,7 @@ $(function() {
 	          success:function(response){
 	             console.log(response.data);
 	             console.log(response.data.authUser.email);
-	              var url = "http://localhost:9999/?userEmail="+response.data.authUser.email;
+	              var url = "http://localhost:9999/codetree?userEmail="+response.data.authUser.email;
 	              window.open(url,'_blank');
 	              
 
