@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.TestRepository;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.UserVo;
 
 @Service
 public class TestService {
@@ -18,7 +19,7 @@ public class TestService {
 		return testRepository.selectTestList();
 	}
 
-	public Long findUserByEmail(String userEmail) {
+	public UserVo findUserByEmail(String userEmail) {
 		return testRepository.findUserByEmail(userEmail);
 	}
 }
