@@ -17,4 +17,8 @@ public class TestService {
 	public List<ProblemVo> selectTestList() {
 		return testRepository.selectTestList();
 	}
+
+	public Long findUserByEmail(String userEmail) {
+		return testRepository.findUserByEmail(userEmail);
+	}
 }

@@ -18,5 +18,9 @@ public class TestRepository {
 		return sqlSession.selectList("test.selectTestList");
 	}
 
+	public Long findUserByEmail(String userEmail) {
+		return sqlSession.selectOne("test.findUserByEmail", userEmail);
+	}
+
 	
 }
