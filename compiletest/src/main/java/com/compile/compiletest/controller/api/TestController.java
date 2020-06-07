@@ -104,7 +104,7 @@ public class TestController {
 	@PostMapping("/auth/{userEmail}/{problemNo}")
 	public JsonResult auth(@PathVariable("userEmail") String userEmail, @PathVariable("problemNo") Long problemNo,
 			@RequestBody Map<String, Object> user) {
-
+		
 		Map<String, Object> map = new HashMap<>();
 
 		JSONParser parser = new JSONParser();
@@ -150,7 +150,15 @@ public class TestController {
 	@PostMapping("/mylist/{userEmail}/{problemNo}")
 	public JsonResult mylist(@PathVariable("userEmail") String userEmail,
 			@PathVariable("problemNo") Long problemNo) {
-			
+		
+		// 관우 코드
+		////////////////////////////
+		
+		Long authUserNo = testService.findUserByEmail(userEmail);
+		System.out.println(authUserNo);
+		
+		
+		///////////////
 		
 //			Map<String, Object> map = new HashMap<>();
 //			
