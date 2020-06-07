@@ -81,15 +81,17 @@ $(function() {
 		console.log("click!!");
 		
       $.ajax({
-         url:'${pageContext.request.contextPath }/api/training/mylist/'+problemNo,
+         url:'${pageContext.request.contextPath }/api/codetraining/mylist/'+problemNo,
          async:false,
-         type:'post',
+         type:'get',
          dataType:'json',
          data : '',
          success:function(response){
             console.log(response.data);
-              console.log(response.data.authUser.email);
-             var url = "http://localhost:9999/codingtest?userEmail=" + response.data.authUser.email+ "&problemNo=" + response.data.problemVo.no;
+              //console.log(response.data.authUser.email);
+             // var url = "http://localhost:9999/codingtest?userEmail=" + response.data.authUser.email+ "&problemNo=" + response.data.problemVo.no;
+             var url = "http://localhost:9999/codingtraining?userEmail=" + response.data.authUser.email+ "&problemNo=" + response.data.problemVo.no;
+             //console.log(url);
              window.open(url,'_blank');
              
          },
@@ -97,6 +99,26 @@ $(function() {
             console.error(status + ":" + e);
          }
       });
+      
+/*        $.ajax({
+          url:'${pageContext.request.contextPath }/api/training/mylist/'+problemNo,
+          async:false,
+          type:'post',
+          dataType:'json',
+          data : '',
+          success:function(response){
+             console.log(response.data);
+               console.log(response.data.authUser.email);
+              var url = "http://localhost:9999/codingtest?userEmail=" + response.data.authUser.email+ "&problemNo=" + response.data.problemVo.no;
+              var url = "http://localhost:9999/codingtraining?userEmail=" + response.data.authUser.email+ "&problemNo=" + response.data.problemVo.no;
+              window.open(url,'_blank');
+              
+          },
+          error: function(xhr, status, e) {
+             console.error(status + ":" + e);
+          }
+       }); */      
+      
    });
 	
 	
