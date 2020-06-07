@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -22,7 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.service.TestService;
 import com.compile.compiletest.service.TrainingService;
+import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.ProblemVo;
+import com.compile.compiletest.vo.SavePathVo;
+import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.UserVo;
 
 @RestController("TestController")
@@ -34,6 +35,8 @@ public class TestController {
 
 	@Autowired
 	private TrainingService trainingService;	
+	
+	UserVo _authUser = null;
 	
 	@PostMapping("/search")
 	public JsonResult search(@RequestParam("keyword") String keyword) {
@@ -103,16 +106,16 @@ public class TestController {
 	}
 	
 	
-	// 창 열리고 나서 이름,생일,인증번호 작성한 정보 넘어오는 경로 - startTime endTime이 있어야 하는 곳
+	// react 코딩테스트 로그인폼경로 
 	@PostMapping("/auth/{userEmail}/{problemNo}")
 	public JsonResult auth(@PathVariable("userEmail") String userEmail, @PathVariable("problemNo") Long problemNo,
-			@RequestBody Map<String, Object> user, HttpSession session) {
+			@RequestBody Map<String, Object> user) {
 		
 		// 관우 코드
 		////////////////////////////
 				
 		UserVo authUser = testService.findUserByEmail(userEmail);
-		System.out.println(authUser);
+		_authUser = authUser;
 				
 		///////////////
 		
@@ -157,28 +160,27 @@ public class TestController {
 	}	
 	
 
-	// 인증번호가 통과하고 나서 들어가지는 경로
+	// 인증번호가 통과하고 나서 들어가지는 경로 - container
 	@PostMapping("/mylist/{userEmail}/{problemNo}")
 	public JsonResult mylist(@PathVariable("userEmail") String userEmail,
 			@PathVariable("problemNo") Long problemNo) {
 		
-//			Map<String, Object> map = new HashMap<>();
-//			
-//			
-//
-//			ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
-//			List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
-//
-//			System.out.println("email을 가져온 경로  problemVo>>" + problemVo);
-//
-//			map.put("problemVo", problemVo);
-//			map.put("list", list);
-//			System.out.println("email을 가져온 경로");
+		
+			Map<String, Object> map = new HashMap<>();
+			
+			
+			ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
+			List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
+
+
+			map.put("problemVo", problemVo);
+			map.put("list", list);
+		
 
 			//////////////////////////////////
 			// 관우 유진 코드
 			// 아직 쓸모없음
-//			Long saveNo = trainingService.selectSaveNo(authUserNo, problemVo.getNo());
+//			Long saveNo = trainingService.selectSaveNo(_authUser.getNo(), problemVo.getNo());
 //
 //			List<SavePathVo> savePathVoList = trainingService.selectSavePath(saveNo);
 //			Long[] savePathNoArray = new Long[savePathVoList.size()];
@@ -191,7 +193,7 @@ public class TestController {
 
 			///////////////////////////////
 
-		return JsonResult.success(null);
+		return JsonResult.success(map);
 	}	
 	
 	
