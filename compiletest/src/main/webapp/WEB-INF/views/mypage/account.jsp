@@ -244,10 +244,18 @@ $(function() {
             </div>
             <h4>계정 비공개를 설정하시겠습니까?</h4>
             계정 공개를 설정하시면 문제를 푼 기록, 팔로우와 관련된 모든 기록을 다른 사람이 열람 할 수 있습니다.
-
-            
-            <input class="privacy" type="radio" name="chk_info" value="open" checked="checked">공개
-            <input class="privacy" type="radio" name="chk_info" value="private">비공개
+			<div>
+	            <label>
+		            <input class="privacy" type="radio" name="chk_info" value="open" checked="checked">
+		            <span class="ico"></span>
+				    <span class="text">공개</span>        
+	            </label>
+	            <label>
+		            <input class="privacy" type="radio" name="chk_info" value="private">
+		            <span class="ico"></span>
+				    <span class="text">비공개</span>        
+	            </label>
+			</div>
         </div>
         <div class="delete">
             <div class="line">
