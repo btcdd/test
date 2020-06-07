@@ -51,6 +51,14 @@
 			where email = #{email }
 			]]>	
 	</select>
+	
+	<update id="privacyChange" parameterType="hashmap">
+		<![CDATA[
+			update user 
+			   set privacy = ${privacy} 
+			 where no = ${authUserNo }
+		]]>	
+	</update>
 
 </mapper>
 

@@ -116,4 +116,18 @@ public class MypageService {
 	public List<SubmitVo> findWrongSubmit(Long no) {
 		return mypageRepository.findWrongSubmit(no);
 	}
+
+	public void privacyChange(Long authUserNo, String privacy) {
+		if("open".equals(privacy)) {
+			privacy = "y";
+		} else {
+			privacy = "n";
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("privacy", privacy);
+		map.put("authUserNo", authUserNo);
+		
+		mypageRepository.privacyChange(map);
+	}
 }

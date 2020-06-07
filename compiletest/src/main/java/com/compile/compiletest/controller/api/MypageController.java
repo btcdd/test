@@ -86,6 +86,13 @@ public class MypageController {
 		return JsonResult.success(result);
 	}
 
-	
-	
+	@Auth
+	@PostMapping(value="/account/privacy")
+	public JsonResult privacyChange(String privacy, HttpSession session) {
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
+		mypageService.privacyChange(authUser.getNo(), privacy);
+
+		return JsonResult.success(null);
+	}
 }
