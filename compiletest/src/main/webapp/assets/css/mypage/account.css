@@ -122,8 +122,9 @@ a:visited {
 
 .privacy {
 	overflow: hidden;
-	dispaly: inline-block;
-	height: 25px;
+	display: inline-block;
+	position: relative;
+	height: 26px;
 	box-sizing: border-box;
 	cursor: pointer;
 }
@@ -140,22 +141,22 @@ a:visited {
 	opacity: 0;
 }
 
-.radio .ico {
+.privacy .ico {
 	position: absolute;
 	left: 3px;
 	top: 3px;
 	width: 20px;
 	height: 20px;
-	background: url("../../images/mypage/private") no-repeat 0 0;
+	background: url("../../images/mypage/private.png") no-repeat 0 0;
 }
 
-.radio .txt {
+.privacy .txt {
 	display: inline-block;
 	padding-left: 30px;
 	font-size: 16px;
 	color: #333;
 }
 
-.radio input:checked+.ico {
+.privacy input:checked+.ico {
 	background-position: 0 -40px;
 }
