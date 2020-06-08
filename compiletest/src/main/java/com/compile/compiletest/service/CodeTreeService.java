@@ -41,9 +41,9 @@ public class CodeTreeService {
 
 	public void compilePackage(Long authUserNo, Long problemNo, SavePathVo savePathVo, List<CodeVo> codeVoListTrue) {
 		try {
-			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + authUserNo + 
-												"/prob" + problemNo + "/subProb" + savePathVo.getSubProblemNo() + 
-												"/" + codeVoListTrue.get(0).getLanguage() + "\n");
+//			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + authUserNo + 
+//												"/prob" + problemNo + "/subProb" + savePathVo.getSubProblemNo() + 
+//												"/" + codeVoListTrue.get(0).getLanguage() + "\n");
 			
 			RunJavaCodeTree rjct = new RunJavaCodeTree(authUserNo, problemNo, savePathVo.getSubProblemNo());
 			
