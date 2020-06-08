@@ -46,9 +46,6 @@ public class CodeTreeService {
 //												"/prob" + problemNo + "/subProb" + savePathVo.getSubProblemNo() + 
 //												"/" + codeVoListTrue.get(0).getLanguage() + "\n");
 			
-			System.out.println("ㅎㅇㅎㅇgdgdgdgdgdgdgdg");
-			System.out.println("asdfasdfasdfasdfafㅎ2ㅎ23ㅎ2ㅎ22");
-			
 			RunJavaCodeTree rjct = new RunJavaCodeTree(authUserNo, problemNo, subProblemNo);
 			
 			for(int i = 0; i < codeVoListTrue.size(); i++) {
@@ -62,9 +59,6 @@ public class CodeTreeService {
 			String[] res = new String[2];
 			res[0] = result;
 			res[1] = errorResult;
-			
-			System.out.println(res[0] + "ㅎㅇㅎㅇ");
-			System.out.println(res[1] + "ㅎ2ㅎ23ㅎ2ㅎ22");
 			
 		} catch(Exception e) {
 			e.printStackTrace();
