@@ -42,7 +42,7 @@ public class RunJavaCodeTree {
 	public void createFileAsSource(String source, String fileName) {
 		try {
 			file = new File("/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + fileName);
-			bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			bufferWriter = new BufferedWriter(new FileWriter(file));
 			
 			bufferWriter.write(source);
 			bufferWriter.flush();
