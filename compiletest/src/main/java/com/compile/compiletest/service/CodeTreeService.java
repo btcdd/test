@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.CodeTreeRepository;
-import com.compile.compiletest.runlanguage.RunJava;
+import com.compile.compiletest.runlanguage.RunJavaCodeTree;
 import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.SavePathVo;
 
@@ -45,8 +45,22 @@ public class CodeTreeService {
 												"/prob" + problemNo + "/subProb" + savePathVo.getSubProblemNo() + 
 												"/" + codeVoListTrue.get(0).getLanguage() + "\n");
 			
-			RunJava rtt = new RunJava();
+			RunJavaCodeTree rjct = new RunJavaCodeTree(authUserNo, problemNo, savePathVo.getSubProblemNo());
 			
+			for(int i = 0; i < codeVoListTrue.size(); i++) {
+				rjct.createFileAsSource(codeVoListTrue.get(i).getCode(), codeVoListTrue.get(i).getFileName());
+			}
+			
+			rjct.execCompile();
+			String result = rjct.execCommand();
+			String errorResult = rjct.execCompile();
+			
+			String[] res = new String[2];
+			res[0] = result;
+			res[1] = errorResult;
+			
+			System.out.println(res[0]);
+			System.out.println(res[1]);
 			
 		} catch(Exception e) {
 			e.printStackTrace();

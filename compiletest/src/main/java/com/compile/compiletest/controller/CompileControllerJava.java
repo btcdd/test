@@ -20,11 +20,6 @@ public class CompileControllerJava {
 	@ResponseBody
 	@PostMapping("/java")
 	public JsonResult javaCompile(@RequestParam String code) {
-//		String[] token = code.split("\n");
-//		
-//		for(int i = 0; i < token.length; i++) {
-//			buffer.append(token[i]);
-//		}
 		rtt.createFileAsSource(code);
 		
 		RunJava rtt = new RunJava();
