@@ -141,6 +141,8 @@ public class CodeTreeController {
 		// 컴파일 부분
 		//////////////////////////////
 		
+		System.out.println("출력!");
+		
 		SavePathVo savePathVo = savePathVoList.get(0);
 		List<CodeVo> codeVoListTrue = null;
 		codeVoListTrue.add(codeVoList.get(0));
