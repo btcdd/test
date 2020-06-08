@@ -37,7 +37,7 @@ public class CodeTreeController {
 	
 	@Autowired 
 	private TestService testService;
-
+	
 	UserVo _authUser = null;
 	
 	@GetMapping("")// main-header에서 처음 열때
@@ -135,7 +135,23 @@ public class CodeTreeController {
 		
 		UserVo authUser = testService.findUserByEmail(userEmail);
 		
-		Map<String, Object> map = codetreeService.saveUserCodeAndProblems(authUser.getNo(), problemNo, savePathVoList);
+		Map<String, Object> map = codetreeService.saveUserCodeAndProblems(authUser.getNo(), problemNo, savePathVoList, codeVoList);
+		
+		
+		// 컴파일 부분
+		//////////////////////////////
+		
+		SavePathVo savePathVo = savePathVoList.get(0);
+		List<CodeVo> codeVoListTrue = null;
+		codeVoListTrue.add(codeVoList.get(0));
+		codeVoListTrue.add(codeVoList.get(1));
+		codeVoListTrue.add(codeVoList.get(2));
+		
+		
+		codetreeService.compilePackage(authUser.getNo(), problemNo, savePathVo, codeVoListTrue);
+		
+		
+		///////////////////////
 		
 		////////////////////////////////////
 		
@@ -143,6 +159,13 @@ public class CodeTreeController {
 		return JsonResult.success(null); 
 	}
 
-	
+	//////////////////////////
+	// 관우 유진
+	// 임시로 컴파일 컨트롤러 만듬
+	@PostMapping("/compile")//저장 버튼 누를때 오는 경로
+	public JsonResult compile() {
+		
+		return JsonResult.success(null); 
+	}
 	
 }

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.compile.compiletest.repository.CodeTreeRepository;
+import com.compile.compiletest.runlanguage.RunJava;
+import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.SavePathVo;
 
 @Service
@@ -15,8 +17,10 @@ public class CodeTreeService {
 	
 	@Autowired
 	private CodeTreeRepository codetreeRepository;
+	
+	private Process process;
 
-	public Map<String, Object> saveUserCodeAndProblems(Long authUserNo, Long problemNo, List<SavePathVo> savePathVoList) {
+	public Map<String, Object> saveUserCodeAndProblems(Long authUserNo, Long problemNo, List<SavePathVo> savePathVoList, List<CodeVo> codeVoList) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("authUserNo", authUserNo);
 		map.put("problemNo", problemNo);
@@ -28,6 +32,24 @@ public class CodeTreeService {
 		map.put("savePathVoList", savePathVoList);
 		codetreeRepository.savePath(map);
 		
+		// 코드 테이블에 저장
+		map.put("codeVoList", codeVoList);
+		codetreeRepository.saveCode(map);
+		
 		return map;
+	}
+
+	public void compilePackage(Long authUserNo, Long problemNo, SavePathVo savePathVo, List<CodeVo> codeVoListTrue) {
+		try {
+			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + authUserNo + 
+												"/prob" + problemNo + "/subProb" + savePathVo.getSubProblemNo() + 
+												"/" + codeVoListTrue.get(0).getLanguage() + "\n");
+			
+			RunJava rtt = new RunJava();
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
