@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="codetree">
+	
+	<insert id="saveUserAndProblem" parameterType="hashmap" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			insert into save (no, user_no, problem_no) 
+				 values((select s.no 
+				           from save s 
+				          where s.user_no = #{authUserNo } 
+				            and s.problem_no = #{problemNo }), #{authUserNo },#{problemNo }) 
+			 	 on duplicate key update user_no = #{authUserNo }, problem_no = #{problemNo }
+		]]>
+	</insert>
+	
+</mapper>
