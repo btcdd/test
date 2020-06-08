@@ -24,6 +24,10 @@ public class RunJavaCodeTree {
 	
 	private final String FILENAME = "Test.java";
 	
+	public RunJavaCodeTree() {
+		
+	}
+	
 	public RunJavaCodeTree(Long authUserNo, Long problemNo, Long subProblemNo) {
 		authUserNo = this.authUserNo;
 		problemNo = this.problemNo;
@@ -39,10 +43,10 @@ public class RunJavaCodeTree {
 		return buffer.toString();
 	}
 	
-	public void createFileAsSource(String source, String fileName) {
+	public void createFileAsSource(String source, String fileName, Long authUserNo, Long problemNo, Long subProblemNo) {
 		try {
 			
-			file = new File("/userDirectory/user1/prob2/subProb4/java/" + fileName);
+			file = new File("/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + fileName);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
