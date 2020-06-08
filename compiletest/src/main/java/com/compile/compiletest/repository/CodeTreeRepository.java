@@ -15,6 +15,10 @@ public class CodeTreeRepository {
 	public void saveUserAndProblem(Map<String, Object> map) {
 		sqlSession.update("codetree.saveUserAndProblem", map);
 	}
+
+	public void savePath(Map<String, Object> map) {
+		sqlSession.update("codetree.savePath", map);
+	}
 	
 	
 }

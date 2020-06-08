@@ -13,4 +13,22 @@
 		]]>
 	</insert>
 	
+	<insert id="savePath" parameterType="hashmap" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			insert into save_path (no, sub_problem_no, save_no, package_path)
+			values
+		]]>
+		<foreach collection="savePathVoList" item="item" separator=",">
+			<![CDATA[
+				((select sp.no 
+				          from save_path sp 
+				         where sp.sub_problem_no = ${item.subProblemNo } 
+				           and sp.save_no = ${item.saveNo }), ${item.subProblemNo }, ${item.saveNo }, '${item.packagePath }')
+			]]>
+		</foreach>
+		<![CDATA[
+			 on duplicate key update sub_problem_no = values(sub_problem_no), save_no = values(save_no), package_path= values(package_path)
+		]]>
+	</insert>
+	
 </mapper>
