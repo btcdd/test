@@ -83,7 +83,14 @@ $(function(){
 						<div class="title">${vo.title }</div>
 					</div>
 					<div class="test-bottom">
-						<div class="date">시작:${vo.startTime }<br/>마감:${vo.endTime }</div>
+						<div class="date">
+							<div>
+								<p class="start-time">시작</p>${vo.startTime }
+							</div>
+							<div>
+								<p class="end-time">마감</p>${vo.endTime }
+							</div>
+						</div>
 					</div>
 				</div>
 			</c:forEach>
