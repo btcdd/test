@@ -9,9 +9,9 @@ import java.io.InputStreamReader;
 
 public class RunJavaCodeTree {
 	
-	public Long authUserNo;
-	public Long problemNo;
-	public Long subProblemNo;
+	private Long authUserNo;
+	private Long problemNo;
+	private Long subProblemNo;
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -29,9 +29,9 @@ public class RunJavaCodeTree {
 	}
 	
 	public RunJavaCodeTree(Long authUserNo, Long problemNo, Long subProblemNo) {
-		authUserNo = this.authUserNo;
-		problemNo = this.problemNo;
-		subProblemNo = this.subProblemNo;
+		this.authUserNo = authUserNo;
+		this.problemNo = problemNo;
+		this.subProblemNo = subProblemNo;
 	}
 	
 	public String inputSource() { 
@@ -43,7 +43,7 @@ public class RunJavaCodeTree {
 		return buffer.toString();
 	}
 	
-	public void createFileAsSource(String source, String fileName, Long authUserNo, Long problemNo, Long subProblemNo) {
+	public void createFileAsSource(String source, String fileName) {
 		try {
 			
 			file = new File("/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + fileName);
