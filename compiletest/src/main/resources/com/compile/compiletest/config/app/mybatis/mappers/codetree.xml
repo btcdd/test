@@ -38,13 +38,20 @@
 		]]>
 		<foreach collection="codeVoList" item="item" separator=",">
 			<![CDATA[
-				((select c.no from code c where c.save_path_no = ${savePathNo } and c.language = '${language }' and c.code = '${code }' and c.file_name = '${fileName}')
-      				, ${item.savePathNo }, '${item.language }', '${item.code }', '${item.fileName}')
+				((select c.no from code c where c.save_path_no = ${item.savePathNo } and c.language = '${item.language }' and c.file_name = '${item.fileName }'), ${item.savePathNo }, '${item.language }', '${item.code }', '${item.fileName}')
 			]]>
 		</foreach>
 		<![CDATA[
 			 on duplicate key update save_path_no = values(save_path_no), language = values(language), code = values(code), file_name = values(file_name)
 		]]>
 	</insert>
+	
+	<select id="findCode" parameterType="long" resultType="codevo">
+		<![CDATA[
+			select no, save_path_no as savePathNo, language, code, file_name as fileName
+			  from code 
+			 where save_path_no = (select no from save_path where sub_problem_no = #{subProblemNo })
+		]]>
+	</select>
 	
 </mapper>

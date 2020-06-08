@@ -34,18 +34,19 @@ public class CodeTreeService {
 		
 		// 코드 테이블에 저장
 		map.put("codeVoList", codeVoList);
+		
 		codetreeRepository.saveCode(map);
 		
 		return map;
 	}
 
-	public void compilePackage(Long authUserNo, Long problemNo, SavePathVo savePathVo, List<CodeVo> codeVoListTrue) {
+	public void compilePackage(Long authUserNo, Long problemNo, Long subProblemNo, List<CodeVo> codeVoListTrue) {
 		try {
 //			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + authUserNo + 
 //												"/prob" + problemNo + "/subProb" + savePathVo.getSubProblemNo() + 
 //												"/" + codeVoListTrue.get(0).getLanguage() + "\n");
 			
-			RunJavaCodeTree rjct = new RunJavaCodeTree(authUserNo, problemNo, savePathVo.getSubProblemNo());
+			RunJavaCodeTree rjct = new RunJavaCodeTree(authUserNo, problemNo, subProblemNo);
 			
 			for(int i = 0; i < codeVoListTrue.size(); i++) {
 				rjct.createFileAsSource(codeVoListTrue.get(i).getCode(), codeVoListTrue.get(i).getFileName());
@@ -65,5 +66,9 @@ public class CodeTreeService {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<CodeVo> findCode(Long subProblemNo) {
+		return codetreeRepository.findCode(subProblemNo);
 	}
 }
