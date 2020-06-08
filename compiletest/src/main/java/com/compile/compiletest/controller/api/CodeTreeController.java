@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
+import com.compile.compiletest.service.CodeTreeService;
+import com.compile.compiletest.service.TestService;
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.SavePathVo;
@@ -29,6 +31,12 @@ import com.compile.compiletest.vo.UserVo;
 public class CodeTreeController {
 	@Autowired
 	private TrainingService trainingService;
+	
+	@Autowired 
+	private CodeTreeService codetreeService;
+	
+	@Autowired 
+	private TestService testService;
 
 	UserVo _authUser = null;
 	
@@ -121,6 +129,17 @@ public class CodeTreeController {
 		System.out.println("language>>>"+language);
 		System.out.println("savePathVoList>>>"+savePathVoList);
 		System.out.println("codeVoList>>>"+codeVoList);
+		
+		//////////////////////////////////
+		// 관우 유진 코드
+		
+		UserVo authUser = testService.findUserByEmail(userEmail);
+		
+		Map<String, Object> map = codetreeService.saveUserCodeAndProblems(authUser.getNo(), problemNo);
+		
+		////////////////////////////////////
+		
+		
 		return JsonResult.success(null); 
 	}
 
