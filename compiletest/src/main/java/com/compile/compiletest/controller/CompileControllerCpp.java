@@ -20,11 +20,6 @@ public class CompileControllerCpp {
 	@ResponseBody
 	@PostMapping("/cpp")
 	public JsonResult compileCpp(@RequestParam String code) {
-		String[] token = code.split("\n");
-		
-		for(int i = 0; i < token.length; i++) {
-			buffer.append(token[i] + "\n");
-		}
 		rtt.createFileAsSource(code);
 		
 		

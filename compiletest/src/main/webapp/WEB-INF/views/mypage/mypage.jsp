@@ -25,7 +25,7 @@
                 </div>
                 <div class="correct-answer">
                     <c:forEach items='${rightSubmit }' var='vo' varStatus='status'>
-                    	<span><a href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
+                    	<span><a id="right-problem" href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
                     </c:forEach>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="wrong-answer">
                     <c:forEach items='${wrongSubmit }' var='vo' varStatus='status'>
-                    	<span><a href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
+                    	<span><a id="wrong-problem" href="${pageContext.servletContext.contextPath }/training/view/${vo.problemNo }">${vo.subproblemNo }</a></span>
                     </c:forEach>
                 </div>
             </div>

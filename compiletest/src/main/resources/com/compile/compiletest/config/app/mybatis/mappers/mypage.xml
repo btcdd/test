@@ -59,9 +59,9 @@
 	
 	<select id="problemSolveList" parameterType="long" resultType="submitVo">
 		<![CDATA[
-			select u.email as email, u.name as name, u.nickname as nickname, s.try_count as tryCount, s.lang as lang, s.solve_time as solveTime 
-			from submit s, user u, problem p, sub_problem sp
-			where u.no = s.user_no && p.no = sp.problem_no && s.problem_no = sp.no && p.no = #{no }
+			select u.email as email, u.name as name, u.nickname as nickname, s.lang as lang, s.solve_time as solveTime, tc.attempt as tryCount
+			from submit s, user u, problem p, sub_problem sp, try_count tc
+			where u.no = s.user_no && p.no = sp.problem_no && s.subproblem_no = sp.no && p.no = #{no } && s.no = tc.submit_no
 			group by u.email
 		]]>
 	</select>
