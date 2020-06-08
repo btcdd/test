@@ -43,7 +43,7 @@ public class RunJavaCodeTree {
 		try {
 			file = new File(fileName);
 //			bufferWriter = new BufferedWriter(new FileWriter("/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java " + file, false));
-			bufferWriter = new BufferedWriter(new FileWriter(file, false));
+			bufferWriter = new BufferedWriter(new FileWriter("/userDirectory/user\" + authUserNo + \"/prob\" + problemNo + \"/subProb\" + subProblemNo + \"/java/ *.java " + file, false));
 
 			bufferWriter.write(source);
 			bufferWriter.flush();
