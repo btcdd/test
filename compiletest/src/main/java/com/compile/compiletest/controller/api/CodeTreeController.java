@@ -1,5 +1,6 @@
 package com.compile.compiletest.controller.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
+import com.compile.compiletest.service.CodeTreeService;
+import com.compile.compiletest.service.TestService;
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.SavePathVo;
@@ -29,7 +32,13 @@ import com.compile.compiletest.vo.UserVo;
 public class CodeTreeController {
 	@Autowired
 	private TrainingService trainingService;
-
+	
+	@Autowired 
+	private CodeTreeService codetreeService;
+	
+	@Autowired 
+	private TestService testService;
+	
 	UserVo _authUser = null;
 	
 	@GetMapping("")// main-header에서 처음 열때
@@ -121,9 +130,41 @@ public class CodeTreeController {
 		System.out.println("language>>>"+language);
 		System.out.println("savePathVoList>>>"+savePathVoList);
 		System.out.println("codeVoList>>>"+codeVoList);
+		
+		//////////////////////////////////
+		// 관우 유진 코드
+		
+		UserVo authUser = testService.findUserByEmail(userEmail);
+		
+		Map<String, Object> map = codetreeService.saveUserCodeAndProblems(authUser.getNo(), problemNo, savePathVoList, codeVoList);
+		
+		
+		// 컴파일 부분
+		//////////////////////////////
+		
+		Long subProblemNo = 4L;
+		
+		List<CodeVo> codeVoListTrue = codetreeService.findCode(subProblemNo);
+		
+		
+		codetreeService.compilePackage(authUser.getNo(), problemNo, subProblemNo, codeVoListTrue);
+		
+		
+		///////////////////////
+		
+		////////////////////////////////////
+		
+		
 		return JsonResult.success(null); 
 	}
 
-	
+	//////////////////////////
+	// 관우 유진
+	// 임시로 컴파일 컨트롤러 만듬
+	@PostMapping("/compile")//저장 버튼 누를때 오는 경로
+	public JsonResult compile() {
+		
+		return JsonResult.success(null); 
+	}
 	
 }

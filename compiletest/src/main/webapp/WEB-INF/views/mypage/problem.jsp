@@ -165,9 +165,9 @@ $(function() {
 				console.log(response.data);
 				var tr = "";				
 				for(var i in response.data) {
-					tr += "<tr id='sub-problem" + response.data[i].no + "'><td>(" + no + "-" + response.data[i].no +")</td>" + 
-						"<td>" + response.data[i].title + "</td>" + 
-						'<td><input data-no="' + response.data[i].no + '" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="sp-delete"></td></tr>'
+					tr += '<tr id="sub-problem' + response.data[i].no + '"><td class="sub-problem-padding1">' + response.data[i].no +'</td>' + 
+						'<td class="sub-problem-padding2">' + response.data[i].title + '</td>' + 
+						'<td><input data-no="' + response.data[i].no + '" type="button" alt="delete" class="sp-delete" value="삭제"></td></tr>'
 
 				}			
 				$("." + no + " .sub-problem-tbody").append(tr);
@@ -248,25 +248,25 @@ $(function() {
 	                    <th width="10%">조회수</th>
 	                    <th width="10%">추천수</th>
 	                    <th width="10%">수정</th>
-	                    <th width="10%">삭제</th>
 	                    <th width="10%">목록</th>
+	                    <th width="10%">삭제</th>
 	                </tr>
                 </thead>
                 <tbody id="problem-tbody">
 	              	<c:forEach items='${map.list }' var='problemvo' varStatus='status'>
 	                	<tr class="list-contents" data-no="${problemvo.no }">
 	                		<td><a data-no="${problemvo.no }">${problemvo.no }</a></td>
-		                    <td class="problem-title" data-no="${problemvo.no }">${problemvo.title }</td>
+		                    <td class="problem-title" data-no="${problemvo.no }" style="text-align: left">${problemvo.title }</td>
 		                    <td>${problemvo.hit }</td>
 		                    <td>${problemvo.recommend }</td>
-		                    <td><a href="${pageContext.servletContext.contextPath }/training/modify/${problemvo.no }"><button>수정하기</button></a></td>
-		                    <td><input data-no="${problemvo.no }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/delete.png" alt="delete" class="delete"></td>
-	                      <td><input data-no="${problemvo.no }" data-title="${problemvo.title }" type="image" src="${pageContext.servletContext.contextPath }/assets/images/mypage/list.png" alt="list" class="list"></td>
+		                    <td><a href="${pageContext.servletContext.contextPath }/training/modify/${problemvo.no }"><button id="modify-btn">수정하기</button></a></td>
+	                      	<td><input data-no="${problemvo.no }" data-title="${problemvo.title }" type="button" alt="list" class="list" value="내보내기"></td>
+		                    <td><input data-no="${problemvo.no }" type="button" alt="delete" class="delete" value="삭제"></td>
 	                	</tr>
 	                	
 	                	<tr class="sub-problem-contents${problemvo.no }">
 	                		<td></td>
-		                	<td>
+		                	<td colspan="5">
 			                	<table id="sub-problem-table" class="${problemvo.no }" style="display: none;">
 			                		<tbody class="sub-problem-tbody">
 			                		
@@ -282,7 +282,7 @@ $(function() {
 				
 				
 				<!-- pager 추가 -->
-				<div class ="pager">
+				<div class="pager">
 					<c:if test="${map.prev }">
 						<span>[ <a href="${pageContext.request.contextPath }/mypage/problem?p=${map.startPageNum -1}">이전</a> ]</span>
 					</c:if>				

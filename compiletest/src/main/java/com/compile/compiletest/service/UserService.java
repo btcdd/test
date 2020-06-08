@@ -24,19 +24,13 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public void join(UserVo vo) throws IOException, InterruptedException {
+	public void join(UserVo vo) {
 		userRepository.insert(vo);
 		
 		Long no = userRepository.findByEmail(vo.getEmail());
 		
 		try {
 			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "\n");
-			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/c\n");
-			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/cpp\n");
-			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/cs\n");
-			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/java\n");
-			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/js\n");
-			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + no + "/py\n");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

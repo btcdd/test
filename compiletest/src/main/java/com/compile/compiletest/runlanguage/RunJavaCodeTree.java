@@ -7,7 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class RunJava {
+public class RunJavaCodeTree {
+	
+	public Long authUserNo;
+	public Long problemNo;
+	public Long subProblemNo;
 	
 	private StringBuffer buffer;
 	private Process process;
@@ -20,39 +24,29 @@ public class RunJava {
 	
 	private final String FILENAME = "Test.java";
 	
+	public RunJavaCodeTree() {
+		
+	}
+	
+	public RunJavaCodeTree(Long authUserNo, Long problemNo, Long subProblemNo) {
+		authUserNo = this.authUserNo;
+		problemNo = this.problemNo;
+		subProblemNo = this.subProblemNo;
+	}
+	
 	public String inputSource() { 
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("javac -d . Test.java");
+		buffer.append("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/ *.java");
 		
 		return buffer.toString();
 	}
 	
-	public void createFileAsSource(String source) {
+	public void createFileAsSource(String source, String fileName, Long authUserNo, Long problemNo, Long subProblemNo) {
 		try {
-			file = new File(FILENAME);
-			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
-			bufferWriter.write(source);
-			bufferWriter.flush();
-		} catch(Exception e) {
-			e.printStackTrace();
-			System.exit(1);
-		} finally {
-			try {
-				bufferWriter.close();
-				file = null;
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.exit(1);
-			}
-		}
-	}
-	
-	public void createFileAsSource(String source, String fileName) {
-		try {
-			file = new File(fileName);
+			file = new File("/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + fileName);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
@@ -73,7 +67,6 @@ public class RunJava {
 	
 	public String execCompile() {
 		try {
-//			process = Runtime.getRuntime().exec(cmd);
 			process = Runtime.getRuntime().exec(inputSource());
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
@@ -120,7 +113,7 @@ public class RunJava {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("java -cp . Test");
+		buffer.append("java -cp /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "java/ java.Test");
 		
 		return buffer.toString();
 	}

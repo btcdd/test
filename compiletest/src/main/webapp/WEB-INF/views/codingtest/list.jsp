@@ -11,6 +11,7 @@
 <title>Code Forest</title>
 <link href="${pageContext.servletContext.contextPath }/assets/css/test/list.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.servletContext.contextPath }/assets/css/include/header.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="${pageContext.servletContext.contextPath }/assets/css/include/footer.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/ejs/ejs.js"></script>
 <script type="text/javascript" src="${pageContext.servletContext.contextPath }/assets/js/jquery/jquery-3.4.1.js"></script>
@@ -70,7 +71,6 @@ $(function(){
            <input type="text" id="search" placeholder="Search..">
         <button class="make-problem" onclick="location.href='${pageContext.servletContext.contextPath }/codingtest/write'">문제 작성</button>
         </div>
-
 		<div class="proceeding-box">
 			<c:forEach items='${list1 }' var='vo' step='1' varStatus='status'>
 				<div class="test" data-no="${vo.no }" id="priority${vo.priority }" onclick="window.open('http://localhost:9999/codingtest?userEmail=${vo.email}&problemNo=${vo.no}','_blank'); ">
@@ -88,7 +88,6 @@ $(function(){
 				</div>
 			</c:forEach>
 		</div>
-		
 		<div class="expected-box">
 			<c:forEach items='${list2 }' var='vo' step='1' varStatus='status'>
 				<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
@@ -114,7 +113,6 @@ $(function(){
 				</div>
 			</c:forEach>
 		</div>
-		
 		<div class="deadline-box">
 			<c:forEach items='${list3 }' var='vo' step='1' varStatus='status'>
 				<div class="test" data-no="${vo.no }" id="priority${vo.priority }">
@@ -132,7 +130,9 @@ $(function(){
 				</div>
 			</c:forEach>
 		</div>
-		
 	</div>
+	<div id="footer">
+	    <c:import url="/WEB-INF/views/include/footer.jsp" />
+    </div>
 </body>
 </html>
