@@ -135,7 +135,7 @@ public class CodeTreeController {
 		
 		UserVo authUser = testService.findUserByEmail(userEmail);
 		
-		Map<String, Object> map = codetreeService.saveUserCodeAndProblems(authUser.getNo(), problemNo);
+		Map<String, Object> map = codetreeService.saveUserCodeAndProblems(authUser.getNo(), problemNo, savePathVoList);
 		
 		////////////////////////////////////
 		

@@ -160,7 +160,7 @@
 				<![CDATA[
 					null
 				]]>
-			</if>	
+			</if>
 			<if test="item.no != null">
 				<![CDATA[
 					${item.no }
@@ -472,12 +472,9 @@
 	
 	
 	<insert id="insertSaveProblemNo" parameterType="map">
-		insert into save (no, user_no, problem_no) 
-				 values((select s.no 
-				           from save s 
-				          where s.user_no = #{userNo } 
-				            and s.problem_no = #{problemNo }), #{userNo },#{problemNo }) 
-			 	 on duplicate key update user_no = #{userNo }, problem_no = #{problemNo }
+		insert 
+ 			  into save
+		values (null, #{userNo }, #{problemNo })
 	</insert>
 	
 	<select id="findSaveNo" parameterType="long" resultType="long">
