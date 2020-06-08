@@ -59,8 +59,8 @@ public class CodeTreeService {
 			res[0] = result;
 			res[1] = errorResult;
 			
-			System.out.println(res[0]);
-			System.out.println(res[1]);
+			System.out.println(res[0] + "ㅎㅇㅎㅇ");
+			System.out.println(res[1] + "ㅎ2ㅎ23ㅎ2ㅎ22");
 			
 		} catch(Exception e) {
 			e.printStackTrace();
