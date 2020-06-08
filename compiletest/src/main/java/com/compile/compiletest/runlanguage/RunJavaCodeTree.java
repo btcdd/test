@@ -42,9 +42,6 @@ public class RunJavaCodeTree {
 	public void createFileAsSource(String source, String fileName) {
 		try {
 			
-
-			System.out.println(authUserNo + ":" + problemNo + ":" +  subProblemNo);
-			
 			file = new File("/userDirectory/user1/prob2/subProb4/java/" + fileName);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
