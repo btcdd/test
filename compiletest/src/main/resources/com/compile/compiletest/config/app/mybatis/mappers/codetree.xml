@@ -54,4 +54,21 @@
 		]]>
 	</select>
 	
+	<select id="findSaveNo" parameterType="map" resultType="long">
+		<![CDATA[
+			select no 
+			  from save
+			 where user_no = #{userNo }
+			   and problem_no = #{problemNo }
+		]]>
+	</select>
+	
+	<select id="findSubProblemNo" parameterType="long" resultType="subproblemvo">
+		<![CDATA[
+			select no 
+			  from sub_problem 
+			 where problem_no = #{problemNo }
+		]]>
+	</select>
+	
 </mapper>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
+import com.compile.compiletest.service.CodeTreeService;
 import com.compile.compiletest.service.TestService;
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.CodeVo;
@@ -34,7 +35,10 @@ public class TestController {
 	private TestService testService;
 
 	@Autowired
-	private TrainingService trainingService;	
+	private TrainingService trainingService;
+	
+	@Autowired
+	private CodeTreeService codeTreeService;
 	
 	UserVo _authUser = null;
 	
@@ -150,6 +154,8 @@ public class TestController {
 		// 유저가 존재하는데 상태가 n이면 삭제 상태
 		if (exist && problemVo.getPassword().equals(tempKey)) { // 인증키가 맞고 유저가 존재한다면
 			trainingService.insertUserInfo(userName, userBirth, userEmail);
+			codeTreeService.saveUserCodeAndProblems(authUser.getNo(), problemNo);
+			
 			map.put("result", "ok");
 			return JsonResult.success(map);
 		}
@@ -204,8 +210,6 @@ public class TestController {
 			@PathVariable("subProblemNo") Long subProblemNo,
 			@RequestBody Map<String, Object> file) {
 		
-		System.out.println("problemNo >>>>> "+problemNo);
-		System.out.println("subProblemNo >>>>> "+subProblemNo);
 		Map<String, Object> map = new HashMap<>();
 
 		JSONParser parser = new JSONParser();
@@ -219,7 +223,23 @@ public class TestController {
 		String fileName = (String) obj.get("fileName");
 		System.out.println("fileName"+fileName);
 		
+		System.out.println("problemNo >>>>> "+problemNo);
+		System.out.println("subProblemNo >>>>> "+subProblemNo);
+		System.out.println("fileName>>>>> " + fileName);
 		
+		UserVo authUser = testService.findUserByEmail(userEmail);
+		
+//		codeTreeService.saveUserCodeAndProblems(authUserNo, subProblemNo, savePathVoList, codeVoList)
+		
+//		List<SavePathVo> savePathVoList = trainingService.selectSavePath(saveNo);
+//		Long[] savePathNoArray = new Long[savePathVoList.size()];
+//		for(int i = 0; i < savePathVoList.size(); i++) {
+//		savePathNoArray[i] = savePathVoList.get(i).getNo();
+//		}
+//		List<CodeVo> codeVoList = trainingService.selectCode(savePathNoArray);
+//		map.put("savePathVoList",savePathVoList);
+//		map.put("codeVoList",codeVoList);
+    
 		return JsonResult.success(null);
 	}
 	//리액트에서 파일 삭제
