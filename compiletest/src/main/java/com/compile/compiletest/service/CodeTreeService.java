@@ -45,6 +45,7 @@ public class CodeTreeService {
 //			process = Runtime.getRuntime().exec("mkdir userDirectory/user" + authUserNo + 
 //												"/prob" + problemNo + "/subProb" + savePathVo.getSubProblemNo() + 
 //												"/" + codeVoListTrue.get(0).getLanguage() + "\n");
+		
 			
 			RunJavaCodeTree rjct = new RunJavaCodeTree(authUserNo, problemNo, subProblemNo);
 			
@@ -52,13 +53,13 @@ public class CodeTreeService {
 				rjct.createFileAsSource(codeVoListTrue.get(i).getCode(), codeVoListTrue.get(i).getFileName());
 			}
 			
-			rjct.execCompile();
-			String result = rjct.execCommand();
-			String errorResult = rjct.execCompile();
-			
-			String[] res = new String[2];
-			res[0] = result;
-			res[1] = errorResult;
+			rjct.execCompile(codeVoListTrue);
+//			String result = rjct.execCommand();
+//			String errorResult = rjct.execCompile();
+//			
+//			String[] res = new String[2];
+//			res[0] = result;
+//			res[1] = errorResult;
 			
 		} catch(Exception e) {
 			e.printStackTrace();
