@@ -9,6 +9,10 @@ import java.io.InputStreamReader;
 
 public class RunJava {
 	
+	private Long authUserNo = 1L;
+	private Long problemNo = 2L;
+	private Long subProblemNo = 4L;
+	
 	private StringBuffer buffer;
 	private Process process;
 	private BufferedReader bufferedReader;
@@ -24,7 +28,8 @@ public class RunJava {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("javac -d . Test.java");
+//		buffer.append("javac -d . Test.java");
+		buffer.append("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/*.java");
 		
 		return buffer.toString();
 	}
