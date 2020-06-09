@@ -56,11 +56,12 @@ public class RunJavaCodeTree {
 	
 	public String execCompile(List<CodeVo> codeVoListTrue) {
 		try {
-			process = Runtime.getRuntime().exec("find ./userDirectory/user1/prob2/subProb4/java -name '*.java' > ./userDirectory/user1/prob2/subProb4/java/javafile.txt");
+			String javafile = "./userDirectory/user1/prob2/subProb4/java/Test.java\r\n" + 
+					"./userDirectory/user1/prob2/subProb4/java/A.java\r\n" + 
+					"./userDirectory/user1/prob2/subProb4/java/B.java";
 			
-			for(int i = 0; i < 1000; i++) {
-				System.out.println("asdf");
-			}
+			createFileAsSource(javafile, "javafile.txt");
+			
 //			for(int i = codeVoListTrue.size() - 1; i >= 0; i--) {
 				process = Runtime.getRuntime().exec("javac -d /userDirectory/user1/prob2/subProb4/java/ @./userDirectory/user1/prob2/subProb4/java/javafile.txt");	
 //			}
