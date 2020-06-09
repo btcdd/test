@@ -1,7 +1,5 @@
 package com.compile.compiletest.controller.api;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.linux.TrainingLinux;
 import com.compile.compiletest.service.TrainingService;
-import com.compile.compiletest.vo.ProblemVo;
-import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.UserVo;
 
 @RestController("TrainingController")
