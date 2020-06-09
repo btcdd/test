@@ -28,8 +28,10 @@ public class RunJava {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("javac -d . Test.java");
+//		buffer.append("javac -d . Test.java");
 //		buffer.append("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/ /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/A.java");
+		buffer.append("find ./userDirectory/user1/prob2/subProb4/java -name '*.java' > /userDirectory/user1/prob2/subProb4/java/javafile.txt\n");
+		buffer.append("javac -d /userDirectory/user1/prob2/subProb4/java -cp /userDirectory/user1/prob2/subProb4/java @/userDirectory/user1/prob2/subProb4/java/javafile.txt");
 		
 		return buffer.toString();
 	}
