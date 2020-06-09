@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+
+import com.compile.compiletest.vo.CodeVo;
 
 public class RunJavaCodeTree {
 	
@@ -29,16 +32,7 @@ public class RunJavaCodeTree {
 		problemNo = this.problemNo;
 		subProblemNo = this.subProblemNo;
 	}
-	
-	public String inputSource() { 
-		
-		buffer = new StringBuffer();
-		
-		buffer.append("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/ *.java");
-		
-		return buffer.toString();
-	}
-	
+
 	public void createFileAsSource(String source, String fileName) {
 		try {
 			file = new File(fileName);
@@ -60,9 +54,13 @@ public class RunJavaCodeTree {
 		}
 	}
 	
-	public String execCompile() {
+	public String execCompile(List<CodeVo> codeVoListTrue) {
 		try {
-			process = Runtime.getRuntime().exec(inputSource());
+			
+			for(int i = 0; i < codeVoListTrue.size(); i++) {
+				process = Runtime.getRuntime().exec("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + codeVoListTrue.get(i).getFileName());				
+			}
+			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
 			readBuffer = new StringBuffer();
