@@ -34,8 +34,9 @@ public class RunJavaCodeTree {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/*.java");
+		buffer.append("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java ./userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/*.java");
 		
+		System.out.println(buffer.toString());
 		return buffer.toString();
 	}
 	
