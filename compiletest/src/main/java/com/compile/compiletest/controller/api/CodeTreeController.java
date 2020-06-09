@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.compile.compiletest.dto.JsonResult;
 import com.compile.compiletest.service.CodeTreeService;
+import com.compile.compiletest.service.MypageService;
 import com.compile.compiletest.service.TestService;
 import com.compile.compiletest.service.TrainingService;
 import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.SavePathVo;
 import com.compile.compiletest.vo.SaveVo;
+import com.compile.compiletest.vo.SubProblemVo;
 import com.compile.compiletest.vo.UserVo;
 
 @RestController("CodeTreeController")
@@ -35,6 +37,9 @@ public class CodeTreeController {
 	
 	@Autowired 
 	private CodeTreeService codetreeService;
+	
+	@Autowired
+	private MypageService mypageService;
 	
 	@Autowired 
 	private TestService testService;
@@ -78,9 +83,24 @@ public class CodeTreeController {
 		Map<String, Object> map = new HashMap<>();
 		
 		List<SaveVo> saveVoList = trainingService.selectSaveNoList(_authUser.getNo());
-
-
-
+		
+		List<Long> copy = new ArrayList<>();
+		for(SaveVo vo : saveVoList) {
+			copy.add(vo.getProblemNo());
+		}
+		List<Long> problemNoArray = new ArrayList<>();
+		for(Long no : copy) {
+			if(!problemNoArray.contains(no)) {
+				problemNoArray.add(no);
+			}
+		}
+		//List<SubProblemVo> subProblemList = new ArrayList<>();
+		Map<Long, Object> subProblemList = new HashMap<>();
+		for(Long no : problemNoArray) {
+			subProblemList.put(no, mypageService.findSubProblem(no));
+		}
+		System.out.println(subProblemList);
+		map.put("subProblemList", subProblemList);
 		map.put("saveVoList", saveVoList);
 		return JsonResult.success(map);
 	}
