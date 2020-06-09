@@ -81,8 +81,8 @@ public class RunJava {
 	public String execCompile() {
 		try {
 //			process = Runtime.getRuntime().exec(cmd);
-			process = Runtime.getRuntime().exec("find ./userDirectory/user1/prob2/subProb4/java -name '*.java' > /userDirectory/user1/prob2/subProb4/java/javafile.txt");
-//			process = Runtime.getRuntime().exec("javac -d /userDirectory/user1/prob2/subProb4/java -cp /userDirectory/user1/prob2/subProb4/java @./userDirectory/user1/prob2/subProb4/java/javafile.txt");
+//			process = Runtime.getRuntime().exec("find ./userDirectory/user1/prob2/subProb4/java -name '*.java' > /userDirectory/user1/prob2/subProb4/java/javafile.txt");
+			process = Runtime.getRuntime().exec("javac -d /userDirectory/user1/prob2/subProb4/java -cp /userDirectory/user1/prob2/subProb4/java ./userDirectory/user1/prob2/subProb4/java/*.java");
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
