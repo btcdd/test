@@ -25,25 +25,26 @@ public class RunJavaCodeTree {
 	private final String FILENAME = "Test.java";
 	
 	public RunJavaCodeTree(Long authUserNo, Long problemNo, Long subProblemNo) {
-		this.authUserNo = authUserNo;
-		this.problemNo = problemNo;
-		this.subProblemNo = subProblemNo;
+		authUserNo = this.authUserNo;
+		problemNo = this.problemNo;
+		subProblemNo = this.subProblemNo;
 	}
 	
 	public String inputSource() { 
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/*.java");		
+		buffer.append("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/ *.java");
+		
 		return buffer.toString();
 	}
 	
 	public void createFileAsSource(String source, String fileName) {
 		try {
-			file = new File("/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + fileName);
+			file = new File(fileName);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
-			bufferWriter.write("package java;\n\n" + source);
+			bufferWriter.write(source);
 			bufferWriter.flush();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -107,7 +108,7 @@ public class RunJavaCodeTree {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("java -cp /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java java.Test");
+		buffer.append("java -cp /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "java/ java.Test");
 		
 		return buffer.toString();
 	}
