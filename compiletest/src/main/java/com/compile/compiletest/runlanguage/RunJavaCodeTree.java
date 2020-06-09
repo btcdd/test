@@ -60,7 +60,6 @@ public class RunJavaCodeTree {
 			for(int i = 0; i < codeVoListTrue.size(); i++) {
 				process = Runtime.getRuntime().exec("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + codeVoListTrue.get(i).getFileName());				
 			}
-//			process = Runtime.getRuntime().exec("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/Test.java");
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
@@ -107,7 +106,7 @@ public class RunJavaCodeTree {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("java -cp /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/ Test > /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/text.txt");
+		buffer.append("java -cp /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/ Test");
 		
 		return buffer.toString();
 	}
