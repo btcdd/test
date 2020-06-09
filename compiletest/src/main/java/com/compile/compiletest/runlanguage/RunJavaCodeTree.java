@@ -58,6 +58,9 @@ public class RunJavaCodeTree {
 		try {
 			process = Runtime.getRuntime().exec("find ./userDirectory/user1/prob2/subProb4/java -name '*.java' > /userDirectory/user1/prob2/subProb4/java/javafile.txt");
 			
+			for(int i = 0; i < 1000; i++) {
+				System.out.println("asdf");
+			}
 //			for(int i = codeVoListTrue.size() - 1; i >= 0; i--) {
 				process = Runtime.getRuntime().exec("javac -d /userDirectory/user1/prob2/subProb4/java/ @./userDirectory/user1/prob2/subProb4/java/javafile.txt");	
 //			}
