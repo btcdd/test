@@ -28,14 +28,14 @@ public class RunJavaCodeTree {
 	private final String FILENAME = "Test.java";
 	
 	public RunJavaCodeTree(Long authUserNo, Long problemNo, Long subProblemNo) {
-		authUserNo = this.authUserNo;
-		problemNo = this.problemNo;
-		subProblemNo = this.subProblemNo;
+		this.authUserNo = authUserNo;
+		this.problemNo = problemNo;
+		this.subProblemNo = subProblemNo;
 	}
 
 	public void createFileAsSource(String source, String fileName) {
 		try {
-			file = new File("/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/", fileName);
+			file = new File("/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + fileName);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
 			bufferWriter.write(source);
