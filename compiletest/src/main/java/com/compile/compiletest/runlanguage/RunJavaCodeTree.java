@@ -111,7 +111,7 @@ public class RunJavaCodeTree {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("java -cp /userDirectory/user1/prob2/subProb4/java/ ja.Test");
+		buffer.append("java -cp /userDirectory/user1/prob2/subProb4/java/ Test");
 		
 		return buffer.toString();
 	}
