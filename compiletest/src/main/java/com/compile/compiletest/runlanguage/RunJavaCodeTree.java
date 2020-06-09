@@ -34,7 +34,7 @@ public class RunJavaCodeTree {
 		
 		buffer = new StringBuffer();
 		
-		buffer.append("javac /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/*.java");		
+		buffer.append("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/*.java");		
 		return buffer.toString();
 	}
 	
@@ -43,7 +43,7 @@ public class RunJavaCodeTree {
 			file = new File("/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + fileName);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
-			bufferWriter.write(source);
+			bufferWriter.write("package java" + source +";\n\n");
 			bufferWriter.flush();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -107,7 +107,7 @@ public class RunJavaCodeTree {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("java -cp /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java Test");
+		buffer.append("java -cp /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java java.Test");
 		
 		return buffer.toString();
 	}
