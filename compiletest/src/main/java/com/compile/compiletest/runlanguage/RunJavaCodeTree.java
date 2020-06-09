@@ -56,11 +56,15 @@ public class RunJavaCodeTree {
 	
 	public String execCompile(List<CodeVo> codeVoListTrue) {
 		try {
+			String javafile = "./userDirectory/user1/prob2/subProb4/java/Test.java\r\n" + 
+					"./userDirectory/user1/prob2/subProb4/java/A.java\r\n" + 
+					"./userDirectory/user1/prob2/subProb4/java/B.java";
 			
-			for(int i = 0; i < codeVoListTrue.size(); i++) {
-				process = Runtime.getRuntime().exec("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + codeVoListTrue.get(i).getFileName());				
-			}
-//			process = Runtime.getRuntime().exec("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/Test.java");
+			createFileAsSource(javafile, "javafile.txt");
+			
+//			for(int i = codeVoListTrue.size() - 1; i >= 0; i--) {
+				process = Runtime.getRuntime().exec("javac -d /userDirectory/user1/prob2/subProb4/java/ @./userDirectory/user1/prob2/subProb4/java/javafile.txt");	
+//			}
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
@@ -107,7 +111,7 @@ public class RunJavaCodeTree {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("java -cp /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/ Test > /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/text.txt");
+		buffer.append("java -cp /userDirectory/user1/prob2/subProb4/java/ Test");
 		
 		return buffer.toString();
 	}
