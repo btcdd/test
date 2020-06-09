@@ -57,7 +57,7 @@ public class RunJavaCodeTree {
 	public String execCompile(List<CodeVo> codeVoListTrue) {
 		try {
 			
-			for(int i = 0; i < codeVoListTrue.size(); i++) {
+			for(int i = codeVoListTrue.size() - 1; i >= 0; i--) {
 				process = Runtime.getRuntime().exec("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + codeVoListTrue.get(i).getFileName());	
 			}
 			
