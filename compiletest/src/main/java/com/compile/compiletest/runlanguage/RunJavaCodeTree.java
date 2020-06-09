@@ -56,10 +56,11 @@ public class RunJavaCodeTree {
 	
 	public String execCompile(List<CodeVo> codeVoListTrue) {
 		try {
+			process = Runtime.getRuntime().exec("find ./userDirectory/user1/prob2/subProb4/java -name '*.java' > /userDirectory/user1/prob2/subProb4/java/javafile.txt");
 			
-			for(int i = codeVoListTrue.size() - 1; i >= 0; i--) {
-				process = Runtime.getRuntime().exec("javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + codeVoListTrue.get(i).getFileName());	
-			}
+//			for(int i = codeVoListTrue.size() - 1; i >= 0; i--) {
+				process = Runtime.getRuntime().exec("javac -d /userDirectory/user1/prob2/subProb4/java/ @./userDirectory/user1/prob2/subProb4/java/javafile.txt");	
+//			}
 			
 			bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
 			String line = null;
@@ -106,7 +107,7 @@ public class RunJavaCodeTree {
 	private String runClass() {
 		buffer = new StringBuffer();
 		
-		buffer.append("java -cp /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/ Test");
+		buffer.append("java -cp /userDirectory/user1/prob2/subProb4/java/ ja.Test");
 		
 		return buffer.toString();
 	}
