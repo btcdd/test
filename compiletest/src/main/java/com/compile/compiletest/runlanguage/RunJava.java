@@ -25,7 +25,6 @@ public class RunJava {
 		buffer = new StringBuffer();
 		
 		buffer.append("javac -d . Test.java");
-		
 		return buffer.toString();
 	}
 	
