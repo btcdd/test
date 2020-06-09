@@ -197,9 +197,9 @@ public class TestController {
 		return JsonResult.success(map);
 	}	
 	
-	//리액트에서 파일 저장 경로
-	@PostMapping("/fileSave/{userEmail}/{problemNo}/{subProblemNo}")
-	public JsonResult fileSave(@PathVariable("userEmail") String userEmail,
+	//리액트에서 파일 추가 경로
+	@PostMapping("/fileInsert/{userEmail}/{problemNo}/{subProblemNo}")
+	public JsonResult fileInsert(@PathVariable("userEmail") String userEmail,
 			@PathVariable("problemNo") Long problemNo,
 			@PathVariable("subProblemNo") Long subProblemNo,
 			@RequestBody Map<String, Object> file) {
@@ -217,10 +217,30 @@ public class TestController {
 			e.printStackTrace();
 		}		
 		String fileName = (String) obj.get("fileName");
-		
+		System.out.println("fileName"+fileName);
 		
 		
 		return JsonResult.success(null);
 	}
-	
+	//리액트에서 파일 삭제
+	@PostMapping("/fileDelete/{userEmail}/{problemNo}/{subProblemNo}")
+	public JsonResult fileDelete(@PathVariable("userEmail") String userEmail,
+			@PathVariable("problemNo") Long problemNo,
+			@PathVariable("subProblemNo") Long subProblemNo,
+			@RequestBody Map<String, Object> file) {
+		
+		Map<String, Object> map = new HashMap<>();
+
+		JSONParser parser = new JSONParser();
+		JSONObject obj = null;
+		try {
+			obj = (JSONObject) parser.parse((String) file.get("body"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}		
+		String fileName = (String) obj.get("fileName");
+		System.out.println("fileName"+fileName);
+		
+		return JsonResult.success(null);
+	}
 }
