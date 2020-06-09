@@ -171,8 +171,9 @@ public class TestController {
 			
 			ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
 			List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
-
-
+			
+			System.out.println("problemVo>>>>"+problemVo);
+			System.out.println("list>>>>"+list);
 			map.put("problemVo", problemVo);
 			map.put("list", list);
 		
@@ -196,6 +197,30 @@ public class TestController {
 		return JsonResult.success(map);
 	}	
 	
-	
+	//리액트에서 파일 저장 경로
+	@PostMapping("/fileSave/{userEmail}/{problemNo}/{subProblemNo}")
+	public JsonResult fileSave(@PathVariable("userEmail") String userEmail,
+			@PathVariable("problemNo") Long problemNo,
+			@PathVariable("subProblemNo") Long subProblemNo,
+			@RequestBody Map<String, Object> file) {
+		
+		System.out.println("problemNo >>>>> "+problemNo);
+		System.out.println("subProblemNo >>>>> "+subProblemNo);
+		Map<String, Object> map = new HashMap<>();
+
+		JSONParser parser = new JSONParser();
+		JSONObject obj = null;
+		
+		try {
+			obj = (JSONObject) parser.parse((String) file.get("body"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}		
+		String fileName = (String) obj.get("fileName");
+		
+		
+		
+		return JsonResult.success(null);
+	}
 	
 }
