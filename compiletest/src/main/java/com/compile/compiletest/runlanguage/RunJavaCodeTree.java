@@ -56,7 +56,7 @@ public class RunJavaCodeTree {
 	
 	public String execCompile(List<CodeVo> codeVoListTrue) {
 		try {
-			process = Runtime.getRuntime().exec("find ./userDirectory/user1/prob2/subProb4/java -name '*.java' > /userDirectory/user1/prob2/subProb4/java/javafile.txt");
+			process = Runtime.getRuntime().exec("find ./userDirectory/user1/prob2/subProb4/java -name '*.java' > ./userDirectory/user1/prob2/subProb4/java/javafile.txt");
 			
 			for(int i = 0; i < 1000; i++) {
 				System.out.println("asdf");
