@@ -29,7 +29,8 @@ public class RunJava {
 		buffer = new StringBuffer();
 		
 //		buffer.append("javac -d . Test.java");
-		buffer.append("javac -sourcepath /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/ '*.java'");
+		String asdf = "javac -d /userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/ *.java";
+		buffer.append(asdf);
 		
 		return buffer.toString();
 	}
