@@ -74,7 +74,7 @@ body {
 }
 
 .test-top {
-	margin: 10px;
+	margin: 10px 10px 0 10px;
 	height: 30%;
 }
 .test-no {
@@ -87,7 +87,7 @@ body {
 }
 .state {
 	float: right;
-	background-color: #D6E1CF;
+	background-color: #fff;
 	border-radius: 10px;
 	width: 10%;
     text-align: center;
@@ -99,7 +99,7 @@ body {
 }
 
 .test-mid {
-	height: 35%;
+	height: 30%;
 }
 .title {
 	float: left;
@@ -127,7 +127,7 @@ body {
 }
 
 #priority1 {
-	background-color: #98B486;
+	background-color: #DDA159;
 	position: relative;
 	margin: auto auto 30px auto;
 }
@@ -137,14 +137,14 @@ body {
 	margin: auto auto 30px auto;
 }
 #priority3 {
-	background-color: #C8C8C8;
+	background-color: #E0E0E0;
 	position: relative;
 	margin: auto auto 30px auto;
 }
 
 #priority1:hover {
 	z-index: 1;
-	background-color: #D8E3D2;
+	background-color: #E6B882;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 #priority2:hover {
@@ -156,6 +156,14 @@ body {
 	z-index: 1;
 	background-color: #B6B6B6;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.start-time {
+	display: inline-block;
+}
+
+.end-time {
+	display: inline-block;
 }
 
 .footer {

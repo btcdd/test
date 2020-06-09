@@ -49,7 +49,7 @@ public class RunJavaCodeTree {
 			file = new File("/userDirectory/user" + authUserNo + "/prob" + problemNo + "/subProb" + subProblemNo + "/java/" + fileName);
 			bufferWriter = new BufferedWriter(new FileWriter(file, false));
 			
-			bufferWriter.write(source);
+			bufferWriter.write("package subProb" + subProblemNo + "\n\n" + source);
 			bufferWriter.flush();
 		} catch(Exception e) {
 			e.printStackTrace();
