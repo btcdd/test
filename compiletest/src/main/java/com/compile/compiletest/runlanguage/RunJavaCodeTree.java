@@ -24,10 +24,14 @@ public class RunJavaCodeTree {
 	
 	private final String FILENAME = "Test.java";
 	
+	public RunJavaCodeTree() {
+		
+	}
+	
 	public RunJavaCodeTree(Long authUserNo, Long problemNo, Long subProblemNo) {
-		authUserNo = this.authUserNo;
-		problemNo = this.problemNo;
-		subProblemNo = this.subProblemNo;
+		this.authUserNo = authUserNo;
+		this.problemNo = problemNo;
+		this.subProblemNo = subProblemNo;
 	}
 	
 	public String inputSource() { 

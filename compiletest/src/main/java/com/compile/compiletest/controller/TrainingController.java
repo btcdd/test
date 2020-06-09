@@ -78,6 +78,7 @@ public class TrainingController {
 		ProblemVo problemVo = trainingService.selectProblemOne(problemNo);
 		
 		List<SubProblemVo> list = trainingService.selectSubProblem(problemNo);
+		
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("problemVo", problemVo);

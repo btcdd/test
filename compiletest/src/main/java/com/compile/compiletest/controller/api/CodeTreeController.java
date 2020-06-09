@@ -1,5 +1,6 @@
 package com.compile.compiletest.controller.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,16 +142,12 @@ public class CodeTreeController {
 		// 컴파일 부분
 		//////////////////////////////
 		
-		System.out.println("출력!");
+		Long subProblemNo = 4L;
 		
-		SavePathVo savePathVo = savePathVoList.get(0);
-		List<CodeVo> codeVoListTrue = null;
-		codeVoListTrue.add(codeVoList.get(0));
-		codeVoListTrue.add(codeVoList.get(1));
-		codeVoListTrue.add(codeVoList.get(2));
+		List<CodeVo> codeVoListTrue = codetreeService.findCode(subProblemNo);
 		
 		
-		codetreeService.compilePackage(authUser.getNo(), problemNo, savePathVo, codeVoListTrue);
+		codetreeService.compilePackage(authUser.getNo(), problemNo, subProblemNo, codeVoListTrue);
 		
 		
 		///////////////////////
