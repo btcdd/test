@@ -11,6 +11,7 @@ import com.compile.compiletest.repository.CodeTreeRepository;
 import com.compile.compiletest.runlanguage.RunJavaCodeTree;
 import com.compile.compiletest.vo.CodeVo;
 import com.compile.compiletest.vo.SavePathVo;
+import com.compile.compiletest.vo.SubProblemVo;
 
 @Service
 public class CodeTreeService {
@@ -68,5 +69,29 @@ public class CodeTreeService {
 
 	public List<CodeVo> findCode(Long subProblemNo) {
 		return codetreeRepository.findCode(subProblemNo);
+	}
+
+	public void saveUserCodeAndProblems(Long authUserNo, Long problemNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("authUserNo", authUserNo);
+		map.put("problemNo", problemNo);
+		
+		// 저장 테이블에 회원 번호와 문제 모음 번호를 저장
+		codetreeRepository.saveUserAndProblem(map);
+		Long saveNo = codetreeRepository.findSaveNo(map);
+		
+		List<SubProblemVo> subProblemList = codetreeRepository.findSubProblemNo(problemNo);
+		map.put("saveNo", saveNo);
+		map.put("subProblemList", subProblemList);
+//		codetreeRepository.insertSavePath(saveNo, subProblemList);
+
+//		// 저장 경로 테이블에 저장
+//		map.put("savePathVoList", savePathVoList);
+//		codetreeRepository.savePath(map);
+//		
+//		// 코드 테이블에 저장
+//		map.put("codeVoList", codeVoList);
+//		
+//		codetreeRepository.saveCode(map);
 	}
 }

@@ -183,7 +183,6 @@ public class TrainingService {
 
 	public void insertUserInfo(String userName, String userBirth, String userEmail) {
 		trainingRepository.insertInputValueByUserEmail(userName,userBirth,userEmail);
-		
 	}
 	
 	public Map<String, Object> selectStatistics(List<SubProblemVo> subProblemList, List<Long> subProblemNoList) {
