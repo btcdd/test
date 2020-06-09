@@ -54,12 +54,12 @@ public class CodeTreeService {
 			}
 			
 			rjct.execCompile(codeVoListTrue);
-			String result = rjct.execCommand();
-			String errorResult = rjct.execCompile(codeVoListTrue);
-			
-			String[] res = new String[2];
-			res[0] = result;
-			res[1] = errorResult;
+//			String result = rjct.execCommand();
+//			String errorResult = rjct.execCompile(codeVoListTrue);
+//			
+//			String[] res = new String[2];
+//			res[0] = result;
+//			res[1] = errorResult;
 			
 		} catch(Exception e) {
 			e.printStackTrace();
