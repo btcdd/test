@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script>
 $(function() {
-	
+	/*
 	$("#code-tree").on('click',function(){
 	      $.ajax({
 	          url:'${pageContext.request.contextPath }/api/codetree',
@@ -29,6 +29,7 @@ $(function() {
 	          }
 	       });
 	});
+	*/
 });
 
 </script>
