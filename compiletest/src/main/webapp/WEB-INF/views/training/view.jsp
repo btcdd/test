@@ -77,7 +77,9 @@ $(function() {
 		$(".open" + no).toggle("slow");
 	});
   
+	/*
 	$(document).on("click","#code-tree", function() {
+		
 		console.log("click!!");
 		
       $.ajax({
@@ -99,6 +101,7 @@ $(function() {
             console.error(status + ":" + e);
          }
       });
+     */
            
       
    });
